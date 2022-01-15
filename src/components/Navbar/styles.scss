@@ -76,3 +76,20 @@
   flex-direction: row;
   justify-content: flex-end !important;
 }
+
+.reply {
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  position: absolute;
+  margin-top: 0px;
+  margin-left: 102px;
+  padding-bottom: 20px;
+  background-color: transparent;
+  border-radius: 50px;
+  border: none;
+}
+
+.reply:hover {
+  background-color: rgb(216, 216, 216);
+}

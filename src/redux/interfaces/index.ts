@@ -6,6 +6,7 @@ export interface ReduxState {
     posts: Posts[] 
 }
 
+
 export interface User {
     _id?: string;
     createdAt?: Date
@@ -22,6 +23,7 @@ export interface User {
 }
 
 export interface Posts {
+    _id: string
     cover: string;
     text: string;
     user: User;
