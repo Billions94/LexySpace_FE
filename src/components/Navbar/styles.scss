@@ -1,0 +1,78 @@
+.blog-navbar-brand {
+  width: 30px;
+  border-radius: 50px;
+}
+
+.customCursor {
+  cursor: pointer;
+}
+
+
+.blog-navbar {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: white;
+  -webkit-box-shadow: 2px 0px 18px 1px rgba(222, 222, 222, 1);
+  -moz-box-shadow: 2px 0px 18px 1px rgba(222, 222, 222, 1);
+  box-shadow: 2px 0px 4px 1px rgba(222, 222, 222, 1);
+}
+
+.blog-navbar1 {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: transparent !important;
+
+}
+
+.customLinks {
+  background-color: transparent;
+  color: black;
+  border-radius: 20px;
+}
+
+.customLinks:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.blog-navbar-add-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+  text-decoration: none;
+}
+
+.blog-navbar-add-button:hover {
+  background-color: antiquewhite !important;
+}
+
+.blog-navbar-add-button:focus {
+  box-shadow: none;
+}
+
+
+.newBlogPost {
+  background-color: transparent !important;
+  color: black !important;
+  border-color: rgb(216, 215, 215) !important;
+  border-radius: 20px;
+}
+
+.avatar {
+  margin-top: -9 px !important;
+  margin-left: -13 px !important;
+}
+
+#dropdwnMenu {
+  margin-top: 54 px !important;
+  padding: 18 px !important;
+  border-radius: 25 px !important;
+  margin-left: 58 px !important;
+}
+
+.signup {
+  flex-direction: row;
+  justify-content: flex-end !important;
+}
