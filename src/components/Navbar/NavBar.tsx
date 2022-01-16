@@ -327,6 +327,7 @@ const NavBar = () => {
 
       { location.pathname !== '/messages' &&  location.pathname !== '/home' && location.pathname !== '/userProfile' &&
         location.pathname !== '/settings' && location.pathname !== '/closeAccount' && location.pathname !== '/' &&
+        location.pathname !== '/register' && location.pathname !== '/login' &&
         <div  className="blog-navbar p-1 sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>

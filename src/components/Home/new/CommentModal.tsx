@@ -17,7 +17,7 @@ export interface Comments {
 }
 
 
-const CommentModal = ({ id, show, setShow, handleClose }: CommentModalProps) => {
+const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
 
     const apiUrl = process.env.REACT_APP_GET_URL
 
@@ -29,6 +29,7 @@ const CommentModal = ({ id, show, setShow, handleClose }: CommentModalProps) => 
         text: '',
         user: userId
     })
+    const handleClose = () => setShow(false)
     
     const [image, setImage] = useState()
 

@@ -70,11 +70,6 @@ const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
                   width='27px'/>
                 </div>
               </div>
-          {/* <Card.Footer style={{borderTop: "1px solid black"}}>
-              <div className='d-flex ' style={{justifyContent: 'space-between'}}>
-              <BlogAuthor {...user} />
-              </div>
-          </Card.Footer> */}
         </div>
     </div>
   )

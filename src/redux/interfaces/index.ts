@@ -1,6 +1,6 @@
 export interface ReduxState {
     data: {
-        user: User | null,
+        user: User 
         followers: User[]
     },
     posts: Posts[] 
@@ -8,18 +8,18 @@ export interface ReduxState {
 
 
 export interface User {
-    _id?: string;
+    _id: string;
     createdAt?: Date
     firstName?: string;
-    lastName?: string;
-    userName?: string;
-    email?: string;
-    followers?: User[]
-    bio?: string;
-    location?: string;
-    image?: string;
-    isVerified?: boolean
-    updatedAt?: Date  
+    lastName: string;
+    userName: string;
+    email: string;
+    followers: User[]
+    bio: string;
+    location: string;
+    image: string;
+    isVerified: boolean
+    updatedAt: Date  
 }
 
 export interface Posts {
@@ -33,7 +33,7 @@ export interface Posts {
 }
 
 export interface Comments {
-    _id?: string;
+    _id: string;
     text: string;
     user: User;
     postId: string;
@@ -41,7 +41,7 @@ export interface Comments {
 }
 
 export interface Replies {
-    _id?: string;
+    _id: string;
     text: string;
     user: User;
     commentId: string

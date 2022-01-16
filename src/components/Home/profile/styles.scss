@@ -1,0 +1,287 @@
+#userProfileContainer {
+  .opened-to-work {
+    border-radius: 10px;
+    background-color: rgb(231, 226, 221);
+  }
+  
+  #jumbotron-banner1 {
+    background-image: url("https://storage.googleapis.com/indie-hackers.appspot.com/post-images/743b05eb0b/eBC1ChcgpIgZFQfzlBNGOMHCIQx2/309eb2fc-162d-687f-72de-3e71d52e7724.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100% 37%;
+    width: 567px;
+  }
+  .userJumbo {
+    border: 1px solid rgb(216, 215, 215);
+    border-radius: 20px;
+    margin-top: 70px;
+  }
+  
+  #profile-pic {
+    top: 20%;
+    left: 25px;
+    border-radius: 20%;
+    border: 1px solid rgb(216, 215, 215);
+  }
+  
+  #jinx {
+    align-items: center;
+  }
+  
+  .ml5 {
+    margin-left: 10px;
+  }
+
+  .customLinks1 {
+    background-color: transparent;
+    color: #0056b3;
+    border-radius: 20px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+  }
+  
+  .customLinks1:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #0056b3;
+  }
+  
+  .magicRow {
+    padding-bottom: 20px !important;
+    padding-top: 30px !important;
+  }
+
+  .jumboBorder {
+    border: 1px solid black;
+    border-radius: 20px;
+    margin-top: 90px;
+  }
+  
+  
+  .jumbobtn-open-to {
+    border: 1px solid rgb(33, 93, 172);
+    background-color: rgb(33, 93, 172);
+    border-radius: 20px;
+  }
+  
+  .nameHeader {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+    font-style: normal;
+  }
+  
+  .eduandexp {
+    flex-direction: column;
+    align-items: baseline;
+    margin-left: 120px;
+  }
+  
+  .jumbobtn {
+    background-color: transparent;
+    border: 1px solid grey;
+    border-radius: 20px;
+    margin-left: 0px;
+  }
+  
+  .jumbobtn-open-to:hover {
+    outline: 2px solid grey;
+    background-color: #004182;
+  }
+  
+  .jumbobtn:hover {
+    background-color: antiquewhite;
+  }
+  
+  .jumbobtn:focus {
+    outline: none !important;
+    box-shadow: none;
+  }
+  
+  .jumbo-a {
+    text-decoration: none !important;
+    cursor: pointer;
+  }
+
+  .imgDiv:hover {
+    cursor: pointer;
+  }
+
+  .followbtn {
+    border-radius: 20px;
+    border: 1px solid grey;
+    color: black;
+    background-color: transparent;
+  }
+  .followbtn:hover {
+    border-radius: 20px;
+    color: black;
+    background-color: antiquewhite;
+  }
+  .followbtn:active {
+    outline: none;
+    box-shadow: none;
+  }
+  .followbtn:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .followbtn:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+  .nowfollowing {
+    border-radius: 20px !important;
+    background-color: rgb(13, 82, 172) !important;
+  }
+  .nowfollowing:active {
+    outline: none;
+    box-shadow: none;
+  }
+  .nowfollowing:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .nowfollowing:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+#editModal {
+  .modal-content {
+    height: 430px;
+    border-radius: 20px;
+  }
+  .modal-body {
+    height: 400px;
+    overflow: scroll;
+  }
+  .modal-btn {
+    border-radius: 20px;
+    border: 1px solid rgb(216, 215, 215) !important;
+    color: black;
+    background-color: transparent;
+  }
+  .modal-btn:hover {
+    background-color: antiquewhite;
+  }
+  .modal-btn:focus {
+    box-shadow: none;
+  }
+}
+
+#updatePicModal {
+  .modal-header {
+    border-bottom: none;
+  }
+  .modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
+}
+  .modal-btn {
+    border-radius: 20px;
+    border: 1px solid rgb(216, 215, 215) !important;
+    color: black;
+    background-color: transparent;
+  }
+  .modal-btn:hover {
+    background-color: antiquewhite;
+  }
+  .modal-btn:focus {
+    box-shadow: none;
+  }
+  .btnIcon:hover {
+    background-color: antiquewhite;
+  }
+  .btnIcon:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+  }
+  .imgWrapper {
+    display: flex;
+    justify-content: center;
+  }
+  .profile-pic {
+    border-radius: 50%;
+  }
+  .addPhoto {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+  }
+}
+
+#listGroup {
+    .followersContainer{
+      align-items: center;
+      cursor: pointer;
+    }
+    .followbtn {
+      border-radius: 20px;
+      border: 1px solid grey;
+      color: black;
+      background-color: transparent;
+    }
+    .followbtn:hover {
+      border-radius: 20px;
+      color: black;
+      background-color: antiquewhite;
+    }
+    .followbtn:active {
+      outline: none;
+      box-shadow: none;
+    }
+    .followbtn:focus {
+      outline: none;
+      box-shadow: none;
+    }
+    .followbtn:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+    .nowfollowing {
+      border-radius: 20px !important;
+      background-color: rgb(13, 82, 172) !important;
+    }
+    .nowfollowing:active {
+      outline: none;
+      box-shadow: none;
+    }
+    .nowfollowing:focus {
+      outline: none;
+      box-shadow: none;
+    }
+    .nowfollowing:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+    .customLinks1 {
+      background-color: transparent;
+      color: black;
+      border-radius: 20px;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 18px;
+    }
+    
+    .customLinks1:hover {
+      cursor: pointer;
+      text-decoration: underline;
+      color: #0056b3;
+    }
+}
+
+
+
+

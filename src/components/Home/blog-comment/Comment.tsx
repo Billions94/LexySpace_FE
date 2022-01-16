@@ -8,7 +8,7 @@ import "./styles.scss"
 
 interface CommentsProps {
   author: User | null
-  blog: Posts
+  blog: Posts | null
   id: string | undefined
   comments: Comments[]
   fetchComments: () => Promise<void>
@@ -94,7 +94,7 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
             <div>
               {
                 comments.map((c) => (
-                  c.postId !== blog._id ? null : 
+                  c.postId !== blog?._id ? null : 
                   <div key={c._id}>
                     <Card.Header className="cardHeader">
                       <div className="d-flex col-12">

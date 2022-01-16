@@ -31,7 +31,7 @@ export const getUsersAction = () => {
 
 
 
-export const getFollowersAction = (userId: string) => {
+export const getFollowersAction = (userId: string | undefined) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data } = await API.get(`/users/${userId}/followers`)

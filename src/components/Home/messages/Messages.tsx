@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getUsersAction } from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { ReduxState } from '../../../redux/interfaces'
+import useAuthGuard from "../../../lib/index"
 
 
 const ADDRESS = process.env.REACT_APP_GET_URL! 
@@ -21,6 +22,8 @@ const ADDRESS = process.env.REACT_APP_GET_URL!
 // 4) ...send messages!
 
 const Messages = () => {
+
+  useAuthGuard()
 
   const [username, setUsername] = useState<string | undefined>('')
   const [loggedIn, setLoggedIn] = useState(false)

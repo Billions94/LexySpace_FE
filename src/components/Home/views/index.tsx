@@ -25,10 +25,6 @@ const Blog = () => {
   const [comments, setComments] = useState<Comments[]>([])
   const [author, setAuthor] = useState<User | null>(null)
 
-  const [show, setShow] = useState(false)
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
-
   const [blog, setBlog] = useState<Posts | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,11 +39,13 @@ const Blog = () => {
     try {
       const response = await fetch(`${url}/posts/${_id}`);
       if (response.ok) {
-        const data = await response.json();
+        const data: Posts = await response.json();
         setBlog(data);
-        console.log("i am the data", data);
+        console.log("i am the data", data.user);
         setAuthor(data.user);
         setLoading(false);
+      } else {
+        throw new Error('cannot post')
       }
     } catch (error) {
       console.error(error);
@@ -71,7 +69,7 @@ const Blog = () => {
     }
   };
 
-  const deleteBlogPost = async (id: string) => {
+  const deleteBlogPost = async (id: string | undefined) => {
     try {
       const response = await fetch(`${url}/posts/${id}`, {
         method: "DELETE",
@@ -93,10 +91,10 @@ const Blog = () => {
   }, []);
 
 
-    return blog && posts ? (
+    return posts ? (
       <>
         <div id='indexDiv' >
-          <Container key={blog._id} className="blog-details-root">
+          <Container key={blog?._id} className="blog-details-root">
 
 
               <Col md={8} className="blogContent mt-4 mb-2">
@@ -139,7 +137,7 @@ const Blog = () => {
                               <img alt='' className="lrdimg" width="17px"
                                 src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
                             </div>
-                            <div onClick={(e) => deleteBlogPost(blog._id)} >
+                            <div onClick={(e) => deleteBlogPost(blog?._id)} >
                               delete Post
                             </div> 
                           </div>
@@ -148,33 +146,33 @@ const Blog = () => {
                     </div>  
 
           {  
-            <div onMouseEnter={handleShow} onMouseLeave={handleClose}
+            <div 
                 className="blog-details-author">         
                 <div className="d-flex align-items-center">
 
                   <div>
-                    <Link to={`/userProfile/${author!._id}`}>
+                    <Link to={`/userProfile/${author?._id}`}>
                       <Image style={{ width: "60px", height: "60px" }}
                         className="blog-author authorDetails"
-                        src={author!.image}
+                        src={author?.image}
                         roundedCircle/>
                     </Link>
                   </div>
-                  <Link className="text-decoration-none" to={`/userProfile/${author!._id}`}>
+                  <Link className="text-decoration-none" to={`/userProfile/${author?._id}`}>
                     <div style={{ marginLeft: "10px" }}>
                       <h5 className="text-dark authorDetails">
-                        {author!.firstName} {author!.lastName}
+                        {author?.firstName} {author?.lastName}
                       </h5>
                       <h5 className="text-muted authorUserName">
-                        @{author!.userName}</h5>
+                        @{author?.userName}</h5>
                     </div>
                   </Link>
                 </div>
               </div>
               }
-                <div className="mt-3">{blog.text}</div>
+                <div className="mt-3">{blog?.text}</div>
                 <div className="mt-2">
-                    <img className="blog-details-cover" alt=''  src={blog.cover} width='100%'/>
+                    <img className="blog-details-cover" alt=''  src={blog?.cover} width='100%'/>
                 </div>  
                 <div className="d-flex mt-2">
                     <BlogLike defaultLikes={["123"]} onChange={console.log} />
@@ -185,15 +183,15 @@ const Blog = () => {
                     </div>
                   </div>
               </Col>
-              <AddComment fetchComments={fetchComments} id={id} />
+              {/* <AddComment fetchComments={fetchComments} id={id} />
               <Col className='mb-2' md={6}>
               <Comment blog={blog} id={id} comments={comments} 
                 author={author} fetchComments={fetchComments}/>
-              </Col>
+              </Col> */}
           </Container>
         </div>
       </>
     ) : ( <Loader /> ) 
 };
 
-export default Blog;
+export default Blog

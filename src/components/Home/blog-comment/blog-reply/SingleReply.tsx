@@ -6,7 +6,7 @@ import { Comments, Posts, Replies } from "../../../../redux/interfaces";
 interface SingleReplyProps {
   commentID: string | undefined
   comment: Comments
-  blog: Posts
+  blog: Posts | undefined
 }
 
 const SingleReply = ({ commentID, comment, blog }: SingleReplyProps) => {
@@ -36,7 +36,7 @@ const SingleReply = ({ commentID, comment, blog }: SingleReplyProps) => {
 
   return (
     <div className="replyContainer">
-    { comment.postId !== blog._id
+    { comment.postId !== blog?._id
         ? null
         : replies && replies.map((reply) => (
             <>

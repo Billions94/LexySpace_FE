@@ -2,7 +2,7 @@ import { Comments, Posts } from "../../../../redux/interfaces";
 import SingleReply from "./SingleReply"
 
 interface ReplyProps {
-  blog: Posts
+  blog: Posts | undefined
   comments: Comments[]
   commentID?: string
 }
