@@ -1,21 +1,33 @@
-import { useEffect, useRef, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState, createRef } from "react"
 import { Modal, Form, Button } from "react-bootstrap"
-import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getUsersAction } from "../../../redux/actions"
+import { ReduxState } from "../../../redux/interfaces"
+
+interface CommentModalProps {
+  id: string
+  show: boolean
+  setShow: Dispatch<SetStateAction<boolean>>
+  handleClose: ()=> void
+}
+
+export interface Comments {
+  text: string
+  user: string | undefined
+}
 
 
-const CommentModal = ({ id, show, setShow, handleClose }) => {
+const CommentModal = ({ id, show, setShow, handleClose }: CommentModalProps) => {
 
     const apiUrl = process.env.REACT_APP_GET_URL
 
     const dispatch = useDispatch()
-    const { users } = useSelector(state => state.data)
-    const userId = users._id
+    const { user } = useSelector((state: ReduxState) => state.data)
+    const userId = user!._id
 
-    const [comments, setComments] = useState({
+    const [comments, setComments] = useState<Comments>({
         text: '',
-        userId: userId
+        user: userId
     })
     
     const [image, setImage] = useState()
@@ -30,7 +42,7 @@ const CommentModal = ({ id, show, setShow, handleClose }) => {
     
             setComments(reverseComments);
           } else {
-            console.log("after ther fail of if bloct inside th eelse ");
+            console.log("after ther fail of if block inside th else ");
           }
         } catch (error) {
           console.error(error);
@@ -60,17 +72,17 @@ const CommentModal = ({ id, show, setShow, handleClose }) => {
       }
 
 
-      const target = (e) => {
+      const target = (e: any) => {
         console.log(e.target.files[0]);
         if (e.target && e.target.files[0]) {
           setImage(e.target.files[0]);
         }
       };
     
-      const inputBtn = useRef()
+      const inputBtn = createRef<HTMLInputElement>()
     
       const openInputFile = () => {
-        inputBtn.current.click();
+        inputBtn!.current!.click();
       }
 
       useEffect(() => {
@@ -85,11 +97,11 @@ const CommentModal = ({ id, show, setShow, handleClose }) => {
         <Modal.Body>
           <div className="d-flex userInfoContainer">
             <div>
-              <img src={users.image} alt="" 
+              <img src={user?.image} alt="" 
                   className="roundpic" width={47}/>
             </div>
             <div className="ml-2 userInfo">
-                <span>{users.firstName} {users.lastName}</span>
+                <span>{user?.firstName} {user?.lastName}</span>
             </div>
           </div>
           <Form.Group controlId="blog-content" className="form1 mt-3">

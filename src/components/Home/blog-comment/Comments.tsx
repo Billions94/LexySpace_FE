@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react"
 import { Accordion, Card, Button, Image, Dropdown } from "react-bootstrap"
-import Reply from "./blog-reply/Replies"
-import { postTimer } from "../../../../lib/index"
+import Reply from "./blog-reply/Reply"
+// import { postTimer } from "../../../../lib/index"
+import Loader from "../loader/Loader"
+import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
-import Loader from "../../loader/Loader"
 
-const Comments = ({ blog, id, comments, fetchComments }) => {
+interface CommentsProps {
+  author: User | null
+  blog: Posts
+  id: string | undefined
+  comments: Comments[]
+  fetchComments: () => Promise<void>
+}
+
+const Comments = ({ blog, id, comments, fetchComments }: CommentsProps) => {
 
   console.log("i am the comments in cs", comments)
 
@@ -29,7 +38,7 @@ const Comments = ({ blog, id, comments, fetchComments }) => {
     }
   }
 
-  const deleteComment = async (c) => {
+  const deleteComment = async (c: Comments) => {
     try {
       const response = await fetch(`${apiUrl}/posts/${id}/comments/${c._id}`,
         {
@@ -44,7 +53,7 @@ const Comments = ({ blog, id, comments, fetchComments }) => {
     }
   }
 
-  const replyComment = async (c) => {
+  const replyComment = async (c: Comments) => {
     try {
       const response = await fetch(`${apiUrl}/replies/${c._id}`, {
         method: "POST",
@@ -73,13 +82,13 @@ const Comments = ({ blog, id, comments, fetchComments }) => {
       <Accordion className="mt-3" defaultActiveKey="0">
         <Card style={{ border: "none" }}>
           <Card.Header className="cardHeader">
-            <Accordion.Toggle
+            <Accordion.Button
               className="text-dark shareComment"
               as={Button}
               variant="link"
               eventKey="0">
               Show comments
-            </Accordion.Toggle>
+            </Accordion.Button>
           </Card.Header>
           <Accordion.Collapse eventKey="0">
             <div>
@@ -102,7 +111,7 @@ const Comments = ({ blog, id, comments, fetchComments }) => {
                               borderBottom: "1px solid rgb(216, 215, 215)",
                               fontSize: "12px"}}
                             className="text-muted mb-2">
-                            Posted: {postTimer(c.createdAt)}
+                            {/* Posted: {postTimer(c.createdAt)} */}
                           </div>
                           <div className="text-dark mt-0 mb-2"
                             style={{ fontSize: "18px", lineHeight: "12px" }}>

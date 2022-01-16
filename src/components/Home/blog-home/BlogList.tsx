@@ -1,11 +1,11 @@
-import React from "react"
 import { Row, Col } from "react-bootstrap"
 import BlogItem from "../blog-item/BlogItem"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { GET_BLOGS } from "../../../redux/actions"
-import Loader from "../../loader/Loader"
+import { ReduxState } from "../../../redux/interfaces"
+import Loader from "../loader/Loader"
 
 
 
@@ -15,7 +15,7 @@ const BlogList = () => {
   const apiUrl = process.env.REACT_APP_GET_URL 
   const navigate = useNavigate()
  
-  const posts = useSelector(state => state.posts)
+  const posts = useSelector((state: ReduxState) => state.posts)
 
   const dispatch = useDispatch()
 
@@ -39,7 +39,7 @@ const BlogList = () => {
 
 
 
-  const deleteBlogPost = async(id) => {
+  const deleteBlogPost = async(id: string) => {
     try {
       const response = await fetch(`${apiUrl}/${id}` , {
         method: 'DELETE',
@@ -59,15 +59,15 @@ const BlogList = () => {
   useEffect(() => {
     getData()
        // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posts.length])
+  }, [])
 
 
   return posts ? (
     <Row className='mt-3 justify-content-center'>
-      { posts.map((post) => (
-          <Col md={10} lg={11} style={{ marginBottom: 50 }}>
+      { posts.map((post, i) => (
+          <Col key={i} md={10} lg={11} style={{ marginBottom: 50 }}>
             <div>
-            <BlogItem key={post.title} {...post}  deleteBlogPost={deleteBlogPost} />
+            <BlogItem key={i} {...post} />
             </div>
           </Col>
         )) }

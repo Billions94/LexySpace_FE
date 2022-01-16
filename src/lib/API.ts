@@ -11,7 +11,6 @@ const API: AxiosInstance = axios.create({
   }
 })
 
-// const API = create({ baseURL: `${apiUrl}` })
 
 const refreshAccessToken = async () => {
   const { data } = await API.post("users/refreshToken", {

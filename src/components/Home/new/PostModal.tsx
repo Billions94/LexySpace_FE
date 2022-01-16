@@ -1,25 +1,32 @@
-import { useState, useRef } from "react"
+import { useState, Dispatch, SetStateAction, useRef, createRef, LegacyRef } from "react"
 import { Button, Modal, Form } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { GET_BLOGS } from "../../../redux/actions/index"
-import useAuthGuard from "../../../../hooks";
+import { GET_BLOGS } from "../../../redux/actions"
+import useAuthGuard from "../../../lib/index"
+import { ReduxState } from "../../../redux/interfaces"
+import "./styles.scss"
 
 
-const PostModal = ({ show, setShow}) => {
+interface PostModalProps {
+  show: boolean
+  setShow: Dispatch<SetStateAction<boolean>>
+}
+
+const PostModal = ({ show, setShow }: PostModalProps) => {
 
   useAuthGuard()
   
-  const url = process.env.REACT_APP_GET_URL
+  const url = process.env.REACT_APP_GET_URL!
   const token = process.env.TOKEN
 
   const navigate = useNavigate()
 
-  const { users } = useSelector(state => state.data)
+  const { user } = useSelector((state: ReduxState) => state.data)
 
   const dispatch = useDispatch()
 
-  const userName = users.userName
+  const userName = user!.userName
   console.log('i am the user name', userName)
 
   const handleClose = () => setShow(false);
@@ -27,19 +34,19 @@ const PostModal = ({ show, setShow}) => {
   const [post, setPost] = useState({ 
     text: "" 
   })
-  const [image, setImage] = useState()
+  const [image, setImage] = useState<string>('')
 
-  const target = (e) => {
+  const target = (e: any) => {
     console.log(e.target.files[0]);
     if (e.target && e.target.files[0]) {
       setImage(e.target.files[0]);
     }
   };
 
-  const inputBtn = useRef()
+  const inputBtn: LegacyRef<HTMLInputElement> = createRef()
 
   const openInputFile = () => {
-    inputBtn.current.click();
+    inputBtn!.current!.click();
   }
 
   const getPosts = async () => {
@@ -57,14 +64,14 @@ const PostModal = ({ show, setShow}) => {
     }
   }
 
-  const newPost = async (e) => {
+  const newPost = async () => {
     try {
       const response = await fetch(`${url}/posts/${userName}`, {
         method: "POST",
         body: JSON.stringify(post),
         headers: {
           'Content-Type': 'application/json',
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
         }
       })  
           if(response.ok) {
@@ -79,7 +86,7 @@ const PostModal = ({ show, setShow}) => {
                 body: formDt,
                 headers: {
                   'Content-Type': 'application/json',
-                    Authorization: token,
+                    Authorization: `Bearer ${token}`,
                 },
               });
               if (postImage.ok) {
@@ -106,11 +113,11 @@ const PostModal = ({ show, setShow}) => {
         <Modal.Body>
           <div className="d-flex userInfoContainer">
             <div>
-              <img src={users.image} alt="" 
+              <img src={user!.image} alt="" 
                   className="roundpic" width={47}/>
             </div>
             <div className="ml-2 userInfo">
-                <span>{users.firstName} {users.lastName}</span>
+                <span>{user!.firstName} {user!.lastName}</span>
             </div>
           </div>
           <Form.Group controlId="blog-content" className="form1 mt-3">
@@ -128,11 +135,11 @@ const PostModal = ({ show, setShow}) => {
         <Modal.Footer className='mt-0'>
                 <div >
                   <button onClick={openInputFile} className="btn btn-sm btnIcon">
-                  <input type="file" ref={inputBtn} className="d-none" onChange={target} />
+                  <input type="file" ref={inputBtn} className="d-none" onChange={(e)=> target(e)} />
                     <img src="https://img.icons8.com/wired/50/000000/picture.png" alt='' height='27px' width='27px'/>
                   </button>
                   <button onClick={openInputFile} className="btn btn-sm btnIcon ml-2">
-                  <input type="file" ref={inputBtn} className="d-none" onChange={target} />
+                  <input type="file" ref={inputBtn} className="d-none" onChange={(e)=> target(e)} />
                     <img src="https://img.icons8.com/dotty/50/000000/attach.png" alt='' height='27px' width='27px'/>
                   </button>
                 </div>

@@ -93,3 +93,13 @@
 .reply:hover {
   background-color: rgb(216, 216, 216);
 }
+
+.deleteBlog {
+  background-color: transparent;
+  color: black;
+  border-radius: 20px;
+}
+
+.deleteBlog:hover {
+  cursor: pointer;
+}

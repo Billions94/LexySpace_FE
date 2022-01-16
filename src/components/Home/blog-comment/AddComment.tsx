@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
-import API from "../../../login&register/Api.js";
+import { useEffect, useState } from "react"
+import { Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux"
-import { getUsersAction } from "../../../redux/actions/index.js";
+import { getUsersAction } from "../../../redux/actions/"
+import { ReduxState } from "../../../redux/interfaces/"
 
+interface AddCommentProps {
+  id: string | undefined
+  fetchComments: () => Promise<void>
+}
 
-const AddComment = ({fetchComments, id}) => {
+const AddComment = ({ fetchComments, id }: AddCommentProps) => {
 
-  const { users } =  useSelector(state => state.data)
+  const { user } =  useSelector((state: ReduxState) => state.data)
 
-  const userId = users?._id
+  const userId = user?._id
   
   const dispatch = useDispatch()
    
@@ -50,10 +55,10 @@ const AddComment = ({fetchComments, id}) => {
   return (
     <div className="panel mt-3 col-6">
       <div className="panel-body">
-        <textarea
+        <Form.Control
           className="form-control shareComment"
           type="textarea"
-          rows={2}
+          // rows={2}
           placeholder="start typing to share your thoughts...."
           value={comments.text}
           onChange={(e) => setComments({ ...comments, text: e.target.value })}
@@ -62,7 +67,7 @@ const AddComment = ({fetchComments, id}) => {
           { !comments.text ?  
              null: 
           <button className="btn btn-sm btn-dark pull-right subtim-btn shareComment"
-            onClick={(e) => postComment(e)}>
+            onClick={() => postComment()}>
             <i className="fa fa-pencil fa-fw" /> Share
           </button>
           }

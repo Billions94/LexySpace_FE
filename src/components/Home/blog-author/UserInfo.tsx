@@ -1,14 +1,24 @@
-import { useState } from "react";
-import { Modal, Button } from "react-bootstrap"
+import { Dispatch, SetStateAction, useState } from "react";
+import { Button } from "react-bootstrap"
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { User } from "../../../redux/interfaces";
+import { ReduxState } from "../../../redux/interfaces"
 
-const UserInfo = ({ show, props }) => {
+interface UserInfoProps {
+  show: boolean
+  props: User 
+  handleShow: ()=> void
+  setTimer: Dispatch<SetStateAction<boolean>>
+  handleClose: ()=> void
+}
+
+const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoProps) => {
 
   const beUrl = process.env.REACT_APP_GET_URL
 
-  const { users } = useSelector(state => state.data)
-  const me = users._id
+  const { user } = useSelector((state: ReduxState) => state.data)
+  const me = user!._id
 
   const { image, firstName, lastName, userName, followers, _id, bio } = props
   const follower = { followerId: me }
@@ -16,14 +26,14 @@ const UserInfo = ({ show, props }) => {
 
   const navigate = useNavigate()
   
-  const follow = async (userId) => {
+  const follow = async (userId: string | undefined) => {
     try {
       const token = localStorage.getItem('accessToken')
       const response = await fetch(`${beUrl}/users/${userId}/follow`, {
         method: 'POST',
         body: JSON.stringify(follower),
         headers: { 'Content-Type': 'application/json',
-        Authorization: token }
+        Authorization: `Bearer ${token}` }
       })
       if(response.ok) {
         const data = await response.json();
@@ -37,15 +47,15 @@ const UserInfo = ({ show, props }) => {
   }
 
 
-const toggle = (userId) => {
+const toggle = (userId: string | undefined) => {
   following === false ? nowFollow(userId) : unfollow(userId)
 }
 
-const nowFollow = (userId) => {
+const nowFollow = (userId: string | undefined) => {
   follow(userId)
   setFollowing(true)
 }
-const unfollow = (userId) => {
+const unfollow = (userId: string | undefined) => {
   follow(userId)
   setFollowing(false)
 
@@ -55,7 +65,9 @@ const unfollow = (userId) => {
   return (
     <>
     { show === true &&   
-    <div id="userInfo" >
+    <div id="userInfo" 
+      onMouseEnter={()=> {handleShow()}}
+      onMouseLeave={() => {handleClose(); setTimer(true)}}>
       <div className="p-2 userInfoContainer">
         <div className="d-flex">
           <div id='userDetails' onClick={()=> navigate(`/userProfile/${_id}`)}
@@ -91,13 +103,13 @@ const unfollow = (userId) => {
           {bio}
         </div>
         <div className="followers1">
-          {followers?.length > 1 ? (
+          {followers!.length > 1 ? (
             <span className="ml5 customLinks1"
               onClick={() => navigate(`/followers/${_id}`)}>
               {followers?.length} followers
             </span>
           ) : null}
-          {followers?.length <= 1 ? (
+          {followers!.length <= 1 ? (
             <span className="ml5 customLinks1"
               onClick={() => navigate(`/followers/${_id}`)}>
               {followers?.length} follower

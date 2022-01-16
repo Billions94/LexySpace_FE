@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Container, Form, Button, Modal } from "react-bootstrap"
 import "./styles.scss"
-import useAuthGuard from "../../../../hooks"
+import useAuthGuard from "../../../lib/index"
 
 const Edit = () => {
 
@@ -18,7 +18,7 @@ const Edit = () => {
     text: "" 
   })
 
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<string>('');
   const navigate = useNavigate();
 
   const apiUrl = process.env.REACT_APP_GET_URL;
@@ -80,7 +80,7 @@ const Edit = () => {
           />
         </div>
         
-        <div variant="primary" onClick={handleShow}>
+        <div className="primary" onClick={handleShow}>
           <div style={{ marginLeft: "15px" }}>
             <span>edit Post</span>
           </div>
@@ -120,7 +120,7 @@ const Edit = () => {
                 className="shareComments"
                 variant="dark"
                 style={{ marginLeft: "1em" }}
-                onClick={(e) => editBlogPost(e)}>
+                onClick={(e) => editBlogPost()}>
                 Submit
               </Button>
           </Modal.Footer>

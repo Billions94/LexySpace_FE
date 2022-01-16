@@ -3,11 +3,11 @@ import { Avatar } from "@mui/material"
 import { Container, Navbar, Button, Dropdown } from "react-bootstrap";
 import logo from "../../assets/asset6.png";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import "./styles.scss";
-// import PostModal from "../home/blog/new/PostModal";
+import PostModal from "../Home/new/PostModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersAction } from "../../redux/actions";
 import { ReduxState } from "../../redux/interfaces";
+import "./styles.scss";
 
 const NavBar = () => {
 
@@ -79,7 +79,7 @@ const NavBar = () => {
                   </div>
                 <div style={{fontSize: "16px"}}> newPost </div>
               </Button>
-              {/* <PostModal show={show} setShow={setShow} /> */}
+              <PostModal show={show} setShow={setShow} />
             </div>
             <div className="customDD">
               <Dropdown style={{ marginLeft: "-65px", marginTop: "7px" }}>

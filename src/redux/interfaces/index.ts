@@ -29,19 +29,20 @@ export interface Posts {
     user: User;
     comments: Comments[];
     likes: User[]
+    createdAt?: Date  
 }
 
-interface Comments {
+export interface Comments {
     _id?: string;
     text: string;
     user: User;
-    postId: Posts | string;
+    postId: string;
     replies: Replies[];
 }
 
-interface Replies {
+export interface Replies {
     _id?: string;
     text: string;
     user: User;
-    commentId: Comments | string
+    commentId: string
 }

@@ -5,14 +5,16 @@ import { Link } from "react-router-dom";
 import "./styles.scss";
 import { useSelector } from "react-redux";
 import CommentModal  from "../new/CommentModal"
+import { Posts } from "../../../redux/interfaces";
+import { ReduxState } from "../../../redux/interfaces"
 
 
-const BlogItem = ({ text, cover, user, _id, createdAt } ) => {
+const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
   // console.log('i am the author', user.userName)
 
   const apiUrl = process.env.REACT_APP_GET_URL
 
-  const { users } = useSelector(state => state.data)
+  const newUser = useSelector((state: ReduxState) => state.data.user)
 
   const [show, setShow] = useState(false)
 
@@ -20,7 +22,7 @@ const BlogItem = ({ text, cover, user, _id, createdAt } ) => {
 
   const handleClose = ()=> setShow(false)
 
-  const liker = { userID: users._id}
+  const liker = { userID: newUser!._id}
 
   const like = async () => {
     try {
@@ -30,7 +32,7 @@ const BlogItem = ({ text, cover, user, _id, createdAt } ) => {
         body: JSON.stringify(liker),
         headers: { 
           'Content-Type': 'application/json',
-          Authorization: token }
+          Authorization: `Bearer ${token}` }
       })
         if(response.ok) {
           const data = await response.json()

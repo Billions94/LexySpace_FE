@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import BlogList from "./BlogList";
 import Weather from "./Weather";
 import useAuthGuard from "../../../lib/index"
-import "./styles.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersAction } from "../../../redux/actions";
-import { useParams } from "react-router-dom";
 import HotPosts from "./HotPosts";
 import Loader from "../loader/Loader";
 import { ReduxState } from "../../../redux/interfaces";
+import "./styles.scss";
 
 
 
@@ -25,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getUsersAction())
        // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posts.length])
+  }, [])
   
     return posts ? (
       <Container id='mainContainer' className="pt-3" fluid="sm">

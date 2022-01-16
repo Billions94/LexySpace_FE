@@ -1,12 +1,17 @@
-import React, { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { Row, Image } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import { postTimer } from "../../../../lib"
+// import { postTimer } from "../../../../lib"
 import UserInfo from "./UserInfo"
 import "./styles.scss"
+import { User } from "../../../redux/interfaces"
 
+interface BlogAuthorProps {
+  timer: boolean
+  setTimer: Dispatch<SetStateAction<boolean>>
+}
 
- const BlogAuthor = (props) => {
+ const BlogAuthor = (props: User) => {
   const [timer, setTimer] = useState(false)
   const [show, setShow] = useState(false)
   const handleShow = () => setShow(true)
@@ -21,9 +26,10 @@ import "./styles.scss"
         onMouseEnter={handleShow} onMouseLeave={() => {handleClose(); setTimer(true)}}>
         <div className="d-flex align-items-center">
              <UserInfo
-             onMouseEnter={()=> {handleShow(); setTimer(false)}}
-             onMouseLeave={() => {handleClose(); setTimer(true)}}
              show={show}
+             handleShow={handleShow}
+             handleClose={handleClose}
+             setTimer={setTimer}
              props={props}
              />
 
@@ -38,7 +44,7 @@ import "./styles.scss"
                 <div  style={{marginLeft: "10px"}}>
                 <h6 className="text-dark authorFirstName mb-0">{firstName}</h6>
                 <h6 className="text-muted authorUserName mb-1">@{userName}</h6>
-                <h6 className="text-dark postTime">● {postTimer(createdAt)} ago</h6>
+                {/* <h6 className="text-dark postTime">● {postTimer(createdAt)} ago</h6> */}
                 </div>
             </div>
           </Link>

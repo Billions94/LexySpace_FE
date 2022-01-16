@@ -6,6 +6,7 @@ import Register from './components/Login&Register/Register'
 import BeforeLogin from './components/beforeLogin/BeforeLogin'
 // import DM from "./components/Home/messages/DM"
 import Messages from "./components/Home/messages/Messages"
+import Blog from "./components/Home/views"
 
 
 function App() {
@@ -14,11 +15,12 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path='/' element={<BeforeLogin />}/>
-        <Route path='/register' element={<Register />}/>
-        <Route path='/login' element={<LogIn />}/>
-        <Route path='/home' element={<Home />}/>
-        <Route path='/messages' element={<Messages />}/>
+        <Route path={'/'} element={<BeforeLogin />}/>
+        <Route path={'/register'} element={<Register />}/>
+        <Route path={'/login'} element={<LogIn />}/>
+        <Route path={'/home'} element={<Home />}/>
+        <Route path={"/posts/:id"} element={<Blog />}/>
+        <Route path={'/messages'} element={<Messages />}/>
         {/* <Route path='/dm' element={<DM />}/> */}
       </Routes>
     </Router>
