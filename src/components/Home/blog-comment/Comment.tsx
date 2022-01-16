@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Accordion, Card, Button, Image, Dropdown } from "react-bootstrap"
 import Reply from "./blog-reply/Reply"
 // import { postTimer } from "../../../../lib/index"
 import Loader from "../loader/Loader"
 import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
+
 
 interface CommentsProps {
   author: User | null
@@ -81,14 +82,14 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
     <>
       <Accordion className="mt-3" defaultActiveKey="0">
         <Card style={{ border: "none" }}>
-          <Card.Header className="cardHeader">
-            <Accordion.Button
+          <Card.Header className="cardHeader"> shareComment
+            <Accordion.Toggle
               className="text-dark shareComment"
               as={Button}
               variant="link"
               eventKey="0">
               Show comments
-            </Accordion.Button>
+            </Accordion.Toggle>
           </Card.Header>
           <Accordion.Collapse eventKey="0">
             <div>

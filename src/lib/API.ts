@@ -2,8 +2,6 @@ import axios, { AxiosInstance }  from "axios"
 
 const apiUrl = process.env.REACT_APP_GET_URL!
 
-
-
 const API: AxiosInstance = axios.create({
   baseURL: apiUrl,
   headers: {

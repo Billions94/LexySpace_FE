@@ -4,26 +4,31 @@ import { useNavigate, Link } from "react-router-dom";
 import FollowButton from "./FollowButton";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { User, ReduxState } from "../../../../redux/interfaces";
 
-const FollowersList = ({ f }) => {
+interface FollowersListProps {
+  f: User
+}
+
+const FollowersList = ({ f }: FollowersListProps) => {
 
   const navigate = useNavigate()
 
   const beUrl = process.env.REACT_APP_GET_URL
 
-  const { users, followers } = useSelector(state => state.data)
+  const { user, followers } = useSelector((state: ReduxState) => state.data)
 
   const [following, setFollowing] = useState(false)
-  const user = { followerId: users?._id }
+  const follower = { followerId: user?._id }
 
-  const follow = async (userId) => {
+  const follow = async (userId: string) => {
       try {
         const token = localStorage.getItem('accessToken')
         const response = await fetch(`${beUrl}/users/${userId}/follow`, {
           method: 'POST',
-          body: JSON.stringify(user),
+          body: JSON.stringify(follower),
           headers: { 'Content-Type': 'application/json',
-          Authorization: token }
+          Authorization: `Bearer ${token}` }
         })
         if(response.ok) {
           const data = await response.json();
@@ -37,15 +42,15 @@ const FollowersList = ({ f }) => {
     }
 
 
-  const toggle = (userId) => {
+  const toggle = (userId: string) => {
     following === false ? nowFollow(userId) : unfollow(userId)
   }
 
-  const nowFollow = (userId) => {
+  const nowFollow = (userId: string) => {
     follow(userId)
     setFollowing(true)
   }
-  const unfollow = (userId) => {
+  const unfollow = (userId: string) => {
     follow(userId)
     setFollowing(false)
  

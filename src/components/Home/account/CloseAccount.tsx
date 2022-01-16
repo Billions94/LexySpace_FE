@@ -2,9 +2,10 @@ import { Row, Col, Form, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import API from "../../login&register/Api.js"
-import { getUsersAction } from "../../../redux/actions/index.js"
-import Loader from "../loader/Loader.jsx"
+import API from "../../../lib/API"
+import { getUsersAction } from "../../../redux/actions"
+import { ReduxState } from "../../../redux/interfaces"
+import Loader from "../loader/Loader.js"
 
 const CloseAccount = () => {
 
@@ -14,8 +15,8 @@ const CloseAccount = () => {
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
-    const { users } = useSelector(state => state.data)
-    console.log(' i am the user', users)
+    const { user } = useSelector((state: ReduxState) => state.data)
+    console.log(' i am the user', user)
     const [text, setText] = useState('')
 
 
@@ -39,11 +40,11 @@ const CloseAccount = () => {
     }, [])
 
 
-  return users ? (
+  return user ? (
     <Row id='closeAccount' className="justify-content-center mt-5">
       <Col xs={4} sm={4} md={7}>
         <div>
-          <h4>{users.firstName} {users.lastName}, we are sorry to see you leave 😔</h4>
+          <h4>{user.firstName} {user.lastName}, we are sorry to see you leave 😔</h4>
           <p>are you sure you want to close your Account ?</p>
         </div>
         <div className="mt-5">

@@ -8,11 +8,12 @@ import Loader from "../../loader/Loader"
 import { useNavigate, useParams, Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { getFollowersAction } from "../../../../redux/actions"
+import { ReduxState } from "../../../../redux/interfaces"
 import FollowersList from "./FollowersList"
 
 const Followers = () => {
 
-    const { users, followers } = useSelector(state => state.data)
+    const { followers } = useSelector((state: ReduxState) => state.data)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { id } = useParams()

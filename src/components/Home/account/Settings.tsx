@@ -1,11 +1,11 @@
-import { useEffect } from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Row, Col, ListGroup, Card, Accordion, Button} from "react-bootstrap"
 import { OverlayTrigger, Popover, Form, Container, Alert } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { getUsersAction } from "../../../redux/actions/index.js"
-import API from "../../login&register/Api.js"
+import { getUsersAction } from "../../../redux/actions"
+import { ReduxState } from "../../../redux/interfaces"
+import API from "../../../lib/API"
 import "./styles.scss";
 
 const Settings = () => {
@@ -14,7 +14,7 @@ const Settings = () => {
   const feUrl = process.env.REACT_APP_FE_URL
   const navigate = useNavigate()
 
-  const { users } = useSelector(state => state.data)
+  const  users  = useSelector((state: ReduxState) => state.data.user)
   const me = users._id
   const dispatch = useDispatch()
 
@@ -202,7 +202,7 @@ const Settings = () => {
               </Card.Header>
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
-                  <Container id='passwordContainer' md={6}>
+                  <Container id='passwordContainer'>
                     <div>
                
                     </div>
@@ -215,7 +215,7 @@ const Settings = () => {
                       value={user.confirmPassword}
                       onChange={(e) => setUser({...user, confirmPassword: e.target.value })}/>
                   </Form.Group>
-                  <Button size="md" className="save-btn"
+                  <Button size="lg" className="save-btn"
                     variant="primary" style={{ marginLeft: "1em" }}
                     onClick={() => checkPasswords()}>
                     save
@@ -245,7 +245,7 @@ const Settings = () => {
               </Card.Header>
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
-                  <Container id='passwordContainer' md={6}>
+                  <Container id='passwordContainer'>
                     {
                       alert === true ?   
                       <Alert className="alert" variant='success'>
@@ -267,7 +267,7 @@ const Settings = () => {
                           trigger="click"
                           placement='bottom' 
                           overlay={
-                            <Popover>
+                            <Popover id=''>
                             <Popover.Title as="h3"></Popover.Title>
                             <Popover.Content id='overlay'>
                               <h5 className='customH5'>Choose a strong password to protect your account</h5>
@@ -300,7 +300,7 @@ const Settings = () => {
                       value={user.confirmPassword}
                       onChange={(e) => setUser({...user, confirmPassword: e.target.value })}/>
                   </Form.Group>
-                  <Button size="md" className="save-btn"
+                  <Button size="lg" className="save-btn"
                     variant="primary" style={{ marginLeft: "1em" }}
                     onClick={() => checkPasswords()}>
                     save

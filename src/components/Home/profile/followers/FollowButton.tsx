@@ -1,13 +1,22 @@
 import { Button } from "react-bootstrap"
-import { useEffect } from "react"
+import { useEffect, Dispatch, SetStateAction } from "react"
+import { User } from "../../../../redux/interfaces"
 
-const FollowButton = ({ followers, following, setFollowing, toggle, f }) => {
+interface FollowButtonProps {
+  followers: User[]
+  following: boolean
+  setFollowing: Dispatch<SetStateAction<boolean>>
+  toggle: (userId: string)=> void
+  f: User
+}
+
+const FollowButton = ({ followers, following, setFollowing, toggle, f }: FollowButtonProps) => {
   
 
   useEffect(() => {
-    if(followers.map(flw => flw._id).indexOf(f.id) !== -1){
-        setFollowing(true)
-    }else(setFollowing(false))
+    if(followers.map(flw => flw._id).indexOf(f._id) !== -1){
+        setFollowing(false)
+    }else(setFollowing(true))
   }, [])
 
     return(

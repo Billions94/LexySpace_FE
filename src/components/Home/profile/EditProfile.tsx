@@ -37,8 +37,8 @@ const EditProfile = ({ show, setShow }: UpdateImageProps) => {
             })
             if(response.ok) {
                 console.log('User Profile successfully updated')
-                dispatch(getUsersAction())
                 setShow(false)
+                dispatch(getUsersAction())
             } else {
                 throw new Error('Failed to update profile')
             }

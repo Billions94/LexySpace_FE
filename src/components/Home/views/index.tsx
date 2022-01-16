@@ -1,5 +1,4 @@
-import React from "react";
-import { Container, Dropdown, Image, Col, Spinner } from "react-bootstrap";
+import { Container, Dropdown, Image, Col } from "react-bootstrap";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import BlogLike from "../blog-likes/BlogLike";
 import { useState, useEffect } from "react";
@@ -11,7 +10,6 @@ import { format } from "date-fns";
 import useAuthGuard from "../../../lib/index"
 import { useSelector } from "react-redux";
 import Loader from "../loader/Loader";
-import UserInfo from "../blog-author/UserInfo";
 import { ReduxState } from "../../../redux/interfaces";
 import { Posts, Comments, User } from "../../../redux/interfaces";
 import "./styles.scss";
@@ -24,7 +22,6 @@ const Blog = () => {
   const { id } = useParams();
   const [comments, setComments] = useState<Comments[]>([])
   const [author, setAuthor] = useState<User | null>(null)
-
   const [blog, setBlog] = useState<Posts | null>(null);
   const [loading, setLoading] = useState(true);
 
