@@ -329,6 +329,69 @@ const NavBar = () => {
         location.pathname !== '/settings' && location.pathname !== '/closeAccount' && location.pathname !== '/' &&
         <div  className="blog-navbar p-1 sticky-top" >
           <Container className="justify-content-between d-flex px-4">
+            <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
+                <img className="blog-navbar-brand" alt="logo" src={logo} />
+                   lexySpace
+            </Navbar.Brand>
+
+            <div className="customDD">
+              <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
+                <Dropdown.Toggle className="btn btn-dark reply">
+                  <Avatar className="d-block avatar" alt="" src={user!.image}
+                        sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
+                <br />
+                  <Link to={"/home"} className="deleteBlog">
+                    <div style={{marginTop: "-20px"}} className="d-flex">
+                      <div className="mr-3">
+                        <img alt='' className="lrdimg" width="17px"
+                          src="https://img.icons8.com/dotty/50/000000/home.png"/>
+                      </div>
+                      <div>home</div>
+                    </div>
+                  </Link>
+                              
+                  <Link to={"/settings"} className="deleteBlog">
+                    <div className="d-flex">
+                      <div className="mr-3">
+                        <img alt='' className='lrdimg' width='18px'  
+                          src="https://img.icons8.com/wired/50/000000/settings.png"/>
+                      </div>
+                      <div>settings</div>
+                    </div>
+                  </Link>
+
+                  <div onClick={() => customFunc()} className="customLinks">
+                    <div className="d-flex">
+                      <div className="mr-3">
+                        <img alt='' className='lrdimg' width='18px'
+                          src="https://img.icons8.com/dotty/50/000000/logout-rounded.png"/>
+                      </div>
+                      <div>signOut</div>
+                    </div>
+                  </div>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          </Container>
+        </div>
+      }
+
+      { location.pathname === '/register' && 
+        <div  className="blog-navbar p-1 sticky-top" >
+          <Container className="justify-content-between d-flex px-4">
+            <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
+                <img className="blog-navbar-brand" alt="logo" src={logo} />
+                   lexySpace
+            </Navbar.Brand>
+          </Container>
+        </div>
+      }
+
+      { location.pathname === '/login' && 
+        <div  className="blog-navbar p-1 sticky-top" >
+          <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
                    lexySpace

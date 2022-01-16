@@ -14,7 +14,7 @@ interface CommentsProps {
   fetchComments: () => Promise<void>
 }
 
-const Comments = ({ blog, id, comments, fetchComments }: CommentsProps) => {
+const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
 
   console.log("i am the comments in cs", comments)
 
@@ -187,4 +187,4 @@ const Comments = ({ blog, id, comments, fetchComments }: CommentsProps) => {
 }
 
 
-export default Comments
+export default Comment

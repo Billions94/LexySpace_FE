@@ -1,13 +1,19 @@
-import React, { useState,useEffect } from "react";
-import {AiOutlineLike} from "react-icons/ai";
+import { useState, useEffect } from "react";
+import { AiOutlineLike } from "react-icons/ai";
 import { Button } from "react-bootstrap";
-const yourUserId = "123"
-export default function BlogLike({ defaultLikes, onChange}) {
-    const [likes,setLikes] = useState(defaultLikes)
+
+interface BlogLikeProps {
+  defaultLikes: string[]
+  onChange: (x: string)=> void
+}
+
+const yourUserId: string = "123"
+export default function BlogLike({ defaultLikes, onChange }: BlogLikeProps) {
+    const [likes,setLikes] = useState<any>(defaultLikes)
     const iLikedThisArticle = likes.includes(yourUserId)
   const toggleLike = () => {
       if(iLikedThisArticle){
-          setLikes(likes.filter(id => id !== yourUserId))
+          setLikes(likes.filter((id: string) => id !== yourUserId))
       }
       else{
             setLikes([...likes,yourUserId])

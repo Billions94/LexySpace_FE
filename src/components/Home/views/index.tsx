@@ -3,7 +3,7 @@ import { Container, Dropdown, Image, Col, Spinner } from "react-bootstrap";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import BlogLike from "../blog-likes/BlogLike";
 import { useState, useEffect } from "react";
-import Comment from "../blog-comment/Comments";
+import Comment from "../blog-comment/Comment";
 import AddComment from "../blog-comment/AddComment";
 import Edit from "../new/EditPost";
 // import { postTimer } from "../../../lib/index";
