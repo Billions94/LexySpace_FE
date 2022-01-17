@@ -34,15 +34,16 @@ export const postTimer = (x: any ) => {
   const minutes = Math.floor(mins / 1000 / 60)
   const hours = Math.floor(minutes / 60)
   const days = Math.floor(hours / 24)
+  const weeks = Math.floor(days / 7)
   let date;
 
-  if (days > 0) {
+  if(weeks > 1) {
+    date = `${weeks}ws`
+  } else if(days > 0) {
     date = `${days}d`
   } else if(days > 1 ) {
     date = `${days}ds`
-  } else if(days > 7 ) {
-    date = `${days}wk`
-  } else if (days === 0 && hours >= 1) {
+  } else if(days === 0 && hours >= 1) {
     date = `${hours}hr`
   } else if(hours > 2) {
     date = `${hours}hrs`

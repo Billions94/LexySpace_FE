@@ -29,7 +29,7 @@ export interface Posts {
     user: User;
     comments: Comments[];
     likes: User[]
-    createdAt?: Date  
+    createdAt: Date  
 }
 
 export interface Comments {

@@ -1,91 +1,128 @@
-import { Container, Dropdown, Image, Col } from "react-bootstrap";
-import { useNavigate, Link, useParams } from "react-router-dom";
-import BlogLike from "../blog-likes/BlogLike";
-import { useState, useEffect } from "react";
-import Comment from "../blog-comment/Comment";
-import AddComment from "../blog-comment/AddComment";
-import Edit from "../new/EditPost";
-// import { postTimer } from "../../../lib/index";
-import { format } from "date-fns";
+import { Container, Dropdown, Image, Col } from "react-bootstrap"
+import { useNavigate, Link, useParams } from "react-router-dom"
+import { useState, useEffect } from "react"
+import Comment from "../blog-comment/Comment"
+import AddComment from "../blog-comment/AddComment"
+import Edit from "../new/EditPost"
+// import { postTimer } from "../../../lib/index"
+import { format } from "date-fns"
 import useAuthGuard from "../../../lib/index"
-import { useSelector } from "react-redux";
-import Loader from "../loader/Loader";
-import { ReduxState } from "../../../redux/interfaces";
-import { Posts, Comments, User } from "../../../redux/interfaces";
-import "./styles.scss";
+import { useSelector } from "react-redux"
+import Loader from "../loader/Loader"
+import { ReduxState } from "../../../redux/interfaces"
+import { Posts, Comments, User } from "../../../redux/interfaces"
+import "./styles.scss"
 
 
 const Blog = () => {
 
   useAuthGuard()
 
-  const { id } = useParams();
+  const { id } = useParams()
   const [comments, setComments] = useState<Comments[]>([])
   const [author, setAuthor] = useState<User | null>(null)
-  const [blog, setBlog] = useState<Posts | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [blog, setBlog] = useState<Posts | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [liked, setLiked] = useState(false)
 
-  const navigate = useNavigate();
-
+  
+  const navigate = useNavigate()
+  
   const posts = useSelector((state: ReduxState) => state.posts)
+  const { user } = useSelector((state: ReduxState) => state.data)
+  const liker = { userId: user!._id}
 
 
-  const url = process.env.REACT_APP_GET_URL;
+  const url = process.env.REACT_APP_GET_URL
 
   const fetchBlog = async (_id: string | undefined) => {
     try {
-      const response = await fetch(`${url}/posts/${_id}`);
+      const response = await fetch(`${url}/posts/${_id}`)
       if (response.ok) {
-        const data: Posts = await response.json();
-        setBlog(data);
-        console.log("i am the data", data.user);
-        setAuthor(data.user);
-        setLoading(false);
+        const data: Posts = await response.json()
+        setBlog(data)
+        console.log("i am the data", data.user)
+        setAuthor(data.user)
+        setLoading(false)
       } else {
         throw new Error('cannot post')
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const fetchComments = async () => {
     try {
-      const response = await fetch(`${url}/comments`);
+      const response = await fetch(`${url}/comments`)
       if (response.ok) {
-        const data: Posts = await response.json();
+        const data: Posts = await response.json()
 
-        const reverseComments = data.comments.reverse();
+        const reverseComments = data.comments.reverse()
 
-        setComments(reverseComments);
+        setComments(reverseComments)
       } else {
-        console.log("after ther fail of if block inside th else ");
+        console.log("after ther fail of if block inside th else ")
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const deleteBlogPost = async (id: string | undefined) => {
     try {
       const response = await fetch(`${url}/posts/${id}`, {
         method: "DELETE",
-      });
+      })
       if (response.ok) {
-        fetchBlog(id);
-        navigate("/home");
+        fetchBlog(id)
+        navigate("/home")
       }
     } catch (error) {
-      console.log("ooops we encountered an error", error);
+      console.log("ooops we encountered an error", error)
     }
-  };
+  }
+
+  const toggle = (id: string | undefined) => {
+    liked === false ? likePost(id) : unLikePost(id)
+  }
+
+  const likePost = (id: string | undefined) => {
+    like(id)
+    setLiked(true)
+  }
+
+  const unLikePost = (id: string | undefined) => {
+    like(id)
+    setLiked(false)
+  }
+
+  const like = async (id: string | undefined) => {
+    try {
+      const token = localStorage.getItem('accessToken')
+      const response = await fetch(`${url}/posts/${id}/likes`, {
+        method: 'PUT',
+        body: JSON.stringify(liker),
+        headers: { 
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}` }
+      })
+        if(response.ok) {
+          const data = await response.json()
+          console.log('You liked this post', data)
+          console.log(liker)
+        }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   
 
   useEffect(() => {
-    fetchBlog(id);
+    fetchBlog(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
 
     return posts ? (
@@ -97,7 +134,7 @@ const Blog = () => {
               <Col md={8} className="blogContent mt-4 mb-2">
                 <div className='d-flex blogPostTitle'>
                   <div className="text-muted timer">
-                    {/* blogPost : {format(new Date(blog.createdAt), 'h:mm b dd MMM yyyy')} */}
+                    {/* blogPost : {format(blog?.createdAt, 'h:mm b dd MMM yyyy')} */}
                   </div>
                   <Dropdown className="dropdowntext ml-auto">
                         <Dropdown.Toggle
@@ -171,9 +208,19 @@ const Blog = () => {
                 <div className="mt-2">
                     <img className="blog-details-cover" alt=''  
                       src={blog?.cover} width='100%' />
-                </div>  
-                <div className="d-flex mt-2">
-                    <BlogLike defaultLikes={["123"]} onChange={console.log} />
+                </div> 
+                    <div className="d-flex mt-2"> 
+                    <div>
+                      { liked === false ?
+                        <img className="interactions" onClick={()=> toggle(blog?._id)}
+                        src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
+                          width='37px'/>
+                          : 
+                        <img className="interactions" onClick={()=> toggle(blog?._id)}
+                        src="https://img.icons8.com/plasticine/50/000000/hearts.png"
+                          width='37px'/>
+                      }
+                    </div>
                     <div style={{ marginLeft: "5px" }}>
                       <button className="btn btn-dark  shareComment">
                         share
@@ -190,6 +237,6 @@ const Blog = () => {
         </div>
       </>
     ) : ( <Loader /> ) 
-};
+}
 
 export default Blog
