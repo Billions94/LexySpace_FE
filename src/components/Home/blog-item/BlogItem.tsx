@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Card } from "react-bootstrap";
-import BlogAuthor from "../blog-author/BlogAuthor";
-import { Link } from "react-router-dom";
-import "./styles.scss";
-import { useSelector } from "react-redux";
+import { useState } from "react"
+import { Card } from "react-bootstrap"
+import BlogAuthor from "../blog-author/BlogAuthor"
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 import CommentModal  from "../new/CommentModal"
-import { Posts } from "../../../redux/interfaces";
+import { Posts } from "../../../redux/interfaces"
 import { ReduxState } from "../../../redux/interfaces"
+import "./styles.scss"
 
 
 const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
@@ -83,12 +83,12 @@ const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
                 <div>
                   { liked === false ?
                     <img className="interactions" onClick={()=> toggle()}
-                      src="https://img.icons8.com/dotty/50/000000/hearts.png"
-                      width='27px'/>
+                     src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
+                      width='32px'/>
                       : 
-                    <img onClick={()=> toggle()}
-                      src="https://img.icons8.com/color-glass/50/000000/like.png"
-                      width='27px'/>
+                    <img className="interactions" onClick={()=> toggle()}
+                     src="https://img.icons8.com/plasticine/50/000000/hearts.png"
+                      width='32px'/>
                   }
                 </div>
               </div>
