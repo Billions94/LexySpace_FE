@@ -105,7 +105,7 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
                 comments.map((c) => (
                   c.postId !== blog?._id ? null : 
                   <div key={c._id}>
-                    <Card.Header className="cardHeader">
+                    <div className="cardHeader">
                       <div className="d-flex col-12">
                         <div>
                           <Image
@@ -114,13 +114,65 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
                             alt="Image Description"
                           />
                         </div>
-                        <div className="cAndRDiv cAndR position-relative mb-1 ">
-                          <div
-                            style={{
-                              borderBottom: "1px solid rgb(216, 215, 215)",
-                              fontSize: "12px"}}
-                            className="text-muted mb-2">
+                        <div className="cAndRDiv cAndR position-relative mb-1">
+                          <div className="d-flex customBB">
+                          <div className="text-muted mb-2">
                             Posted: {postTimer(c.createdAt)}
+                          </div>
+                          <Dropdown className="dropdowntext ml-auto">
+                            <Dropdown.Toggle
+                              className="btn btn-dark dropdownbtn">
+                              <img alt=''
+                                className="lrdimg"
+                                width="15px"
+                                src="https://img.icons8.com/carbon-copy/50/000000/menu-2.png"/>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu
+                              className='dropDownMenu'
+                              style={{padding: "18px", borderRadius: "25px", border: "1px solid rgb(216, 215, 215)"}}>
+                              <br />
+                              <div>
+                              <Dropdown className="dropdowntext mb-1">
+                              <Dropdown.Toggle className="btn btn-dark reply">
+                                <img alt=''
+                                  className="lrdimg"
+                                  width="17px"
+                                  src="https://img.icons8.com/carbon-copy/50/000000/reply-arrow.png"
+                                />
+                              </Dropdown.Toggle>
+                                <Dropdown.Menu
+                                  style={{
+                                    paddingLeft: "10px",
+                                    paddingRight: "10px",
+                                    borderRadius: "25px",
+                                    border: "1px solid rgb(216, 215, 215)"}}>
+                                  <textarea className="mt-0 textAr"
+                                    value={reply.text}
+                                    onChange={(e) =>
+                                      setReply({ ...reply, text: e.target.value })
+                                    }
+                                    placeholder="write a reply..."/>
+                                  <br />
+                                  <button style={{ borderRadius: "50px" }}
+                                    className="btn btn-dark"
+                                    onClick={(e) => replyComment(c)}>
+                                    send
+                                  </button>
+                                </Dropdown.Menu>
+                              </Dropdown>
+                              </div>
+                          {/* <Edit /> */}
+                          <div className="d-flex customLinks">
+                            <div  className="mr-3">
+                              <img alt='' className="lrdimg" width="17px"
+                                src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
+                            </div>
+                            <div onClick={(e) => deleteComment(c)}>
+                              delete Comment
+                            </div> 
+                          </div>
+                          </Dropdown.Menu>
+                          </Dropdown>
                           </div>
                           <div className="text-dark mt-0 mb-2"
                             style={{ fontSize: "18px", lineHeight: "12px" }}>
@@ -133,58 +185,11 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
 
                         </div>
                       </div>
-                      
-
-                      <div className="row d-flex justify-content-space-between mt-0 mb-5">
-                        <button className="btn btn-primary like">
-                          <img alt=''
-                            className="lrdimg"
-                            width="17px"
-                            src="https://img.icons8.com/dotty/50/000000/filled-like.png"
-                          />
-                        </button>
-
-                        <Dropdown className="dropdowntext mb-1">
-                          <Dropdown.Toggle className="btn btn-dark reply">
-                            <img alt=''
-                              className="lrdimg"
-                              width="17px"
-                              src="https://img.icons8.com/carbon-copy/50/000000/reply-arrow.png"
-                            />
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu
-                            style={{
-                              paddingLeft: "10px",
-                              paddingRight: "10px",
-                              borderRadius: "25px",
-                              border: "1px solid rgb(216, 215, 215)"}}>
-                            <textarea className="mt-0 textAr"
-                              value={reply.text}
-                              onChange={(e) =>
-                                setReply({ ...reply, text: e.target.value })
-                              }
-                              placeholder="write a reply..."/>
-                            <br />
-                            <button style={{ borderRadius: "50px" }}
-                              className="btn btn-dark"
-                              onClick={(e) => replyComment(c)}>
-                              send
-                            </button>
-                          </Dropdown.Menu>
-                        </Dropdown>
-
-                        <button className="btn btn-primary delete"
-                          onClick={(e) => deleteComment(c)}>
-                          <img alt=''
-                            className="lrdimg"
-                            width="16px"
-                            src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
-                        </button>
-                      </div>
+                 
                       <Reply 
                        blog={blog}
                        comments={comments} />
-                    </Card.Header>
+                    </div>
                   </div>
                 ))}
             </div>

@@ -37,8 +37,8 @@ export const postTimer = (x: any ) => {
   const weeks = Math.floor(days / 7)
   let date;
 
-  if(weeks > 1) {
-    date = `${weeks}ws`
+  if(weeks >= 1) {
+    date = `${weeks}w`
   } else if(days > 0) {
     date = `${days}d`
   } else if(days > 1 ) {
