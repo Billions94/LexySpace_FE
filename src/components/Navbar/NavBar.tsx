@@ -42,7 +42,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand as={Link} to="/">
               <img className="blog-navbar-brand" alt="logo" src={logo} />
-              lexySpace
+              <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
             <div className='d-flex signup'>
               <Button onClick={()=> navigate('/register')} className="blog-navbar-add-button  newBlogPost" size="lg">
@@ -52,11 +52,11 @@ const NavBar = () => {
                 <div style={{fontSize: "16px"}}> sign Up </div>
               </Button>
 
-              <Button onClick={()=> navigate('/login')} className="blog-navbar-add-button  newBlogPost ml-3" size="lg">
+              <Button onClick={()=> navigate('/login')} className="ml-2 blog-navbar-add-button  newBlogPost" size="lg">
                 <div className=''>
                   <img alt='' src="https://img.icons8.com/carbon-copy/50/000000/login-rounded-right.png" width='25px'/>
                 </div>
-                <div style={{fontSize: "18px"}}> log In </div>
+                <div style={{fontSize: "16px"}}> log In </div>
               </Button>
           </div>
           </Container>
@@ -68,7 +68,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
               <img className="blog-navbar-brand" alt="logo" src={logo} width='50px'/>
-                lexySpace
+              <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
     
           <div className="d-flex justity-content-between">
@@ -142,7 +142,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                   lexySpace
+                <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
@@ -194,7 +194,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                   lexySpace
+                <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
@@ -246,7 +246,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                   lexySpace
+                <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
@@ -288,7 +288,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                   lexySpace
+                <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
@@ -332,7 +332,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                   lexySpace
+                <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
@@ -384,7 +384,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                   lexySpace
+                <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
           </Container>
         </div>
@@ -395,7 +395,7 @@ const NavBar = () => {
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                   lexySpace
+                <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
           </Container>
         </div>

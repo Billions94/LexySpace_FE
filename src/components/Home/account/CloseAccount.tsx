@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import API from "../../../lib/API"
 import { getUsersAction } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
-import Loader from "../loader/Loader.js"
+import Loader from "../loader/Loader"
 
 const CloseAccount = () => {
 
@@ -51,16 +51,15 @@ const CloseAccount = () => {
             <h5>tell us why you are closing your account:</h5>
             <Form className="mt-3">
                 <input type="radio" id="age1" name="age" value="30"/>
-                <label for="age1" className="ml-1 text-muted"> Need time away from social media</label>
+                <label htmlFor="age1" className="ml-1 text-muted"> Need time away from social media</label>
                 <br/>
                 <input type="radio" id="age2" name="age" value="60"/>
-                <label for="age2" className="ml-1 text-muted"> Too distracting</label>
+                <label htmlFor="age2" className="ml-1 text-muted"> Too distracting</label>
                 <br/>  
                 <input type="radio" id="age3" name="age" value="100"/>
-                <label for="age3" className="ml-1 text-muted"> Other</label>
+                <label htmlFor="age3" className="ml-1 text-muted"> Other</label>
                 <br/><br/>
                 <textarea className="form-control dmText"
-                    type="textarea"
                     rows={4}
                     value={text}
                     onChange={(e) => setText(e.target.value)}/>

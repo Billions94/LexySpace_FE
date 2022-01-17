@@ -1,9 +1,9 @@
-import { useEffect } from "react"
 import { Badge, Image } from "react-bootstrap"
 import { useSelector } from "react-redux"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { ReduxState } from "../../../redux/interfaces"
 import Loader from "../loader/Loader"
+import "./styles.scss"
 
 
 const HotPosts = () => {
@@ -20,11 +20,11 @@ const HotPosts = () => {
                 <Link className="text-decoration-none text-dark" to={`/posts/${p._id}`}>
                     <div className="d-flex hotpostList mb-2">
                         <div> <Image roundedCircle src={p.cover} alt="" width="37" height="37" /></div>
-                        <div className="mb-2 ml-2 text">
+                        <div className="mb-2 ml-3 text">
                             <p className="strong">{p.text}</p>
                         </div>
                         <div className="ml-auto">
-                        <Badge pill className="secondary">
+                        <Badge pill variant="secondary">
                             {p.likes.length}
                         </Badge>
                         </div>

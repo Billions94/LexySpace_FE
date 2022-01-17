@@ -11,8 +11,6 @@ import { ReduxState } from "../../../redux/interfaces";
 import "./styles.scss";
 
 
-
-
 const Home = () => {
 
   useAuthGuard()
@@ -28,14 +26,10 @@ const Home = () => {
   
     return posts ? (
       <Container id='mainContainer' className="pt-3" fluid="sm">
-
         <Row>
-          {/* <Col sm={4} md={3}>
-            <Weather />
-          </Col> */}
           <Col className='sidebar' md={4} lg={3}>
             <HotPosts />
-            <Weather />
+            {/* <Weather /> */}
           </Col>
           <Col sm={6} md={8} lg={8}>
             <BlogList />

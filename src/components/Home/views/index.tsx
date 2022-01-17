@@ -180,11 +180,11 @@ const Blog = () => {
                     </div>
                   </div>
               </Col>
-              {/* <AddComment fetchComments={fetchComments} id={id} />
+              <AddComment fetchComments={fetchComments} id={id} />
               <Col className='mb-2' md={6}>
               <Comment blog={blog} id={id} comments={comments} 
                 author={author} fetchComments={fetchComments}/>
-              </Col> */}
+              </Col>
           </Container>
         </div>
       </>

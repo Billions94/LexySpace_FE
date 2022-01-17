@@ -82,7 +82,7 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
     <>
       <Accordion className="mt-3" defaultActiveKey="0">
         <Card style={{ border: "none" }}>
-          <Card.Header className="cardHeader"> shareComment
+          <Card.Header className="cardHeader">
             <Accordion.Toggle
               className="text-dark shareComment"
               as={Button}

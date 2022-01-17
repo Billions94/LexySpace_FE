@@ -10,6 +10,8 @@ import Blog from "./components/Home/views"
 import UserProfile from "./components/Home/profile/UserProfile"
 import Edit from "./components/Home/new/EditPost"
 import Followers from "./components/Home/profile/followers/Followers"
+import CloseAccount from "./components/Home/account/CloseAccount"
+import Settings from "./components/Home/account/Settings"
 
 
 function App() {
@@ -26,9 +28,9 @@ function App() {
         <Route path={'/edit/:id'}  element={<Edit />}/>
         <Route path={'/messages'} element={<Messages />}/>
         <Route path={'/userProfile/:id'}  element={<UserProfile />} />
-        {/* <Route path={'/settings'}  element={<Settings />} /> */}
+        <Route path={'/settings'}  element={<Settings />} />
         <Route path={'/followers/:id'}  element={<Followers />} />
-        {/*<Route path={'/closeAccount'}  element={<CloseAccount />} /> */}
+        <Route path={'/closeAccount'}  element={<CloseAccount />} />
         {/* <Route path='/dm' element={<DM />}/> */}
       </Routes>
     </Router>

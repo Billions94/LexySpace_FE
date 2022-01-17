@@ -1,4 +1,5 @@
 import { Row, Col } from "react-bootstrap";
+import Footer from "../footer/Footer";
 import "./styles.scss"
 
 const BeforeLogin = () => {

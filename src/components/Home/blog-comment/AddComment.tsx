@@ -55,10 +55,9 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
   return (
     <div className="panel mt-3 col-6">
       <div className="panel-body">
-        <Form.Control
+        <textarea
           className="form-control shareComment"
-          type="textarea"
-          // rows={2}
+          rows={2}
           placeholder="start typing to share your thoughts...."
           value={comments.text}
           onChange={(e) => setComments({ ...comments, text: e.target.value })}
