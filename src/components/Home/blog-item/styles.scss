@@ -9,6 +9,28 @@
   cursor: pointer;
 }
 
+.candl {
+  border-radius: 50px;
+  border: none;
+  background-color: transparent;
+}
+
+.candl:hover {
+  background-color: antiquewhite;
+}
+
+.candl:active {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+.candl:focus {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
 .authorinfo {
   padding: 10px 15px;
 }

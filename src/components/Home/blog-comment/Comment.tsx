@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
 import { Accordion, Card, Button, Image, Dropdown } from "react-bootstrap"
 import Reply from "./blog-reply/Reply"
-// import { postTimer } from "../../../../lib/index"
+import { postTimer } from "../../../lib/index"
 import Loader from "../loader/Loader"
-import { Posts, Comments, User } from "../../../redux/interfaces"
+import { Posts, Comments, User, ReduxState } from "../../../redux/interfaces"
 import "./styles.scss"
+import { useDispatch, useSelector } from "react-redux"
+import { getUsersAction } from "../../../redux/actions"
 
 
 interface CommentsProps {
@@ -17,12 +19,14 @@ interface CommentsProps {
 
 const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
 
-  console.log("i am the comments in cs", comments)
+  const dispatch = useDispatch()
+  const { user } = useSelector((state: ReduxState) => state.data)
 
   const [reply, setReply] = useState({
     text: "",
+    user: user!._id
   })
-  const [loading, setLoading] = useState(true)
+ 
 
 
   const apiUrl = process.env.REACT_APP_GET_URL
@@ -62,8 +66,11 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
         headers: { "Content-Type": "application/json" },
       })
       if (response.ok) {
-        setReply({ text: "" })
+        setReply({ text: "",
+        user: user!._id 
+        })
         getReplies()
+        fetchComments()
       
       }
     } catch (error) {
@@ -75,6 +82,7 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
 
   useEffect(() => {
     fetchComments()
+    dispatch(getUsersAction())
      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -112,7 +120,7 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
                               borderBottom: "1px solid rgb(216, 215, 215)",
                               fontSize: "12px"}}
                             className="text-muted mb-2">
-                            {/* Posted: {postTimer(c.createdAt)} */}
+                            Posted: {postTimer(c.createdAt)}
                           </div>
                           <div className="text-dark mt-0 mb-2"
                             style={{ fontSize: "18px", lineHeight: "12px" }}>
@@ -127,7 +135,7 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
                       </div>
                       
 
-                      <div className="row d-flex align-content-space-between mt-0 mb-5">
+                      <div className="row d-flex justify-content-space-between mt-0 mb-5">
                         <button className="btn btn-primary like">
                           <img alt=''
                             className="lrdimg"

@@ -76,19 +76,25 @@ const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
           </Link>
               <div className="d-flex justify-content-around mb-3">
                 <div onClick={handleShow}>
-                <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
-                  width='27px'/>
+                  <button className='candl'>
+                    <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
+                    width='27px'/>
+                  </button>
                   <CommentModal id={_id} show={show} setShow={setShow} handleClose={handleClose}/>
                 </div>
                 <div>
                   { liked === false ?
-                    <img className="interactions" onClick={()=> toggle()}
-                     src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
-                      width='32px'/>
+                    <button className='candl'>
+                      <img className="interactions" onClick={()=> toggle()}
+                       src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
+                        width='32px'/>
+                    </button>
                       : 
-                    <img className="interactions" onClick={()=> toggle()}
-                     src="https://img.icons8.com/plasticine/50/000000/hearts.png"
-                      width='32px'/>
+                      <button className='candl'>
+                        <img className="interactions" onClick={()=> toggle()}
+                         src="https://img.icons8.com/plasticine/50/000000/hearts.png"
+                          width='32px'/>
+                      </button>
                   }
                 </div>
               </div>

@@ -29,6 +29,20 @@ const SingleReply = ({ commentID, comment, blog }: SingleReplyProps) => {
     }
   }
 
+  const deleteReply = async (id: string) => {
+    try {
+      const response = await fetch(`${url}/replies/${id}`, {
+        method: 'DELETE'
+      })
+      if(response.ok) {
+        console.log('Reply deleted')
+        getReplies()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     getReplies()
        // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,12 +60,13 @@ const SingleReply = ({ commentID, comment, blog }: SingleReplyProps) => {
               {/* Posted: {postTimer(reply.createdAt)} */}
             </div>
             <div style={{ fontSize: "15px" }} className="d-flex  mb-0">
-              {reply._id}
+              {reply.user.firstName} {reply.user.lastName}
             </div>
             <div style={{ fontSize: "15px", width: "100%"}}
               className="d-flex rply  mb-1">
               {reply.text}
             </div>
+            <button onClick={() => deleteReply(reply._id)}>X</button>
           </div>
         ) : null}
       </>

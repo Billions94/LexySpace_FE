@@ -38,6 +38,7 @@ export interface Comments {
     user: User;
     postId: string;
     replies: Replies[];
+    createdAt: Date
 }
 
 export interface Replies {
