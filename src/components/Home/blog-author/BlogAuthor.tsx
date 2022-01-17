@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react"
 import { Row, Image } from "react-bootstrap"
 import { Link } from "react-router-dom"
-// import { postTimer } from "../../../../lib"
+import { postTimer } from "../../../lib/index"
 import UserInfo from "./UserInfo"
 import "./styles.scss"
 import { User } from "../../../redux/interfaces"
@@ -44,7 +44,7 @@ interface BlogAuthorProps {
                 <div  style={{marginLeft: "10px"}}>
                 <h6 className="text-dark authorFirstName mb-0">{firstName}</h6>
                 <h6 className="text-muted authorUserName mb-1">@{userName}</h6>
-                {/* <h6 className="text-dark postTime">● {postTimer(createdAt)} ago</h6> */}
+                <h6 className="text-muted postTime">● {postTimer(createdAt)} ago</h6>
                 </div>
             </div>
           </Link>

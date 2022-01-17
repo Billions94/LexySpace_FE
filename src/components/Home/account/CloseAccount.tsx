@@ -63,7 +63,7 @@ const CloseAccount = () => {
                     rows={4}
                     value={text}
                     onChange={(e) => setText(e.target.value)}/>
-                <a href={`${feUrl}/settings`}>
+                <a href={`/settings`}>
                 <Button className='submitBtn mt-3'>
                     back to Settings
                 </Button>

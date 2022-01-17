@@ -29,7 +29,7 @@ const Home = () => {
         <Row>
           <Col className='sidebar' md={4} lg={3}>
             <HotPosts />
-            {/* <Weather /> */}
+            <Weather />
           </Col>
           <Col sm={6} md={8} lg={8}>
             <BlogList />

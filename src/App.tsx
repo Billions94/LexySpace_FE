@@ -12,6 +12,7 @@ import Edit from "./components/Home/new/EditPost"
 import Followers from "./components/Home/profile/followers/Followers"
 import CloseAccount from "./components/Home/account/CloseAccount"
 import Settings from "./components/Home/account/Settings"
+import Footer from "./components/footer/Footer"
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path={'/closeAccount'}  element={<CloseAccount />} />
         {/* <Route path='/dm' element={<DM />}/> */}
       </Routes>
+      <Footer />
     </Router>
   )
 }

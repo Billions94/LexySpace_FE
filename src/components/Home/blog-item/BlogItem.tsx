@@ -17,12 +17,27 @@ const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
   const newUser = useSelector((state: ReduxState) => state.data.user)
 
   const [show, setShow] = useState(false)
+  const [liked, setLiked] = useState(false)
 
   const handleShow = ()=> setShow(true)
 
   const handleClose = ()=> setShow(false)
 
-  const liker = { userID: newUser!._id}
+  const liker = { userId: newUser!._id}
+
+  const toggle = () => {
+    liked === false ? likePost() : unLikePost()
+  }
+
+  const likePost = () => {
+    like()
+    setLiked(true)
+  }
+
+  const unLikePost = () => {
+    like()
+    setLiked(false)
+  }
 
   const like = async () => {
     try {
@@ -53,9 +68,10 @@ const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
               <BlogAuthor {...user} createdAt={createdAt}/>
             </div>
           <Link to={`/posts/${_id}`} className="blog-link">
+          <Card.Title>{text}</Card.Title>
             <Card.Img variant="top" src={cover} className="blog-cover" />
             <Card.Body className="mb-0">
-              <Card.Title>{text}</Card.Title>
+      
             </Card.Body>
           </Link>
               <div className="d-flex justify-content-around mb-3">
@@ -65,9 +81,15 @@ const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
                   <CommentModal id={_id} show={show} setShow={setShow} handleClose={handleClose}/>
                 </div>
                 <div>
-                <img className="interactions" onClick={()=> like()}
-                  src="https://img.icons8.com/dotty/50/000000/hearts.png"
-                  width='27px'/>
+                  { liked === false ?
+                    <img className="interactions" onClick={()=> toggle()}
+                      src="https://img.icons8.com/dotty/50/000000/hearts.png"
+                      width='27px'/>
+                      : 
+                    <img onClick={()=> toggle()}
+                      src="https://img.icons8.com/color-glass/50/000000/like.png"
+                      width='27px'/>
+                  }
                 </div>
               </div>
         </div>

@@ -169,7 +169,8 @@ const Blog = () => {
               }
                 <div className="mt-3">{blog?.text}</div>
                 <div className="mt-2">
-                    <img className="blog-details-cover" alt=''  src={blog?.cover} width='100%'/>
+                    <img className="blog-details-cover" alt=''  
+                      src={blog?.cover} width='100%' />
                 </div>  
                 <div className="d-flex mt-2">
                     <BlogLike defaultLikes={["123"]} onChange={console.log} />

@@ -103,7 +103,7 @@ const unfollow = (id: string | undefined) => {
   return user ? (
     <>
       <Row id='userProfileContainer' className="justify-content-center">
-        <Col id="jumbotron-banner1"   className="userJumbo magicRow" xs={6} sm={6} md={8} lg={8}>
+        <Col id="jumbotron-banner1"   className="userJumbo magicRow" xs={6} sm={6} md={6} lg={7}>
           <div  className="rounded-lg bg-white p-0">
          
             <Row className="magicRow p-2" style={{ marginTop: "250px" }}>

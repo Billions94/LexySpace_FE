@@ -24,26 +24,30 @@ const useAuthGuard = () => {
 
 export default useAuthGuard
 
-// export const postTimer = (x: any) => {
-//   const postedDateISO = x;
-//   const postedDate = new Date(postedDateISO).getTime();
-//   const dateToday = new Date().getTime();
-//   const milliseconds: any = Math.abs(dateToday - postedDate).toString();
+export const postTimer = (x: any ) => {
+  const postedDateISO = x;
+  const postedDate = new Date(postedDateISO).getTime();
+  const dateToday = new Date().getTime();
+  const milliseconds = Math.abs(dateToday - postedDate).toString();
 
-//   const minutes: string = parseInt(milliseconds / 1000 / 60);
-//   const hours = parseInt(minutes / 60);
-//   const days = parseInt(hours / 24);
-//   let date;
+  const mins = parseInt(milliseconds);
+  const minutes = Math.floor(mins / 1000 / 60)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+  let date;
 
-//   if (days > 0) {
-//     //console.log(${days}d);
-//     date = `${days} d`;
-//   } else if (days === 0 && hours >= 1) {
-//     //console.log(${hours}hr);
-//     date = `${hours} hr`;
-//   } else if (hours < 1) {
-//     //console.log(${minutes}min);
-//     date = `${minutes} min`;
-//   }
-//   return date;
-// };
+  if (days > 0) {
+    date = `${days}d`
+  } else if(days > 1 ) {
+    date = `${days}ds`
+  } else if(days > 7 ) {
+    date = `${days}wk`
+  } else if (days === 0 && hours >= 1) {
+    date = `${hours}hr`
+  } else if(hours > 2) {
+    date = `${hours}hrs`
+  } else if (hours < 1) {
+    date = `${minutes}min`
+  }
+  return date;
+};

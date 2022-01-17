@@ -331,13 +331,24 @@
       color: #0056b3;
     }
     .strong {
-      // text-overflow: ellipsis !important;
-      // width: 30px !important;
-      text-overflow: ellipsis !important;
-      width: 98px !important; 
+      text-overflow: ellipsis ;
+      width: 115px; 
       white-space: nowrap;
       overflow: hidden;
-   
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .badge {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 1.25rem;
     }
 }
 

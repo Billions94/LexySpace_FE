@@ -16,9 +16,9 @@ const HotPosts = () => {
         <div id='hotposts'>
             <h4 className="text-muted"># Top Posts</h4>
             { newPost && newPost ?
-                newPost.map(p => (
-                <Link className="text-decoration-none text-dark" to={`/posts/${p._id}`}>
-                    <div className="d-flex hotpostList mb-2">
+                newPost.map((p, i) => (
+                <Link key={i}  className="text-decoration-none text-dark" to={`/posts/${p._id}`}>
+                    <div key={i} className="d-flex hotpostList mb-2">
                         <div> <Image roundedCircle src={p.cover} alt="" width="37" height="37" /></div>
                         <div className="mb-2 ml-3 text">
                             <p className="strong">{p.text}</p>
