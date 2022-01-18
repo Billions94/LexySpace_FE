@@ -166,7 +166,7 @@ const Blog = () => {
                               </div>
                             </div>
                           </a>
-                        { id !== me ? null
+                        { blog && blog.user._id !== me ? null
                             : 
                           <>
                             <Edit />
@@ -186,10 +186,8 @@ const Blog = () => {
                     </div>  
 
           {  
-            <div 
-                className="blog-details-author">         
+            <div className="blog-details-author">         
                 <div className="d-flex align-items-center">
-
                   <div>
                     <Link to={`/userProfile/${author?._id}`}>
                       <Image style={{ width: "60px", height: "60px" }}
@@ -203,13 +201,13 @@ const Blog = () => {
                       <h5 className="text-dark authorDetails">
                         {author?.firstName} {author?.lastName}
                       </h5>
-                      <h5 className="text-muted authorUserName">
-                        @{author?.userName}</h5>
+                      <h4 className="text-muted authorUserName">
+                        @{author?.userName}</h4>
                     </div>
                   </Link>
                 </div>
               </div>
-              }
+            }
                 <div className="mt-3">{blog?.text}</div>
                 <div className="mt-2">
                     <img className="blog-details-cover" alt=''  

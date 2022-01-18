@@ -49,6 +49,10 @@
     width: 300px;
   }
 
+  .blog-details-author:hover h5 {
+    text-decoration: underline;
+  }
+
   .blog-details-info {
     display: flex;
     flex-direction: column;

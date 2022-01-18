@@ -112,7 +112,7 @@ const EditProfile = ({ show, setShow }: UpdateImageProps) => {
         </Modal.Body>
         <Modal.Footer>
             <Button size="lg" className="modal-btn"
-                variant="primary" style={{ marginLeft: "1em" }}
+                variant="primary" style={{ fontSize: '15px' }}
                 onClick={() => edit()}>
                 update
               </Button>
