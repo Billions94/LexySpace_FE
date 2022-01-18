@@ -16,6 +16,8 @@ const Home = () => {
   useAuthGuard()
 
   const posts = useSelector((state: ReduxState) => state.posts)
+  const { user } = useSelector((state: ReduxState) => state.data)
+  console.log('user', user)
 
   const dispatch = useDispatch();
 

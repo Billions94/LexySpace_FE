@@ -15,7 +15,6 @@ export const getUsersAction = () => {
         try {
             const { data } = await API.get<User>('/users/me')
             if(data) {
-                console.log(" here's the data", data)
                 dispatch({
                     type: GET_USERS,
                     payload: data
@@ -36,7 +35,6 @@ export const getFollowersAction = (userId: string | undefined) => {
         try {
             const { data } = await API.get(`/users/${userId}/followers`)
             if(data) {
-                console.log(" here's the data", data)
                 dispatch({
                     type: GET_FOLLOWERS,
                     payload: data

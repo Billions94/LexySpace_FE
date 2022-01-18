@@ -39,7 +39,7 @@ const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
 
         const formDt = new FormData();
         formDt.append("image", image);
-        const response = await fetch(`${beUrl}/users/me`, {
+        const response = await fetch(`${beUrl}/users/me/profilePic`, {
           method: 'PUT',
           body: formDt,
           headers: { Authorization: `Bearer ${token}` }
