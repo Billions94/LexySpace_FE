@@ -188,6 +188,9 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
                  
                       <Reply 
                        blog={blog}
+                       replyComment={replyComment}
+                       reply={reply}
+                       setReply={setReply}
                        comments={comments} />
                     </div>
                   </div>

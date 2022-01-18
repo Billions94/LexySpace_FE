@@ -2,12 +2,16 @@
     flex-direction: column;
     align-items: flex-end;
     .replyContainer {
-        width: 70%;
+        width: 80%;
+        padding: 0 12px;
     }
-    
     .reply2 {
         border-radius: 20px;
         border: 1px solid black;
+    }
+    .rply {
+        padding: 0 10px;
+        width: 88%;
     }
 }
 

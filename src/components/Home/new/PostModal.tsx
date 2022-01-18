@@ -54,9 +54,10 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
       const response = await fetch(`${url}/posts`)
         if(response.ok) {
           const { posts } = await response.json()
+          const newPost = posts.reverse()
           dispatch({
             type: GET_BLOGS,
-            payload: posts
+            payload: newPost
           })
         }
     } catch (error) {
@@ -84,10 +85,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
               let postImage = await fetch(`${url}/posts/${data._id}/upload`, {
                 method: "PUT", 
                 body: formDt,
-                headers: {
-                  'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}`},
               });
               if (postImage.ok) {
                 setShow(false)
