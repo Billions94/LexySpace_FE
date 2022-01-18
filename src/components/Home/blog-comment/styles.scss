@@ -43,24 +43,23 @@
   margin-top: 20px;
 }
 
-.cAndRDiv {
-  display: flex;
-  flex-direction: column;
-}
 
 .customBB {
   border-bottom: 1px solid rgb(216, 215, 215);
   margin-bottom: 10px;
 }
 
+
 .cAndR {
   display: flex;
+  flex-direction: column;
   align-self: end;
   border-radius: 10px;
   border: 1px solid rgb(216, 215, 215);
   background-color: rgb(253, 253, 253);
   padding-left: 10px;
   padding-right: 10px;
+  margin-bottom: 20px;
   width: 100%;
 }
 
@@ -85,20 +84,19 @@
   background-color: rgb(216, 216, 216);
 }
 
-.reply {
-  width: 30px;
-  height: 30px;
-  font-size: 10px;
+.dropToggle {
+  // width: 30px;
+  // height: 30px;
   position: absolute;
-  margin-top: 0px;
-  margin-left: 102px;
-  padding-bottom: 20px;
-  background-color: transparent;
-  border-radius: 50px;
+  padding: 0 5px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  background-color: antiquewhite;
+  border-radius: 20px;
   border: none;
 }
 
-.reply:hover {
+.dropToggle:hover {
   background-color: rgb(216, 216, 216);
 }
 

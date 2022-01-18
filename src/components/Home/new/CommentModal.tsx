@@ -17,7 +17,7 @@ export interface Comments {
 }
 
 
-const CommentModal = ({ id, show, setShow, handleClose }: CommentModalProps) => {
+const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
 
   const apiUrl = process.env.REACT_APP_GET_URL
 
@@ -29,9 +29,9 @@ const CommentModal = ({ id, show, setShow, handleClose }: CommentModalProps) => 
     text: '',
     user: userId
   })
-  // const handleClose = () => setShow(false)
+  const handleClose= () => setShow(false)
 
-  const [image, setImage] = useState()
+  const [image, setImage] = useState<string>('')
 
   const fetchComments = async () => {
     try {
@@ -91,8 +91,9 @@ const CommentModal = ({ id, show, setShow, handleClose }: CommentModalProps) => 
   }, [])
 
   return (
+    <>
     <Modal id='postModal' show={show} onHide={handleClose} animation={true}>
-      <Modal.Header >
+      <Modal.Header closeButton>
         <Modal.Title>Post a comment</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -133,6 +134,7 @@ const CommentModal = ({ id, show, setShow, handleClose }: CommentModalProps) => 
         </Button>
       </Modal.Footer>
     </Modal>
+  </>  
   )
 }
 

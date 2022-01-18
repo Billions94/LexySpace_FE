@@ -83,7 +83,7 @@ const NavBar = () => {
             </div>
             <div className="customDD">
               <Dropdown style={{ marginLeft: "-65px", marginTop: "7px" }}>
-                <Dropdown.Toggle className="btn btn-dark reply">
+                <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
@@ -147,7 +147,7 @@ const NavBar = () => {
 
             <div className="customDD">
               <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
-                <Dropdown.Toggle className="btn btn-dark reply">
+                <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
@@ -199,7 +199,7 @@ const NavBar = () => {
 
             <div className="customDD">
               <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
-                <Dropdown.Toggle className="btn btn-dark reply">
+                <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
@@ -251,7 +251,7 @@ const NavBar = () => {
 
             <div className="customDD">
               <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
-                <Dropdown.Toggle className="btn btn-dark reply">
+                <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
@@ -293,7 +293,7 @@ const NavBar = () => {
 
             <div className="customDD">
               <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
-                <Dropdown.Toggle className="btn btn-dark reply">
+                <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
@@ -337,7 +337,7 @@ const NavBar = () => {
 
             <div className="customDD">
               <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
-                <Dropdown.Toggle className="btn btn-dark reply">
+                <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
