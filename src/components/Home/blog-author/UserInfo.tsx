@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Button } from "react-bootstrap"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
+import { getPosts } from "../../../redux/actions";
 import { User } from "../../../redux/interfaces";
 import { ReduxState } from "../../../redux/interfaces"
 
@@ -17,6 +18,8 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
 
   const beUrl = process.env.REACT_APP_GET_URL
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { user } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 
@@ -24,7 +27,6 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
   const follower = { followerId: me }
   const [following, setFollowing] = useState(false)
 
-  const navigate = useNavigate()
   
   const follow = async (userId: string | undefined) => {
     try {
@@ -36,7 +38,8 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
         Authorization: `Bearer ${token}` }
       })
       if(response.ok) {
-        const data = await response.json();
+        const data = await response.json()
+        dispatch(getPosts())
         console.log('Now following user', data)
       } else {
         throw new Error('Something went wrong :(')
@@ -46,22 +49,23 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
     }
   }
 
-
-const toggle = (userId: string | undefined) => {
-  following === false ? nowFollow(userId) : unfollow(userId)
-}
-
-const nowFollow = (userId: string | undefined) => {
-  follow(userId)
-  setFollowing(true)
-}
-const unfollow = (userId: string | undefined) => {
-  follow(userId)
-  setFollowing(false)
-
-}
   
 
+
+  const toggle = (userId: string | undefined) => {
+    following === false ? nowFollow(userId) : unfollow(userId)
+  }
+
+  const nowFollow = (userId: string | undefined) => {
+    follow(userId)
+    setFollowing(true)
+  }
+  const unfollow = (userId: string | undefined) => {
+    follow(userId)
+    setFollowing(false)
+
+  }
+  
   return (
     <>
     { show === true &&   

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { useState } from "react"
 import { Row, Image } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { postTimer } from "../../../lib/index"
@@ -6,10 +6,6 @@ import UserInfo from "./UserInfo"
 import "./styles.scss"
 import { User } from "../../../redux/interfaces"
 
-interface BlogAuthorProps {
-  timer: boolean
-  setTimer: Dispatch<SetStateAction<boolean>>
-}
 
  const BlogAuthor = (props: User) => {
   const [timer, setTimer] = useState(false)

@@ -20,7 +20,6 @@ const BlogList = () => {
   const dispatch = useDispatch()
 
    const getData = async () => {
-
     try {
       const response = await fetch(`${apiUrl}/posts`)
       if (response.ok) {

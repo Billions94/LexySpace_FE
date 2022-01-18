@@ -28,6 +28,24 @@ export const getUsersAction = () => {
     }
 }
 
+export const getPosts = () => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const response = await fetch(`${apiUrl}/posts`)
+            if (response.ok) {
+              const { posts } = await response.json()
+              const newPost = posts.reverse()
+              dispatch({
+                type: GET_BLOGS,
+                payload: newPost
+              })
+            }
+          } catch (error) {
+            console.log(error)
+          }
+    }
+}
+
 
 
 export const getFollowersAction = (userId: string | undefined) => {
