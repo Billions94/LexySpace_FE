@@ -4,12 +4,22 @@ import BlogAuthor from "../blog-author/BlogAuthor"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import CommentModal  from "../new/CommentModal"
-import { Posts } from "../../../redux/interfaces"
+import { Posts, User } from "../../../redux/interfaces"
 import { ReduxState } from "../../../redux/interfaces"
 import "./styles.scss"
 
+interface BlogItemProps {
+  text: string
+  cover: string
+  user: User
+  _id: string
+  likes: User[]
+  createdAt: Date
+  getData: () => Promise<void>
+}
 
-const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
+
+const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogItemProps) => {
   // console.log('i am the author', user.userName)
 
   const apiUrl = process.env.REACT_APP_GET_URL
@@ -51,6 +61,7 @@ const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
       })
         if(response.ok) {
           const data = await response.json()
+          getData()
           console.log('You liked this post', data)
           console.log(liker)
         }
@@ -89,13 +100,14 @@ const BlogItem = ({ text, cover, user, _id, createdAt }: Posts) => {
                        src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
                         width='32px'/>
                     </button>
-                      : 
+                      :
                       <button className='candl'>
                         <img className="interactions" onClick={()=> toggle()}
                          src="https://img.icons8.com/plasticine/50/000000/hearts.png"
                           width='32px'/>
                       </button>
                   }
+                <span className="text-dark">{likes.length}</span>
                 </div>
               </div>
         </div>

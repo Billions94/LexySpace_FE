@@ -110,6 +110,7 @@ const Blog = () => {
       })
         if(response.ok) {
           const data = await response.json()
+          fetchBlog(id)
           console.log('You liked this post', data)
           console.log(liker)
         }
@@ -224,8 +225,9 @@ const Blog = () => {
                         src="https://img.icons8.com/plasticine/50/000000/hearts.png"
                           width='37px'/>
                       }
+                      <span className="text-dark">{blog?.likes.length}</span>
                     </div>
-                    <div style={{ marginLeft: "5px" }}>
+                    <div style={{ marginLeft: "10px" }}>
                       <button className="btn btn-dark  shareComment">
                         share
                       </button>

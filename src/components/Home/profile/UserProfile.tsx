@@ -46,7 +46,8 @@ const UserProfile = () => {
         Authorization: `Bearer ${token}` }
       })
       if(response.ok) {
-        const data = await response.json();
+        const data = await response.json()
+        getUser()
         console.log('Now following user', data)
       } else {
         throw new Error('Something went wrong :(')

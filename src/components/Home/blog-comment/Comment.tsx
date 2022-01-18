@@ -156,7 +156,7 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
                           </div>
                           <Dropdown className="dropdowntext mb-1">
                               <Dropdown.Toggle className="dropToggle btn btn-dark">
-                                <span className="text-dark text-right replySpan">
+                                <span className="text-dark text-left replySpan">
                                   reply
                                 </span>
                                 {/* <img alt=''

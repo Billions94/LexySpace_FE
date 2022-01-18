@@ -59,7 +59,7 @@
   background-color: rgb(253, 253, 253);
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   width: 100%;
 }
 
@@ -84,20 +84,27 @@
   background-color: rgb(216, 216, 216);
 }
 
+
 .dropToggle {
-  // width: 30px;
-  // height: 30px;
+  width: 10%;
+  height: 20px;
   position: absolute;
   padding: 0 5px;
-  margin-bottom: 0px;
+  margin-top: 8px;
   margin-left: 0px;
-  background-color: antiquewhite;
-  border-radius: 20px;
+  background-color: transparent;
   border: none;
+  border-radius: 20px;
 }
 
 .dropToggle:hover {
   background-color: rgb(216, 216, 216);
+}
+
+.btn-dark:not(:disabled):not(.disabled):active, .show>.btn-dark.dropdown-toggle {
+  color:black;
+  background-color: transparent;
+  
 }
 
 .replySpan {
@@ -106,6 +113,8 @@
   line-height: 20px;
   text-align: center;
   padding: 10px;
+  margin-top: 10px;
+  margin-left: -10px;
 }
 
 
