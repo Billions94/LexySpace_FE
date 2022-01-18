@@ -29,7 +29,7 @@ const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
       const inputBtn = createRef<HTMLInputElement>()
     
       const openInputFile = () => {
-        inputBtn?.current?.click();
+        inputBtn!.current!.click();
       }
     const handleClose = () => setShow(false);
 
@@ -42,8 +42,7 @@ const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
         const response = await fetch(`${beUrl}/users/me`, {
           method: 'PUT',
           body: formDt,
-          headers: { "Content-Type": "application/json",
-          Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` }
         })
         if(response.ok){
           console.log('User Profile successfully updated')

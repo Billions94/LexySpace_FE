@@ -21,15 +21,14 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
   const token = process.env.TOKEN
 
   const navigate = useNavigate()
-
-  const { user } = useSelector((state: ReduxState) => state.data)
-
   const dispatch = useDispatch()
 
+  const { user } = useSelector((state: ReduxState) => state.data)
   const userName = user!.userName
-  console.log('i am the user name', userName)
 
-  const handleClose = () => setShow(false);
+
+
+  const handleClose = () => setShow(false)
 
   const [post, setPost] = useState({ 
     text: "" 
@@ -37,16 +36,16 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
   const [image, setImage] = useState<string>('')
 
   const target = (e: any) => {
-    console.log(e.target.files[0]);
+    console.log(e.target.files[0])
     if (e.target && e.target.files[0]) {
-      setImage(e.target.files[0]);
+      setImage(e.target.files[0])
     }
-  };
+  }
 
-  const inputBtn: LegacyRef<HTMLInputElement> = createRef()
+  const inputBtn = createRef<HTMLInputElement>()
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn!.current!.click()
   }
 
   const getPosts = async () => {
@@ -70,30 +69,26 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
       const response = await fetch(`${url}/posts/${userName}`, {
         method: "POST",
         body: JSON.stringify(post),
-        headers: {
-          'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        }
+        headers: { 'Content-Type': 'application/json' }
       })  
           if(response.ok) {
             const data = await response.json()
             console.log('post successful', data)
             setPost({ text: '' })
             try {
-              const formDt = new FormData();
-              formDt.append("cover", image);
+              const formDt = new FormData()
+              formDt.append("cover", image)
               let postImage = await fetch(`${url}/posts/${data._id}/upload`, {
                 method: "PUT", 
                 body: formDt,
-                headers: { Authorization: `Bearer ${token}`},
-              });
+              })
               if (postImage.ok) {
                 setShow(false)
                 navigate('/home')
                 getPosts()
               }
             } catch (error) {
-              console.log(error);
+              console.log(error)
             }
           }
     } catch (error) {
@@ -147,7 +142,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
         </Modal.Footer>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default PostModal;
+export default PostModal
