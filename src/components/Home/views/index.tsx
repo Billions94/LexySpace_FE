@@ -31,6 +31,7 @@ const Blog = () => {
   const posts = useSelector((state: ReduxState) => state.posts)
   const { user } = useSelector((state: ReduxState) => state.data)
   const liker = { userId: user!._id}
+  const me = user!._id
 
 
   const url = process.env.REACT_APP_GET_URL
@@ -165,16 +166,21 @@ const Blog = () => {
                               </div>
                             </div>
                           </a>
-                          <Edit />
-                          <div className="d-flex customLinks">
-                            <div  className="mr-3">
-                              <img alt='' className="lrdimg" width="17px"
-                                src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
+                        { id !== me ? null
+                            : 
+                          <>
+                            <Edit />
+                            <div className="d-flex customLinks">
+                              <div  className="mr-3">
+                                <img alt='' className="lrdimg" width="17px"
+                                  src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
+                              </div>
+                              <div onClick={(e) => deleteBlogPost(blog?._id)} >
+                                delete Post
+                              </div> 
                             </div>
-                            <div onClick={(e) => deleteBlogPost(blog?._id)} >
-                              delete Post
-                            </div> 
-                          </div>
+                          </>
+                        }
                         </Dropdown.Menu>
                       </Dropdown>
                     </div>  

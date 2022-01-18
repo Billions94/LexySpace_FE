@@ -78,7 +78,9 @@ const LogIn = () => {
                   alt='' width='20' height='20'/>
               </div>
               <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 res">
-                <button type="button" className="btn googleBtn btn-lg">CONTINUE WITH GOOGLE</button>
+                <button type="button" className="btn googleBtn btn-lg">
+                  <p> CONTINUE WITH GOOGLE </p>
+                  </button>
               </div>
           </div> 
         </a>               

@@ -188,6 +188,10 @@
     justify-content: flex-end;
   }
 
+  .customLinks {
+    text-decoration: none;
+  }
+
   .customLinks:hover {
     cursor: pointer;
     text-decoration: underline;

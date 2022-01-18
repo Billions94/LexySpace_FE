@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-bootstrap"
-import { useState, Dispatch, SetStateAction, createRef } from "react";
+import { useState, Dispatch, SetStateAction, createRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUsersAction } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
@@ -55,6 +55,10 @@ const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
         console.log(error);
       }
     }
+    
+    useEffect(()=> {
+      dispatch(getUsersAction())
+    }, [])
   
   return (
     <div>

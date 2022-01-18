@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, createRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Container, Form, Button, Modal } from "react-bootstrap"
 import "./styles.scss"
 import useAuthGuard from "../../../lib/index"
+import { useSelector } from "react-redux"
+import { ReduxState } from "../../../redux/interfaces"
 
 const Edit = () => {
 
   useAuthGuard()
   
   const [show, setShow] = useState(false);
-
+  const { user } = useSelector((state: ReduxState) => state.data)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -18,14 +20,26 @@ const Edit = () => {
     text: "" 
   })
 
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<string>('')
   const navigate = useNavigate();
 
-  const apiUrl = process.env.REACT_APP_GET_URL;
-  console.log('i am the url', apiUrl)
-
+  
   const { id } = useParams()
-  console.log("here is the id", id);
+  
+  const target = (e: any) => {
+    console.log(e.target.files[0])
+    if (e.target && e.target.files[0]) {
+      setImage(e.target.files[0])
+    }
+  }
+  
+  const inputBtn = createRef<HTMLInputElement>()
+  
+  const openInputFile = () => {
+    inputBtn!.current!.click()
+  }
+ 
+  const apiUrl = process.env.REACT_APP_GET_URL
 
   const editBlogPost = async () => {
     try {
@@ -87,41 +101,51 @@ const Edit = () => {
         </div>
         
 
-        <Modal className="px-4" style={{height: "500px", overflow: "auto"}}
+        <Modal id='postModal' size="lg" className="px-4" style={{height: "500px", overflow: "auto"}}
          show={show} onHide={handleClose}>
-          <Modal.Header>
+          <Modal.Header closeButton>
             <Modal.Title >edit blogPost</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <Form.Group controlId="blog-form" className="mt-3">
-            <Form.Label>Title</Form.Label>
+          <div className="d-flex userInfoContainer">
+            <div>
+              <img src={user!.image} alt="" 
+                  className="roundpic" width={47}/>
+            </div>
+            <div className="ml-2 userInfo">
+                <span>{user!.firstName} {user!.lastName}</span>
+            </div>
+          </div>
+          <Form.Group controlId="blog-content" className="form1 mt-3">
             <Form.Control
-              size="lg"
-              value={post.title}
-              onChange={(e) =>
-              setPost({...post, title: e.target.value })}/>
-          </Form.Group>
-          <Form.Group controlId="blog-content" className="mt-3">
-            <Form.Label>Blog Content</Form.Label>
-            <Form.Control
+              placeholder="wanna change something?"
               as="textarea"
+              className="textarea"
               rows={5}
               value={post.text}
               onChange={(e) =>
-              setPost({ ...post, text: e.target.value })}/>
+              setPost({ ...post, text: e.target.value })}
+              />
           </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button className="shareComments " size="sm" variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
+            <div >
+                <button onClick={openInputFile} className="btn btn-sm btnIcon">
+                <input type="file" ref={inputBtn} className="d-none" onChange={(e)=> target(e)} />
+                  <img src="https://img.icons8.com/wired/50/000000/picture.png" alt='' height='27px' width='27px'/>
+                </button>
+                <button onClick={openInputFile} className="btn btn-sm btnIcon ml-2">
+                <input type="file" ref={inputBtn} className="d-none" onChange={(e)=> target(e)} />
+                  <img src="https://img.icons8.com/dotty/50/000000/attach.png" alt='' height='27px' width='27px'/>
+                </button>
+              </div>
             <Button
-                size="sm"
-                className="shareComments"
+                size="lg"
+                className="modal-btn ml-auto"
                 variant="dark"
-                style={{ marginLeft: "1em" }}
+                style={{ fontSize: '15px' }}
                 onClick={(e) => editBlogPost()}>
-                Submit
+                Update
               </Button>
           </Modal.Footer>
         </Modal>
