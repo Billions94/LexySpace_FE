@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage/session"
 import { encryptTransform } from "redux-persist-transform-encrypt"
 import usersReducer from "../reducers/usersReducer"
 import postsReducer from "../reducers/postsReducer"
-import { ReduxState, User } from "../interfaces"
+import { Posts, ReduxState, User } from "../interfaces"
 
 
 const ghost = process.env.REACT_APP_SECRET_KEY!
@@ -17,7 +17,7 @@ export const initialState: ReduxState = {
         user: <User>{},
         followers: []
     },
-    posts: []
+    posts: <Posts[]>[]
 }
 
 // Persist configuration

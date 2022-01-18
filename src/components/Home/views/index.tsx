@@ -222,7 +222,7 @@ const Blog = () => {
                           width='37px'/>
                           : 
                         <img className="interactions" onClick={()=> toggle(blog?._id)}
-                        src="https://img.icons8.com/plasticine/50/000000/hearts.png"
+                          src="https://img.icons8.com/plasticine/50/000000/hearts.png"
                           width='37px'/>
                       }
                       <span className="text-dark">{blog?.likes.length}</span>

@@ -1,6 +1,8 @@
+import { useEffect } from "react"
 import { Badge, Image } from "react-bootstrap"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+import { GET_BLOGS } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
 import Loader from "../loader/Loader"
 import "./styles.scss"
@@ -8,9 +10,36 @@ import "./styles.scss"
 
 const HotPosts = () => {
 
+    const apiUrl = process.env.REACT_APP_GET_URL
+
+    const dispatch = useDispatch()
     const posts = useSelector((state: ReduxState) => state.posts)
+
    
     const newPost = posts.map(p => p).sort((a,b) => b.likes.length - a.likes.length)
+
+    const getData = async () => {
+        try {
+          const response = await fetch(`${apiUrl}/posts`)
+          if (response.ok) {
+            const { posts } = await response.json()
+            const newPost = posts.reverse()
+            console.log('here is the post', newPost)
+            dispatch({
+              type: GET_BLOGS,
+              payload: newPost
+            })
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      const length = newPost.map(p => p)
+
+      useEffect(() => {
+        getData()
+      }, [length.length])
     
     return (
         <div id='hotposts'>

@@ -46,7 +46,6 @@ const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
         })
         if(response.ok){
           console.log('User Profile successfully updated')
-          dispatch(getUsersAction())
           setShow(false)
         } else {
           throw new Error('Failed to update profile picture')
@@ -58,7 +57,7 @@ const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
     
     useEffect(()=> {
       dispatch(getUsersAction())
-    }, [])
+    }, [updateProfilePic])
   
   return (
     <div>
