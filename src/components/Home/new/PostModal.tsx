@@ -65,41 +65,58 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
   }
 
   const newPost = async () => {
-    try {
-      const response = await fetch(`${url}/posts/${userName}`, {
-        method: "POST",
-        body: JSON.stringify(post),
-        headers: { 'Content-Type': 'application/json' }
-      })  
-          if(response.ok) {
-            const data = await response.json()
-            console.log('post successful', data)
-            setPost({ text: '' })
-            try {
-              const formDt = new FormData()
-              formDt.append("cover", image)
-              let postImage = await fetch(`${url}/posts/${data._id}/upload`, {
-                method: "PUT", 
-                body: formDt,
-              })
-              if (postImage.ok) {
-                setShow(false)
-                navigate('/home')
-                getPosts()
+    if(image) {
+      try {
+        const response = await fetch(`${url}/posts/${userName}`, {
+          method: "POST",
+          body: JSON.stringify(post),
+          headers: { 'Content-Type': 'application/json' }
+        })  
+            if(response.ok) {
+              const data = await response.json()
+              console.log('post successful', data)
+              setPost({ text: '' })
+              try {
+                const formDt = new FormData()
+                formDt.append("cover", image)
+                let postImage = await fetch(`${url}/posts/${data._id}/upload`, {
+                  method: "PUT", 
+                  body: formDt,
+                })
+                if (postImage.ok) {
+                  setShow(false)
+                  navigate('/home')
+                  getPosts()
+                }
+              } catch (error) {
+                console.log(error)
               }
-            } catch (error) {
-              console.log(error)
             }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      try {
+        const response = await fetch(`${url}/posts/${userName}`, {
+          method: "POST",
+          body: JSON.stringify(post),
+          headers: { 'Content-Type': 'application/json'
+          }})
+          if(response.ok) {
+            setShow(false)
+            // navigate('/home')
+            getPosts()
           }
-    } catch (error) {
-      console.log(error)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
   
 
   return (
     <>
-      <Modal id='postModal' show={show} onHide={handleClose} animation={false}>
+      <Modal id='postModal'  show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>start A Post</Modal.Title>
         </Modal.Header>

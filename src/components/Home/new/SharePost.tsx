@@ -1,9 +1,10 @@
 import { Modal, Button, Form, Card } from 'react-bootstrap'
 import { ReduxState, Posts, User } from '../../../redux/interfaces'
 import { useState, useEffect, createRef, Dispatch, SetStateAction } from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import BlogAuthor from '../blog-author/BlogAuthor'
+import { getPosts } from '../../../redux/actions'
 
 interface SharePostProps {
     id: string | undefined
@@ -15,6 +16,8 @@ interface SharePostProps {
 const SharePost = ({ id, show, setShow, createdAt }: SharePostProps) => {
 
     const apiUrl = process.env.REACT_APP_GET_URL
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const posts = useSelector((state: ReduxState) => state.posts)
     const { user } = useSelector((state: ReduxState) => state.data)
     const userName = user!.userName
@@ -40,39 +43,58 @@ const SharePost = ({ id, show, setShow, createdAt }: SharePostProps) => {
     }
 
     const sharePost = async () => {
-        try {
-            const response = await fetch(`${apiUrl}/posts/${userName}`, {
-                method: 'POST',
-                body: JSON.stringify(post),
-                headers: { 'Content-Type': 'application' }
-            })
-            if(response.ok) {
-                const data: Posts = await response.json()
-                const postId = data._id
-                try {
-                    const formDt = new FormData()
-                    formDt.append('image', image)
-                    const uploadCover = await fetch(`${apiUrl}/posts/${postId}/upload`, {
-                        method: 'PUT',
-                        body: formDt
-                    })
-                    if(uploadCover.ok) {
-
-                    } else throw new Error('File could not be uploaded')
-                } catch (error) {
-                    console.log(error)
+        if(image) {
+            try {
+                const response = await fetch(`${apiUrl}/posts/${userName}`, {
+                    method: 'POST',
+                    body: JSON.stringify(post),
+                    headers: { 'Content-Type': 'application' }
+                })
+                if(response.ok) {
+                    const data: Posts = await response.json()
+                    const postId = data._id
+                    try {
+                        const formDt = new FormData()
+                        formDt.append('image', image)
+                        const uploadCover = await fetch(`${apiUrl}/posts/${postId}/upload`, {
+                            method: 'PUT',
+                            body: formDt
+                        })
+                        if(uploadCover.ok) {
+                            setShow(false)
+                            navigate('/home')
+                            dispatch(getPosts())
+                        } else throw new Error('File could not be uploaded')
+                    } catch (error) {
+                        console.log(error)
+                    }
+                } else {
+                    throw new Error('Unable to share post')
                 }
-            } else {
-                throw new Error('Unable to share post')
+            } catch (error) {
+                console.log(error)
             }
-        } catch (error) {
-            console.log(error)
+        } else {
+            try {
+                const response = await fetch(`${apiUrl}/posts/${userName}`, {
+                    method: 'POST',
+                    body: JSON.stringify(post),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                if(response.ok) {
+                    setShow(false)
+                    // navigate('/home')
+                    dispatch(getPosts())
+                }
+            } catch (error) {
+                
+            }
         }
     }
 
     return(
         <>
-        <Modal id='postModal' show={show} onHide={handleClose} animation={false}>
+        <Modal id='shareModal' size='lg' show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Share</Modal.Title>
         </Modal.Header>
@@ -88,7 +110,7 @@ const SharePost = ({ id, show, setShow, createdAt }: SharePostProps) => {
           </div>
           <Form.Group controlId="blog-content" className="form1 mt-3">
             <Form.Control
-              placeholder="what's poppin?"
+              placeholder="start typing...."
               as="textarea"
               className="textarea"
               rows={5}
@@ -97,16 +119,20 @@ const SharePost = ({ id, show, setShow, createdAt }: SharePostProps) => {
               setPost({ ...post, text: e.target.value })}
               />
           </Form.Group>
-            <div className='authorinfo d-flex ' style={{justifyContent: 'space-between'}}>
-              <BlogAuthor {...user} createdAt={createdAt}/>
+          <div className='sharePostDiv'>
+            <div className='sharePost'>
+                <div className='authorinfo d-flex ' style={{justifyContent: 'space-between'}}>
+                <BlogAuthor {...user} createdAt={createdAt}/>
+                </div>
+                <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
+                <Card.Title>{post.sharedPost.text}</Card.Title>
+                    <Card.Img variant="top" src={post.sharedPost.cover} className="blog-cover" />
+                    <Card.Body className="mb-0">
+            
+                    </Card.Body>
+                </Link>
             </div>
-            <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
-            <Card.Title>{post.sharedPost.text}</Card.Title>
-                <Card.Img variant="top" src={post.sharedPost.cover} className="blog-cover" />
-                <Card.Body className="mb-0">
-        
-                </Card.Body>
-            </Link>
+          </div>
         </Modal.Body>
         <Modal.Footer className='mt-0'>
                 <div >

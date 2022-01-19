@@ -84,10 +84,10 @@ const HotPosts = () => {
                 </Link>)) : null
             }
             { seeMore === false ?
-                <p className="text-center p-0 seeMore"
+                <p className="text-center text-muted p-0 seeMore"
                 onClick={() => toggle()}>See More</p>
                 :
-                <p className="text-center p-0 seeMore"
+                <p className="text-center text-muted p-0 seeMore"
                 onClick={() => toggle()}>See Less</p> 
             }
         </div>

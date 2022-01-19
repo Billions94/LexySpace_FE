@@ -113,7 +113,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
                 <span className="text-dark">{likes.length}</span>
                 </div>
                 <div>
-                  <button onClick={handleShareShow}>
+                  <button className="candl" onClick={handleShareShow}>
                     share
                   </button>
                   <SharePost id={_id}

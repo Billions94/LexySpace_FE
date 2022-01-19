@@ -29,7 +29,7 @@ const Home = () => {
     return posts ? (
       <Container id='mainContainer' className="pt-3" fluid="sm">
         <Row>
-          <Col className='sidebar' md={4} lg={3}>
+          <Col className='sidebar' md={4} lg={4}>
             <HotPosts />
             <Weather />
           </Col>
