@@ -32,7 +32,9 @@ const Followers = () => {
           <ListGroup id='listGroup'>
               {
                 followers.map(f => (
-                  <FollowersList f={f}/>
+                  <ListGroup.Item>
+                    <FollowersList f={f}/>
+                  </ListGroup.Item>
                 ))
               }
           </ListGroup>

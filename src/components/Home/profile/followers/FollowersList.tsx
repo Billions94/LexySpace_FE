@@ -57,8 +57,8 @@ const FollowersList = ({ f }: FollowersListProps) => {
   }
 
   return (
-    <ListGroup>
-      <ListGroup.Item className="d-flex mb-2">
+    <>
+      <div className="d-flex mb-2">
         <Link
           to={`/userProfile/${f._id}`}
           className="d-flex followersContainer customLinks1">
@@ -67,11 +67,16 @@ const FollowersList = ({ f }: FollowersListProps) => {
               className="d-block avatar"
               alt=""
               src={f.image}
-              sx={{ width: 34, height: 34 }}
+              sx={{ width: 58, height: 58 }}
             />
           </div>
-          <div className="ml-2 text-black">
-            {f.firstName} {f.lastName}
+          <div className="ml-2">
+            <div className="nameInfo">
+              {f.firstName} {f.lastName}
+            </div>
+            <span className="bio text-muted">
+              {f.bio}
+            </span>
           </div>
         </Link>
         <FollowButton
@@ -80,8 +85,8 @@ const FollowersList = ({ f }: FollowersListProps) => {
           toggle={toggle}
           setFollowing={setFollowing}
           f={f}/>
-      </ListGroup.Item>
-    </ListGroup>
+      </div>
+    </>
   );
 };
 
