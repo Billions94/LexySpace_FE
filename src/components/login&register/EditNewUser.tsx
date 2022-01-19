@@ -1,9 +1,11 @@
 import { Form, Col, Row, Button } from "react-bootstrap"
-import { createRef, useState, FormEvent } from "react"
+import { createRef, useState, FormEvent, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { ReduxState } from "../../redux/interfaces"
 import useAuthGuard from "../../lib"
+import { getUsersAction } from "../../redux/actions"
+import Loader from "../Home/loader/Loader"
 
 const EditNewUser = () => {
 
@@ -12,6 +14,7 @@ const EditNewUser = () => {
     const apiUrl = process.env.REACT_APP_GET_URL
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { user } = useSelector((state: ReduxState) => state.data)
 
     const [newUser, setNewUser] = useState({
@@ -22,6 +25,11 @@ const EditNewUser = () => {
         location: '',
     })
     const [image, setImage] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        dispatch(getUsersAction())
+    }, [])
 
     const target = (e: any) => {
         if(e.target && e.target.files[0]) {
@@ -54,6 +62,9 @@ const EditNewUser = () => {
                         headers: { Authorization: `Bearer ${token}`}
                     })
                     if(uploadpic.ok) {
+                        setTimeout(() => {
+                            setLoading(true)
+                        }, 1000)
                         navigate('/home')
                     }
                 } catch (error) {
@@ -73,6 +84,7 @@ const EditNewUser = () => {
     return (
         <Row id='newUserForm' className='justify-content-center'>
             <Col className='formCol' md={6} lg={5}>
+                { loading === false ?
                 <Form noValidate className='newUserForm' onSubmit={handleSumbit}>
                     <Form.Group controlId="blog-form" className="mt-3">
                     <Form.Label className="text-muted">first Name</Form.Label>
@@ -131,6 +143,9 @@ const EditNewUser = () => {
                     </Button>
                 </div>
                 </Form>
+                : 
+                <Loader />
+                }
             </Col>
         </Row>
     )
