@@ -75,8 +75,6 @@ const UserProfile = () => {
   }
 
 
-
-
   useEffect(()=> {
     dispatch(getFollowersAction(id))
     dispatch(getUsersAction())
@@ -128,8 +126,11 @@ const unfollow = (id: string | undefined) => {
                   onClick={()=> navigate(`/followers/${user?._id}`)}>{user?.followers?.length} followers</span> : null
                 }
                 {
-                  user!.followers!.length <= 1 ? <span className="ml5 customLinks1"
+                  user!.followers!.length === 1 ? <span className="ml5 customLinks1"
                   onClick={()=> navigate(`/followers/${user?._id}`)}>{user?.followers?.length} follower</span> : null 
+                }
+                {
+                  user!.followers!.length === 0 ? <span className="ml5 customLinks1">{user?.followers?.length} follower</span> : null 
                 }
                 </div>
               </div>

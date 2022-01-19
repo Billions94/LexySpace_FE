@@ -1,12 +1,16 @@
 import { Modal, Form, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
+import { useState, Dispatch, SetStateAction } from "react"
 import { getUsersAction } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
-import { UpdateImageProps } from "./UpdateImage"
 // import API from "../../login&register/Api.js"
 
-const EditProfile = ({ show, setShow }: UpdateImageProps) => {
+interface EditProfileProps {
+  show: boolean
+  setShow: Dispatch<SetStateAction<boolean>>
+}
+
+const EditProfile = ({ show, setShow }: EditProfileProps) => {
 
     const url = process.env.REACT_APP_GET_URL
 

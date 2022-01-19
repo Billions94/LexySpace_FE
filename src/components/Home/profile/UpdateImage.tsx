@@ -5,7 +5,7 @@ import { getUsersAction } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
 import { useSelector } from "react-redux";
 
-export interface UpdateImageProps {
+interface UpdateImageProps {
   show: boolean
   setShow: Dispatch<SetStateAction<boolean>>
 }
