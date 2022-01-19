@@ -350,6 +350,14 @@
     vertical-align: baseline;
     border-radius: 1.25rem;
     }
+    .seeMore {
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 16px;
+    }
+    .seeMore:hover {
+      cursor: pointer;
+    }
 }
 
 #mainContainer {
