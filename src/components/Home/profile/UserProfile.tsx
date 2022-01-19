@@ -10,6 +10,7 @@ import { getUsersAction } from "../../../redux/actions"
 import { ReduxState, User } from "../../../redux/interfaces"
 
 import "./styles.scss"
+import Recentposts from "./recentPost/RecentPosts"
 
 const UserProfile = () => {
 
@@ -102,7 +103,7 @@ const unfollow = (id: string | undefined) => {
   return user ? (
     <>
       <Row id='userProfileContainer' className="justify-content-center">
-        <Col id="jumbotron-banner1"   className="userJumbo magicRow" xs={6} sm={6} md={6} lg={7}>
+        <Col id="jumbotron-banner1"   className="userJumbo magicRow col-lg-7" sm={6} md={7} lg={7}>
           <div  className="rounded-lg bg-white p-0">
          
             <Row className="magicRow p-2" style={{ marginTop: "250px" }}>
@@ -172,6 +173,7 @@ const unfollow = (id: string | undefined) => {
             </Row>
             <Col xs={12} sm={10} md={6} lg={8}>
               recent posts
+              <Recentposts />
             </Col>
           </div>
         </Col>
