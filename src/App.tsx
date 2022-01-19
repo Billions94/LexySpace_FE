@@ -13,6 +13,7 @@ import Followers from "./components/Home/profile/followers/Followers"
 import CloseAccount from "./components/Home/account/CloseAccount"
 import Settings from "./components/Home/account/Settings"
 import Footer from "./components/footer/Footer"
+import EditNewUser from "./components/Login&Register/EditNewUser"
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path={'/'} element={<BeforeLogin />}/>
         <Route path={'/register'} element={<Register />}/>
         <Route path={'/login'} element={<LogIn />}/>
+        <Route path={'/editNewUser'} element={<EditNewUser />}/>
         <Route path={'/home'} element={<Home />}/>
         <Route path={'/posts/:id'} element={<Blog />}/>
         <Route path={'/edit/:id'}  element={<Edit />}/>

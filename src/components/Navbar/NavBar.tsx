@@ -325,9 +325,43 @@ const NavBar = () => {
         </div>
       }
 
+
+      { location.pathname === '/register' && 
+        <div  className="blog-navbar p-1 sticky-top" >
+          <Container className="justify-content-between d-flex px-4">
+            <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
+                <img className="blog-navbar-brand" alt="logo" src={logo} />
+                <span className="navspan ml-2">lexySpace</span>
+            </Navbar.Brand>
+          </Container>
+        </div>
+      }
+
+      { location.pathname === '/login' && 
+        <div  className="blog-navbar p-1 sticky-top" >
+          <Container className="justify-content-between d-flex px-4">
+            <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
+                <img className="blog-navbar-brand" alt="logo" src={logo} />
+                <span className="navspan ml-2">lexySpace</span>
+            </Navbar.Brand>
+          </Container>
+        </div>
+      }
+
+      { location.pathname === '/editNewUser' && 
+        <div  className="blog-navbar p-1 sticky-top" >
+          <Container className="justify-content-between d-flex px-4">
+            <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
+                <img className="blog-navbar-brand" alt="logo" src={logo} />
+                <span className="navspan ml-2">lexySpace</span>
+            </Navbar.Brand>
+          </Container>
+        </div>
+      }
+      
       { location.pathname !== '/messages' &&  location.pathname !== '/home' && location.pathname !== '/userProfile' &&
         location.pathname !== '/settings' && location.pathname !== '/closeAccount' && location.pathname !== '/' &&
-        location.pathname !== '/register' && location.pathname !== '/login' &&
+        location.pathname !== '/register' && location.pathname !== '/login' && location.pathname !== '/editNewUser' &&
         <div  className="blog-navbar p-1 sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
@@ -375,28 +409,6 @@ const NavBar = () => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-          </Container>
-        </div>
-      }
-
-      { location.pathname === '/register' && 
-        <div  className="blog-navbar p-1 sticky-top" >
-          <Container className="justify-content-between d-flex px-4">
-            <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
-                <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
-            </Navbar.Brand>
-          </Container>
-        </div>
-      }
-
-      { location.pathname === '/login' && 
-        <div  className="blog-navbar p-1 sticky-top" >
-          <Container className="justify-content-between d-flex px-4">
-            <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
-                <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
-            </Navbar.Brand>
           </Container>
         </div>
       }

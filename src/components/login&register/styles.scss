@@ -116,3 +116,20 @@
   }
 }
 
+#newUserForm {
+  padding: 30px 30px;
+  .formCol {
+    height: 500px;
+  }
+  .newUserForm {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .newUserFormControl {
+    font-weight: 400;
+    font-size: 15px;
+    height: 45px;
+  }
+}
+

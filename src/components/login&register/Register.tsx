@@ -37,7 +37,13 @@ const Register = () => {
       })
       console.log(response)
         if(response.ok) {
-          navigate('/login')
+          const data = await response.json()
+              
+          const { accessToken, refreshToken } = data
+  
+          localStorage.setItem('accessToken',  accessToken)
+          localStorage.setItem('refreshToken',  refreshToken)
+          navigate('/editNewUser')
         }
   }
 
