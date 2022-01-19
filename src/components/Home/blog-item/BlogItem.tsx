@@ -29,10 +29,13 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
 
   const [show, setShow] = useState(false)
   const [liked, setLiked] = useState(false)
+  const [share, setShare] = useState(false)
 
   const handleShow = ()=> setShow(true)
-
   const handleClose = ()=> setShow(false)
+
+  const handleShareShow = ()=> setShare(true)
+  const handleShareClose = ()=> setShare(false)
 
   const liker = { userId: newUser!._id}
 
@@ -70,7 +73,6 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
       console.log(error)
     }
   }
-
 
 
   return (
@@ -111,10 +113,12 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
                 <span className="text-dark">{likes.length}</span>
                 </div>
                 <div>
-                  <button onClick={handleShow}>
+                  <button onClick={handleShareShow}>
                     share
                   </button>
-                  <SharePost show={show} setShow={setShow}/>
+                  <SharePost id={_id}
+                    show={share} setShow={setShare}
+                    createdAt={createdAt}  />
                 </div>
               </div>
         </div>

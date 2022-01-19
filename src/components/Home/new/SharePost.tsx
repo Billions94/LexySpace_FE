@@ -1,22 +1,28 @@
-import { Modal, Button, Form } from 'react-bootstrap'
-import { ReduxState, Posts } from '../../../redux/interfaces'
+import { Modal, Button, Form, Card } from 'react-bootstrap'
+import { ReduxState, Posts, User } from '../../../redux/interfaces'
 import { useState, useEffect, createRef, Dispatch, SetStateAction } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import BlogAuthor from '../blog-author/BlogAuthor'
 
 interface SharePostProps {
+    id: string | undefined
     show: boolean
     setShow: Dispatch<SetStateAction<boolean>>
+    createdAt: Date
 }
 
-const SharePost = ({ show, setShow }: SharePostProps) => {
+const SharePost = ({ id, show, setShow, createdAt }: SharePostProps) => {
 
     const apiUrl = process.env.REACT_APP_GET_URL
-
+    const posts = useSelector((state: ReduxState) => state.posts)
     const { user } = useSelector((state: ReduxState) => state.data)
     const userName = user!.userName
+    const sharePostBody = posts.map(p => p).find(p => p._id === id)
 
     const [post, setPost] = useState({
-        text: ''
+        text: '',
+        sharedPost: sharePostBody!
     })
     const [image, setImage] = useState('')
     const handleClose = () => setShow(false)
@@ -74,7 +80,7 @@ const SharePost = ({ show, setShow }: SharePostProps) => {
           <div className="d-flex userInfoContainer">
             <div>
               <img src={user!.image} alt="" 
-                  className="roundpic" width={47}/>
+                  className="roundpic" width={47} height={47}/>
             </div>
             <div className="ml-2 userInfo">
                 <span>{user!.firstName} {user!.lastName}</span>
@@ -91,6 +97,16 @@ const SharePost = ({ show, setShow }: SharePostProps) => {
               setPost({ ...post, text: e.target.value })}
               />
           </Form.Group>
+            <div className='authorinfo d-flex ' style={{justifyContent: 'space-between'}}>
+              <BlogAuthor {...user} createdAt={createdAt}/>
+            </div>
+            <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
+            <Card.Title>{post.sharedPost.text}</Card.Title>
+                <Card.Img variant="top" src={post.sharedPost.cover} className="blog-cover" />
+                <Card.Body className="mb-0">
+        
+                </Card.Body>
+            </Link>
         </Modal.Body>
         <Modal.Footer className='mt-0'>
                 <div >
