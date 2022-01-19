@@ -137,7 +137,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
                   </button>
                 </div>
           <Button variant="primary" className='modal-btn' onClick={() => newPost()}>
-            send
+            post
           </Button>
         </Modal.Footer>
       </Modal>

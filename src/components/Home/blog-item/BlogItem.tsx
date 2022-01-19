@@ -7,6 +7,7 @@ import CommentModal  from "../new/CommentModal"
 import { Posts, User } from "../../../redux/interfaces"
 import { ReduxState } from "../../../redux/interfaces"
 import "./styles.scss"
+import SharePost from "../new/SharePost"
 
 interface BlogItemProps {
   text: string
@@ -108,6 +109,12 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
                       </button>
                   }
                 <span className="text-dark">{likes.length}</span>
+                </div>
+                <div>
+                  <button onClick={handleShow}>
+                    share
+                  </button>
+                  <SharePost show={show} setShow={setShow}/>
                 </div>
               </div>
         </div>
