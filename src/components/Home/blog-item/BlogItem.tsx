@@ -24,12 +24,15 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
   // console.log('i am the author', user.userName)
 
   const apiUrl = process.env.REACT_APP_GET_URL
-
+  const posts = useSelector((state: ReduxState) => state.posts)
   const newUser = useSelector((state: ReduxState) => state.data.user)
 
   const [show, setShow] = useState(false)
   const [liked, setLiked] = useState(false)
   const [share, setShare] = useState(false)
+
+
+  const newPost = posts.find(p => p._id)
 
   const handleShow = ()=> setShow(true)
   const handleClose = ()=> setShow(false)
@@ -74,6 +77,8 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
     }
   }
 
+  console.log('i am the id', _id)
+  console.log(newPost?.sharedPost!._id)
 
   return (
     <div>
@@ -88,6 +93,22 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
       
             </Card.Body>
           </Link>
+            { newPost?.sharedPost!._id !== _id ? 
+              <div className='sharePostDiv'>
+              <div className='sharePost'>
+                  <div className='authorinfo d-flex ' style={{justifyContent: 'space-between'}}>
+                  <BlogAuthor {...user} createdAt={createdAt}/>
+                  </div>
+                  <Link to={`/posts/${newPost!._id}`} className="blog-link">
+                  <Card.Title>{newPost?.sharedPost.text}</Card.Title>
+                      <Card.Img variant="top" src={newPost?.sharedPost.cover} className="blog-cover" />
+                      <Card.Body className="mb-0">
+                        
+                      </Card.Body>
+                  </Link>
+              </div>
+              </div> : null            
+            }
               <div className="d-flex justify-content-around mb-3">
                 <div onClick={handleShow}>
                   <button className='candl'>

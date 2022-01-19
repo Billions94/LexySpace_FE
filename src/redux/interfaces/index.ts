@@ -26,6 +26,7 @@ export interface Posts {
     _id: string
     cover: string;
     text: string;
+    sharedPost: Posts
     user: User;
     comments: Comments[];
     likes: User[]
