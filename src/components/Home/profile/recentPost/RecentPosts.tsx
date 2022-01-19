@@ -1,11 +1,15 @@
 import { useSelector } from "react-redux"
 import { ReduxState } from "../../../../redux/interfaces"
 
-const Recentposts = () => {
+interface RecentPostsProps {
+    id: string | undefined
+}
+
+const Recentposts = ({ id }: RecentPostsProps) => {
     
     const posts = useSelector((state: ReduxState) => state.posts)
     const { user } = useSelector((state: ReduxState) => state.data)
-    const me = user!._id
+    
 
     return(
         <>
@@ -13,9 +17,9 @@ const Recentposts = () => {
             posts.map(post => (
                 <>
                 {
-                    me === post.user._id ?
+                    id === post.user._id ?
                     <div>
-                        <img src={post.cover} alt='' />
+                        <img src={post.cover} alt='' width={45} height={45}/>
                         <div>
                             {post.text}
                         </div>
