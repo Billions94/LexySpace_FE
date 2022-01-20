@@ -191,7 +191,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
                       Share
                     </Badge>
                   }
-                  <SharePost id={_id}
+                  <SharePost id={_id} user={user}
                     show={share} setShow={setShare}
                     createdAt={createdAt}  />
                 </div>

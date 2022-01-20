@@ -8,19 +8,20 @@ import { getPosts } from '../../../redux/actions'
 
 interface SharePostProps {
     id: string | undefined
+    user: User 
     show: boolean
     setShow: Dispatch<SetStateAction<boolean>>
-    createdAt: Date
+    createdAt: Date 
 }
 
-const SharePost = ({ id, show, setShow, createdAt }: SharePostProps) => {
+const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
 
     const apiUrl = process.env.REACT_APP_GET_URL
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const posts = useSelector((state: ReduxState) => state.posts)
-    const { user } = useSelector((state: ReduxState) => state.data)
-    const userName = user!.userName
+    const  loggedInUser = useSelector((state: ReduxState) => state.data.user)
+    const userName = loggedInUser!.userName
     const sharePostBody = posts.map(p => p).find(p => p._id === id)
 
     const [post, setPost] = useState({

@@ -12,6 +12,7 @@ import Loader from "../loader/Loader"
 import { ReduxState } from "../../../redux/interfaces"
 import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
+import SharePost from "../new/SharePost"
 
 
 const Blog = () => {
@@ -25,9 +26,12 @@ const Blog = () => {
   const [loading, setLoading] = useState(true)
   const [liked, setLiked] = useState(false)
   const [show, setShow] = useState(false)
+  const [share, setShare] = useState(false)
 
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
+  const handleShare = () => setShow(true)
+  
 
   const showNHidde = () => {
     show === false ? handleShow() : handleClose()
@@ -296,7 +300,8 @@ const Blog = () => {
                     </div>
                     <div onMouseEnter={handleShareLabelShow} onMouseLeave={handleShareLabelClose}
                       className="interactions position-relative" style={{ marginLeft: "10px" }}>
-                      <button className='candl'>
+                      <button onClick={handleShare}
+                        className='candl'>
                         <img src="https://img.icons8.com/dotty/50/000000/share.png"
                         width='30px'/>
                       </button>
@@ -305,7 +310,11 @@ const Blog = () => {
                           className='interactionBadge'>
                           Share
                         </Badge>
-                      }  
+                      }
+                      {/* <SharePost id={blog?._id}
+                      show={share} 
+                      setShow={setShare}
+                      createdAt={blog!.createdAt}/>   */}
                     </div>
                   </div>
                   { show === false ? null

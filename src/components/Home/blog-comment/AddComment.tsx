@@ -53,7 +53,7 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
   },[])
 
   return (
-    <div className="panel mt-3">
+    <div className="panel mt-4">
       <div className="panel-body d-flex">
         <div>
           <Image roundedCircle src={user.image} alt='' 
