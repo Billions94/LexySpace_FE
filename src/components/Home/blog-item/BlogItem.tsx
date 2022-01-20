@@ -135,7 +135,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
                     <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
                     width='27px'/>
                   </button>
-                  { commentLabel === false ? null :
+                    {  commentLabel === false ? null :
                       <Badge pill variant="secondary"
                         className='interactionBadge'>
                         Comment

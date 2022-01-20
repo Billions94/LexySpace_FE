@@ -1,4 +1,4 @@
-import { Container, Dropdown, Image, Col } from "react-bootstrap"
+import { Container, Dropdown, Image, Col, Badge } from "react-bootstrap"
 import { useNavigate, Link, useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Comment from "../blog-comment/Comment"
@@ -36,13 +36,26 @@ const Blog = () => {
   
   const navigate = useNavigate()
   
+  const url = process.env.REACT_APP_GET_URL
   const posts = useSelector((state: ReduxState) => state.posts)
   const { user } = useSelector((state: ReduxState) => state.data)
   const liker = { userId: user!._id}
   const me = user!._id
   const newPost = posts.find(p => p._id)
 
-  const url = process.env.REACT_APP_GET_URL
+    // for interaction icons label
+    const [commentLabel, setCommentLabel] = useState(false)
+    const [likeLabel, setLikeLabel] = useState(false)
+    const [shareLabel, setShareLabel] = useState(false)
+  
+    const handleCommentLabelShow = () => setCommentLabel(true)
+    const handleLikeLabelShow = () => setLikeLabel(true)
+    const handleShareLabelShow = () => setShareLabel(true)
+  
+    const handleCommentLabelClose = () => setCommentLabel(false)
+    const handleLikeLabelClose = () => setLikeLabel(false)
+    const handleShareLabelClose = () => setShareLabel(false)
+
 
   const fetchBlog = async (_id: string | undefined) => {
     try {
@@ -139,60 +152,58 @@ const Blog = () => {
       <>
         <div id='indexDiv' >
           <Container key={blog?._id} className="blog-details-root">
-
-
               <Col md={8} className="blogContent mt-4 mb-2">
                 <div className='d-flex blogPostTitle'>
                   <div className="text-muted timer">
                     Posted : {postTimer(blog?.createdAt)} ago
                   </div>
                   <Dropdown className="dropdowntext ml-auto">
-                        <Dropdown.Toggle
-                          className="btn btn-dark dropdownbtn">
-                          <img alt=''
-                            className="lrdimg"
-                            width="17px"
-                            src="https://img.icons8.com/carbon-copy/50/000000/menu-2.png"/>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu
-                          className='dropDownMenu'
-                          style={{padding: "18px", borderRadius: "25px", border: "1px solid rgb(216, 215, 215)"}}>
-                          <br />
+                    <Dropdown.Toggle
+                      className="btn btn-dark dropdownbtn">
+                      <img alt=''
+                        className="lrdimg"
+                        width="17px"
+                        src="https://img.icons8.com/carbon-copy/50/000000/menu-2.png"/>
+                    </Dropdown.Toggle>
+                      <Dropdown.Menu
+                        className='dropDownMenu'
+                        style={{padding: "18px", borderRadius: "25px", border: "1px solid rgb(216, 215, 215)"}}>
+                        <br />
 
-                          <a className="deleteBlog customLinks"
-                            href={`${url}/${id}/downloadPDF`}>
-                            <div
-                              style={{ marginTop: "-20px" }}
-                              className="d-flex">
-                              <div className="mr-3">
-                                <img alt=''
-                                  className="lrdimg"
-                                  width="17px"
-                                  src="https://img.icons8.com/ios/50/000000/circled-down.png"/>
-                              </div>
-                              <div >
-                                download pdf
-                              </div>
+                        <a className="deleteBlog customLinks"
+                          href={`${url}/${id}/downloadPDF`}>
+                          <div
+                            style={{ marginTop: "-20px" }}
+                            className="d-flex">
+                            <div className="mr-3">
+                              <img alt=''
+                                className="lrdimg"
+                                width="17px"
+                                src="https://img.icons8.com/ios/50/000000/circled-down.png"/>
                             </div>
-                          </a>
+                            <div >
+                              download pdf
+                            </div>
+                          </div>
+                        </a>
                         { blog && blog.user._id !== me ? null
                             : 
                           <>
-                            <Edit />
-                            <div className="d-flex customLinks">
-                              <div  className="mr-3">
-                                <img alt='' className="lrdimg" width="17px"
-                                  src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
-                              </div>
-                              <div onClick={(e) => deleteBlogPost(blog?._id)} >
-                                delete Post
-                              </div> 
-                            </div>
-                          </>
-                        }
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </div>  
+                    <Edit />
+                    <div className="d-flex customLinks">
+                      <div  className="mr-3">
+                        <img alt='' className="lrdimg" width="17px"
+                          src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
+                      </div>
+                      <div onClick={(e) => deleteBlogPost(blog?._id)} >
+                        delete Post
+                      </div> 
+                    </div>
+                  </>
+                }
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>  
 
           {  
             <div className="blog-details-author">         
@@ -233,28 +244,68 @@ const Blog = () => {
                   : null
                 }  */}
 
-                    <div className="d-flex justify-content-around mt-2"> 
-                    <div onClick={() => showNHidde()}>
+                  <div className="d-flex justify-content-around mt-2"> 
+                    <div onMouseEnter={handleCommentLabelShow}
+                      onMouseLeave={handleCommentLabelClose}
+                      onClick={() => showNHidde()}
+                      className='position-relative'>
                     <button className='candl'>
-                    <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
-                      width='33px'/>
+                      <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
+                        width='33px'/>
                     </button>
+                    {  commentLabel === false ? null :
+                      <Badge pill variant="secondary"
+                        className='interactionBadge'>
+                        Comment
+                      </Badge>
+                    }
                     </div>
-                    <div>
+                    <div onMouseEnter={handleLikeLabelShow}
+                        onMouseLeave={handleLikeLabelClose}
+                        className='position-relative'>
                       { liked === false ?
-                        <img className="interactions" onClick={()=> toggle(blog?._id)}
-                        src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
-                          width='37px'/>
-                          : 
+                      <>
+                        <button className='candl'>
+                          <img className="interactions" onClick={()=> toggle(blog?._id)}
+                          src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
+                            width='37px'/>
+                        </button>
+                        { likeLabel === false ? null :
+                          <Badge pill variant="secondary"
+                            className='interactionBadge'>
+                            Like
+                          </Badge>
+                        }
+                      </>
+                          :
+                      <>
+                        <button className='candl'> 
                         <img className="interactions" onClick={()=> toggle(blog?._id)}
                           src="https://img.icons8.com/plasticine/50/000000/hearts.png"
                           width='37px'/>
+                          </button>
+                        { likeLabel === false ? null :
+                          <Badge pill variant="secondary"
+                            className='interactionBadge'>
+                            Like
+                          </Badge>
+                        }
+                      </>
                       }
                       <span className="text-dark">{blog?.likes.length}</span>
                     </div>
-                    <div className="interactions" style={{ marginLeft: "10px" }}>
-                      <img src="https://img.icons8.com/dotty/50/000000/share.png"
+                    <div onMouseEnter={handleShareLabelShow} onMouseLeave={handleShareLabelClose}
+                      className="interactions position-relative" style={{ marginLeft: "10px" }}>
+                      <button className='candl'>
+                        <img src="https://img.icons8.com/dotty/50/000000/share.png"
                         width='30px'/>
+                      </button>
+                      { shareLabel === false ? null :
+                        <Badge pill variant="secondary"
+                          className='interactionBadge'>
+                          Share
+                        </Badge>
+                      }  
                     </div>
                   </div>
                   { show === false ? null
@@ -265,7 +316,7 @@ const Blog = () => {
               <Comment blog={blog} id={id} comments={comments} 
                 author={author} fetchComments={fetchComments}/>
               </Col>
-              </Col>
+            </Col>
           </Container>
         </div>
       </>
