@@ -11,13 +11,14 @@ const Recentposts = ({ id, posts }: RecentPostsProps) => {
 
     return(
         <div id="recentPost">
-            <h5>#recent posts</h5>
+                <h5>#recent posts</h5>
+            <div className="d-flex">
         {
             posts.map(post => (
                 <>
                 {
                     id === post.user._id ?
-                    <div>
+                    <div className="postContainer">
                         <img src={post.cover} alt='' width={45} height={45}/>
                         <div>
                             {post.text}
@@ -28,6 +29,7 @@ const Recentposts = ({ id, posts }: RecentPostsProps) => {
                 </>
             ))
         }
+            </div>
         </div>
     )
 }
