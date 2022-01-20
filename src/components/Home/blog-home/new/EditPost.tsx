@@ -1,27 +1,27 @@
 import { useState, useEffect, createRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Container, Form, Button, Modal } from "react-bootstrap"
-import "./styles.scss"
 import useAuthGuard from "../../../../lib/index"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { ReduxState } from "../../../../redux/interfaces"
+import "./styles.scss"
+import { getPosts } from "../../../../redux/actions"
 
 const Edit = () => {
 
   useAuthGuard()
   
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
+  const [image, setImage] = useState<string>('')
   const { user } = useSelector((state: ReduxState) => state.data)
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   const [post, setPost] = useState({ 
-    title: "",
     text: "" 
   })
-
-  const [image, setImage] = useState<string>('')
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   
   const { id } = useParams()
@@ -42,46 +42,49 @@ const Edit = () => {
   const apiUrl = process.env.REACT_APP_GET_URL
 
   const editBlogPost = async () => {
-    try {
-      const formDt = new FormData();
-      formDt.append("cover", image);
-
+    if(image) {
+      try {
+        const response = await fetch(`${apiUrl}/posts/${id}`, {
+          method: "PUT",
+          body: JSON.stringify(post),
+          headers: { "Content-Type": "application/json" },
+        })
+        if (response.ok) {
+          let data = await response.json()
+          console.log(`another console log for the res`, data)
+          try {
+            const formDt = new FormData()
+            formDt.append("cover", image)
+            let postImage = await fetch(`${apiUrl}/posts/${data._id}/upload`, {
+              method: "PUT",
+              body: formDt,
+            })
+            if (postImage.ok) {
+              navigate("/home")
+              dispatch(getPosts())
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        } else {
+          console.log("after ther fail of if block inside th else ")
+        }
+      } catch (error) {
+        console.log("failed catch block")
+        console.log(error)
+      }
+    } else {
       const response = await fetch(`${apiUrl}/posts/${id}`, {
         method: "PUT",
         body: JSON.stringify(post),
         headers: { "Content-Type": "application/json" },
-      });
-      console.log("outside the fetch");
-      if (response.ok) {
-        let data = await response.json();
-        console.log(`another console log for the res`, data);
-
-        try {
-          const formDt = new FormData();
-          formDt.append("cover", image);
-          let postImage = await fetch(`${apiUrl}/ ${data.id}/cover`, {
-            method: "PUT",
-            body: formDt,
-          });
-          if (postImage.ok) {
-            navigate("/home");
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        console.log("after ther fail of if block inside th else ");
+      })
+      if(response.ok) {
+        navigate('/home')
+        dispatch(getPosts())
       }
-    } catch (error) {
-      console.log("failed catch block");
-      console.log(error);
     }
-  };
-  useEffect(() => {
-    console.log("use state efect");
-  }, []);
-
-
+  }
 
   return (
     <Container  className="new-blog-container p-0 mb-0 mt-0">
@@ -151,6 +154,6 @@ const Edit = () => {
         </Modal>
       </div>
     </Container>
-  );
-};
-export default Edit;
+  )
+}
+export default Edit

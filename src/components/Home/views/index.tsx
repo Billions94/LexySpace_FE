@@ -12,7 +12,9 @@ import Loader from "../loader/Loader"
 import { ReduxState } from "../../../redux/interfaces"
 import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
-import SharePost from "../blog-home/new/SharePost"
+import ShareModal from "./SharedModal"
+import PostModal from "../blog-home/new/PostModal"
+
 
 
 
@@ -310,11 +312,12 @@ const Blog = () => {
                           Share
                         </Badge>
                       }
-                      <SharePost id={blog?._id}
-                      user={user}
-                      show={share} 
-                      setShow={setShare}
-                      createdAt={blog!.createdAt}/>  
+                      <ShareModal id={id}
+                        user={blog?.user!}
+                        show={share}
+                        setShow={setShare}
+                        createdAt={blog?.createdAt}
+                      />
                     </div>
                   </div>
                   { show === false ? null
