@@ -6,7 +6,7 @@ import AddComment from "../blog-comment/AddComment"
 import Edit from "../new/EditPost"
 // import { postTimer } from "../../../lib/index"
 import { format } from "date-fns"
-import useAuthGuard from "../../../lib/index"
+import useAuthGuard, { postTimer } from "../../../lib/index"
 import { useSelector } from "react-redux"
 import Loader from "../loader/Loader"
 import { ReduxState } from "../../../redux/interfaces"
@@ -136,7 +136,7 @@ const Blog = () => {
               <Col md={8} className="blogContent mt-4 mb-2">
                 <div className='d-flex blogPostTitle'>
                   <div className="text-muted timer">
-                    {/* blogPost : {format(blog?.createdAt, 'h:mm b dd MMM yyyy')} */}
+                    Posted : {postTimer(blog?.createdAt)} ago
                   </div>
                   <Dropdown className="dropdowntext ml-auto">
                         <Dropdown.Toggle

@@ -50,7 +50,7 @@ const Weather = () => {
            <div className="weather-gradient" />
                 <div  className="date-container1">
                 <h2 className="date-dayname">Tuesday</h2>
-                    <span className="date-day">10 Dec 2021</span>
+                    <span className="date-day">{new Date().getFullYear()}</span>
                     <i className="location-icon" data-feather="map-pin" />
                     <span className="location">Düsseldorf</span>
                     <div className="precipitation mt-2">
