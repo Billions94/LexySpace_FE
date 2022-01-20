@@ -60,7 +60,7 @@ const Edit = () => {
               body: formDt,
             })
             if (postImage.ok) {
-              navigate("/home")
+              navigate(`/posts/${data._id}`)
               dispatch(getPosts())
             }
           } catch (error) {
@@ -80,7 +80,8 @@ const Edit = () => {
         headers: { "Content-Type": "application/json" },
       })
       if(response.ok) {
-        navigate('/home')
+        const data = await response.json()
+        navigate(`/posts/${data._id}`)
         dispatch(getPosts())
       }
     }
