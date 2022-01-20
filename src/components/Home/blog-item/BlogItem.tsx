@@ -32,6 +32,20 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
   const [liked, setLiked] = useState(false)
   const [share, setShare] = useState(false)
 
+  // for interaction icons label
+  const [commentLabel, setCommentLabel] = useState(false)
+  const [likeLabel, setLikeLabel] = useState(false)
+  const [shareLabel, setShareLabel] = useState(false)
+
+  const handleCommentLabel = () => setCommentLabel(true)
+  const handleLikeLabel = () => setLikeLabel(true)
+  const handleShareLabel = () => setShareLabel(true)
+
+  const handleCommentLabelClose = () => setCommentLabel(false)
+  const handleLikeLabelClose = () => setLikeLabel(false)
+  const handleShareLabelClose = () => setShareLabel(false)
+
+
   let newPost = posts.find(p => p._id)
 
   // const newPost = posts.find(p => p.sharedPost._id)
@@ -139,7 +153,8 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
                 </div>
                 <div>
                   <button className="candl" onClick={handleShareShow}>
-                    share
+                  <img src="https://img.icons8.com/dotty/50/000000/share.png"
+                        width='28px'/>
                   </button>
                   <SharePost id={_id}
                     show={share} setShow={setShare}
