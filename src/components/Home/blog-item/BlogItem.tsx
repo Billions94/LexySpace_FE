@@ -166,7 +166,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
                     <>
                       <button className='candl'>
                         <img className="interactions" onClick={()=> toggle()}
-                          src="https://img.icons8.com/doodle/50/000000/hearts--v1.png"
+                          src="https://img.icons8.com/plasticine/50/000000/hearts.png"
                           width='32px'/>
                       </button>
                       <span className="text-dark">{likes.length}</span>

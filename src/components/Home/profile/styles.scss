@@ -292,16 +292,21 @@
 }
 
 #recentPost {
-  border: 1px solid rgb(216, 215, 215);
-  padding: 20px;
+  // border: 1px solid rgb(216, 215, 215);
+  padding: 10px;
   border-radius: 20px;
   .postContainer {
     border: 1px solid rgb(216, 215, 215);
-    padding: 20px;
+    padding: 15px;
     border-radius: 20px;
   }
   .postContainer:hover {
     cursor: pointer;
+  }
+  .postContainer:hover span {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #0056b3;
   }
 }
 
