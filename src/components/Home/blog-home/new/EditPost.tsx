@@ -61,6 +61,7 @@ const Edit = () => {
             })
             if (postImage.ok) {
               setShow(false)
+              navigate("/home")
               dispatch(getPosts())
             }
           } catch (error) {
@@ -80,8 +81,8 @@ const Edit = () => {
         headers: { "Content-Type": "application/json" },
       })
       if(response.ok) {
-        const data = await response.json()
         setShow(false)
+        navigate('/home')
         dispatch(getPosts())
       }
     }
