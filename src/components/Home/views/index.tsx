@@ -210,7 +210,7 @@ const Blog = () => {
               </div>
             }
                 <div className="mt-3">{blog?.text}</div>
-                <div className="mt-2">
+                <div className="mt-2 mb-4">
                     <img className="blog-details-cover" alt=''  
                       src={blog?.cover} width='100%' />
                 </div>
@@ -238,10 +238,9 @@ const Blog = () => {
                       }
                       <span className="text-dark">{blog?.likes.length}</span>
                     </div>
-                    <div style={{ marginLeft: "10px" }}>
-                      <button className="btn btn-dark  shareComment">
-                        share
-                      </button>
+                    <div className="interactions" style={{ marginLeft: "10px" }}>
+                    <img src="https://img.icons8.com/dotty/50/000000/share.png"
+                        width='30px'/>
                     </div>
                   </div>
               </Col>

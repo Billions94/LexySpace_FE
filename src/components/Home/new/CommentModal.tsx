@@ -100,7 +100,7 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
         <div className="d-flex userInfoContainer">
           <div>
             <img src={user?.image} alt=""
-              className="roundpic" width={47} />
+              className="roundpic" width={47} height={47} />
           </div>
           <div className="ml-2 userInfo">
             <span>{user?.firstName} {user?.lastName}</span>

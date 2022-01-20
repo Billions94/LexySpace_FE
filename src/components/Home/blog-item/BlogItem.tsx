@@ -114,8 +114,8 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
               </div> : null            
             } */}
               <div className="d-flex justify-content-around mt-3 mb-3">
-                <div onClick={handleShow}>
-                  <button className='candl'>
+                <div>
+                  <button className='candl' onClick={handleShow}>
                     <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
                     width='27px'/>
                   </button>
