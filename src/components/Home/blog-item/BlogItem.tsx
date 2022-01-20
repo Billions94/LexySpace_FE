@@ -37,9 +37,9 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
   const [likeLabel, setLikeLabel] = useState(false)
   const [shareLabel, setShareLabel] = useState(false)
 
-  const handleCommentLabel = () => setCommentLabel(true)
-  const handleLikeLabel = () => setLikeLabel(true)
-  const handleShareLabel = () => setShareLabel(true)
+  const handleCommentLabelShow = () => setCommentLabel(true)
+  const handleLikeLabelShow = () => setLikeLabel(true)
+  const handleShareLabelShow = () => setShareLabel(true)
 
   const handleCommentLabelClose = () => setCommentLabel(false)
   const handleLikeLabelClose = () => setLikeLabel(false)
@@ -128,34 +128,53 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
               </div> : null            
             } */}
               <div className="d-flex justify-content-around mt-3 mb-3">
-                <div>
+                <div onMouseEnter={handleCommentLabelShow}
+                    onMouseLeave={handleCommentLabelClose}>
                   <button className='candl' onClick={handleShow}>
                     <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
                     width='27px'/>
                   </button>
+                  { commentLabel === false ? null :
+                      <span>Comment</span>
+                    }
                   <CommentModal id={_id} show={show} setShow={setShow} handleClose={handleClose}/>
                 </div>
-                <div>
+                <div onMouseEnter={handleLikeLabelShow}
+                    onMouseLeave={handleLikeLabelClose}>
                   { liked === false ?
+                    <>
                     <button className='candl'>
                       <img className="interactions" onClick={()=> toggle()}
                        src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
                         width='32px'/>
                     </button>
+                    { likeLabel === false ? null :
+                      <span>Like</span>
+                    }
+                    </>
                       :
+                    <>
                       <button className='candl'>
                         <img className="interactions" onClick={()=> toggle()}
                           src="https://img.icons8.com/doodle/50/000000/hearts--v1.png"
                           width='32px'/>
                       </button>
+                      { likeLabel === false ? null :
+                        <span>share</span>
+                      }
+                    </>
                   }
                 <span className="text-dark">{likes.length}</span>
                 </div>
-                <div>
+                <div onMouseEnter={handleShareLabelShow}
+                    onMouseLeave={handleShareLabelClose}>
                   <button className="candl" onClick={handleShareShow}>
                   <img src="https://img.icons8.com/dotty/50/000000/share.png"
                         width='28px'/>
                   </button>
+                  { shareLabel === false ? null :
+                    <span>share</span>
+                  }
                   <SharePost id={_id}
                     show={share} setShow={setShare}
                     createdAt={createdAt}  />
