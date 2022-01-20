@@ -225,6 +225,12 @@ const Blog = () => {
                     <div style={{ marginLeft: "10px" }}>
                       <h5 className="text-dark authorDetails">
                         {author?.firstName} {author?.lastName}
+                        { author?.isVerified === true &&
+                        <span className=" mt-1 ml-1  d-flex-row align-items-center">
+                          <img alt='' className="mr-2" width="20px"
+                            src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"/>
+                        </span>
+                       }
                       </h5>
                       <h4 className="text-muted authorUserName">
                         @{author?.userName}</h4>

@@ -102,11 +102,11 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
         <Modal.Body>
           <div className="d-flex userInfoContainer">
             <div>
-              <img src={user!.image} alt="" 
+              <img src={loggedInUser!.image} alt="" 
                   className="roundpic" width={47} height={47}/>
             </div>
             <div className="ml-2 userInfo">
-                <span>{user!.firstName} {user!.lastName}</span>
+                <span>{loggedInUser!.firstName} {loggedInUser!.lastName}</span>
             </div>
           </div>
           <Form.Group controlId="blog-content" className="form1 mt-3">

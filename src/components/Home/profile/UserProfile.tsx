@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Button, Row, Col, Spinner } from "react-bootstrap"
+import { Button, Row, Col, Spinner, Image } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import useAuthGuard from "../../../lib/index"
 import EditProfile from "./EditProfile"
@@ -112,7 +112,7 @@ const unfollow = (id: string | undefined) => {
               <div id="jinx" className="d-flex col-md-8">
 
                 <div className="imgDiv">
-                  <img id="profile-pic" onClick={handlePic} 
+                  <Image roundedCircle id="profile-pic" onClick={handlePic} 
                     src={user.image}
                     alt="ProfilePicture" width="130" height="130"/>
                 </div>
