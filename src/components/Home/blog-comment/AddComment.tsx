@@ -60,7 +60,7 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
             width={47} height={47}/>
         </div>
         <textarea
-          className="form-control shareComment"
+          className="form-control shareComment ml-3"
           rows={2}
           placeholder="start typing to share your thoughts...."
           value={comments.text}
