@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux"
 import { ReduxState, Posts } from "../../../../redux/interfaces"
+import RecentItem from "./RecentItem"
 
 interface RecentPostsProps {
     id: string | undefined
@@ -18,12 +19,7 @@ const Recentposts = ({ id, posts }: RecentPostsProps) => {
                 <>
                 {
                     id === post.user._id ?
-                    <div className="postContainer">
-                        <img src={post.cover} alt='' width={45} height={45}/>
-                        <div>
-                            {post.text}
-                        </div>
-                    </div>
+                    <RecentItem post={post}/>
                     : null
                 }
                 </>
