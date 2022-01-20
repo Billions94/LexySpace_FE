@@ -106,7 +106,15 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                   className="roundpic" width={47} height={47}/>
             </div>
             <div className="ml-2 userInfo">
-                <span>{loggedInUser!.firstName} {loggedInUser!.lastName}</span>
+                <span>
+                    {loggedInUser!.firstName} {loggedInUser!.lastName}
+                    { loggedInUser!.isVerified === true &&
+                    <span className=" mt-1 ml-1  d-flex-row align-items-center">
+                    <img alt='' className="mr-2" width="15"
+                       src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"/>
+                    </span>
+                  }
+                </span>
             </div>
           </div>
           <Form.Group controlId="blog-content" className="form1 mt-3">
