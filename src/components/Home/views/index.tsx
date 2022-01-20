@@ -32,7 +32,7 @@ const Blog = () => {
   const { user } = useSelector((state: ReduxState) => state.data)
   const liker = { userId: user!._id}
   const me = user!._id
-
+  const newPost = posts.find(p => p._id)
 
   const url = process.env.REACT_APP_GET_URL
 
@@ -213,7 +213,18 @@ const Blog = () => {
                 <div className="mt-2">
                     <img className="blog-details-cover" alt=''  
                       src={blog?.cover} width='100%' />
-                </div> 
+                </div>
+                {/* { newPost!.sharedPost!._id !== id ? 
+                <>
+                  <div className="mt-3">{newPost!.sharedPost!.text}</div>
+                  <div className="mt-2">
+                      <img className="blog-details-cover" alt=''  
+                        src={newPost!.sharedPost!.cover} width='100%' />
+                  </div> 
+                </>
+                  : null
+                }  */}
+
                     <div className="d-flex mt-2"> 
                     <div>
                       { liked === false ?

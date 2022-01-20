@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
 import { Link } from "react-router-dom"
@@ -15,12 +15,13 @@ interface BlogItemProps {
   user: User
   _id: string
   likes: User[]
+  post: Posts
   createdAt: Date
   getData: () => Promise<void>
 }
 
 
-const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogItemProps) => {
+const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: BlogItemProps) => {
   // console.log('i am the author', user.userName)
 
   const apiUrl = process.env.REACT_APP_GET_URL
@@ -31,8 +32,10 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
   const [liked, setLiked] = useState(false)
   const [share, setShare] = useState(false)
 
+  let newPost = posts.find(p => p._id)
 
-  const newPost = posts.find(p => p._id)
+  // const newPost = posts.find(p => p.sharedPost._id)
+  console.log('the new post', newPost)
 
   const handleShow = ()=> setShow(true)
   const handleClose = ()=> setShow(false)
@@ -78,7 +81,8 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
   }
 
   console.log('i am the id', _id)
-  console.log(newPost?.sharedPost!._id)
+  // console.log('i am the id of shared', newPost?.sharedPost._id)
+
 
   return (
     <div>
@@ -89,27 +93,27 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogIte
           <Link to={`/posts/${_id}`} className="blog-link">
           <Card.Title>{text}</Card.Title>
             <Card.Img variant="top" src={cover} className="blog-cover" />
-            <Card.Body className="mb-0">
+            <Card.Body className="mb-0 p-0">
       
             </Card.Body>
           </Link>
-            { newPost?.sharedPost!._id !== _id ? 
+            {/* { newPost!.sharedPost!._id === _id ? 
               <div className='sharePostDiv'>
               <div className='sharePost'>
                   <div className='authorinfo d-flex ' style={{justifyContent: 'space-between'}}>
                   <BlogAuthor {...user} createdAt={createdAt}/>
                   </div>
                   <Link to={`/posts/${newPost!._id}`} className="blog-link">
-                  <Card.Title>{newPost?.sharedPost.text}</Card.Title>
-                      <Card.Img variant="top" src={newPost?.sharedPost.cover} className="blog-cover" />
+                  <Card.Title>{newPost!.sharedPost!.text}</Card.Title>
+                      <Card.Img variant="top" src={newPost!.sharedPost!.cover} className="blog-cover" />
                       <Card.Body className="mb-0">
                         
                       </Card.Body>
                   </Link>
               </div>
               </div> : null            
-            }
-              <div className="d-flex justify-content-around mb-3">
+            } */}
+              <div className="d-flex justify-content-around mt-3 mb-3">
                 <div onClick={handleShow}>
                   <button className='candl'>
                     <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"

@@ -66,7 +66,7 @@ const BlogList = () => {
       { posts.map((post, i) => (
           <Col key={i} md={10} lg={11} style={{ marginBottom: 50 }}>
             <div>
-            <BlogItem key={i} {...post} getData={getData}/>
+            <BlogItem key={i} {...post} post={post} getData={getData}/>
             </div>
           </Col>
         )) }
