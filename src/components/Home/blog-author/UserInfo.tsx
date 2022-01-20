@@ -23,7 +23,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
   const { user } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 
-  const { image, firstName, lastName, userName, followers, _id, bio } = props
+  const { image, firstName, lastName, isVerified, userName, followers, _id, bio } = props
   const follower = { followerId: me }
   const [following, setFollowing] = useState(false)
 
@@ -80,13 +80,19 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
             <div className="">
               <h5 className="userDetails mb-0">
                 {firstName} {lastName}
+                { isVerified === true &&
+                    <span className=" ml-1">
+                    <img alt='' className="mr-2" width="15"
+                       src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"/>
+                    </span>
+                  }
               </h5>
               <span className="userUserName text-muted">@{userName}</span>
             </div>
           </div>
           {
             _id !== me &&
-            <div>
+            <div className='ml-auto'>
             { following === false ?
               <Button onClick={()=> toggle(_id)}
                 size="sm" variant="primary" 
