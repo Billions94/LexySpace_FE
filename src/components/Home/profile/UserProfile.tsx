@@ -142,7 +142,7 @@ const unfollow = (id: string | undefined) => {
                 <div className="d-flex mb-3">
                   { user?.isVerified === true &&
                     <div className=" mt-1  d-flex-row align-items-center">
-                    <img alt='' className="mr-2" width="25"
+                    <img alt='' className="mr-2" width="22px"
                        src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"/>
                       <b>verified</b>
                     </div>
