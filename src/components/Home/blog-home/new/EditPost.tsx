@@ -60,7 +60,7 @@ const Edit = () => {
               body: formDt,
             })
             if (postImage.ok) {
-              navigate(`/posts/${data._id}`)
+              setShow(false)
               dispatch(getPosts())
             }
           } catch (error) {
@@ -81,7 +81,7 @@ const Edit = () => {
       })
       if(response.ok) {
         const data = await response.json()
-        navigate(`/posts/${data._id}`)
+        setShow(false)
         dispatch(getPosts())
       }
     }
