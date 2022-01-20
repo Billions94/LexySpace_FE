@@ -1,18 +1,17 @@
 import { useSelector } from "react-redux"
-import { ReduxState } from "../../../../redux/interfaces"
+import { ReduxState, Posts } from "../../../../redux/interfaces"
 
 interface RecentPostsProps {
     id: string | undefined
+    posts: Posts[]
 }
 
-const Recentposts = ({ id }: RecentPostsProps) => {
-    
-    const posts = useSelector((state: ReduxState) => state.posts)
-    const { user } = useSelector((state: ReduxState) => state.data)
+const Recentposts = ({ id, posts }: RecentPostsProps) => {
     
 
     return(
         <div id="recentPost">
+            <h5>#recent posts</h5>
         {
             posts.map(post => (
                 <>

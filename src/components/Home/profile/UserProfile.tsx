@@ -5,7 +5,7 @@ import useAuthGuard from "../../../lib/index"
 import EditProfile from "./EditProfile"
 import UpdateImage from "./UpdateImage"
 import { useDispatch, useSelector } from "react-redux"
-import { getFollowersAction } from "../../../redux/actions"
+import { getFollowersAction, getPosts } from "../../../redux/actions"
 import { getUsersAction } from "../../../redux/actions"
 import { ReduxState, User } from "../../../redux/interfaces"
 
@@ -21,6 +21,7 @@ const UserProfile = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const posts = useSelector((state: ReduxState) => state.posts)
   const stateUser = useSelector((state: ReduxState) => state.data.user)
   const me = stateUser?._id
 
@@ -78,6 +79,7 @@ const UserProfile = () => {
 
   useEffect(()=> {
     dispatch(getFollowersAction(id))
+    dispatch(getPosts())
     dispatch(getUsersAction())
     getUser()
   }, [])
@@ -174,8 +176,7 @@ const unfollow = (id: string | undefined) => {
           </div>
         </Col>
             <Col xs={12} sm={10} md={6} lg={8}>
-              recent posts
-              <Recentposts id={id}/>
+              <Recentposts id={id} posts={posts}/>
             </Col>
       </Row>
     </>
