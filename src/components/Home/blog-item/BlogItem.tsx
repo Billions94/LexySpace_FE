@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { Card } from "react-bootstrap"
+import { useState } from "react"
+import { Card, Badge } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
@@ -129,18 +129,23 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
             } */}
               <div className="d-flex justify-content-around mt-3 mb-3">
                 <div onMouseEnter={handleCommentLabelShow}
-                    onMouseLeave={handleCommentLabelClose}>
+                    onMouseLeave={handleCommentLabelClose}
+                    className='postition-relative'>
                   <button className='candl' onClick={handleShow}>
                     <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
                     width='27px'/>
                   </button>
                   { commentLabel === false ? null :
-                      <span>Comment</span>
+                      <Badge pill variant="secondary"
+                        className='interactionBadge'>
+                        Comment
+                      </Badge>
                     }
                   <CommentModal id={_id} show={show} setShow={setShow} handleClose={handleClose}/>
                 </div>
                 <div onMouseEnter={handleLikeLabelShow}
-                    onMouseLeave={handleLikeLabelClose}>
+                    onMouseLeave={handleLikeLabelClose}
+                    className='postition-relative'>
                   { liked === false ?
                     <>
                     <button className='candl'>
@@ -148,8 +153,12 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
                        src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
                         width='32px'/>
                     </button>
+                    <span className="text-dark">{likes.length}</span>
                     { likeLabel === false ? null :
-                      <span>Like</span>
+                      <Badge pill variant="secondary"
+                        className='interactionBadge'>
+                        Like
+                      </Badge>
                     }
                     </>
                       :
@@ -159,21 +168,28 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
                           src="https://img.icons8.com/doodle/50/000000/hearts--v1.png"
                           width='32px'/>
                       </button>
+                      <span className="text-dark">{likes.length}</span>
                       { likeLabel === false ? null :
-                        <span>share</span>
+                        <Badge pill variant="secondary"
+                          className='interactionBadge'>
+                        Like
+                        </Badge>
                       }
                     </>
                   }
-                <span className="text-dark">{likes.length}</span>
                 </div>
                 <div onMouseEnter={handleShareLabelShow}
-                    onMouseLeave={handleShareLabelClose}>
+                    onMouseLeave={handleShareLabelClose}
+                    className='postition-relative'>
                   <button className="candl" onClick={handleShareShow}>
                   <img src="https://img.icons8.com/dotty/50/000000/share.png"
                         width='28px'/>
                   </button>
                   { shareLabel === false ? null :
-                    <span>share</span>
+                    <Badge pill variant="secondary"
+                      className='interactionBadge'>
+                      Share
+                    </Badge>
                   }
                   <SharePost id={_id}
                     show={share} setShow={setShare}
