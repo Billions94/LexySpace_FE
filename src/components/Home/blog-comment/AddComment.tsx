@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Form } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux"
 import { getUsersAction } from "../../../redux/actions/"
 import { ReduxState } from "../../../redux/interfaces/"
@@ -54,7 +54,11 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
 
   return (
     <div className="panel mt-3">
-      <div className="panel-body">
+      <div className="panel-body d-flex">
+        <div>
+          <Image roundedCircle src={user.image} alt='' 
+            width={47} height={47}/>
+        </div>
         <textarea
           className="form-control shareComment"
           rows={2}

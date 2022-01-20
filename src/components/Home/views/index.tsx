@@ -261,10 +261,10 @@ const Blog = () => {
                   : 
               <AddComment fetchComments={fetchComments} id={id} />
                   }
-              </Col>
-              <Col className='mb-2' md={6}>
+              <Col className='mb-2'>
               <Comment blog={blog} id={id} comments={comments} 
                 author={author} fetchComments={fetchComments}/>
+              </Col>
               </Col>
           </Container>
         </div>
