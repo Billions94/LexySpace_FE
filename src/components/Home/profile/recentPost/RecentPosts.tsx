@@ -12,7 +12,7 @@ const Recentposts = ({ id }: RecentPostsProps) => {
     
 
     return(
-        <>
+        <div id="recentPost">
         {
             posts.map(post => (
                 <>
@@ -29,7 +29,7 @@ const Recentposts = ({ id }: RecentPostsProps) => {
                 </>
             ))
         }
-        </>
+        </div>
     )
 }
 
