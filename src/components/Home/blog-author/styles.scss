@@ -38,6 +38,7 @@
 
   #authorDetails:hover .authorFirstName {
     text-decoration: underline;
+    color: #0056b3 !important;
   }
 }
 
@@ -131,6 +132,7 @@
       }
       #userDetails:hover .userDetails {
         text-decoration: underline;
+        color: #0056b3 !important;
       }
       .followbtn {
         border-radius: 20px;
