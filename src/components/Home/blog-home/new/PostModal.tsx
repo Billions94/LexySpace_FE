@@ -104,7 +104,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
           }})
           if(response.ok) {
             setShow(false)
-            // navigate('/home')
+            setPost({ text: '' })
             getPosts()
           }
       } catch (error) {

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Card, Badge } from "react-bootstrap"
+import { Card, Badge, Dropdown } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
@@ -28,6 +28,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
   const apiUrl = process.env.REACT_APP_GET_URL
   const posts = useSelector((state: ReduxState) => state.posts)
   const newUser = useSelector((state: ReduxState) => state.data.user)
+  const me = newUser!._id
 
   const [show, setShow] = useState(false)
   const [liked, setLiked] = useState(false)
@@ -95,7 +96,20 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
     }
   }
 
-  console.log('i am the id', _id)
+  const deleteBlogPost = async (id: string | undefined) => {
+    try {
+      const response = await fetch(`${apiUrl}/posts/${id}`, {
+        method: "DELETE",
+      })
+      if (response.ok) {
+        getData()
+      }
+    } catch (error) {
+      console.log("ooops we encountered an error", error)
+    }
+  }
+
+  // console.log('i am the id', _id)
   // console.log('i am the id of shared', newPost?.sharedPost._id)
 
 
@@ -104,6 +118,51 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
         <div style={{border: "1px solid rgb(216, 215, 215)", borderRadius: "20px"}} key={_id} className="blog-card">
             <div className='authorinfo d-flex ' style={{justifyContent: 'space-between'}}>
               <BlogAuthor {...user} createdAt={createdAt}/>
+              <Dropdown className="dropdowntext ml-auto">
+                    <Dropdown.Toggle
+                      className="btn btn-dark dropdownbtn">
+                      <img alt=''
+                        className="lrdimg"
+                        width="17px"
+                        src="https://img.icons8.com/carbon-copy/50/000000/menu-2.png"/>
+                    </Dropdown.Toggle>
+                      <Dropdown.Menu
+                        className='dropDownMenu'
+                        style={{padding: "18px", borderRadius: "25px", border: "1px solid rgb(216, 215, 215)"}}>
+                        <br />
+
+                        <a className="deleteBlog customLinks"
+                          href={`${apiUrl}/${_id}/downloadPDF`}>
+                          <div
+                            style={{ marginTop: "-20px" }}
+                            className="d-flex">
+                            <div className="mr-3">
+                              <img alt=''
+                                className="lrdimg"
+                                width="17px"
+                                src="https://img.icons8.com/ios/50/000000/circled-down.png"/>
+                            </div>
+                            <div >
+                              download pdf
+                            </div>
+                          </div>
+                        </a>
+                        { user!._id !== me ? null
+                            : 
+                  <>
+                    <div className="d-flex customLinks">
+                      <div  className="mr-3">
+                        <img alt='' className="lrdimg" width="17px"
+                          src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
+                      </div>
+                      <div onClick={(e) => deleteBlogPost(_id)} >
+                        delete Post
+                      </div> 
+                    </div>
+                  </>
+                }
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           <Link to={`/posts/${_id}`} className="blog-link">
           <Card.Title>{text}</Card.Title>

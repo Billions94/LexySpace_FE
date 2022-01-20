@@ -76,3 +76,28 @@
   margin-top: 35px;
   margin-left: -50px;
 }
+
+.dropdownbtn {
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  margin-top: 0px;
+  margin-left: 102px;
+  padding-bottom: 20px;
+  background-color: transparent;
+  border-radius: 50px;
+  border: none;
+  
+}
+
+.dropdownbtn:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.dropdownbtn:hover {
+  outline: none;
+  box-shadow: none;
+  background-color: antiquewhite;
+}
