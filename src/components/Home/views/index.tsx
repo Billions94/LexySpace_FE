@@ -24,6 +24,14 @@ const Blog = () => {
   const [blog, setBlog] = useState<Posts | null>(null)
   const [loading, setLoading] = useState(true)
   const [liked, setLiked] = useState(false)
+  const [show, setShow] = useState(false)
+
+  const handleShow = () => setShow(true)
+  const handleClose = () => setShow(false)
+
+  const showNHidde = () => {
+    show === false ? handleShow() : handleClose()
+  }
 
   
   const navigate = useNavigate()
@@ -225,7 +233,13 @@ const Blog = () => {
                   : null
                 }  */}
 
-                    <div className="d-flex mt-2"> 
+                    <div className="d-flex justify-content-around mt-2"> 
+                    <div onClick={() => showNHidde()}>
+                    <button className='candl'>
+                    <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
+                      width='33px'/>
+                    </button>
+                    </div>
                     <div>
                       { liked === false ?
                         <img className="interactions" onClick={()=> toggle(blog?._id)}
@@ -239,12 +253,15 @@ const Blog = () => {
                       <span className="text-dark">{blog?.likes.length}</span>
                     </div>
                     <div className="interactions" style={{ marginLeft: "10px" }}>
-                    <img src="https://img.icons8.com/dotty/50/000000/share.png"
+                      <img src="https://img.icons8.com/dotty/50/000000/share.png"
                         width='30px'/>
                     </div>
                   </div>
-              </Col>
+                  { show === false ? null
+                  : 
               <AddComment fetchComments={fetchComments} id={id} />
+                  }
+              </Col>
               <Col className='mb-2' md={6}>
               <Comment blog={blog} id={id} comments={comments} 
                 author={author} fetchComments={fetchComments}/>

@@ -53,7 +53,7 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
   },[])
 
   return (
-    <div className="panel mt-3 col-6">
+    <div className="panel mt-3">
       <div className="panel-body">
         <textarea
           className="form-control shareComment"
