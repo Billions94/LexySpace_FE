@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState, createRef } from "react"
 import { Modal, Form, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { getUsersAction } from "../../../redux/actions"
-import { ReduxState } from "../../../redux/interfaces"
+import { getUsersAction } from "../../../../redux/actions"
+import { ReduxState } from "../../../../redux/interfaces"
 
 interface CommentModalProps {
   id: string

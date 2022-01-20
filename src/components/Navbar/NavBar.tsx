@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import { Avatar } from "@mui/material"
-import { Container, Navbar, Button, Dropdown } from "react-bootstrap";
-import logo from "../../assets/asset6.png";
-import { useLocation, useNavigate, Link } from "react-router-dom";
-import PostModal from "../Home/new/PostModal";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsersAction } from "../../redux/actions";
-import { ReduxState } from "../../redux/interfaces";
-import "./styles.scss";
+import { Container, Navbar, Button, Dropdown } from "react-bootstrap"
+import logo from "../../assets/asset6.png"
+import { useLocation, useNavigate, Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { getUsersAction } from "../../redux/actions"
+import { ReduxState } from "../../redux/interfaces"
+import PostModal from "../Home/blog-home/new/PostModal"
+import "./styles.scss"
 
 const NavBar = () => {
 
   const feUrl = process.env.REACT_APP_FE_URL
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
   const { user } = useSelector((state: ReduxState) => state.data)
 
   const id = user!._id
 
-  const handleShow = () => setShow(true);
+  const handleShow = () => setShow(true)
   
   const location = useLocation()
   const navigate = useNavigate()
@@ -413,7 +413,7 @@ const NavBar = () => {
         </div>
       }
     </>
-  ); 
+  ) 
 }
 
-export default NavBar;
+export default NavBar

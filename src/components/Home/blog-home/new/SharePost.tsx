@@ -1,10 +1,10 @@
+import { useState, createRef, Dispatch, SetStateAction } from 'react'
 import { Modal, Button, Form, Card } from 'react-bootstrap'
-import { ReduxState, Posts, User } from '../../../redux/interfaces'
-import { useState, useEffect, createRef, Dispatch, SetStateAction } from 'react'
+import { ReduxState, Posts, User } from '../../../../redux/interfaces'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import BlogAuthor from '../blog-author/BlogAuthor'
-import { getPosts } from '../../../redux/actions'
+import BlogAuthor from '../../blog-author/BlogAuthor'
+import { getPosts } from '../../../../redux/actions'
 
 interface SharePostProps {
     id: string | undefined

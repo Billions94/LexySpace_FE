@@ -2,9 +2,9 @@ import { useState, Dispatch, SetStateAction, useRef, createRef, LegacyRef } from
 import { Button, Modal, Form } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { GET_BLOGS } from "../../../redux/actions"
-import useAuthGuard from "../../../lib/index"
-import { ReduxState } from "../../../redux/interfaces"
+import { GET_BLOGS } from "../../../../redux/actions"
+import useAuthGuard from "../../../../lib/index"
+import { ReduxState } from "../../../../redux/interfaces"
 import "./styles.scss"
 
 

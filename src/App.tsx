@@ -8,7 +8,7 @@ import BeforeLogin from './components/beforeLogin/BeforeLogin'
 import Messages from "./components/Home/messages/Messages"
 import Blog from "./components/Home/views"
 import UserProfile from "./components/Home/profile/UserProfile"
-import Edit from "./components/Home/new/EditPost"
+import Edit from "./components/Home/blog-home/new/EditPost"
 import Followers from "./components/Home/profile/followers/Followers"
 import CloseAccount from "./components/Home/account/CloseAccount"
 import Settings from "./components/Home/account/Settings"

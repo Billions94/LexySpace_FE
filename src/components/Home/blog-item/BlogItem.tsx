@@ -3,11 +3,12 @@ import { Card, Badge } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
-import CommentModal  from "../new/CommentModal"
 import { Posts, User } from "../../../redux/interfaces"
 import { ReduxState } from "../../../redux/interfaces"
 import "./styles.scss"
-import SharePost from "../new/SharePost"
+import CommentModal from "../blog-home/new/CommentModal"
+import SharePost from "../blog-home/new/SharePost"
+
 
 interface BlogItemProps {
   text: string

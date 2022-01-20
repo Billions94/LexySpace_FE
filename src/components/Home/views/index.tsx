@@ -3,7 +3,7 @@ import { useNavigate, Link, useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Comment from "../blog-comment/Comment"
 import AddComment from "../blog-comment/AddComment"
-import Edit from "../new/EditPost"
+import Edit from "../blog-home/new/EditPost"
 // import { postTimer } from "../../../lib/index"
 import { format } from "date-fns"
 import useAuthGuard, { postTimer } from "../../../lib/index"
@@ -12,7 +12,8 @@ import Loader from "../loader/Loader"
 import { ReduxState } from "../../../redux/interfaces"
 import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
-import SharePost from "../new/SharePost"
+import SharePost from "../blog-home/new/SharePost"
+
 
 
 const Blog = () => {
@@ -23,14 +24,13 @@ const Blog = () => {
   const [comments, setComments] = useState<Comments[]>([])
   const [author, setAuthor] = useState<User | null>(null)
   const [blog, setBlog] = useState<Posts | null>(null)
-  const [loading, setLoading] = useState(true)
   const [liked, setLiked] = useState(false)
   const [show, setShow] = useState(false)
   const [share, setShare] = useState(false)
 
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
-  const handleShare = () => setShow(true)
+  const handleShare = () => setShare(true)
   
 
   const showNHidde = () => {
@@ -69,7 +69,6 @@ const Blog = () => {
         setBlog(data)
         console.log("i am the data", data.user)
         setAuthor(data.user)
-        setLoading(false)
       } else {
         throw new Error('cannot post')
       }
@@ -311,10 +310,11 @@ const Blog = () => {
                           Share
                         </Badge>
                       }
-                      {/* <SharePost id={blog?._id}
+                      <SharePost id={blog?._id}
+                      user={user}
                       show={share} 
                       setShow={setShare}
-                      createdAt={blog!.createdAt}/>   */}
+                      createdAt={blog!.createdAt}/>  
                     </div>
                   </div>
                   { show === false ? null

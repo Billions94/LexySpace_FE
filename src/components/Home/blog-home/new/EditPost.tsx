@@ -1,10 +1,10 @@
-import React, { useState, useEffect, createRef } from "react"
+import { useState, useEffect, createRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Container, Form, Button, Modal } from "react-bootstrap"
 import "./styles.scss"
-import useAuthGuard from "../../../lib/index"
+import useAuthGuard from "../../../../lib/index"
 import { useSelector } from "react-redux"
-import { ReduxState } from "../../../redux/interfaces"
+import { ReduxState } from "../../../../redux/interfaces"
 
 const Edit = () => {
 
