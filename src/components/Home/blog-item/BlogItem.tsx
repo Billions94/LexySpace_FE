@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, Dispatch, SetStateAction } from "react"
 import { Card, Badge, Dropdown } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { Posts, User } from "../../../redux/interfaces"
 import { ReduxState } from "../../../redux/interfaces"
@@ -19,12 +19,15 @@ interface BlogItemProps {
   post: Posts
   createdAt: Date
   getData: () => Promise<void>
+  setReRoute: Dispatch<SetStateAction<boolean>>
+  setId: Dispatch<SetStateAction<string | undefined>>
 }
 
 
-const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: BlogItemProps) => {
+const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, setReRoute, setId }: BlogItemProps) => {
   // console.log('i am the author', user.userName)
 
+  const navigate = useNavigate()
   const apiUrl = process.env.REACT_APP_GET_URL
   const posts = useSelector((state: ReduxState) => state.posts)
   const newUser = useSelector((state: ReduxState) => state.data.user)
@@ -112,6 +115,12 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
   // console.log('i am the id', _id)
   // console.log('i am the id of shared', newPost?.sharedPost._id)
 
+  const doSomething = (id: string | undefined) => {
+    setId(id)
+    setReRoute(true)
+    
+  }
+
 
   return (
     <div>
@@ -164,13 +173,14 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-          <Link to={`/posts/${_id}`} className="blog-link">
+          <div onClick={() => doSomething(_id)}
+          className="blog-link">
           <Card.Title>{text}</Card.Title>
             <Card.Img variant="top" src={cover} className="blog-cover" />
             <Card.Body className="mb-0 p-0">
       
             </Card.Body>
-          </Link>
+          </div>
             {/* { newPost!.sharedPost!._id === _id ? 
               <div className='sharePostDiv'>
               <div className='sharePost'>

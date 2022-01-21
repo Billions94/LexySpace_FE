@@ -1,11 +1,13 @@
 import { Row, Col } from "react-bootstrap"
 import BlogItem from "../blog-item/BlogItem"
 import { useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { GET_BLOGS } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
 import Loader from "../loader/Loader"
+import Blog from "../views"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 
 
@@ -53,6 +55,9 @@ const BlogList = () => {
     }
   }
 
+  const [reroute, setReRoute] = useState(false)
+  const [id, setId] = useState<string | undefined>('')
+
  
 
   useEffect(() => {
@@ -63,13 +68,21 @@ const BlogList = () => {
 
   return posts ? (
     <Row className='mt-3 justify-content-center'>
+      { reroute === false ?
+        <>
       { posts.map((post, i) => (
           <Col key={i} md={10} lg={11} style={{ marginBottom: 50 }}>
             <div>
-            <BlogItem key={i} {...post} post={post} getData={getData}/>
+                <BlogItem key={i} setReRoute={setReRoute} setId={setId} {...post} post={post} getData={getData}/>
             </div>
           </Col>
         )) }
+        </>
+        : 
+        <Col md={10} lg={11} style={{ marginBottom: 50 }}>
+          <Blog id={id} />
+        </Col>
+      }
     </Row>
   ) : ( <Loader /> )
 } 

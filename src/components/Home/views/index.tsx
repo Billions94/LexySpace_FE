@@ -16,13 +16,16 @@ import ShareModal from "./SharedModal"
 import PostModal from "../blog-home/new/PostModal"
 
 
+interface BlogProps {
+  id: string | undefined
+}
 
 
-const Blog = () => {
+const Blog = ({ id }: BlogProps) => {
 
   useAuthGuard()
 
-  const { id } = useParams()
+  // const { id } = useParams()
   const [comments, setComments] = useState<Comments[]>([])
   const [author, setAuthor] = useState<User | null>(null)
   const [blog, setBlog] = useState<Posts | null>(null)
