@@ -10,10 +10,10 @@ import Blog from "../views"
 
 interface BlogListProps {
   setReRoute: Dispatch<SetStateAction<boolean>>
-  setId: Dispatch<SetStateAction<string | undefined>>
+  
 }
 
-const BlogList = ({ setReRoute, setId }: BlogListProps) => {
+const BlogList = ({ setReRoute }: BlogListProps) => {
   
 
   const apiUrl = process.env.REACT_APP_GET_URL 
@@ -69,12 +69,12 @@ const BlogList = ({ setReRoute, setId }: BlogListProps) => {
 
 
   return posts ? (
-    <Row className='mt-3 justify-content-center'>
+    <Row className='justify-content-center'>
       <>
       { posts.map((post, i) => (
           <Col key={i} md={10} lg={11} style={{ marginBottom: 50 }}>
             <div>
-                <BlogItem key={i} setReRoute={setReRoute} setId={setId} {...post} post={post} getData={getData}/>
+                <BlogItem key={i} setReRoute={setReRoute}  {...post} post={post} getData={getData}/>
             </div>
           </Col>
         )) }

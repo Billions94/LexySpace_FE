@@ -17,16 +17,15 @@ import PostModal from "../blog-home/new/PostModal"
 
 
 interface BlogProps {
-  id: string | undefined
   setReRoute: Dispatch<SetStateAction<boolean>>
 }
 
 
-const Blog = ({ id, setReRoute }: BlogProps) => {
+const Blog = ({ setReRoute }: BlogProps) => {
 
   useAuthGuard()
 
-  // const { id } = useParams()
+  const { id } = useParams()
   const [comments, setComments] = useState<Comments[]>([])
   const [author, setAuthor] = useState<User | null>(null)
   const [blog, setBlog] = useState<Posts | null>(null)
@@ -154,28 +153,38 @@ const Blog = ({ id, setReRoute }: BlogProps) => {
   useEffect(() => {
     fetchBlog(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [id])
 
+  function navigateHome() {
+    setReRoute(false)
+    navigate('/home')
+  }
 
     return posts ? (
       <>
         <div id='indexDiv'>
-        <Button variant='info' onClick={() => setReRoute(false)}>
-            back
-          </Button>
           <Container key={blog?._id} className="blog-details-root">
-              <Col md={12} className="blogContent mt-4 mb-2">
-                <div className='d-flex blogPostTitle'>
-                  <div className="text-muted timer">
+              <Col md={12} className="blogContent mb-2">
+                <div className="d-flex align-items-center">
+                  <Button className='nav-back' onClick={() => navigateHome()}>
+                  <img src="https://img.icons8.com/dotty/50/000000/left.png"
+                    width='27px'/>
+                  </Button>
+                  <div className="mt-2">
+                    <h5>Posts</h5>
+                  </div>
+                  <div className="text-muted timer ml-auto">
                     Posted : {postTimer(blog?.createdAt)} ago
                   </div>
+                </div>
+                <div className='d-flex blogPostTitle'>
                   <Dropdown className="dropdowntext ml-auto">
                     <Dropdown.Toggle
                       className="btn btn-dark dropdownbtn">
                       <img alt=''
                         className="lrdimg"
                         width="17px"
-                        src="https://img.icons8.com/carbon-copy/50/000000/menu-2.png"/>
+                        src="https://img.icons8.com/android/50/000000/more.png"/>
                     </Dropdown.Toggle>
                       <Dropdown.Menu
                         className='dropDownMenu'

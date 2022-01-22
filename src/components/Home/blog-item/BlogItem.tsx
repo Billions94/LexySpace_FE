@@ -20,11 +20,10 @@ interface BlogItemProps {
   createdAt: Date
   getData: () => Promise<void>
   setReRoute: Dispatch<SetStateAction<boolean>>
-  setId: Dispatch<SetStateAction<string | undefined>>
 }
 
 
-const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, setReRoute, setId }: BlogItemProps) => {
+const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, setReRoute }: BlogItemProps) => {
   // console.log('i am the author', user.userName)
 
   const navigate = useNavigate()
@@ -116,11 +115,10 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
   // console.log('i am the id of shared', newPost?.sharedPost._id)
 
   const doSomething = (id: string | undefined) => {
-    setId(id)
+    navigate(`/posts/${id}`)
     setReRoute(true)
     
   }
-
 
   return (
     <div>
@@ -133,11 +131,9 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                       <img alt=''
                         className="lrdimg"
                         width="17px"
-                        src="https://img.icons8.com/carbon-copy/50/000000/menu-2.png"/>
+                        src="https://img.icons8.com/android/50/000000/more.png"/>
                     </Dropdown.Toggle>
-                      <Dropdown.Menu
-                        className='dropDownMenu'
-                        style={{padding: "18px", borderRadius: "25px", border: "1px solid rgb(216, 215, 215)"}}>
+                      <Dropdown.Menu className='dropdownmenu'>
                         <br />
 
                         <a className="deleteBlog customLinks"
@@ -175,10 +171,9 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
             </div>
           <div onClick={() => doSomething(_id)}
           className="blog-link">
-          <Card.Title>{text}</Card.Title>
-            <Card.Img variant="top" src={cover} className="blog-cover" />
             <Card.Body className="mb-0 p-0">
-      
+              <Card.Title>{text}</Card.Title>
+              <Card.Img variant="top" src={cover} className="blog-cover" />
             </Card.Body>
           </div>
             {/* { newPost!.sharedPost!._id === _id ? 

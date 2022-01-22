@@ -163,12 +163,17 @@ const Messages = () => {
   const index = onlineUsers.findIndex(u => u.userName === user.userName)
   console.log('index', index)
 
+  // function enter(e: FormEvent){
+  //   if (e.target === "Enter") {
+  //     handleMessageSubmit(e)
+  //   }
+  // }
+
   return (
-    <div id='dmContainer'>
-    <Row className='mx-auto pt-5 customDmRow'>
-      <Container fluid className='customRowDm'>
-       <Row className='justify-content-center'>
-        <Col className="customCol1" sm={5} md={3}>
+    <Container fluid className='customRowDm'>
+      <Row id='dmContainer' className='mx-auto pt-5 customDmRow'>
+      
+        <Col className="customCol1 ml-auto" sm={5} md={3}>
           <div className="d-flex customMess">
           <h3 className="text-center mt-2 ml-2">Messaging</h3>
           <div>
@@ -214,7 +219,10 @@ const Messages = () => {
               <img src={user.image} 
               className="roundpic" alt=''   width={37} height={37}/>
               <div className="ml-2 dmUserName">
-                <span>{user.userName}</span>
+                <div>{user.userName}</div>
+
+                <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
+                  width={10} height={10}/>
               </div>
             </div>
             ))}
@@ -304,10 +312,9 @@ const Messages = () => {
         </>
          } 
         </Col>
-        </Row> 
-    </Container>
+     
       </Row>
-      </div>
+    </Container>
   )
 }
 

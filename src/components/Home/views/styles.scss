@@ -4,14 +4,18 @@
   margin-bottom: 50px;
   object-fit: cover;
   object-position: 0% 0%;
-  margin-top: 50px;
+  // margin-top: 50px;
 
   .interactionBadge {
     position: absolute;
     margin-top: 35px;
   }
 
- 
+  .nav-back {
+    background-color: transparent;
+    color: black;
+    border: none;
+  }
 
   .blog-details-root {
     display: flex;
@@ -49,7 +53,13 @@
   }
 
   .dropDownMenu {
-    transform: translate3d(-30px, 36px, 0px) !important;
+    padding: 18px !important;
+    border-radius: 25px !important;
+    border: 1px solid rgb(216, 215, 215) !important;
+    position: absolute !important;
+    inset: 0px auto auto 0px !important;
+    margin: 0px !important;
+    transform: translate3d(-20px, 30px, 0px) !important;
   }
 
   .blog-details-author {
@@ -152,10 +162,10 @@
     text-decoration: none;
   }
 
-  .blogPostTitle {
-    border-bottom: 1px solid rgb(216, 215, 215);
-    margin-bottom: 10px;
-  }
+  // .blogPostTitle {
+  //   border-bottom: 1px solid rgb(216, 215, 215);
+  //   margin-bottom: 10px;
+  // }
 
   .lrdimg {
     margin-left: -5px !important;
@@ -179,7 +189,7 @@
     background-color: transparent;
     border-radius: 50px;
     border: none;
-    
+
   }
 
   .dropdownbtn:focus {

@@ -46,6 +46,10 @@
   color: inherit;
 }
 
+.blog-link:hover {
+  cursor: pointer;
+}
+
 .delBtn {
   border: none;
   border-radius: 50px;
@@ -87,7 +91,7 @@
   background-color: transparent;
   border-radius: 50px;
   border: none;
-  
+
 }
 
 .dropdownbtn:focus {
@@ -100,4 +104,14 @@
   outline: none;
   box-shadow: none;
   background-color: antiquewhite;
+}
+
+.dropdownmenu {
+  padding: 18px !important;
+  border-radius: 25px !important;
+  border: 1px solid rgb(216, 215, 215) !important;
+  position: absolute !important;
+  inset: 0px auto auto 0px !important;
+  margin: 0px !important;
+  transform: translate3d(-20px, 30px, 0px) !important;
 }
