@@ -372,6 +372,16 @@
       cursor: pointer;
       color: black !important;
     }
+    .seeMoreDiv {
+      padding: 15px 15px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    .seeMoreDiv:hover {
+      background-color: #ececec;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
 }
 
 #mainContainer {

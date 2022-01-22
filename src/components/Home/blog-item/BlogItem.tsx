@@ -8,6 +8,7 @@ import { ReduxState } from "../../../redux/interfaces"
 import "./styles.scss"
 import CommentModal from "../blog-home/new/CommentModal"
 import SharePost from "../blog-home/new/SharePost"
+import Edit from "../blog-home/new/EditPost"
 
 
 interface BlogItemProps {
@@ -152,9 +153,10 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                             </div>
                           </div>
                         </a>
-                        { user!._id !== me ? null
-                            : 
+                { user!._id !== me ? null
+                    : 
                   <>
+                    <Edit />
                     <div className="d-flex customLinks">
                       <div  className="mr-3">
                         <img alt='' className="lrdimg" width="17px"

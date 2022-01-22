@@ -61,7 +61,7 @@ const HotPosts = ({ setReRoute }: HotPostsProps) => {
             <div className="p-3">
                 <h4 className="text-muted"># Top Posts</h4>
             </div>
-            <div className="mb-4">
+            <div className="mb-0">
             { newPost && newPost ?
                 newPost.slice(0, 5).map((p, i) => (
                 // <Link key={i}  className="text-decoration-none text-dark" to={`/home/${p._id}`}>
@@ -96,7 +96,7 @@ const HotPosts = ({ setReRoute }: HotPostsProps) => {
                     className="hotpostList">
                     <div className="d-flex index">
                         <div className="text-muted">
-                            {i + 1} .
+                            {i + 6} .
                         </div>
                         <div className="text-muted">
                             Top Posts
@@ -116,8 +116,10 @@ const HotPosts = ({ setReRoute }: HotPostsProps) => {
                    )) : null
             }
             
+            </div>
+            <div className="seeMoreDiv">
             { newPost!.length > 5 ? (
-                <>
+                <div >
                 { seeMore === false ? 
                     <p className="text-center text-muted p-0 seeMore"
                     onClick={() => toggle()}>See More</p>
@@ -125,7 +127,7 @@ const HotPosts = ({ setReRoute }: HotPostsProps) => {
                     <p className="text-center text-muted p-0 seeMore"
                     onClick={() => toggle()}>See Less</p> 
                 }
-                </>
+                </div>
                 ) : null
             }
             </div>
