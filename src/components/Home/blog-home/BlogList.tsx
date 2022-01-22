@@ -73,7 +73,8 @@ const BlogList = ({ setReRoute }: BlogListProps) => {
     <Row id='bogList' className='justify-content-center'>
       <>
       { posts.map((post, i) => (
-        <Col key={i} md={10} lg={11} style={{ marginBottom: 40, borderTop: '1px solid rgb(216, 215, 215)'}}>
+        <Col key={i} md={12} lg={12} style={{ marginBottom: 40, borderTop: '1px solid rgb(216, 215, 215)',
+         padding: '0px'}}>
             <div>
                 <BlogItem key={i} setReRoute={setReRoute}  {...post} post={post} getData={getData}/>
             </div>

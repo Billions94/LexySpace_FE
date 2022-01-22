@@ -173,10 +173,18 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
             </div>
           <div onClick={() => doSomething(_id)}
           className="blog-link">
-            <Card.Body className="mb-0 p-0">
-              <Card.Title>{text}</Card.Title>
-              <Card.Img variant="top" src={cover} className="blog-cover" />
-            </Card.Body>
+            <div className="d-flex mb-0 p-0">
+              <div style={{width: '50px'}}></div>
+              <div style={{marginLeft: "10px"}}>
+                <h6>{text}</h6>
+              </div>
+            </div>
+              <div className="d-flex mb-0 p-0">
+              <div style={{width: '50px'}}></div>
+              <div style={{marginLeft: "10px"}}>
+                <h6> <img  src={cover} className="blog-cover" /></h6>
+              </div>
+              </div>
           </div>
             {/* { newPost!.sharedPost!._id === _id ? 
               <div className='sharePostDiv'>

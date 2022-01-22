@@ -101,8 +101,8 @@ const PostContainer = () => {
 
 
     return (
-        <Row id='Row' className='justify-content-center mb-5'>
-            <Col md={10} lg={11}  className='col'>
+        <Row id='Row' className='justify-content-center mb-0'>
+            <div className='col'>
                 <div className="postContainer">
                     <div >
                         <img src={user.image} alt=''
@@ -142,7 +142,7 @@ const PostContainer = () => {
                         </div>
                     </div>
                 </div>
-            </Col>
+            </div>
 
         </Row>
     )
