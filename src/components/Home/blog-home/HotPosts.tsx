@@ -121,11 +121,11 @@ const HotPosts = ({ setReRoute }: HotPostsProps) => {
             { newPost!.length > 5 ? (
                 <div >
                 { seeMore === false ? 
-                    <p className="text-center text-muted p-0 seeMore"
-                    onClick={() => toggle()}>See More</p>
+                    <p className="text-left text-muted p-0"
+                    onClick={() => toggle()}><b className='seeMore'>Show More</b></p>
                     :
-                    <p className="text-center text-muted p-0 seeMore"
-                    onClick={() => toggle()}>See Less</p> 
+                    <p className="text-left text-muted p-0"
+                    onClick={() => toggle()}><b className='seeMore'>Show Less</b></p> 
                 }
                 </div>
                 ) : null

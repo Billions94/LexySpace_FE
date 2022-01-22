@@ -364,23 +364,28 @@
     border-radius: 1.25rem;
     }
     .seeMore {
-      font-weight: 600;
-      font-size: 13px;
-      line-height: 16px;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
     }
-    .seeMore:hover {
-      cursor: pointer;
-      color: black !important;
-    }
+    // .seeMore:hover {
+    //   cursor: pointer;
+    //   color: black !important;
+    // }
     .seeMoreDiv {
       padding: 15px 15px;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
     }
     .seeMoreDiv:hover {
+      cursor: pointer;
       background-color: #ececec;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
+    }
+    .seeMoreDiv:hover .seeMore{
+      cursor: pointer;
+      color: black !important;
     }
 }
 

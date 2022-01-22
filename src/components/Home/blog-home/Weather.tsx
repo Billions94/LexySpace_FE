@@ -39,7 +39,7 @@ const Weather = () => {
               type="search"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Search city....."
+              placeholder="Search city for weather info..."
             />
           </Form.Group>
         </Form>

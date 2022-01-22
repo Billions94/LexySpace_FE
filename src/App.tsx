@@ -38,7 +38,7 @@ function App() {
         <Route path={'/closeAccount'}  element={<CloseAccount />} />
         {/* <Route path='/dm' element={<DM />}/> */}
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   )
 }
