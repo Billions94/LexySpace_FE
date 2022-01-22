@@ -387,11 +387,15 @@
       cursor: pointer;
       color: black !important;
     }
+    .footer {
+      position: relative;
+      bottom: 0;
+    }
 }
 
 #mainContainer {
     .sidebar {
-      max-height: 700px;
+      max-height: auto;
       overflow-x: scroll;
     }
 }

@@ -10,6 +10,7 @@ import Loader from "../loader/Loader";
 import { ReduxState } from "../../../redux/interfaces";
 import "./styles.scss";
 import Blog from "../views";
+import Footer from "../../footer/Footer";
 // import Blog from "../views/Index";
 
 
@@ -37,6 +38,7 @@ const Home = () => {
           <Col className='sidebar' md={4} lg={4}>
             <HotPosts  setReRoute={setReRoute}/>
             <Weather />
+            <Footer />
           </Col>
           <Col sm={6} md={8} lg={8}>
             { reroute === false ?

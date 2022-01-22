@@ -29,7 +29,7 @@ const Weather = () => {
 
 
   return (
-    <div className="mt-3">
+    <div className="mt-3 mb-5">
       <>
       <Col>
       <Form className='mb-4'>
