@@ -66,15 +66,24 @@ const HotPosts = ({ setReRoute }: HotPostsProps) => {
                 newPost.slice(0, 5).map((p, i) => (
                 // <Link key={i}  className="text-decoration-none text-dark" to={`/home/${p._id}`}>
                     <div key={i} onClick={() => doSomething(p._id)}
-                        className="d-flex hotpostList mb-2">
-                        <div> <Image roundedCircle src={p.cover} alt="" width="37" height="37" /></div>
-                        <div className="mb-2 ml-3 text">
-                            <p className="strong">{p.text}</p>
+                        className="hotpostList">
+                        <div className="d-flex index">
+                            <div className="text-muted">
+                                {i + 1} .
+                            </div>
+                            <div className="text-muted">
+                                Top Posts
+                            </div>
                         </div>
-                        <div className="ml-auto">
-                        <Badge pill variant="secondary">
-                            {p.likes.length}
-                        </Badge>
+                            <div className="text">
+                                <p className="strong">{p.text}</p>
+                            </div>
+                        <div className="likes">
+                            {p.likes.length > 1 ?
+                            <div className="text-muted">{p.likes.length} likes</div>
+                            : 
+                            <div className="text-muted">{p.likes.length} like</div>
+                            }
                         </div>
                     </div>  
                 // </Link> 
@@ -83,19 +92,28 @@ const HotPosts = ({ setReRoute }: HotPostsProps) => {
             }
             { seeMore === true ?
             newPost.slice(5, 10).map((p, i) => (
-                <Link key={i}  className="text-decoration-none text-dark" to={`/posts/${p._id}`}>
-                    <div key={i} className="d-flex hotpostList mb-2">
-                        <div> <Image roundedCircle src={p.cover} alt="" width="37" height="37" /></div>
-                        <div className="mb-2 ml-3 text">
+                <div key={i} onClick={() => doSomething(p._id)}
+                    className="hotpostList">
+                    <div className="d-flex index">
+                        <div className="text-muted">
+                            {i + 1} .
+                        </div>
+                        <div className="text-muted">
+                            Top Posts
+                        </div>
+                    </div>
+                        <div className="text">
                             <p className="strong">{p.text}</p>
                         </div>
-                        <div className="ml-auto">
-                        <Badge pill variant="secondary">
-                            {p.likes.length}
-                        </Badge>
-                        </div>
-                    </div>  
-                </Link>)) : null
+                    <div className="likes">
+                        {p.likes.length > 1 ?
+                        <div className="text-muted">{p.likes.length} likes</div>
+                        : 
+                        <div className="text-muted">{p.likes.length} like</div>
+                        }
+                    </div>
+                </div>
+                   )) : null
             }
             
             { newPost!.length > 5 ? (

@@ -328,15 +328,28 @@
     }
     .hotpostList:hover {
       cursor: pointer;
-      background-color: #0056b3;
+      background-color: #ececec;
+    }
+    .index {
+      margin-top: -15px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
     }
     .strong {
       text-overflow: ellipsis ;
       width: 115px; 
       white-space: nowrap;
       overflow: hidden;
-      font-weight: 600;
-      font-size: 16px;
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 20px;
+    }
+    .likes {
+      margin-top: -15px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
     }
     .badge {
     display: inline-block;
