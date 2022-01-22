@@ -12,7 +12,7 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap");
 
 :root {
-  --gradient: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
+  --gradient: linear-gradient(135deg, #ffd402 10%, #ffd402 100%);
 }
 
 * {
@@ -319,9 +319,9 @@
 }
 
 #hotposts {
-  border: 1px solid rgb(216, 215, 215);
   border-radius: 20px;
   padding: 0;
+  background-color: rgb(245, 245, 245);
 
   .hotpostList {
     cursor: pointer;

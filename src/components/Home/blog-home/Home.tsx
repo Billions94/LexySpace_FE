@@ -40,7 +40,9 @@ const Home = () => {
             <Col>
             <HotPosts  setReRoute={setReRoute}/>
             <Weather />
+            <div className='sticky-top'>
             <Footer />
+            </div>
           </Col>
           </Col>
           <Col className="feed" sm={6} md={8} lg={7}>

@@ -55,10 +55,14 @@
 
 
 .newBlogPost {
-  background-color: transparent !important;
-  color: black !important;
-  border-color: rgb(216, 215, 215) !important;
+  color: white !important;
+  background-color: rgb(255, 212, 2) !important;
   border-radius: 20px;
+  border: none !important;
+}
+
+.newBlogPost:hover {
+  background-color: rgb(231, 193, 4) !important;
 }
 
 .avatar {

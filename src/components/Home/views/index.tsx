@@ -254,7 +254,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                 </div>
               </div>
             }
-                <div className="mt-3">{blog?.text}</div>
+                <h4 className="mt-3">{blog?.text}</h4>
                 <div className="mt-2 mb-4">
                     <img className="blog-details-cover" alt=''  
                       src={blog?.cover} width='100%' />

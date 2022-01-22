@@ -81,10 +81,18 @@
   }
   
   .jumbobtn {
-    background-color: transparent;
-    border: 1px solid grey;
     border-radius: 20px;
-    margin-left: 0px;
+    border: none;
+    color: white;
+    background-color: rgb(255, 212, 2);
+  }
+
+  .jumbobtn:hover {
+    background-color: rgb(231, 193, 4);
+  }
+
+  .jumbobtn:focus {
+    box-shadow: none;
   }
   
   .jumbobtn-open-to:hover {
@@ -162,13 +170,15 @@
   }
   .modal-btn {
     border-radius: 20px;
-    border: 1px solid rgb(216, 215, 215) !important;
-    color: black;
-    background-color: transparent;
+    border: none;
+    color: white;
+    background-color: rgb(255, 212, 2);
   }
+
   .modal-btn:hover {
-    background-color: antiquewhite;
+    background-color: rgb(231, 193, 4);
   }
+
   .modal-btn:focus {
     box-shadow: none;
   }
@@ -188,18 +198,20 @@
     border-bottom-right-radius: calc(0.3rem - 1px);
     border-bottom-left-radius: calc(0.3rem - 1px);
 }
-  .modal-btn {
-    border-radius: 20px;
-    border: 1px solid rgb(216, 215, 215) !important;
-    color: black;
-    background-color: transparent;
-  }
-  .modal-btn:hover {
-    background-color: antiquewhite;
-  }
-  .modal-btn:focus {
-    box-shadow: none;
-  }
+.modal-btn {
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background-color: rgb(255, 212, 2);
+}
+
+.modal-btn:hover {
+  background-color: rgb(231, 193, 4);
+}
+
+.modal-btn:focus {
+  box-shadow: none;
+}
   .btnIcon:hover {
     background-color: antiquewhite;
   }
