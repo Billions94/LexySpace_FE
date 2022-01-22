@@ -159,6 +159,10 @@ const Messages = () => {
     inputBtn!.current!.click()
   }
 
+  const reciever = onlineUsers.find(user => user.socketId === id)
+  const index = onlineUsers.findIndex(u => u.userName === user.userName)
+  console.log('index', index)
+
   return (
     <div id='dmContainer'>
     <Row className='mx-auto pt-5 customDmRow'>
@@ -205,7 +209,8 @@ const Messages = () => {
           <div className="listofDM mt-4">
           <ListGroup variant={'flush'} className="mt-3 customList">
           {onlineUsers.filter(user => user.room === room).map((user, i) => (
-            <div onClick={() => navigate(`/messages/${user.socketId}`)} key={i} className="dmHeader d-flex">
+            <div onClick={() => navigate(`/messages/${user.socketId}`)} 
+                key={i} className="dmHeader  d-flex">
               <img src={user.image} 
               className="roundpic" alt=''   width={37} height={37}/>
               <div className="ml-2 dmUserName">
@@ -231,16 +236,26 @@ const Messages = () => {
         </Col> */}
 
       <Col className="mr-auto customCol2" sm={7} md={7}>
-        { 
+        { !reciever ? null :
           <div className="dmHeader d-flex">
-            <img src={user.image} 
+            <img src={reciever!.image} 
             className="roundpic" alt=''   width={37} height={37}/>
             <div className="ml-2 dmUserName">
-              <span>{user.userName}</span>
+              <span>{reciever!.userName}</span>
             </div>
           </div>
         }  
-          
+
+        { !reciever ?
+          <div className='d-flex beforeConvo mt-2'>
+            <div className='text-muted px-3 mt-2'>
+              <span className='noMessages'>No Messages :(</span>
+            </div>
+          </div> :  null 
+        }
+
+         { !reciever ? null :
+      <>
         <div className='customDmBody mt-3'>
         { chatHistory.map((message, i) =>(
           <div key={i} className=" d-flex">
@@ -286,6 +301,8 @@ const Messages = () => {
               </div>
             </div>
         </div>
+        </>
+         } 
         </Col>
         </Row> 
     </Container>

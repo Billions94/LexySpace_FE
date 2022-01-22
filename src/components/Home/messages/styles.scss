@@ -131,6 +131,10 @@
       padding-bottom: 10px;
     }
 
+    .dmHeader:hover {
+      cursor: pointer;
+    }
+
     .customDmBody {
       height: 56.5vh;
       overflow-y: scroll;
@@ -241,6 +245,16 @@
       margin-left: auto;
     }
 
+    .beforeConvo {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .noMessages {
+      font-weight: 800;
+      font-size: 27px;
+      line-height: 20px;
+    }
 
 }
 
