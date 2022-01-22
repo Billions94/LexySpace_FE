@@ -8,6 +8,7 @@ import { ReduxState } from "../../../redux/interfaces"
 import Loader from "../loader/Loader"
 import Blog from "../views"
 
+
 interface BlogListProps {
   setReRoute: Dispatch<SetStateAction<boolean>>
   
@@ -69,10 +70,10 @@ const BlogList = ({ setReRoute }: BlogListProps) => {
 
 
   return posts ? (
-    <Row className='justify-content-center'>
+    <Row id='bogList' className='justify-content-center'>
       <>
       { posts.map((post, i) => (
-          <Col key={i} md={10} lg={11} style={{ marginBottom: 50 }}>
+        <Col key={i} md={10} lg={11} style={{ marginBottom: 40, borderTop: '1px solid rgb(216, 215, 215)'}}>
             <div>
                 <BlogItem key={i} setReRoute={setReRoute}  {...post} post={post} getData={getData}/>
             </div>

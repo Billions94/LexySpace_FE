@@ -127,7 +127,15 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
                   className="roundpic" width={47} height={47}/>
             </div>
             <div className="ml-2 userInfo">
-                <span>{user!.firstName} {user!.lastName}</span>
+                <span>
+                  {user!.firstName} {user!.lastName}
+                  { user!.isVerified === true &&
+                    <span className=" mt-1 ml-1  d-flex-row align-items-center">
+                    <img alt='' className="mr-2" width="15"
+                       src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"/>
+                    </span>
+                  }
+                </span>
             </div>
           </div>
           <Form.Group controlId="blog-content" className="form1 mt-3">
@@ -153,7 +161,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
                     <img src="https://img.icons8.com/dotty/50/000000/attach.png" alt='' height='27px' width='27px'/>
                   </button>
                 </div>
-          <Button variant="primary" className='modal-btn' onClick={() => newPost()}>
+          <Button variant="primary" className='btn btn-md modal-btn' onClick={() => newPost()}>
             post
           </Button>
         </Modal.Footer>

@@ -11,6 +11,7 @@ import { ReduxState } from "../../../redux/interfaces";
 import "./styles.scss";
 import Blog from "../views";
 import Footer from "../../footer/Footer";
+import PostContainer from "./Post";
 // import Blog from "../views/Index";
 
 
@@ -33,19 +34,22 @@ const Home = () => {
   }, [])
   
     return posts ? (
-      <Container id='mainContainer' className="pt-3" fluid="sm">
-        <Row>
+      <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">
+        <Row  className="pt-0 mainContainer">
           <Col className='sidebar' md={4} lg={4}>
+            <Col>
             <HotPosts  setReRoute={setReRoute}/>
             <Weather />
             <Footer />
           </Col>
-          <Col sm={6} md={8} lg={8}>
+          </Col>
+          <Col className="feed" sm={6} md={8} lg={7}>
             { reroute === false ?
-            <Col md={11} lg={10}>
+            <Col  md={11} lg={12}>
+              <PostContainer />
               <BlogList setReRoute={setReRoute}/> 
             </Col> : 
-            <Col md={11} lg={12}>
+            <Col  md={11} lg={12}>
               <Blog setReRoute={setReRoute}/>
             </Col>
             }

@@ -98,6 +98,15 @@
   border: none;
 }
 
+.comNav {
+  justify-content: center !important;
+}
+
+.messages {
+  flex-direction: column;
+  align-items: center;
+}
+
 .navToggle:hover {
   background-color: rgb(216, 216, 216);
 }

@@ -199,7 +199,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                     onMouseLeave={handleCommentLabelClose}
                     className='postition-relative'>
                   <button className='candl' onClick={handleShow}>
-                    <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
+                  <img src="https://img.icons8.com/wired/64/000000/comments.png"
                     width='27px'/>
                   </button>
                     {  commentLabel === false ? null :
@@ -217,8 +217,8 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                     <>
                     <button className='candl'>
                       <img className="interactions" onClick={()=> toggle()}
-                       src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
-                        width='32px'/>
+                       src="https://img.icons8.com/wired/64/000000/hearts.png"
+                        width='28px'/>
                     </button>
                     <span className="text-dark">{likes.length}</span>
                     { likeLabel === false ? null :
@@ -232,8 +232,8 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                     <>
                       <button className='candl'>
                         <img className="interactions" onClick={()=> toggle()}
-                          src="https://img.icons8.com/plasticine/50/000000/hearts.png"
-                          width='32px'/>
+                           src="https://img.icons8.com/dusk/64/000000/hearts.png"
+                          width='28px'/>
                       </button>
                       <span className="text-dark">{likes.length}</span>
                       { likeLabel === false ? null :
@@ -249,7 +249,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                     onMouseLeave={handleShareLabelClose}
                     className='postition-relative'>
                   <button className="candl" onClick={handleShareShow}>
-                  <img src="https://img.icons8.com/dotty/50/000000/share.png"
+                  <img src="https://img.icons8.com/wired/64/000000/share-2.png"
                         width='28px'/>
                   </button>
                   { shareLabel === false ? null :

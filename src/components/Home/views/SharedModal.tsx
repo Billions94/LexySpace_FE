@@ -161,7 +161,7 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
                     <img src="https://img.icons8.com/dotty/50/000000/attach.png" alt='' height='27px' width='27px'/>
                   </button>
                 </div>
-          <Button variant="primary" className='modal-btn' onClick={() => sharePost()}>
+          <Button variant="primary" className='btn btn-md modal-btn' onClick={() => sharePost()}>
             post
           </Button>
         </Modal.Footer>

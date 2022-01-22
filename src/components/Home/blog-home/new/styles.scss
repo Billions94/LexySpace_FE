@@ -37,13 +37,13 @@
 
   .modal-btn {
     border-radius: 20px;
-    border: 1px solid rgb(216, 215, 215) !important;
-    color: black;
-    background-color: transparent;
+    border: none;
+    color: white;
+    background-color: rgb(255, 212, 2);
   }
 
   .modal-btn:hover {
-    background-color: antiquewhite;
+    background-color: rgb(231, 193, 4);
   }
 
   .modal-btn:focus {
@@ -173,13 +173,13 @@
 
   .modal-btn {
     border-radius: 20px;
-    border: 1px solid rgb(216, 215, 215) !important;
-    color: black;
-    background-color: transparent;
+    border: none !important;
+    color: white !important;
+    background-color: rgb(255, 212, 2) !important;
   }
 
   .modal-btn:hover {
-    background-color: antiquewhite;
+    background-color: rgb(231, 193, 4) !important;
   }
 
   .modal-btn:focus {
@@ -237,13 +237,6 @@
   .modal-body {
     height: 400px;
     overflow: scroll;
-  }
-
-  .modal-btn {
-    border-radius: 20px;
-    border: 1px solid rgb(216, 215, 215) !important;
-    color: black;
-    background-color: transparent;
   }
 
   .modal-btn:hover {

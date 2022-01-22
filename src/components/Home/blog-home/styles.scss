@@ -162,16 +162,16 @@
   border-radius: 10px;
 }
 
-.today-info > div:not(:last-child) {
+.today-info>div:not(:last-child) {
   margin: 0 0 10px 0;
 }
 
-.today-info > div .title {
+.today-info>div .title {
   float: left;
   font-weight: 700;
 }
 
-.today-info > div .value {
+.today-info>div .value {
   float: right;
 }
 
@@ -185,7 +185,7 @@
   background: "";
 }
 
-.week-list > li {
+.week-list>li {
   float: left;
   padding: 15px;
   cursor: pointer;
@@ -195,7 +195,7 @@
   border-radius: 10px;
 }
 
-.week-list > li:hover {
+.week-list>li:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
@@ -205,26 +205,26 @@
   box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
 }
 
-.week-list > li.active {
+.week-list>li.active {
   background: #fff;
   color: #222831;
   border-radius: 10px;
 }
 
-.week-list > li .day-name {
+.week-list>li .day-name {
   display: block;
   margin: 10px 0 0 0;
   text-align: center;
 }
 
-.week-list > li .day-icon {
+.week-list>li .day-icon {
   display: block;
   height: 30px;
   width: auto;
   margin: 0 auto;
 }
 
-.week-list > li .day-temp {
+.week-list>li .day-temp {
   display: block;
   text-align: center;
   margin: 10px 0 0 0;
@@ -322,36 +322,42 @@
   border: 1px solid rgb(216, 215, 215);
   border-radius: 20px;
   padding: 0;
-    .hotpostList {
-      cursor: pointer;
-      padding: 15px 15px;
-    }
-    .hotpostList:hover {
-      cursor: pointer;
-      background-color: #ececec;
-    }
-    .index {
-      margin-top: -15px;
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 16px;
-    }
-    .strong {
-      text-overflow: ellipsis ;
-      width: 115px; 
-      white-space: nowrap;
-      overflow: hidden;
-      font-weight: 700;
-      font-size: 15px;
-      line-height: 20px;
-    }
-    .likes {
-      margin-top: -15px;
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 16px;
-    }
-    .badge {
+
+  .hotpostList {
+    cursor: pointer;
+    padding: 15px 15px;
+  }
+
+  .hotpostList:hover {
+    cursor: pointer;
+    background-color: #ececec;
+  }
+
+  .index {
+    margin-top: -15px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .strong {
+    text-overflow: ellipsis;
+    width: 115px;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .likes {
+    margin-top: -15px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .badge {
     display: inline-block;
     padding: 0.35em 0.65em;
     font-size: .75em;
@@ -362,40 +368,122 @@
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 1.25rem;
-    }
-    .seeMore {
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 20px;
-    }
-    // .seeMore:hover {
-    //   cursor: pointer;
-    //   color: black !important;
-    // }
-    .seeMoreDiv {
-      padding: 15px 15px;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-    }
-    .seeMoreDiv:hover {
-      cursor: pointer;
-      background-color: #ececec;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-    }
-    .seeMoreDiv:hover .seeMore{
-      cursor: pointer;
-      color: black !important;
-    }
-    .footer {
-      position: relative;
-      bottom: 0;
-    }
+  }
+
+  .seeMore {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  // .seeMore:hover {
+  //   cursor: pointer;
+  //   color: black !important;
+  // }
+  .seeMoreDiv {
+    padding: 15px 15px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .seeMoreDiv:hover {
+    cursor: pointer;
+    background-color: #ececec;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .seeMoreDiv:hover .seeMore {
+    cursor: pointer;
+    color: black !important;
+  }
+
+  .footer {
+    position: relative;
+    bottom: 0;
+  }
 }
 
 #mainContainer {
-    .sidebar {
-      max-height: auto;
-      overflow-x: scroll;
+  .sidebar {
+    padding: 12px 0;
+    max-height: auto;
+    overflow-x: scroll;
+  }
+
+  .textarea {
+    border: none;
+    resize: none;
+  }
+
+  .textarea:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+  }
+  .feed {
+    padding: 12px 0;
+    border-left: 1px solid rgb(216, 215, 215) !important;
+    border-right: 1px solid rgb(216, 215, 215) !important; 
+  }
+}
+
+#Row {
+  .postContainer {
+    display: flex;
+    border: 1px solid rgb(216, 215, 215);
+    border-radius: 20px;
+    padding: 12px;
+
+    .modal-btn {
+      border-radius: 20px;
+      border: none;
+      color: white;
+      background-color: rgb(255, 212, 2);
     }
+  
+    .modal-btn:hover {
+      background-color: rgb(231, 193, 4);
+    }
+  
+    .modal-btn:focus {
+      box-shadow: none;
+    }
+
+    .img {
+      border-radius: 50%;
+    }
+
+    .sharebtn {
+      padding: 0.375rem 0.75rem;
+    }
+
+    .textareaborder {
+      border-bottom: 1px solid rgb(216, 215, 215);
+    }
+
+    .relative {
+      position: relative;
+    }
+
+    .absolute {
+      position: absolute;
+      color: black;
+      font-family: 200 !important;
+      font-size: 12px !important;
+      line-height: 14px !important;
+      .badge {
+        font-family: 200 !important;
+        font-size: 12px !important;
+        line-height: 14px !important;
+      }
+    }
+  }
+}
+
+#blogList {
+  .col {
+    margin-bottom: 50px !important;
+    border-top: 1px solid rgb(216, 215, 215) !important;
+  }
 }

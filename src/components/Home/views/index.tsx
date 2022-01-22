@@ -1,4 +1,4 @@
-import { Container, Dropdown, Image, Col, Badge, Button } from "react-bootstrap"
+import { Container, Dropdown, Image, Col, Badge, Button, Row } from "react-bootstrap"
 import { useNavigate, Link, useParams } from "react-router-dom"
 import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import Comment from "../blog-comment/Comment"
@@ -160,9 +160,8 @@ const Blog = ({ setReRoute }: BlogProps) => {
     navigate('/home')
   }
 
-    return posts ? (
-      <>
-        <div id='indexDiv'>
+  return posts ? (
+        <Row id='indexDiv'>
           <Container key={blog?._id} className="blog-details-root">
               <Col md={12} className="blogContent mb-2">
                 <div className="d-flex align-items-center">
@@ -352,8 +351,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
               </Col>
             </Col>
           </Container>
-        </div>
-      </>
+        </Row>
     ) : ( <Loader /> ) 
 }
 
