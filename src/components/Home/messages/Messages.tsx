@@ -1,5 +1,6 @@
-import { Container, Row, Col, Form, FormControl, ListGroup, ListGroupItem, Button } from 'react-bootstrap'
-import { useState, useEffect, FormEvent, useMemo, useCallback } from 'react'
+import { Container, Row, Col, Form, FormControl, ListGroup } from 'react-bootstrap'
+import { Button, Dropdown, ListGroupItem  } from 'react-bootstrap'
+import { useState, useEffect, FormEvent, useMemo, useCallback, createRef } from 'react'
 import { io } from 'socket.io-client'
 import { IHome } from "../../../interfaces/IHome"
 import IMessage from '../../../interfaces/IMessage'
@@ -11,6 +12,7 @@ import { getUsersAction } from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { ReduxState } from '../../../redux/interfaces'
 import useAuthGuard from "../../../lib/index"
+import "./styles.scss"
 
 
 const ADDRESS = process.env.REACT_APP_GET_URL! 
@@ -32,6 +34,10 @@ const Messages = () => {
   const [chatHistory, setChatHistory] = useState<IMessage[]>([])
   const [userId, setUserId] = useState<UserId | undefined>('')
   const [room, setRoom] = useState<Room | undefined>('blue')
+  const [image, setImage] = useState<string>('')
+  const [input, setInput] = useState({text: ''})
+
+
   console.log('we are the user id', userId)
 
   const navigate = useNavigate()
@@ -76,11 +82,11 @@ const Messages = () => {
   }, [])
 
   useEffect(() => {
-    username && socket.emit('setUsername', { userName: username, room: room })
+    username && socket.emit('setUsername', { userName: username, image: user!.image, room: id })
   }, [username])
 
   useEffect(() => {
-    setRoom(room)
+    setRoom(id)
     setLoggedIn(true)
   }, [])
 
@@ -114,6 +120,7 @@ const Messages = () => {
     const newMessage: IMessage = {
       text: message,
       sender: username,
+      image: user.image,
       socketId: socket.id,
       timestamp: Date.now(), // <-- ms expired 01/01/1970
     }
@@ -138,50 +145,152 @@ const Messages = () => {
     }
   }
 
+  // onlineUsers.filter(user => user.room === room).map((user, i) => console.log(user.socketId))
+  const target = (e: any) => {
+    console.log(e.target.files[0])
+    if (e.target && e.target.files[0]) {
+      setImage(e.target.files[0])
+    }
+  }
+
+  const inputBtn = createRef<HTMLInputElement>()
+
+  const openInputFile = () => {
+    inputBtn!.current!.click()
+  }
 
   return (
-    <Container fluid className='px-4'>
-      <Row className='my-3' style={{ height: '95vh' }}>
-        <Col md={10} className='d-flex flex-column justify-content-between'>
-          {/* for the main chat window */}
-          {/* 3 parts: username input, chat history, new message input */}
-          {/* TOP SECTION: USERNAME INPUT FIELD */}
- 
-          {/* MIDDLE SECTION: CHAT HISTORY */}
-          <ListGroup>
-            {chatHistory.map((message, i) => (
-              <ListGroupItem key={i}>
-                <strong>{message.sender}</strong>
-                <span className='mx-1'> | </span>
-                <span>{message.text}</span>
-                <span className='ml-2' style={{ fontSize: '0.7rem' }}>
-                  {new Date(message.timestamp).toLocaleTimeString('en-US')}
-                </span>
-              </ListGroupItem>
+    <div id='dmContainer'>
+    <Row className='mx-auto pt-5 customDmRow'>
+      <Container fluid className='customRowDm'>
+       <Row className='justify-content-center'>
+        <Col className="customCol1" sm={5} md={3}>
+          <div className="d-flex customMess">
+          <h3 className="text-center mt-2 ml-2">Messaging</h3>
+          <div>
+        <Dropdown>
+          <Dropdown.Toggle className="customSetDrop" variant="success" id="dropdown-basic">
+          <Button className="customSetDm">
+            <img src="https://img.icons8.com/wired/50/000000/settings.png" alt='' width="17px" height="17px"/>
+            </Button>
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu className="customDrop">
+            <div >
+              <div>
+                
+              </div>
+              <img src="https://img.icons8.com/cotton/50/000000/private-lock.png" alt='' width='18px'/>
+              <span className="ml-2"> make dM private </span>
+            </div>
+            <div >
+            <img src="https://img.icons8.com/dotty/50/000000/inbox-settings.png" alt='' width='18px'/>
+            <span className="ml-2">dm Settings </span>
+            </div>
+          </Dropdown.Menu>
+        </Dropdown>
+          </div>
+          </div>
+        
+          <div id="input-container" className="panel-body">
+            <img id="input-icon"
+              src="https://img.icons8.com/pastel-glyph/50/000000/search--v1.png"
+              width="30" alt=''/>
+            <input className="form-control shareComment search"
+              placeholder="search Messages...."
+              value={input.text}
+              onChange={(e) =>
+              setInput({ ...input, text: e.target.value })}/>
+          </div>
+          <div className="listofDM mt-4">
+          <ListGroup variant={'flush'} className="mt-3 customList">
+          {onlineUsers.filter(user => user.room === room).map((user, i) => (
+            <div onClick={() => navigate(`/messages/${user.socketId}`)} key={i} className="dmHeader d-flex">
+              <img src={user.image} 
+              className="roundpic" alt=''   width={37} height={37}/>
+              <div className="ml-2 dmUserName">
+                <span>{user.userName}</span>
+              </div>
+            </div>
             ))}
           </ListGroup>
-          {/* BOTTOM SECTION: NEW MESSAGE INPUT FIELD */}
-          <Form onSubmit={handleMessageSubmit}>
-            <FormControl
-              placeholder='Insert your message here'
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              disabled={!loggedIn}
-            />
-          </Form>
+          </div>
         </Col>
-        <Col md={2} style={{ borderLeft: '2px solid black' }}>
-          {/* for the currently connected clients */}
+
+      {/* <Col md={2} style={{ borderLeft: '2px solid black' }}>
+         
           <div className='mb-3'>Connected users:</div>
           <ListGroup>
             {onlineUsers.length === 0 && <ListGroupItem>No users yet!</ListGroupItem>}
             {onlineUsers.filter(user => user.room === room).map((user, i) => (
-              <ListGroupItem onClick={() => navigate(`/dm/${user.socketId}`)} key={i}>{user.userName}</ListGroupItem>
+              <ListGroupItem onClick={() => {navigate(`/messages/${user.socketId}`); setDmState(true)}} key={i}>
+                {user.userName}
+              </ListGroupItem>
             ))}
           </ListGroup>
+        </Col> */}
+
+      <Col className="mr-auto customCol2" sm={7} md={7}>
+        { 
+          <div className="dmHeader d-flex">
+            <img src={user.image} 
+            className="roundpic" alt=''   width={37} height={37}/>
+            <div className="ml-2 dmUserName">
+              <span>{user.userName}</span>
+            </div>
+          </div>
+        }  
+          
+        <div className='customDmBody mt-3'>
+        { chatHistory.map((message, i) =>(
+          <div key={i} className=" d-flex">
+              <div>
+                <img src={message.image} 
+                className="roundpic" alt=''   width={37} height={37}/>
+              </div>  
+              <div className="ml-2 dmUserName">
+                <strong>{message.sender}</strong>
+                <p className="dmBubble ml-2">{message.text}</p>
+                <span>{new Date(message.timestamp).toLocaleTimeString('en-US')}</span>
+              </div>
+          </div>
+        ))}
+        </div>
+        <div className="textAreaDm">
+            <div className="panel-body mt-3">
+              <textarea
+                className="form-control dmText"
+                rows={2}
+                placeholder="write a Message...."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}/>
+              <div className="mt-2 btnTextArea">
+                <div id=''>
+                  <button onClick={openInputFile} className="btn btn-sm uploadicons">
+                  <input type="file" ref={inputBtn} className="d-none" onChange={target} />
+                    <img src="https://img.icons8.com/wired/50/000000/picture.png" alt='' width='17px'/>
+                  </button>
+                  <button onClick={openInputFile} className="btn btn-sm uploadicons ml-2">
+                  <input type="file" ref={inputBtn} className="d-none" onChange={target} />
+                    <img src="https://img.icons8.com/dotty/50/000000/attach.png" alt='' width='17px'/>
+                  </button>
+                </div>
+
+                { !message ?  
+                  null: 
+                <button className="btn ml-auto btn-sm btn-dark sendBtnDm"
+                        onClick={(e) => handleMessageSubmit(e)}>
+                  <i className="fa fa-pencil fa-fw" /> send
+                </button>
+                }
+              </div>
+            </div>
+        </div>
         </Col>
-      </Row>
+        </Row> 
     </Container>
+      </Row>
+      </div>
   )
 }
 

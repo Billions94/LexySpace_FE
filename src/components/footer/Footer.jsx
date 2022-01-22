@@ -13,7 +13,7 @@ const Footer = () => {
     {
     <div>  
       {
-        location.pathname !== '/messages' && location.pathname !== '/posts/:id' &&(
+        location.pathname !== '/messages/:id' && location.pathname !== '/posts/:id' &&(
           <footer className="customFooter mb-3">
           <Container className="customFooter">
             <Col xs={10}>

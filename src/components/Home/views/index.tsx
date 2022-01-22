@@ -1,6 +1,6 @@
-import { Container, Dropdown, Image, Col, Badge } from "react-bootstrap"
+import { Container, Dropdown, Image, Col, Badge, Button } from "react-bootstrap"
 import { useNavigate, Link, useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import Comment from "../blog-comment/Comment"
 import AddComment from "../blog-comment/AddComment"
 import Edit from "../blog-home/new/EditPost"
@@ -18,10 +18,11 @@ import PostModal from "../blog-home/new/PostModal"
 
 interface BlogProps {
   id: string | undefined
+  setReRoute: Dispatch<SetStateAction<boolean>>
 }
 
 
-const Blog = ({ id }: BlogProps) => {
+const Blog = ({ id, setReRoute }: BlogProps) => {
 
   useAuthGuard()
 
@@ -158,9 +159,12 @@ const Blog = ({ id }: BlogProps) => {
 
     return posts ? (
       <>
-        <div id='indexDiv' >
+        <div id='indexDiv'>
+        <Button variant='info' onClick={() => setReRoute(false)}>
+            back
+          </Button>
           <Container key={blog?._id} className="blog-details-root">
-              <Col md={8} className="blogContent mt-4 mb-2">
+              <Col md={12} className="blogContent mt-4 mb-2">
                 <div className='d-flex blogPostTitle'>
                   <div className="text-muted timer">
                     Posted : {postTimer(blog?.createdAt)} ago
