@@ -167,10 +167,10 @@ const Blog = ({ setReRoute }: BlogProps) => {
               <Col md={12} className="blogContent mb-2">
                 <div className="d-flex align-items-center">
                   <Button className='nav-back' onClick={() => navigateHome('')}>
-                  <img src="https://img.icons8.com/dotty/50/000000/left.png"
-                    width='27px'/>
+                  <img src="https://img.icons8.com/ios-filled/50/000000/left.png"
+                    className="arrowBack"/>
                   </Button>
-                  <div className="mt-2">
+                  <div className="mt-2 ml-2">
                     <h5>Posts</h5>
                   </div>
                   <div className="text-muted timer ml-auto">
@@ -277,8 +277,8 @@ const Blog = ({ setReRoute }: BlogProps) => {
                       onClick={() => showNHidde()}
                       className='position-relative'>
                     <button className='candl'>
-                      <img className="interactions" src="https://img.icons8.com/dotty/50/000000/send-comment.png"
-                        width='33px'/>
+                      <img className="interactions" src="https://img.icons8.com/wired/64/000000/comments.png"
+                        width='25px'/>
                     </button>
                     {  commentLabel === false ? null :
                       <Badge pill variant="secondary"
@@ -294,8 +294,8 @@ const Blog = ({ setReRoute }: BlogProps) => {
                       <>
                         <button className='candl'>
                           <img className="interactions" onClick={()=> toggle(blog?._id)}
-                          src="https://img.icons8.com/carbon-copy/50/000000/hearts.png"
-                            width='37px'/>
+                          src="https://img.icons8.com/wired/64/000000/hearts.png"
+                            width='25px'/>
                         </button>
                         { likeLabel === false ? null :
                           <Badge pill variant="secondary"
@@ -308,8 +308,8 @@ const Blog = ({ setReRoute }: BlogProps) => {
                       <>
                         <button className='candl'> 
                         <img className="interactions" onClick={()=> toggle(blog?._id)}
-                          src="https://img.icons8.com/plasticine/50/000000/hearts.png"
-                          width='37px'/>
+                          src="https://img.icons8.com/dusk/64/000000/hearts.png"
+                          width='25px'/>
                           </button>
                         { likeLabel === false ? null :
                           <Badge pill variant="secondary"
@@ -325,8 +325,8 @@ const Blog = ({ setReRoute }: BlogProps) => {
                       className="interactions position-relative" style={{ marginLeft: "10px" }}>
                       <button onClick={handleShare}
                         className='candl'>
-                        <img src="https://img.icons8.com/dotty/50/000000/share.png"
-                        width='30px'/>
+                        <img src="https://img.icons8.com/wired/64/000000/share-2.png"
+                        width='25px'/>
                       </button>
                       { shareLabel === false ? null :
                         <Badge pill variant="secondary"
@@ -344,9 +344,9 @@ const Blog = ({ setReRoute }: BlogProps) => {
                   </div>
                   { show === false ? null
                   : 
-              <AddComment fetchComments={fetchComments} id={id} />
+                   <AddComment fetchComments={fetchComments} id={id} />
                   }
-              <Col className='mb-2'>
+              <Col className='mt-5'>
               <Comment blog={blog} id={id} comments={comments} 
                 author={author} fetchComments={fetchComments}/>
               </Col>

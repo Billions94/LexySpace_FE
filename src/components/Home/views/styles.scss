@@ -12,9 +12,24 @@
   }
 
   .nav-back {
+    position: relative;
     background-color: transparent;
     color: black;
     border: none;
+    border-radius: 50%;
+    height: 37px;
+    width: 37px;
+  }
+
+  .nav-back:hover {
+    background-color: #f5d1e2;
+  }
+
+  .arrowBack {
+    position: absolute;
+    margin-left: -12px;
+    margin-top: -12px;
+    width: 25px;
   }
 
   .blog-details-root {

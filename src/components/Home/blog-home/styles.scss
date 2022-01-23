@@ -438,6 +438,10 @@
     border: none;
     // padding: 12px;
 
+    .userImage{
+      cursor: pointer;
+    }
+
     .modal-btn {
       border-radius: 20px;
       border: none;
@@ -475,18 +479,18 @@
       font-family: 200 !important;
       font-size: 12px !important;
       line-height: 14px !important;
-      .badge {
-        font-family: 200 !important;
-        font-size: 12px !important;
-        line-height: 14px !important;
-      }
+    }
+    .badge {
+      font-family: 100 !important;
+      font-size: 12px !important;
+      line-height: 14px !important;
     }
     .btnIcon {
       border-radius: 50px;
     }
   
     .btnIcon:hover {
-      background-color: rgb(255, 249, 217);
+      background-color: #f5d1e2
      
     }
   }
