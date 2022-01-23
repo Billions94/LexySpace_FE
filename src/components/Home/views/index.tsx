@@ -155,7 +155,8 @@ const Blog = ({ setReRoute }: BlogProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
-  function navigateHome() {
+  function navigateHome(id: string | undefined) {
+    deleteBlogPost(id)
     setReRoute(false)
     navigate('/home')
   }
@@ -165,7 +166,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
           <Container key={blog?._id} className="blog-details-root">
               <Col md={12} className="blogContent mb-2">
                 <div className="d-flex align-items-center">
-                  <Button className='nav-back' onClick={() => navigateHome()}>
+                  <Button className='nav-back' onClick={() => navigateHome('')}>
                   <img src="https://img.icons8.com/dotty/50/000000/left.png"
                     width='27px'/>
                   </Button>
@@ -215,7 +216,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                         <img alt='' className="lrdimg" width="17px"
                           src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
                       </div>
-                      <div onClick={(e) => deleteBlogPost(blog?._id)} >
+                      <div onClick={(e) => navigateHome(blog?._id)} >
                         delete Post
                       </div> 
                     </div>

@@ -12,7 +12,7 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap");
 
 :root {
-  --gradient: linear-gradient(135deg, #ffd402 10%, #ffd402 100%);
+  --gradient: linear-gradient(135deg, #f5f5f5 10%, #f5f5f5 100%);
 }
 
 * {
@@ -28,7 +28,7 @@
 .containerMod {
   border-radius: 25px;
   background-color: transparent;
-  color: #ffffff;
+  color: black;
   height: 366px;
   width: 650px !important;
 }
@@ -54,7 +54,7 @@
   -webkit-box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
   background-color: #222831;
-  color: #ffffff;
+  color: black;
   height: 396px;
   width: 650px !important;
 }
@@ -62,7 +62,7 @@
 .containerMod {
   border-radius: 25px;
   background-color: transparent;
-  color: #ffffff;
+  color: black;
   height: 396px;
   width: 650px !important;
 }
@@ -442,11 +442,11 @@
       border-radius: 20px;
       border: none;
       color: white;
-      background-color: rgb(255, 212, 2);
+      background-color: #f91880;
     }
   
     .modal-btn:hover {
-      background-color: rgb(231, 193, 4);
+      background-color: #e41575;
     }
   
     .modal-btn:focus {
@@ -480,6 +480,14 @@
         font-size: 12px !important;
         line-height: 14px !important;
       }
+    }
+    .btnIcon {
+      border-radius: 50px;
+    }
+  
+    .btnIcon:hover {
+      background-color: rgb(255, 249, 217);
+     
     }
   }
 }
