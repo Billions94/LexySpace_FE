@@ -217,7 +217,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                           src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
                       </div>
                       <div onClick={(e) => navigateHome(blog?._id)} >
-                        delete Post
+                        delete
                       </div> 
                     </div>
                   </>
@@ -271,12 +271,12 @@ const Blog = ({ setReRoute }: BlogProps) => {
                   : null
                 }  */}
 
-                  <div className="d-flex justify-content-around mt-2"> 
+                  <div className="interactionContainer d-flex mt-2"> 
                     <div onMouseEnter={handleCommentLabelShow}
                       onMouseLeave={handleCommentLabelClose}
                       onClick={() => showNHidde()}
                       className='position-relative'>
-                    <button className='candl'>
+                    <button className='candl comment'>
                       <img className="interactions" src="https://img.icons8.com/wired/64/000000/comments.png"
                         width='25px'/>
                     </button>
@@ -287,12 +287,13 @@ const Blog = ({ setReRoute }: BlogProps) => {
                       </Badge>
                     }
                     </div>
+
                     <div onMouseEnter={handleLikeLabelShow}
                         onMouseLeave={handleLikeLabelClose}
-                        className='position-relative'>
+                        className='interactions position-relative'>
                       { liked === false ?
                       <>
-                        <button className='candl'>
+                        <button className='candl '>
                           <img className="interactions" onClick={()=> toggle(blog?._id)}
                           src="https://img.icons8.com/wired/64/000000/hearts.png"
                             width='25px'/>
@@ -306,7 +307,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                       </>
                           :
                       <>
-                        <button className='candl'> 
+                        <button className='candl '> 
                         <img className="interactions" onClick={()=> toggle(blog?._id)}
                           src="https://img.icons8.com/dusk/64/000000/hearts.png"
                           width='25px'/>
@@ -319,12 +320,12 @@ const Blog = ({ setReRoute }: BlogProps) => {
                         }
                       </>
                       }
-                      <span className="text-dark">{blog?.likes.length}</span>
                     </div>
+
                     <div onMouseEnter={handleShareLabelShow} onMouseLeave={handleShareLabelClose}
-                      className="interactions position-relative" style={{ marginLeft: "10px" }}>
+                      className="interactions position-relative m-0">
                       <button onClick={handleShare}
-                        className='candl'>
+                        className='candl share'>
                         <img src="https://img.icons8.com/wired/64/000000/share-2.png"
                         width='25px'/>
                       </button>

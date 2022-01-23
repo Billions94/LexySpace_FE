@@ -101,7 +101,7 @@ const Edit = () => {
         
         <div className="primary" onClick={handleShow}>
           <div style={{ marginLeft: "15px" }}>
-            <span>edit Post</span>
+            <span>edit</span>
           </div>
         </div>
         
@@ -109,7 +109,7 @@ const Edit = () => {
         <Modal id='postModal' size="lg" className="px-4" style={{height: "500px", overflow: "auto"}}
          show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title >edit blogPost</Modal.Title>
+            <Modal.Title >edit Post</Modal.Title>
           </Modal.Header>
           <Modal.Body>
           <div className="d-flex userInfoContainer">

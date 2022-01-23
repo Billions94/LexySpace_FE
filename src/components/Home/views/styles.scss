@@ -8,7 +8,12 @@
 
   .interactionBadge {
     position: absolute;
-    margin-top: 35px;
+    margin-top: 27px;
+  }
+
+  .interactionContainer {
+    display: flex;
+    justify-content: space-around;
   }
 
   .nav-back {
@@ -19,6 +24,15 @@
     border-radius: 50%;
     height: 37px;
     width: 37px;
+  }
+
+  .candl {
+    // position: relative;
+    border-radius: 50px;
+    border: none;
+    background-color: transparent;
+    // height: 40px;
+    // width: 40px;
   }
 
   .nav-back:hover {

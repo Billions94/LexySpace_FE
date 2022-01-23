@@ -59,21 +59,24 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
           <Image roundedCircle src={user.image} alt='' 
             width={47} height={47}/>
         </div>
+        <div className="w-100">
         <textarea
-          className="form-control shareComment ml-3"
+          className="form-control textarea ml-3"
           rows={2}
           placeholder="start typing to share your thoughts...."
           value={comments.text}
           onChange={(e) => setComments({ ...comments, text: e.target.value })}
         />
-        <div className="mar-top clearfix mt-2">
+
+        <div className="d-flex mt-2">
           { !comments.text ?  
              null: 
-          <button className="btn btn-sm btn-dark pull-right subtim-btn shareComment"
+          <button className="btn btn-sm modal-btn ml-auto"
             onClick={() => postComment()}>
-            <i className="fa fa-pencil fa-fw" /> Share
+            <i className="fa fa-pencil fa-fw" /> Post
           </button>
           }
+        </div>
         </div>
       </div>
     </div>

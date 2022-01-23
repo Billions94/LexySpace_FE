@@ -163,7 +163,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                           src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
                       </div>
                       <div onClick={(e) => deleteBlogPost(_id)} >
-                        delete Post
+                        delete 
                       </div> 
                     </div>
                   </>
@@ -202,13 +202,13 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
               </div>
               </div> : null            
             } */}
-              <div className="d-flex justify-content-around mt-3 mb-3">
+              <div className="d-flex justify-content-around mt-1 mb-0">
                 <div onMouseEnter={handleCommentLabelShow}
                     onMouseLeave={handleCommentLabelClose}
                     className='postition-relative'>
                   <button className='candl' onClick={handleShow}>
                   <img src="https://img.icons8.com/wired/64/000000/comments.png"
-                    width='27px'/>
+                    width='20px'/>
                   </button>
                     {  commentLabel === false ? null :
                       <Badge pill variant="secondary"
@@ -226,7 +226,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                     <button className='candl'>
                       <img className="interactions" onClick={()=> toggle()}
                        src="https://img.icons8.com/wired/64/000000/hearts.png"
-                        width='28px'/>
+                        width='20px'/>
                     </button>
                     <span className="text-dark">{likes.length}</span>
                     { likeLabel === false ? null :
@@ -241,7 +241,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                       <button className='candl'>
                         <img className="interactions" onClick={()=> toggle()}
                            src="https://img.icons8.com/dusk/64/000000/hearts.png"
-                          width='28px'/>
+                          width='20px'/>
                       </button>
                       <span className="text-dark">{likes.length}</span>
                       { likeLabel === false ? null :
@@ -258,7 +258,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                     className='postition-relative'>
                   <button className="candl" onClick={handleShareShow}>
                   <img src="https://img.icons8.com/wired/64/000000/share-2.png"
-                        width='28px'/>
+                        width='20px'/>
                   </button>
                   { shareLabel === false ? null :
                     <Badge pill variant="secondary"

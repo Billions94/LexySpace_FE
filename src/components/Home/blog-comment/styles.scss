@@ -185,3 +185,31 @@
 .posted {
   border-bottom: 1px solid grey;
 }
+
+.textarea {
+  border: none;
+  resize: none;
+}
+
+.textarea:focus {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+
+.modal-btn {
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background-color: #f91880;
+}
+
+.modal-btn:hover {
+  background-color: #e41575;
+  color: white
+}
+
+.modal-btn:focus {
+  box-shadow: none;
+}
