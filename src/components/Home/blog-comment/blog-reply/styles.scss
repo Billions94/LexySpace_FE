@@ -4,6 +4,17 @@
     .replyContainer {
         width: 80%;
         padding: 0 12px;
+        .replyUserInfo {
+            display: flex;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 18px;
+        }
+        .replyText {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 18px;
+        }
     }
     .reply2 {
         border-radius: 20px;

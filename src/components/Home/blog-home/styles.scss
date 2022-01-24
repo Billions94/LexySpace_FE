@@ -501,4 +501,8 @@
     margin-bottom: 50px !important;
     border-top: 1px solid rgb(216, 215, 215) !important;
   }
+  .blogList:hover {
+    cursor: pointer;
+    background-color: rgb(245, 245, 245);
+  }
 }

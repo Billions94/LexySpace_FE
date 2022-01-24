@@ -70,12 +70,12 @@ const BlogList = ({ setReRoute }: BlogListProps) => {
 
 
   return posts ? (
-    <Row id='bogList' className='justify-content-center'>
+    <Row id='blogList' className='blogList justify-content-center'>
       <>
       { posts.map((post, i) => (
-        <Col key={i} md={12} lg={12} style={{ marginBottom: 40, borderTop: '1px solid rgb(216, 215, 215)',
+        <Col key={i} md={12} lg={12} style={{ borderTop: '1px solid rgb(216, 215, 215)',
          padding: '0px'}}>
-            <div>
+            <div className="blogList">
                 <BlogItem key={i} setReRoute={setReRoute}  {...post} post={post} getData={getData}/>
             </div>
           </Col>

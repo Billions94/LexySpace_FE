@@ -55,11 +55,10 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
               {/* Posted: {postTimer(reply.createdAt)} */}
 
             </div>
-            <div style={{ fontSize: "15px" }} className="d-flex  mb-0">
+            <div className="replyUserInfo  mb-0">
               {reply.user.firstName} {reply.user.lastName}
             </div>
-            <div style={{ fontSize: "15px", width: "100%"}}
-              className="d-flex rply  mb-1">
+            <div className="replyText mb-1">
               {reply.text}
             </div>
             { reply.user._id !== me ? null : 
