@@ -24,6 +24,11 @@ const Home = () => {
   const { user } = useSelector((state: ReduxState) => state.data)
   console.log('user', user)
   const [reroute, setReRoute] = useState(false)
+  const [hideMe, setHideMe] = useState(false)
+
+  const toggleHide = () => {
+    hideMe === false ? setHideMe(true) : setHideMe(false)
+  }
  
 
 
@@ -39,7 +44,19 @@ const Home = () => {
           <Col className='sidebar' md={4} lg={4}>
             <Col>
             <HotPosts  setReRoute={setReRoute}/>
-            <Weather />
+            <div onClick={() => toggleHide()}
+              style={{cursor: 'pointer'}}>
+                { hideMe === false ? 
+                  <img src="https://img.icons8.com/ios-filled/50/000000/hide.png"
+                    width='27px' height='27px'/>
+                    : 
+                  <img src="https://img.icons8.com/ios-filled/50/000000/visible--v1.png"
+                    width='27px' height='27px'/>
+                }
+            </div>
+            { hideMe === false ?
+            <Weather /> : null
+            }
             <div className='sticky-top'>
             <Footer />
             </div>
