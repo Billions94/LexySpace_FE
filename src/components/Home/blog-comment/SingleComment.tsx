@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { postTimer } from "../../../lib"
-import { Comments, Posts, ReduxState } from "../../../redux/interfaces"
+import { Comments, Posts, ReduxState, Replies } from "../../../redux/interfaces"
 import Reply from "./blog-reply/Reply"
 
 interface SingleCommentProps {
@@ -25,6 +25,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
       user: user!._id
     })
     const [show, setShow] = useState(false)
+    const [replies, setReplies] = useState<Replies[]>()
   
     const toggle = () => {
       show === false ? setShow(true) : setShow(false)
@@ -44,7 +45,6 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
             })
             getReplies()
             fetchComments()
-    
           }
         } catch (error) {
           console.log("ooops we encountered an error", error)
@@ -54,9 +54,10 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
       const getReplies = async () => {
         try {
           const response = await fetch(`${apiUrl}/replies`)
-          if (response.ok) {
-            const data = await response.json()
+          if(response.ok) {
+            const data: Replies[] = await response.json()
             console.log('reply info', data)
+            setReplies(data)
           }
         } catch (error) {
           console.log(error)
@@ -66,9 +67,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
       const deleteComment = async (c: Comments) => {
         try {
           const response = await fetch(`${apiUrl}/posts/${id}/comments/${c._id}`,
-            {
-              method: "DELETE",
-            }
+            { method: "DELETE" }
           )
           if (response.ok) {
             fetchComments()
@@ -160,9 +159,6 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
 
           <Reply
             blog={blog}
-            replyComment={replyComment}
-            reply={reply}
-            setReply={setReply}
             comment={comment}
             commentID={comment._id} />
         </div>

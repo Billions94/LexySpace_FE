@@ -6,18 +6,9 @@ interface ReplyProps {
   blog: Posts | undefined
   comment: Comments
   commentID?: string
-  replyComment: (c: Comments) => Promise<void>
-  reply: {
-    text: string
-    user: string
-  }
-  setReply: Dispatch<SetStateAction<{
-    text: string;
-    user: string;
-}>>
 }
 
-const Reply = ({ blog, comment, commentID, replyComment, reply, setReply }: ReplyProps) => {
+const Reply = ({ blog, comment, commentID }: ReplyProps) => {
 
   const url = process.env.REACT_APP_GET_URL
   const [replies, setReplies] = useState<Replies[]>()
@@ -38,7 +29,7 @@ const Reply = ({ blog, comment, commentID, replyComment, reply, setReply }: Repl
   useEffect(() => {
     getReplies()
        // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  },[comment])
   
   return (
     <>
