@@ -123,13 +123,15 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
                     <div key={c._id}>
                       <div className="cardHeader">
                         <div className="d-flex col-12">
-                          <div>
-                            <Image
-                              className=" d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
-                              src={c.user.image}
-                              alt="Image Description"
-                            />
-                          </div>
+                          <Link to={`/userProfile/${user._id}`}>
+                            <div>
+                              <Image
+                                className=" d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                                src={c.user.image}
+                                alt="Image Description"
+                              />
+                            </div>
+                          </Link>
                           <div className="cAndR position-relative">
                             <div className="d-flex customBB">
                               <div className="text-muted mb-2">

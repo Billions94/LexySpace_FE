@@ -1,4 +1,5 @@
 import { createRef, useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux"
 import { getUsersAction } from "../../../redux/actions/"
@@ -87,10 +88,12 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
   return (
     <div className="panel mt-4">
       <div className="panel-body d-flex">
-        <div>
-          <Image roundedCircle src={user.image} alt=''
-            width={47} height={47} />
-        </div>
+        <Link to={`/userProfile/${user._id}`}>
+          <div>
+            <Image roundedCircle src={user.image} alt=''
+              width={47} height={47} />
+          </div>
+        </Link>
         <div className="p-2 w-100">
           <div className='textareaborder'>
             <textarea className="form-control textarea"
