@@ -19,6 +19,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
     const apiUrl = process.env.REACT_APP_GET_URL
     const dispatch = useDispatch()
     const { user } = useSelector((state: ReduxState) => state.data)
+    const me = user!._id
   
     const [reply, setReply] = useState({
       text: "",
@@ -95,6 +96,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
                 <div className="text-muted posted mb-2">
                   Posted: {postTimer(comment.createdAt)}
                 </div>
+                { comment.user._id !== me ? null :
                 <Dropdown className="dropdowntext ml-auto">
                   <Dropdown.Toggle
                     className="btn btn-dark dropdownbtn">
@@ -119,6 +121,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
                     </div>
                   </Dropdown.Menu>
                 </Dropdown>
+                }
               </div>
               <div className="text-dark mb-2 userInfo">
                 {comment.user.firstName} {comment.user.lastName}

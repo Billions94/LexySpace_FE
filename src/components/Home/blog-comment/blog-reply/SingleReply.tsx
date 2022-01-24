@@ -1,7 +1,7 @@
 import { postTimer } from "../../../../lib/index"
-import { useEffect, useState, Dispatch, SetStateAction } from "react"
-import { Comments, Posts, Replies } from "../../../../redux/interfaces"
-import { Image, Dropdown } from "react-bootstrap"
+import { Comments, Posts, Replies, ReduxState } from "../../../../redux/interfaces"
+import { Image } from "react-bootstrap"
+import { useSelector } from "react-redux"
 import "./styles.scss"
 
 interface SingleReplyProps {
@@ -17,6 +17,8 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
   console.log('comment id', commentID)
 
   const url = process.env.REACT_APP_GET_URL
+  const { user } = useSelector((state: ReduxState) => state.data)
+  const me = user!._id
 
 
   const deleteReply = async (id: string) => {
@@ -60,7 +62,9 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
               className="d-flex rply  mb-1">
               {reply.text}
             </div>
+            { reply.user._id !== me ? null : 
             <button onClick={() => deleteReply(reply._id)}>X</button>
+            }
           </div>
           </div>
         ) : null}
