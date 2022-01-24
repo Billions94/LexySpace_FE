@@ -51,9 +51,8 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
                 />
             </div>
           <div className="rply mb-2">
-            <div className="text-dark mb-0" style={{ fontSize: "12px", borderBottom: "1px solid rgb(216, 215, 215)",}}>
-              {/* Posted: {postTimer(reply.createdAt)} */}
-
+            <div className="text-dark mb-1" style={{ fontSize: "12px", borderBottom: "1px solid rgb(216, 215, 215)",}}>
+              Posted: {postTimer(reply.createdAt)}
             </div>
             <div className="replyUserInfo  mb-0">
               {reply.user.firstName} {reply.user.lastName}

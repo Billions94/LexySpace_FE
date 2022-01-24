@@ -17,7 +17,8 @@ export const initialState: ReduxState = {
         user: <User>{},
         followers: [],
         following: false,
-        hideMe: false
+        hideMe: false,
+        liked: false
     },
     posts: <Posts[]>[]
 }

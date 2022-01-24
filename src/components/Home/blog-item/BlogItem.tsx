@@ -2,13 +2,14 @@ import { useState, Dispatch, SetStateAction } from "react"
 import { Card, Badge, Dropdown } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
 import { Link, useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Posts, User } from "../../../redux/interfaces"
 import { ReduxState } from "../../../redux/interfaces"
 import "./styles.scss"
 import CommentModal from "../blog-home/new/CommentModal"
 import SharePost from "../blog-home/new/SharePost"
 import Edit from "../blog-home/new/EditPost"
+import { likeAction } from "../../../redux/actions"
 
 
 interface BlogItemProps {
@@ -29,12 +30,13 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
 
   const navigate = useNavigate()
   const apiUrl = process.env.REACT_APP_GET_URL
+  const dispatch = useDispatch()
   const posts = useSelector((state: ReduxState) => state.posts)
+  const { liked } = useSelector((state: ReduxState) => state.data)
   const newUser = useSelector((state: ReduxState) => state.data.user)
   const me = newUser!._id
 
   const [show, setShow] = useState(false)
-  const [liked, setLiked] = useState(false)
   const [share, setShare] = useState(false)
 
   // for interaction icons label
@@ -70,12 +72,12 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
 
   const likePost = () => {
     like()
-    setLiked(true)
+    dispatch(likeAction(true))
   }
 
   const unLikePost = () => {
     like()
-    setLiked(false)
+    dispatch(likeAction(false))
   }
 
   const like = async () => {

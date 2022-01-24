@@ -7,6 +7,7 @@ export const GET_BLOGS = 'GET_BLOGS'
 export const GET_FOLLOWERS = 'GET_FOLLOWERS'
 export const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
 export const TOGGLE_HIDE_ME = 'TOGGLE_HIDE_ME'
+export const TOGGLE_LIKE = 'TOGGLE_LIKE'
 
 export const apiUrl = process.env.REACT_APP_GET_URL
 
@@ -75,6 +76,11 @@ export const followAction = (payload: boolean) => ({
 
 export const hideMeAction = (payload: boolean) => ({
     type: TOGGLE_HIDE_ME,
+    payload: payload
+})
+
+export const likeAction = (payload: boolean) => ({
+    type: TOGGLE_LIKE,
     payload: payload
 })
 

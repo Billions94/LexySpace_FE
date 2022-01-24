@@ -4,6 +4,7 @@ export interface ReduxState {
         followers: User[]
         following: boolean
         hideMe: boolean
+        liked: boolean
     },
     posts: Posts[] 
 }
@@ -49,4 +50,5 @@ export interface Replies {
     text: string;
     user: User;
     commentId: string
+    createdAt: Date
 }
