@@ -33,23 +33,23 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
   const [showEmoji, setShowEmoji] = useState(false)
 
   const toggleEmoji = () => {
-      showEmoji === false ? setShowEmoji(true) : setShowEmoji(false)
+    showEmoji === false ? setShowEmoji(true) : setShowEmoji(false)
   }
 
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
 
   const target = (e: any) => {
-      console.log(e.target.files[0])
-      if (e.target && e.target.files[0]) {
-          setImage(e.target.files[0])
-      }
+    console.log(e.target.files[0])
+    if (e.target && e.target.files[0]) {
+      setImage(e.target.files[0])
+    }
   }
 
   const inputBtn = createRef<HTMLInputElement>()
 
   const openInputFile = () => {
-      inputBtn!.current!.click()
+    inputBtn!.current!.click()
   }
 
   // Emojis 
@@ -91,16 +91,15 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
           <Image roundedCircle src={user.image} alt=''
             width={47} height={47} />
         </div>
-        <div className="w-100">
-          <textarea
-            className="form-control textarea ml-3"
-            rows={2}
-            placeholder="start typing to share your thoughts...."
-            value={comments.text}
-            onChange={(e) => setComments({ ...comments, text: e.target.value })}
-          />
-
-          <div className="d-flex mt-2 addComments">
+        <div className="p-2 w-100">
+          <div className='textareaborder'>
+            <textarea className="form-control textarea"
+              rows={2}
+              placeholder="start typing to share your thoughts...."
+              value={comments.text}
+              onChange={(e) => setComments({ ...comments, text: e.target.value })} />
+          </div>
+          <div className="d-flex addComments">
             <div className="relative">
               <button onMouseEnter={handleShow} onMouseLeave={handleClose}
                 onClick={openInputFile} className="btn btn-sm btnIcon">
@@ -129,13 +128,13 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
                   pickerStyle={{ width: '100%' }} />
               }
             </div>
-            {!comments.text ?
-              null :
-              <button className="btn btn-sm modal-btn ml-auto"
+            <div className="mar-top clearfix mt-2 ml-auto">
+              <button className="btn btn-md modal-btn"
                 onClick={() => postComment()}>
                 <i className="fa fa-pencil fa-fw" /> Post
               </button>
-            }
+
+            </div>
           </div>
         </div>
       </div>

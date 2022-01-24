@@ -215,7 +215,38 @@
 }
 
 .addComments {
-  margin-left: 16px;
+  margin-left: 14px;
   padding: 6px 0px 6px 12px;
   border-top: 1px solid rgb(216, 215, 215);
+}
+
+.replyarea {
+  border-radius: 20px;
+}
+
+.replyarea:focus {
+  box-shadow: none;
+  outline: none;
+  border-color: rgb(216, 215, 215);
+}
+
+.reply {
+  padding: 0px 4px 0px 67px;
+  display: flex;
+  align-items: baseline;
+}
+
+.replyspan {
+  position: absolute;
+  margin-top: 100px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  padding: 2px 5px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.replyspan:hover {
+  background-color: silver !important;
 }
