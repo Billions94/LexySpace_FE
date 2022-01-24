@@ -46,7 +46,33 @@
 
 .customBB {
   border-bottom: 1px solid rgb(216, 215, 215);
-  margin-bottom: 10px;
+  margin-bottom: 7px;
+  align-items: baseline;
+}
+
+.userInfo {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.commentText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.posted {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-decoration: none;
+  border: none;
+}
+
+.posted:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 
@@ -182,9 +208,6 @@
   text-decoration: none;
 }
 
-.posted {
-  border-bottom: 1px solid grey;
-}
 
 .textarea {
   border: none;
@@ -244,7 +267,7 @@
   line-height: 14px;
   padding: 2px 5px;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .replyspan:hover {

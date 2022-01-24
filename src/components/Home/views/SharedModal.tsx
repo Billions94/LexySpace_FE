@@ -29,8 +29,7 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
         text: '',
         sharedPost: sharePostBody!
     })
-    console.log('text', post.text)
-    console.log('sharedPost', post.sharedPost)
+   
     const [image, setImage] = useState('')
     const handleClose = () => setShow(false)
 

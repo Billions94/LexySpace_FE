@@ -5,6 +5,8 @@ import { User } from "../interfaces"
 export const GET_USERS = 'GET_USERS'
 export const GET_BLOGS = 'GET_BLOGS'
 export const GET_FOLLOWERS = 'GET_FOLLOWERS'
+export const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
+export const TOGGLE_HIDE_ME = 'TOGGLE_HIDE_ME'
 
 export const apiUrl = process.env.REACT_APP_GET_URL
 
@@ -65,4 +67,14 @@ export const getFollowersAction = (userId: string | undefined) => {
         }
     }
 }
+
+export const followAction = (payload: boolean) => ({
+    type: TOGGLE_FOLLOW,
+    payload: payload
+})
+
+export const hideMeAction = (payload: boolean) => ({
+    type: TOGGLE_HIDE_ME,
+    payload: payload
+})
 

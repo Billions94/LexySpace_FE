@@ -4,7 +4,7 @@ import BlogList from "./BlogList";
 import Weather from "./Weather";
 import useAuthGuard from "../../../lib/index"
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts, getUsersAction } from "../../../redux/actions";
+import { getPosts, getUsersAction, hideMeAction } from "../../../redux/actions";
 import HotPosts from "./HotPosts";
 import Loader from "../loader/Loader";
 import { ReduxState } from "../../../redux/interfaces";
@@ -21,13 +21,13 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const posts = useSelector((state: ReduxState) => state.posts)
-  const { user } = useSelector((state: ReduxState) => state.data)
+  const { user, hideMe } = useSelector((state: ReduxState) => state.data)
   console.log('user', user)
   const [reroute, setReRoute] = useState(false)
-  const [hideMe, setHideMe] = useState(false)
+  
 
   const toggleHide = () => {
-    hideMe === false ? setHideMe(true) : setHideMe(false)
+    hideMe === false ? dispatch(hideMeAction(true)) : dispatch(hideMeAction(false))
   }
  
 

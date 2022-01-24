@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import { getPosts } from "../../../redux/actions";
+import { followAction, getPosts } from "../../../redux/actions";
 import { User } from "../../../redux/interfaces";
 import { ReduxState } from "../../../redux/interfaces"
 
@@ -21,11 +21,12 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { user } = useSelector((state: ReduxState) => state.data)
+  const { following } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 
   const { image, firstName, lastName, isVerified, userName, followers, _id, bio } = props
   const follower = { followerId: me }
-  const [following, setFollowing] = useState(false)
+  
 
   
   const follow = async (userId: string | undefined) => {
@@ -58,12 +59,11 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
 
   const nowFollow = (userId: string | undefined) => {
     follow(userId)
-    setFollowing(true)
+    dispatch(followAction(true))
   }
   const unfollow = (userId: string | undefined) => {
     follow(userId)
-    setFollowing(false)
-
+    dispatch(followAction(false))
   }
   
   return (

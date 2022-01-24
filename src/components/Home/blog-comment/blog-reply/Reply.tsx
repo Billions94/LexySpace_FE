@@ -1,10 +1,10 @@
-import { Dispatch, SetStateAction } from "react";
-import { Comments, Posts } from "../../../../redux/interfaces";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Comments, Posts, Replies } from "../../../../redux/interfaces";
 import SingleReply from "./SingleReply"
 
 interface ReplyProps {
   blog: Posts | undefined
-  comments: Comments[]
+  comment: Comments
   commentID?: string
   replyComment: (c: Comments) => Promise<void>
   reply: {
@@ -17,15 +17,40 @@ interface ReplyProps {
 }>>
 }
 
-const Reply = ({ blog, comments, commentID, replyComment, reply, setReply }: ReplyProps) => {
+const Reply = ({ blog, comment, commentID, replyComment, reply, setReply }: ReplyProps) => {
+
+  const url = process.env.REACT_APP_GET_URL
+  const [replies, setReplies] = useState<Replies[]>()
+
+  const getReplies = async () => {
+    try {
+      const response = await fetch(`${url}/replies`)
+      if(response.ok) {
+        const data: Replies[] = await response.json()
+        console.log('reply info', data)
+        setReplies(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getReplies()
+       // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+  
   return (
     <>
       {
         <div id='replyContainer' className="d-flex" style={{ fontSize: "10px", marginTop: "5px" }}>
-          {comments && comments.map((c, i) => ( 
-          <SingleReply key={i} commentID={c._id} comment={c} 
-            replyComment={replyComment} reply={reply}
-            setReply={setReply} blog={blog} />
+          {replies && replies.map((reply, i) => (
+               <SingleReply key={i} 
+                commentID={commentID} 
+                reply={reply}
+                comment={comment}
+                blog={blog}
+                getReplies={getReplies}/>
           ))}
         </div>
       }

@@ -15,7 +15,9 @@ const allCompose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compo
 export const initialState: ReduxState = {
     data: {
         user: <User>{},
-        followers: []
+        followers: [],
+        following: false,
+        hideMe: false
     },
     posts: <Posts[]>[]
 }
@@ -38,11 +40,11 @@ const allReducers = combineReducers({
 })
 
 // Persist reducer
-// const persistedReducer = persistReducer(persistConfig, allReducers)
+const persistedReducer = persistReducer(persistConfig, allReducers)
 
 // Store
-const store = createStore(allReducers, initialState, allCompose(applyMiddleware(thunk)))
+const store = createStore(persistedReducer, initialState, allCompose(applyMiddleware(thunk)))
 
 export default store 
 
-// export const persistor = persistStore(store)
+export const persistor = persistStore(store)

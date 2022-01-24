@@ -5,7 +5,7 @@ import useAuthGuard from "../../../lib/index"
 import EditProfile from "./EditProfile"
 import UpdateImage from "./UpdateImage"
 import { useDispatch, useSelector } from "react-redux"
-import { getFollowersAction, getPosts } from "../../../redux/actions"
+import { followAction, getFollowersAction, getPosts } from "../../../redux/actions"
 import { getUsersAction } from "../../../redux/actions"
 import { ReduxState, User } from "../../../redux/interfaces"
 
@@ -23,6 +23,7 @@ const UserProfile = () => {
   const dispatch = useDispatch()
   const posts = useSelector((state: ReduxState) => state.posts)
   const stateUser = useSelector((state: ReduxState) => state.data.user)
+  const { following } = useSelector((state: ReduxState) => state.data)
   const me = stateUser?._id
 
   const follower = { followerId: me }
@@ -30,7 +31,6 @@ const UserProfile = () => {
   const [show, setShow] = useState(false)
   const [pic, setPic] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [following, setFollowing] = useState(false)
   const [user, setUser] = useState<User | null>(null)
 
 
@@ -80,7 +80,6 @@ const UserProfile = () => {
   useEffect(()=> {
     dispatch(getFollowersAction(id))
     dispatch(getPosts())
-    dispatch(getUsersAction())
     getUser()
   }, [])
 
@@ -89,15 +88,13 @@ const UserProfile = () => {
 }
 
 const nowFollow = (id: string | undefined) => {
-  console.log('user already', )
   follow()
-  setFollowing(true)
+  dispatch(followAction(true))
 
 }
 const unfollow = (id: string | undefined) => {
-  console.log('user already', )
-    follow()
-    setFollowing(false)
+  follow()
+  dispatch(followAction(false))
 }
 
 

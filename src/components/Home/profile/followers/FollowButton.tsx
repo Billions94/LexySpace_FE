@@ -1,24 +1,19 @@
 import { Button } from "react-bootstrap"
 import { useEffect, Dispatch, SetStateAction } from "react"
 import { User } from "../../../../redux/interfaces"
+import { useDispatch } from "react-redux"
+import { followAction } from "../../../../redux/actions"
 
 interface FollowButtonProps {
   followers: User[]
   following: boolean
-  setFollowing: Dispatch<SetStateAction<boolean>>
+  // setFollowing: Dispatch<SetStateAction<boolean>>
   toggle: (userId: string)=> void
   f: User
 }
 
-const FollowButton = ({ followers, following, setFollowing, toggle, f }: FollowButtonProps) => {
+const FollowButton = ({ following, toggle, f }: FollowButtonProps) => {
   
-
-  useEffect(() => {
-    if(followers.map(flw => flw._id).indexOf(f._id) !== -1){
-        setFollowing(false)
-    }else(setFollowing(true))
-  }, [])
-
     return(
         <div className="ml-auto">
         { following === false ? 

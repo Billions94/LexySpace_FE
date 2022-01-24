@@ -54,7 +54,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
   let newPost = posts.find(p => p._id)
 
   // const newPost = posts.find(p => p.sharedPost._id)
-  console.log('the new post', newPost)
+  // console.log('the new post', newPost)
 
   const handleShow = ()=> setShow(true)
   const handleClose = ()=> setShow(false)

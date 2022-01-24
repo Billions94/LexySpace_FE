@@ -2,6 +2,8 @@ export interface ReduxState {
     data: {
         user: User 
         followers: User[]
+        following: boolean
+        hideMe: boolean
     },
     posts: Posts[] 
 }

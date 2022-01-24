@@ -2,9 +2,10 @@ import { ListGroup } from "react-bootstrap"
 import { Avatar } from "@mui/material"
 import { useNavigate, Link } from "react-router-dom";
 import FollowButton from "./FollowButton";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { User, ReduxState } from "../../../../redux/interfaces";
+import { followAction } from "../../../../redux/actions";
 
 interface FollowersListProps {
   f: User
@@ -15,10 +16,10 @@ const FollowersList = ({ f }: FollowersListProps) => {
   const navigate = useNavigate()
 
   const beUrl = process.env.REACT_APP_GET_URL
+  const dispatch = useDispatch()
+  const { user, followers, following } = useSelector((state: ReduxState) => state.data)
 
-  const { user, followers } = useSelector((state: ReduxState) => state.data)
-
-  const [following, setFollowing] = useState(false)
+  // const [following, setFollowing] = useState(false)
   const follower = { followerId: user?._id }
 
   const follow = async (userId: string) => {
@@ -48,13 +49,19 @@ const FollowersList = ({ f }: FollowersListProps) => {
 
   const nowFollow = (userId: string) => {
     follow(userId)
-    setFollowing(true)
+    // setFollowing(true)
   }
   const unfollow = (userId: string) => {
     follow(userId)
-    setFollowing(false)
+    // setFollowing(false)
  
   }
+
+  useEffect(() => {
+    if(followers.map(flw => flw._id).indexOf(f._id) !== -1){
+        dispatch(followAction(true))
+    }else dispatch(followAction(false))
+  }, [following])
 
   return (
     <>
@@ -83,7 +90,7 @@ const FollowersList = ({ f }: FollowersListProps) => {
           followers={followers}
           following={following}
           toggle={toggle}
-          setFollowing={setFollowing}
+          // setFollowing={setFollowing}
           f={f}/>
       </div>
     </>
