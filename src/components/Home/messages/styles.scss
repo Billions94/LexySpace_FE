@@ -1,0 +1,261 @@
+#dmContainer {
+  height: 80vh !important;
+  background: url('https://desenio.de/bilder/artiklar/zoom/12307_2.jpg?imgwidth=435&qt=');
+  background-repeat: repeat;
+  background-position: -80px;
+
+    .customCol1 {
+      border-right: 1px solid rgb(226, 226, 226);
+      border-left: 1px solid rgb(226, 226, 226);
+      border-top: 1px solid rgb(226, 226, 226);
+      border-top-left-radius: 20px;
+      background-color: white;
+    }
+    .customCol2 {
+      border-right: 1px solid rgb(226, 226, 226);
+      border-top: 1px solid rgb(226, 226, 226);
+      border-top-right-radius: 20px;
+      background-color: white;
+    }
+
+    .search {
+      width: 100%;
+      border-radius: 20px;
+      border: none;
+      padding-left: 43px;
+      transition: ease-in-out 0.3s;
+    }
+
+    .btnTextArea {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .roundpic {
+      border-radius: 50%;
+    }
+
+    .uploadicons {
+      border-radius: 20px;
+      border: 1px solid rgb(216, 215, 215) ;
+      background-color: transparent;
+      color: black;
+      text-decoration: none;
+    }
+    .uploadicons:hover {
+      background-color: antiquewhite;
+      outline: antiquewhite 
+    }
+    .uploadicons:focus {
+      box-shadow: none ;
+    }
+
+
+    .sendBtnDm {
+      border-radius: 20px;
+      border: 1px solid rgb(216, 215, 215) !important;
+      background-color: transparent;
+      color: black;
+      text-decoration: none;
+    }
+
+    .sendBtnDm:hover {
+      background-color: antiquewhite;;
+      color: black;
+    }
+
+    .dmText {
+      border-radius: 20px;
+      border: 1px solid rgb(216, 215, 215) !important;
+      background-color: transparent;
+      color: black;
+      text-decoration: none;
+    }
+
+    .dmText:focus {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    .listofDM {
+      height: 450px;
+      overflow-y: scroll;
+      padding-right: 15px;
+    }
+
+    /* .textAreaDm {
+      position: fixed;
+      bottom: 10;
+    } */
+
+    .customMess {
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .customSetDrop {
+      background-color: transparent !important;
+      border: none;
+    }
+
+    .customSetDrop:hover {
+      background-color: transparent !important;
+      border: none;
+    }
+
+    .customSetDrop:active {
+      background-color: transparent !important;
+      border: none;
+    }
+
+    .customSetDrop:focus {
+      background-color: transparent !important;
+      border: none;
+    }
+
+    .customSetDrop:focus-visible {
+      background-color: transparent !important;
+      border: none;
+    }
+
+    .customDrop {
+      border-radius: 30px;
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+
+    .dmHeader {
+      border-bottom: 1px solid rgb(216, 215, 215);
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .dmHeader:hover {
+      cursor: pointer;
+    }
+
+    .customDmBody {
+      height: 56.5vh;
+      overflow-y: scroll;
+      padding-right: 15px;
+      
+    }
+
+    .dmUserName {
+      align-self: end;
+    }
+
+    .customSetDrop:focus-within {
+      background-color: transparent !important;
+      border: none;
+    }
+
+    .customSetDm {
+      border-radius: 50px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+
+    .customSetDm:hover {
+      border-radius: 50px;
+      background-color: antiquewhite;
+    }
+
+    .customSetDm:active {
+      border-radius: 50px;
+      background-color: transparent !important;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+
+    .customSetDm:focus {
+      border-radius: 50px;
+      background-color: antiquewhite !important;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+
+
+
+    .customSetDm:focus-visible {
+      border-radius: 50px;
+      background-color: antiquewhite;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+
+    .customSetDm:focus-within {
+      border-radius: 50px;
+      background-color: antiquewhite;;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+
+    .customDmRow {
+      display: flex;
+      justify-content: center;
+    }
+
+
+    #input-container {
+      position: relative;
+    }
+
+    #input-icon {
+      position: absolute;
+      bottom: 8px;
+      left: 15px;
+      width: 24px;
+      height: 24px;
+      font-weight: bolder;
+    }
+
+    .customList {
+      border-radius: 20px !important;
+    }
+
+
+    // .customRowDm {
+    //   border-top: 1px solid rgb(226, 226, 226);
+    //   border-right: 1px solid rgb(226, 226, 226);
+    //   border-left: 1px solid rgb(226, 226, 226);
+    //   border-top-left-radius: 20px;
+    //   border-top-right-radius: 20px;
+    //   background-color: white;
+    // }
+
+    .dmBubble {
+      border: 1px solid rgb(226, 226, 226) !important;
+      border-radius: 20px !important;
+      padding: 10px;
+      width: 80%;
+    }
+
+    .replyBubble {
+      border: 1px solid rgb(226, 226, 226) !important;
+      border-radius: 20px !important;
+      padding: 10px;
+      width: 69%;
+      margin-left: auto;
+    }
+
+    .beforeConvo {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .noMessages {
+      font-weight: 800;
+      font-size: 27px;
+      line-height: 20px;
+    }
+
+}
+

@@ -1,0 +1,170 @@
+#accordion {
+    .card {
+        border: none;
+    }
+    .card>.card-header {
+        border-radius: 0;
+        margin-bottom: -1px;
+        background-color: white;
+        padding: 0px;
+    }
+    .card-body {
+        padding: 10px 0px;
+    }
+    .btn-link {
+        font-weight: 400;
+        color: black;
+        text-decoration: none;
+        width: 100%;
+        padding: 15px;
+        box-shadow: none;
+        outline: none;
+        border: none;
+    }
+    .btn-link:hover {
+        font-weight: 400;
+        color: black;
+        text-decoration: none;
+        
+    }
+    .btn-link:focus {
+        box-shadow: none;
+        outline: none;
+        border: none;
+        text-decoration: none; 
+    }
+    .btn-link:focus-within {
+        box-shadow: none;
+        outline: none;
+        border: none;
+        text-decoration: none; 
+    }
+    .btn-link:focus-visible {
+        box-shadow: none;
+        outline: none;
+        border: none;
+        text-decoration: none; 
+    }
+
+    .listGroupLinks {
+        cursor: pointer;
+    }
+
+    .customSetHeaders {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 20px;
+    }
+}
+
+#listGroup {
+    .profileInfo {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .accountAccess {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .a-links {
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+    }
+    .a-links:hover {
+        text-decoration: none;
+        color: black;
+    }
+    .customh3 {
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 40px;
+    }
+    .customListItem {
+        border-top: none;
+    }
+}
+
+#form {
+    .save-btn {
+        border-radius: 20px;
+        border: 1px solid black;
+        background-color: transparent;
+        color: black;
+    }
+    .save-btn:hover {
+        background-color: antiquewhite;
+    }
+    .formgroup {
+        width: 60%;
+    }
+}
+
+.accountSett {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    padding: 0 5px;
+}
+.signInSecurity {
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    padding: 0 5px;
+}
+
+#overlay {
+    .customH5 {
+        font-family: 400;
+        font-size: 20px;
+        line-height: 25px;
+    }
+    .customSpan {
+        font-family: 400;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+.overlay-btn {
+    background-color: transparent !important;
+    color: black;
+    border: none;
+}
+.overlay-btn:hover {
+    background-color: transparent !important;
+    color: black;
+    border: none;
+}
+.overlay-btn:active {
+    background-color: transparent !important;
+    color: black;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+.overlay-btn:focus {
+    background-color: transparent !important;
+    color: black;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+#passwordContainer {
+    .alert {
+        width: 60%
+    }
+}
+
+#closeAccount {
+    .submitBtn {
+        border-radius: 20px;
+        background-color: transparent;
+        border: 1px solid black;
+        color: black;
+        outline: none;
+        box-shadow: none;
+    }
+    .submitBtn:hover {
+       background-color: antiquewhite;
+    }
+}

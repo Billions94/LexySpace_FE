@@ -1,0 +1,281 @@
+@media (min-width: 0) {
+  .g-mr-15 {
+    margin-right: 1.07143rem !important;
+  }
+}
+@media (min-width: 0) {
+  .g-mt-3 {
+    margin-top: 0.21429rem !important;
+  }
+}
+
+.g-height-35 {
+  height: 35px;
+}
+
+.g-width-50 {
+  width: 35px !important;
+}
+
+@media (min-width: 0) {
+  .g-pa-30 {
+    padding: 2.14286rem !important;
+  }
+}
+
+.g-bg-secondary {
+  background-color: #fafafa !important;
+}
+
+.u-shadow-v18 {
+  box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+}
+
+.g-color-gray-dark-v4 {
+  color: #777 !important;
+}
+
+.g-font-size-12 {
+  font-size: 0.85714rem !important;
+}
+
+.media-comment {
+  margin-top: 20px;
+}
+
+
+.customBB {
+  border-bottom: 1px solid rgb(216, 215, 215);
+  margin-bottom: 7px;
+  align-items: baseline;
+}
+
+.userInfo {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.commentText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.posted {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-decoration: none;
+  border: none;
+}
+
+.posted:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+.cAndR {
+  display: flex;
+  flex-direction: column;
+  align-self: end;
+  border-radius: 10px;
+  border: 1px solid rgb(216, 215, 215);
+  background-color: rgb(253, 253, 253);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.dropdowntext {
+  margin-left: 11px;
+}
+
+.like {
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  position: absolute;
+  margin-top: 0px;
+  margin-left: 81px;
+  padding-bottom: 20px;
+  background-color: transparent;
+  border-radius: 50px;
+  border: none;
+}
+
+.like:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+
+.dropToggle {
+  width: 10%;
+  height: 20px;
+  position: absolute;
+  padding: 0 5px;
+  margin-top: 8px;
+  margin-left: 0px;
+  background-color: transparent;
+  border: none;
+  border-radius: 20px;
+}
+
+.dropToggle:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+.btn-dark:not(:disabled):not(.disabled):active, .show>.btn-dark.dropdown-toggle {
+  color:black;
+  background-color: transparent;
+  
+}
+
+.replySpan {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: -10px;
+}
+
+
+.delete {
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  position: absolute;
+  margin-top: 0px;
+  margin-left: 147px;
+  padding-bottom: 20px;
+  background-color: transparent;
+  border-radius: 50px;
+  border: none;
+}
+
+.delete:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+.lrdimg {
+  margin: -5px;
+}
+
+.textAr {
+  border-radius: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.255 em;
+  vertical-align: 0.255 em;
+  content: "";
+  border-top: transparent;
+}
+
+
+.rply {
+  border-radius: 10px;
+  border: 1px solid rgb(216, 215, 215);
+  background-color: rgb(199, 199, 199);
+  padding-left: 10px;
+  padding-right: 10px;
+  
+}
+
+.cardHeader {
+  background-color: transparent;
+  border: none;
+}
+
+.dropdwnMenu {
+  padding-left: "10px" !important; 
+  padding-right: "10px" !important; 
+  border-radius: "25px" !important;
+}
+
+.shareComment {
+  border-radius: 20px;
+  border: 1px solid rgb(216, 215, 215) !important;
+  background-color: transparent;
+  color: black;
+  text-decoration: none;
+}
+
+.commentText {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 14px;
+}
+
+
+.textarea {
+  border: none;
+  resize: none;
+}
+
+.textarea:focus {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+
+.modal-btn {
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background-color: #f91880;
+}
+
+.modal-btn:hover {
+  background-color: #e41575;
+  color: white
+}
+
+.modal-btn:focus {
+  box-shadow: none;
+}
+
+.addComments {
+  margin-left: 14px;
+  padding: 6px 0px 6px 12px;
+  border-top: 1px solid rgb(216, 215, 215);
+}
+
+.replyarea {
+  border-radius: 20px;
+}
+
+.replyarea:focus {
+  box-shadow: none;
+  outline: none;
+  border-color: rgb(216, 215, 215);
+}
+
+.reply {
+  padding: 0px 4px 0px 67px;
+  display: flex;
+  align-items: baseline;
+}
+
+.replyspan {
+  position: absolute;
+  margin-top: 100px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  padding: 2px 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.replyspan:hover {
+  background-color: silver !important;
+}
