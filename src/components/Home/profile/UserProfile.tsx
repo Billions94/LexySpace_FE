@@ -113,10 +113,9 @@ const unfollow = (id: string | undefined) => {
                     src={user.image}
                     alt="ProfilePicture" width="130" height="130"/>
                 </div>
-                { id !== me ? null 
-                :
-                <UpdateImage show={pic} setShow={setPic}/>
-                }
+
+                <UpdateImage xUser={user} show={pic} setShow={setPic}/>
+              
                 <div>
                 <div className="nameHeader ml5">{user.firstName} {user.lastName}</div>
                 <div className="ml5">lives in {user.location}</div>

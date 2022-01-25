@@ -2,23 +2,21 @@ import { useEffect, useState, Dispatch, SetStateAction } from "react"
 import { Badge, Image } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { GET_BLOGS } from "../../../redux/actions"
+import { GET_BLOGS, reRouteAction } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
 import Loader from "../loader/Loader"
 import "./styles.scss"
 
-interface HotPostsProps {
-  setReRoute: Dispatch<SetStateAction<boolean>>
- 
-}
 
-const HotPosts = ({ setReRoute }: HotPostsProps) => {
+
+const HotPosts = () => {
 
     const apiUrl = process.env.REACT_APP_GET_URL
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const posts = useSelector((state: ReduxState) => state.posts)
+    const { reroute } = useSelector((state: ReduxState) => state.data)
     const [seeMore, setSeeMore] = useState(false)
 
    
@@ -53,7 +51,7 @@ const HotPosts = ({ setReRoute }: HotPostsProps) => {
       
       const doSomething = (id: string | undefined) => {
         navigate(`/posts/${id}`)
-        setReRoute(true) 
+        dispatch(reRouteAction(true))
       }
     
     return (

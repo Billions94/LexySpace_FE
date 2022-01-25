@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { GET_USERS, GET_FOLLOWERS, TOGGLE_FOLLOW, TOGGLE_HIDE_ME, TOGGLE_LIKE } from "../actions";
+import { GET_USERS, GET_FOLLOWERS, TOGGLE_FOLLOW, TOGGLE_HIDE_ME, TOGGLE_LIKE, TOGGLE_REROUTE, TOGGLE_LOADER } from "../actions";
 import { initialState } from "../store";
 
 const usersReducer = (state = initialState.data, action: AnyAction) => {
@@ -25,11 +25,25 @@ const usersReducer = (state = initialState.data, action: AnyAction) => {
                 ...state,
                 hideMe: payload
             }
-        case TOGGLE_LIKE: 
+        case TOGGLE_LIKE:
+            const isLiked = state.likes.some(elem => elem._id === state.user._id) 
+            return !isLiked ? {
+                ...state,
+                liked: [...state.likes, payload]
+            } : {
+                ...state,
+                liked: [...state.likes.filter(elem => elem._id !== state.user._id)]
+            }
+        case TOGGLE_REROUTE:
             return {
                 ...state,
-                liked: payload
-            }    
+                reroute: payload
+            }
+        case TOGGLE_LOADER:
+            return {
+                ...state,
+                isLoading: payload
+            }            
         default: return state
     }
 }

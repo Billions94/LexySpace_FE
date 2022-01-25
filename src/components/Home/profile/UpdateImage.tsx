@@ -2,19 +2,24 @@ import { Modal, Button } from "react-bootstrap"
 import { useState, Dispatch, SetStateAction, createRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUsersAction } from "../../../redux/actions"
-import { ReduxState } from "../../../redux/interfaces"
+import { ReduxState, User } from "../../../redux/interfaces"
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 interface UpdateImageProps {
+  xUser: User
   show: boolean
   setShow: Dispatch<SetStateAction<boolean>>
 }
 
-const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
+const UpdateImage = ({ xUser, show, setShow }: UpdateImageProps) => {
 
   const beUrl = process.env.REACT_APP_GET_URL
 
+
+  const { id } = useParams()
   const { user } = useSelector((state: ReduxState) => state.data)
+  const me = user!._id
 
     const [image, setImage] = useState<string>('')
     const dispatch = useDispatch()
@@ -61,19 +66,26 @@ const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
   
   return (
     <div>
-      <Modal id='updatePicModal' show={show} onHide={handleClose}
+      <Modal id='updatePicModal' size='lg' show={show} onHide={handleClose}
         backdrop="static"
         keyboard={false}>
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
             <div className="imgWrapper">
-                <img className="profile-pic" 
+              { id !== me ?
+                <img className="ProfilePicture" 
+                  src={xUser?.image}
+                  alt="ProfilePicture" width="430px" height="430px"/>
+                  : 
+                <img className="ProfilePicture" 
                   src={user?.image}
-                  alt="ProfilePicture" width="130" height="130"/>
+                  alt="ProfilePicture" width="430px" height="430px"/>
+              }
             </div>
         </Modal.Body>
-        <Modal.Footer>
+        { id !== me ? null :
+          <Modal.Footer>
             <div >
                 <button onClick={openInputFile} className="btn btn-sm btnIcon">
                   <input type="file" ref={inputBtn} className="d-none" onChange={(e) => target(e)} />
@@ -84,8 +96,10 @@ const UpdateImage = ({ show, setShow }: UpdateImageProps) => {
                 </button>
             </div>
           <Button onClick={() => updateProfilePic()} 
-          variant="primary" className='modal-btn'>update</Button>
-        </Modal.Footer>
+          variant="primary" className='modal-btn'>update
+          </Button>
+          </Modal.Footer>
+        }
       </Modal>
     </div>
   );

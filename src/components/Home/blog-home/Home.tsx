@@ -21,9 +21,9 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const posts = useSelector((state: ReduxState) => state.posts)
-  const { user, hideMe } = useSelector((state: ReduxState) => state.data)
+  const { user, hideMe, reroute, isLoading } = useSelector((state: ReduxState) => state.data)
   console.log('user', user)
-  const [reroute, setReRoute] = useState(false)
+  // const [reroute, setReRoute] = useState(false)
   
 
   const toggleHide = () => {
@@ -38,12 +38,12 @@ const Home = () => {
        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
-    return posts ? (
+    return isLoading === true ? ( <Loader /> ) : (
       <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">
         <Row  className="pt-0 mainContainer">
-          <Col className='sidebar' md={4} lg={4}>
+          <Col className='sidebar d-xs-none d-sm-none d-md-flex' xs={0} sm={4} md={4} lg={4}>
             <Col>
-            <HotPosts  setReRoute={setReRoute}/>
+            <HotPosts  />
             <div onClick={() => toggleHide()}
               style={{cursor: 'pointer'}}>
                 { hideMe === false ? 
@@ -62,20 +62,20 @@ const Home = () => {
             </div>
           </Col>
           </Col>
-          <Col className="feed" sm={6} md={8} lg={7}>
+          <Col className="feed" sm={12} md={8} lg={7}>
             { reroute === false ?
             <Col  md={11} lg={12}>
               <PostContainer />
-              <BlogList setReRoute={setReRoute}/> 
+              <BlogList /> 
             </Col> : 
             <Col  md={11} lg={12}>
-              <Blog setReRoute={setReRoute}/>
+              <Blog />
             </Col>
             }
         </Col>
         </Row>
       </Container>
-    ) : ( <Loader /> )
+    ) 
   
 }
 

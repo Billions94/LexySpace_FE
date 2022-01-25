@@ -30,6 +30,7 @@ const NavBar = () => {
     localStorage.clear()
     navigate('/')
   }
+  
 
   useEffect(()=> {
     dispatch(getUsersAction())

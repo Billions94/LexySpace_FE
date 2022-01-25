@@ -11,7 +11,8 @@ import { ReduxState } from "../../../redux/interfaces"
 import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
 import ShareModal from "./SharedModal"
-import { likeAction } from "../../../redux/actions"
+import { likeAction, loaderAction, reRouteAction } from "../../../redux/actions"
+import UserInfo from "../blog-author/UserInfo"
 
 
 interface BlogProps {
@@ -19,7 +20,7 @@ interface BlogProps {
 }
 
 
-const Blog = ({ setReRoute }: BlogProps) => {
+const Blog = () => {
 
   useAuthGuard()
 
@@ -29,18 +30,22 @@ const Blog = ({ setReRoute }: BlogProps) => {
   const [comments, setComments] = useState<Comments[]>([])
   const [author, setAuthor] = useState<User | null>(null)
   const [blog, setBlog] = useState<Posts | null>(null)
-  const [show, setShow] = useState(false)
   const [share, setShare] = useState(false)
-
+  const [display, setDisplay] = useState(false)
+  const [timer, setTimer] = useState(false)
+  const handleDisplayShow = () => setTimeout(() => { setDisplay(true)}, 1000)
+  const handleDisplayClose = () => {{setTimeout(() =>{if (timer === true){setDisplay(false);setTimer(false)}}, 1000)}}
+  
   
   const url = process.env.REACT_APP_GET_URL
   const dispatch = useDispatch()
   const posts = useSelector((state: ReduxState['posts']) => state)
-  const { user, liked } = useSelector((state: ReduxState) => state.data)
+  const { user, likes, isLoading } = useSelector((state: ReduxState) => state.data)
   const liker = { userId: user!._id}
   const me = user!._id
-
-    // for interaction icons label
+  
+  // for interaction icons label
+    const [show, setShow] = useState(false)
     const [commentLabel, setCommentLabel] = useState(false)
     const [likeLabel, setLikeLabel] = useState(false)
     const [shareLabel, setShareLabel] = useState(false)
@@ -71,6 +76,9 @@ const Blog = ({ setReRoute }: BlogProps) => {
         setBlog(data)
         console.log("i am the data", data.user)
         setAuthor(data.user)
+        setTimeout(()=> {
+          dispatch(loaderAction(false))
+        }, 3000)
       } else {
         throw new Error('cannot post')
       }
@@ -111,17 +119,17 @@ const Blog = ({ setReRoute }: BlogProps) => {
   }
 
   const toggle = (id: string | undefined) => {
-    liked === false ? likePost(id) : unLikePost(id)
+    !likes ? likePost(id) : unLikePost(id)
   }
 
   const likePost = (id: string | undefined) => {
     like(id)
-    dispatch(likeAction(true))
+    dispatch(likeAction())
   }
 
   const unLikePost = (id: string | undefined) => {
     like(id)
-    dispatch(likeAction(false))
+    dispatch(likeAction())
   }
 
   const like = async (id: string | undefined) => {
@@ -154,13 +162,13 @@ const Blog = ({ setReRoute }: BlogProps) => {
 
   function navigateHome(id: string | undefined) {
     deleteBlogPost(id)
-    setReRoute(false)
+    dispatch(reRouteAction(false))
     navigate('/home')
   }
 
   const likedPost = blog?.likes.find(blog => blog._id === me)
 
-  return posts ? (
+  return isLoading === true ? ( <Loader /> ) : (
         <Row id='indexDiv'>
           <Container key={blog?._id} className="blog-details-root">
               <Col md={12} className="blogContent mb-2">
@@ -227,7 +235,15 @@ const Blog = ({ setReRoute }: BlogProps) => {
 
           {  
             <div className="blog-details-author">         
-                <div className="d-flex align-items-center">
+                <div onMouseEnter={handleDisplayShow} onMouseLeave={() => {handleDisplayClose(); setTimer(true)}}
+                    className="d-flex align-items-center">
+                  {/* <UserInfo
+                  show={display}
+                  handleShow={handleDisplayShow}
+                  handleClose={handleDisplayClose}
+                  setTimer={setTimer}
+                  props={user}
+                  /> */}
                   <div>
                     <Link to={`/userProfile/${author?._id}`}>
                       <Image style={{ width: "60px", height: "60px" }}
@@ -238,7 +254,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                   </div>
                   <Link className="text-decoration-none" to={`/userProfile/${author?._id}`}>
                     <div style={{ marginLeft: "10px" }}>
-                      <h5 className="text-dark authorDetails">
+                      <h3 className="text-dark authorDetails">
                         {author?.firstName} {author?.lastName}
                         { author?.isVerified === true &&
                         <span className=" mt-1 ml-1  d-flex-row align-items-center">
@@ -246,7 +262,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                             src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"/>
                         </span>
                        }
-                      </h5>
+                      </h3>
                       <h4 className="text-muted authorUserName">
                         @{author?.userName}</h4>
                     </div>
@@ -291,7 +307,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                     <div onMouseEnter={handleLikeLabelShow}
                         onMouseLeave={handleLikeLabelClose}
                         className='interactions position-relative'>
-                      { likedPost?._id !== me && liked === false ?
+                      { !likes.some(elem => elem._id === id)   ?
                       <>
                         <button className='candl '>
                           <img className="interactions" onClick={()=> toggle(blog?._id)}
@@ -354,7 +370,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
             </Col>
           </Container>
         </Row>
-    ) : ( <Loader /> ) 
+    ) 
 }
 
 export default Blog

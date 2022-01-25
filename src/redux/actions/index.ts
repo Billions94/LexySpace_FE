@@ -8,6 +8,8 @@ export const GET_FOLLOWERS = 'GET_FOLLOWERS'
 export const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
 export const TOGGLE_HIDE_ME = 'TOGGLE_HIDE_ME'
 export const TOGGLE_LIKE = 'TOGGLE_LIKE'
+export const TOGGLE_REROUTE = 'TOGGLE_REROUTE'
+export const TOGGLE_LOADER = 'TOGGLE_LOADER'
 
 export const apiUrl = process.env.REACT_APP_GET_URL
 
@@ -22,6 +24,13 @@ export const getUsersAction = () => {
                     type: GET_USERS,
                     payload: data
                 })
+
+                setTimeout(()=> {
+                    dispatch({
+                        type: TOGGLE_LOADER,
+                        payload: false
+                    })
+                }, 3000)
             } else {
                 throw new Error("Roger we've got a problem")
             }
@@ -42,7 +51,14 @@ export const getPosts = () => {
                 type: GET_BLOGS,
                 payload: newPost
               })
-            }
+
+              setTimeout(()=> {
+                dispatch({
+                    type: TOGGLE_LOADER,
+                    payload: false
+                })
+            }, 3000)
+            } else throw new Error('Could not get post')
           } catch (error) {
             console.log(error)
           }
@@ -79,8 +95,17 @@ export const hideMeAction = (payload: boolean) => ({
     payload: payload
 })
 
-export const likeAction = (payload: boolean) => ({
+export const likeAction = () => ({
     type: TOGGLE_LIKE,
+})
+
+export const reRouteAction = (payload: boolean) => ({
+    type: TOGGLE_REROUTE,
+    payload: payload
+})
+
+export const loaderAction = (payload: boolean) => ({
+    type: TOGGLE_LOADER,
     payload: payload
 })
 

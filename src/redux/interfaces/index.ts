@@ -4,7 +4,9 @@ export interface ReduxState {
         followers: User[]
         following: boolean
         hideMe: boolean
-        liked: boolean
+        likes: User[]
+        reroute: boolean
+        isLoading: boolean
     },
     posts: Posts[] 
 }

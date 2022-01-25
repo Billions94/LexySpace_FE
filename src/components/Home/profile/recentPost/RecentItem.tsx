@@ -1,5 +1,7 @@
-import { Posts } from '../../../../redux/interfaces'
+import { Posts, ReduxState } from '../../../../redux/interfaces'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { reRouteAction } from '../../../../redux/actions'
 
 
 interface RecentItemProps {
@@ -9,11 +11,17 @@ interface RecentItemProps {
 const RecentItem = ({ post }: RecentItemProps) => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { reroute } = useSelector((state: ReduxState) => state.data)
+    const route = (id: string | undefined) => {
+        navigate(`/posts/${id}`)
+        dispatch(reRouteAction(true))
+    }
 
     return (
         <>
             <div className="postContainer ml-3"
-                onClick={() => navigate(`/posts/${post._id}`)}>
+                onClick={() => route(post._id)}>
                 <img src={post.cover} alt='' width={150} height={150} />
                 <div className='mb-2'>
                     <span>{post.text}</span>

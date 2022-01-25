@@ -72,7 +72,8 @@
   }
 
   .authorDetails {
-    width: 300px;
+    font-weight: 700;
+    font-size: 14px;
   }
 
 
@@ -101,7 +102,7 @@
     width: 300px;
   }
 
-  .blog-details-author:hover h5 {
+  .blog-details-author:hover h3 {
     text-decoration: underline;
     color: #0056b3 !important;
   }

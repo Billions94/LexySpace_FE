@@ -163,6 +163,8 @@ const Messages = () => {
   const index = onlineUsers.findIndex(u => u.userName === user.userName)
   console.log('index', index)
 
+  const notification = chatHistory.length > 0
+
   // function enter(e: FormEvent){
   //   if (e.target === "Enter") {
   //     handleMessageSubmit(e)
@@ -170,7 +172,7 @@ const Messages = () => {
   // }
 
   return (
-    <Container fluid className='customRowDm'>
+    <Container fluid className='customRowDm p-0'>
       <Row id='dmContainer' className='mx-auto pt-5 customDmRow'>
       
         <Col className="customCol1 ml-auto" sm={5} md={3}>
@@ -220,7 +222,7 @@ const Messages = () => {
               className="roundpic" alt=''   width={37} height={37}/>
               <div className="ml-2 dmUserName">
                 <div>{user.userName}</div>
-
+                  { notification && chatHistory.filter(m => m.socketId === room) && <div>new message</div>}
                 <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
                   width={10} height={10}/>
               </div>

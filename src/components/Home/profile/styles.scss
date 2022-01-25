@@ -202,6 +202,15 @@
     border-bottom: none;
   }
 
+  .ProfilePicture {
+    border-radius: 50%;
+  }
+
+  .modal-content {
+    height: 630px;
+    border-radius: 20px;
+  }
+
   .modal-footer {
     display: flex;
     flex-wrap: wrap;

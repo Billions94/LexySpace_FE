@@ -18,8 +18,16 @@
         }
         .delete {
             position: absolute;
-            margin-top: -60px;
+            margin-top: -65px;
             margin-left: 320px;
+            height: 30px;
+            width: 30px;
+        }
+        .delete:hover {
+            background-color: silver;
+        }
+        .postedReply {
+            padding: 5px 5px;
         }
     }
     .reply2 {

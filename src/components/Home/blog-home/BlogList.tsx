@@ -9,12 +9,7 @@ import Loader from "../loader/Loader"
 import Blog from "../views"
 
 
-interface BlogListProps {
-  setReRoute: Dispatch<SetStateAction<boolean>>
-  
-}
-
-const BlogList = ({ setReRoute }: BlogListProps) => {
+const BlogList = () => {
   
 
   const apiUrl = process.env.REACT_APP_GET_URL 
@@ -76,7 +71,7 @@ const BlogList = ({ setReRoute }: BlogListProps) => {
         <Col key={i} md={12} lg={12} style={{ borderTop: '1px solid rgb(216, 215, 215)',
          padding: '0px'}}>
             <div className="blogList">
-                <BlogItem key={i} setReRoute={setReRoute}  {...post} post={post} getData={getData}/>
+                <BlogItem key={i}  {...post} post={post} getData={getData}/>
             </div>
           </Col>
         )) }

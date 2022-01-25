@@ -1,5 +1,6 @@
 import { postTimer } from "../../../../lib/index"
 import { Comments, Posts, Replies, ReduxState } from "../../../../redux/interfaces"
+import { Link } from "react-router-dom"
 import { Image } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import "./styles.scss"
@@ -43,6 +44,7 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
         <>
         { reply.commentId === commentID ? (
           <div className="d-flex">
+            <Link to={`userProfile/${user._id}`}>
             <div>
               <Image
                   className=" d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
@@ -50,8 +52,9 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
                   alt="Image Description"
                 />
             </div>
+            </Link>
           <div className="rply mb-2">
-            <div className="text-dark mb-1" style={{ fontSize: "12px", borderBottom: "1px solid rgb(216, 215, 215)",}}>
+            <div className="text-dark mb-1 postedReply" style={{ fontSize: "12px", borderBottom: "1px solid rgb(216, 215, 215)",}}>
               Posted: {postTimer(reply.createdAt)}
             </div>
             <div className="replyUserInfo  mb-0">
@@ -63,7 +66,7 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
             { reply.user._id !== me ? null : 
             <button onClick={() => deleteReply(reply._id)}
               className='delete'>
-              X
+              <span>X</span>
             </button>
             }
           </div>
