@@ -3,7 +3,6 @@ import { Formik } from "formik"
 import { Form, Button, Col, Alert } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import * as yup from "yup"
-import { FormikProps } from "./Register"
 import "./styles.scss"
 
 
@@ -19,6 +18,12 @@ const schema = yup.object({
     // )
 });
 
+interface LoginFormikProps {
+  userName?: string
+  email: string 
+  password: string 
+}
+
 const LogIn = () => {
 
   const url = process.env.REACT_APP_GET_URL
@@ -26,7 +31,7 @@ const LogIn = () => {
   const [error, setError] = useState(false)
   const navigate = useNavigate()
 
-  const login = async (props: FormikProps) => {
+  const login = async (props: LoginFormikProps) => {
     try {
       const response = await fetch(`${url}/users/login`, {
         method: 'POST',

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import NavBar from './components/Navbar/NavBar'
-import LogIn from './components/Login&Register/LogIn'
+import LogIn from './components/login&register/LogIn'
 import Home from './components/Home/blog-home/Home'
-import Register from './components/Login&Register/Register'
+import Register from './components/login&register/Register'
 import BeforeLogin from './components/beforeLogin/BeforeLogin'
 // import DM from "./components/Home/messages/DM"
 import Messages from "./components/Home/messages/Messages"
@@ -13,7 +13,7 @@ import Followers from "./components/Home/profile/followers/Followers"
 import CloseAccount from "./components/Home/account/CloseAccount"
 import Settings from "./components/Home/account/Settings"
 import Footer from "./components/footer/Footer"
-import EditNewUser from "./components/Login&Register/EditNewUser"
+import EditNewUser from "./components/login&register/EditNewUser"
 
 
 function App() {
