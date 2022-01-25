@@ -4,6 +4,7 @@
     .replyContainer {
         width: 80%;
         padding: 0 12px;
+        position: relative;
         .replyUserInfo {
             display: flex;
             font-weight: 500;
@@ -14,6 +15,11 @@
             font-weight: 400;
             font-size: 15px;
             line-height: 18px;
+        }
+        .delete {
+            position: absolute;
+            margin-top: -60px;
+            margin-left: 320px;
         }
     }
     .reply2 {

@@ -123,6 +123,9 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
     
   }
 
+  const likedPost = likes.find(like => like._id === me)
+  console.log(likedPost)
+
   return (
     <div>
         <div style={{border: "1px solid rgb(216, 215, 215)", borderRadius: "20px"}} key={_id} className="blog-card">
@@ -223,7 +226,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                 <div onMouseEnter={handleLikeLabelShow}
                     onMouseLeave={handleLikeLabelClose}
                     className='postition-relative'>
-                  { liked === false ?
+                  { likedPost?._id !== me && liked === false ?
                     <>
                     <button className='candl'>
                       <img className="interactions" onClick={()=> toggle()}
@@ -231,7 +234,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData, set
                         width='20px'/>
                     </button>
                     <span className="text-dark">{likes.length}</span>
-                    { likeLabel === false ? null :
+                    { likedPost?._id !== me && likeLabel === false ? null :
                       <Badge pill variant="secondary"
                         className='interactionBadge'>
                         Like

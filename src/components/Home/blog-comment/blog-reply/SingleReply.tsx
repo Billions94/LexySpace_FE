@@ -61,7 +61,10 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
               {reply.text}
             </div>
             { reply.user._id !== me ? null : 
-            <button onClick={() => deleteReply(reply._id)}>X</button>
+            <button onClick={() => deleteReply(reply._id)}
+              className='delete'>
+              X
+            </button>
             }
           </div>
           </div>

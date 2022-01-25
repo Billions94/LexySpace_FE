@@ -4,16 +4,14 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react"
 import Comment from "../blog-comment/Comment"
 import AddComment from "../blog-comment/AddComment"
 import Edit from "../blog-home/new/EditPost"
-// import { postTimer } from "../../../lib/index"
-import { format } from "date-fns"
 import useAuthGuard, { postTimer } from "../../../lib/index"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import Loader from "../loader/Loader"
 import { ReduxState } from "../../../redux/interfaces"
 import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
 import ShareModal from "./SharedModal"
-import PostModal from "../blog-home/new/PostModal"
+import { likeAction } from "../../../redux/actions"
 
 
 interface BlogProps {
@@ -26,37 +24,31 @@ const Blog = ({ setReRoute }: BlogProps) => {
   useAuthGuard()
 
   const { id } = useParams()
+  const navigate = useNavigate()
+
   const [comments, setComments] = useState<Comments[]>([])
   const [author, setAuthor] = useState<User | null>(null)
   const [blog, setBlog] = useState<Posts | null>(null)
-  const [liked, setLiked] = useState(false)
   const [show, setShow] = useState(false)
   const [share, setShare] = useState(false)
 
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
-  const handleShare = () => setShare(true)
-  
-
-  const showNHidde = () => {
-    show === false ? handleShow() : handleClose()
-  }
-
-  
-  const navigate = useNavigate()
   
   const url = process.env.REACT_APP_GET_URL
-  const posts = useSelector((state: ReduxState) => state.posts)
-  const { user } = useSelector((state: ReduxState) => state.data)
+  const dispatch = useDispatch()
+  const posts = useSelector((state: ReduxState['posts']) => state)
+  const { user, liked } = useSelector((state: ReduxState) => state.data)
   const liker = { userId: user!._id}
   const me = user!._id
-  const newPost = posts.find(p => p._id)
 
     // for interaction icons label
     const [commentLabel, setCommentLabel] = useState(false)
     const [likeLabel, setLikeLabel] = useState(false)
     const [shareLabel, setShareLabel] = useState(false)
-  
+
+    const handleShow = () => setShow(true)
+    const handleClose = () => setShow(false)
+    const handleShare = () => setShare(true)
+    
     const handleCommentLabelShow = () => setCommentLabel(true)
     const handleLikeLabelShow = () => setLikeLabel(true)
     const handleShareLabelShow = () => setShareLabel(true)
@@ -64,6 +56,11 @@ const Blog = ({ setReRoute }: BlogProps) => {
     const handleCommentLabelClose = () => setCommentLabel(false)
     const handleLikeLabelClose = () => setLikeLabel(false)
     const handleShareLabelClose = () => setShareLabel(false)
+  
+    const showNHidde = () => {
+      show === false ? handleShow() : handleClose()
+    }
+  
 
 
   const fetchBlog = async (_id: string | undefined) => {
@@ -119,12 +116,12 @@ const Blog = ({ setReRoute }: BlogProps) => {
 
   const likePost = (id: string | undefined) => {
     like(id)
-    setLiked(true)
+    dispatch(likeAction(true))
   }
 
   const unLikePost = (id: string | undefined) => {
     like(id)
-    setLiked(false)
+    dispatch(likeAction(false))
   }
 
   const like = async (id: string | undefined) => {
@@ -160,6 +157,8 @@ const Blog = ({ setReRoute }: BlogProps) => {
     setReRoute(false)
     navigate('/home')
   }
+
+  const likedPost = blog?.likes.find(blog => blog._id === me)
 
   return posts ? (
         <Row id='indexDiv'>
@@ -216,7 +215,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                         <img alt='' className="lrdimg" width="17px"
                           src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
                       </div>
-                      <div onClick={(e) => navigateHome(blog?._id)} >
+                      <div onClick={() => navigateHome(blog?._id)} >
                         delete
                       </div> 
                     </div>
@@ -255,11 +254,12 @@ const Blog = ({ setReRoute }: BlogProps) => {
                 </div>
               </div>
             }
-                <h4 className="mt-3">{blog?.text}</h4>
+                <h4 className="mt-3 blogText">{blog?.text}</h4>
                 <div className="mt-2 mb-4">
                     <img className="blog-details-cover" alt=''  
                       src={blog?.cover} width='100%' />
                 </div>
+                <div>{blog?.likes.length} like</div>
                 {/* { newPost!.sharedPost!._id !== id ? 
                 <>
                   <div className="mt-3">{newPost!.sharedPost!.text}</div>
@@ -291,7 +291,7 @@ const Blog = ({ setReRoute }: BlogProps) => {
                     <div onMouseEnter={handleLikeLabelShow}
                         onMouseLeave={handleLikeLabelClose}
                         className='interactions position-relative'>
-                      { liked === false ?
+                      { likedPost?._id !== me && liked === false ?
                       <>
                         <button className='candl '>
                           <img className="interactions" onClick={()=> toggle(blog?._id)}
