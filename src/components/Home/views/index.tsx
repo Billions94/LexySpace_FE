@@ -12,7 +12,7 @@ import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
 import ShareModal from "./SharedModal"
 import { likeAction, loaderAction, reRouteAction } from "../../../redux/actions"
-import UserInfo from "../blog-author/UserInfo"
+// import UserInfo from "../blog-author/UserInfo"
 
 
 interface BlogProps {
