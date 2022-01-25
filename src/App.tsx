@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import NavBar from './components/Navbar/NavBar'
 import LogIn from './components/login&register/LogIn'
 import Home from './components/Home/blog-home/Home'
-import Register from './components/login&register/EditNewUser'
+import Register from './components/login&register/Register'
 import BeforeLogin from './components/beforeLogin/BeforeLogin'
 // import DM from "./components/Home/messages/DM"
 import Messages from "./components/Home/messages/Messages"
