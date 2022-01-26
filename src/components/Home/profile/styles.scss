@@ -1,24 +1,73 @@
 #userProfileContainer {
-  margin-top: 30px;
-
+  margin-bottom: 0 !important;
   .opened-to-work {
     border-radius: 10px;
     background-color: rgb(231, 226, 221);
   }
 
-  #jumbotron-banner1 {
-    background-image: url("https://storage.googleapis.com/indie-hackers.appspot.com/post-images/743b05eb0b/eBC1ChcgpIgZFQfzlBNGOMHCIQx2/309eb2fc-162d-687f-72de-3e71d52e7724.jpg");
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: 100% 37%;
-    // width: 567px;
-    margin-top: 27px;
+  // .jumbotron-banner1 {
+  //   background-image: url("https://wallpaper.dog/large/5510815.jpg");
+  //   background-position: top;
+  //   background-repeat: no-repeat;
+  //   background-size: 80%;
+  //   // width: 567px;
+   
+  // }
+
+  .cover {
+    z-index: -1;
+    object-fit: cover;
+    max-height: 300px;
+    width: 759px;
+    
   }
 
+  .coverDiv {
+    position: relative;
+    width: 100%;
+  }
+
+  .coverModal {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+  
   .userJumbo {
     border: 1px solid rgb(216, 215, 215);
-    border-radius: 20px;
-    margin-top: 70px;
+  }
+
+  .coverUpdateBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f91880;
+    border: none;
+    .img {
+      margin-left: -2px;
+    }
+  }
+
+  .coverUpdateBtn:hover {
+    background-color: #d3176f ;
+  }
+
+  .coverUpdateBtn:active {
+    box-shadow: none;
+    border: none;
+    outline: none;
+  }
+
+  .coverUpdateBtn:focus {
+    box-shadow: none;
+    border: none;
+    outline: none;
+  }
+
+  .coverUpdateBtn:focus-visible {
+    box-shadow: none;
+    border: none;
+    outline: none;
   }
 
   #profile-pic {
@@ -53,13 +102,12 @@
 
   .magicRow {
     padding-bottom: 20px !important;
-    padding-top: 30px !important;
   }
 
   .jumboBorder {
     border: 1px solid black;
     border-radius: 20px;
-    margin-top: 90px;
+    // margin-top: 90px;
   }
 
 
@@ -343,14 +391,12 @@
 }
 
 #recentPost {
+  cursor: pointer;
   // border: 1px solid rgb(216, 215, 215);
-  padding: 20px;
-  border-radius: 20px;
-
-  .postContainer {
-    border: 1px solid rgb(216, 215, 215);
-    padding: 15px;
-    border-radius: 20px;
+  // padding: 20px;
+  margin-top: 50px;
+  .recentItem {
+    border-top: 1px solid rgb(216, 215, 215);
   }
 
   .postContainer:hover {
@@ -361,5 +407,36 @@
     cursor: pointer;
     text-decoration: underline;
     color: #0056b3;
+  }
+}
+
+#coverModal {
+  .modal-content {
+    height: 630px;
+    border-radius: 20px;
+  }
+
+  .modal-btn {
+    border-radius: 20px;
+    border: none;
+    color: white;
+    background-color: #f91880;
+  }
+
+  .modal-btn:hover {
+    background-color: #e41575;
+  }
+
+  .modal-btn:focus {
+    box-shadow: none;
+  }
+
+  .imgWrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .profile-pic {
+    border-radius: 50%;
   }
 }

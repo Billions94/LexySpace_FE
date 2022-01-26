@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useSelector } from "react-redux"
 import { ReduxState, Posts } from "../../../../redux/interfaces"
 import RecentItem from "./RecentItem"
@@ -8,23 +9,33 @@ interface RecentPostsProps {
 }
 
 const Recentposts = ({ id, posts }: RecentPostsProps) => {
+
+    const [showRecent, setShowRecent] = useState(true)
     
+    function toggle() {
+        showRecent === false ? setShowRecent(true) : setShowRecent(false)
+    }
 
     return(
         <div id="recentPost">
-                <h5>#recent posts</h5>
-            <div className="d-flex">
-        {
-            posts.map(post => (
+                <h5 onClick={() => toggle()}
+                className='text-center'>#recent posts</h5>
+            <div className="">
+            { showRecent === false ? null :
                 <>
                 {
-                    id === post.user._id ?
-                    <RecentItem post={post}/>
-                    : null
+                    posts.map(post => (
+                        <>
+                        {
+                            id === post.user._id ?
+                            <RecentItem post={post}/>
+                            : null
+                        }
+                        </>
+                    ))
                 }
                 </>
-            ))
-        }
+            }
             </div>
         </div>
     )

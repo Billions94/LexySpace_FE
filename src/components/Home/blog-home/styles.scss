@@ -509,3 +509,19 @@
   //   background-color: rgb(245, 245, 245);
   // }
 }
+
+#Task {
+  .taskList {
+    border-radius: 20px;
+  }
+  .taskList:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: rgb(216, 215, 215)
+  }
+  .taskList:active {
+    outline: none;
+    box-shadow: none;
+    border-color: rgb(216, 215, 215)
+  }
+}

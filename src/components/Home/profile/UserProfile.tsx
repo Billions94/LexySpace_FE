@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, createRef } from "react"
 import { Button, Row, Col, Spinner, Image } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import useAuthGuard from "../../../lib/index"
@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { followAction, getFollowersAction, getPosts } from "../../../redux/actions"
 import { getUsersAction } from "../../../redux/actions"
 import { ReduxState, User } from "../../../redux/interfaces"
-
-import "./styles.scss"
 import Recentposts from "./recentPost/RecentPosts"
+import Cover from "./Cover"
+import "./styles.scss"
 
 const UserProfile = () => {
 
@@ -23,7 +23,7 @@ const UserProfile = () => {
   const dispatch = useDispatch()
   const posts = useSelector((state: ReduxState) => state.posts)
   const stateUser = useSelector((state: ReduxState) => state.data.user)
-  const { following } = useSelector((state: ReduxState) => state.data)
+  const { following, cover } = useSelector((state: ReduxState) => state.data)
   const me = stateUser?._id
 
   const follower = { followerId: me }
@@ -77,8 +77,8 @@ const UserProfile = () => {
   }
 
 
+
   useEffect(()=> {
-    dispatch(getFollowersAction(id))
     dispatch(getPosts())
     getUser()
   }, [])
@@ -102,11 +102,16 @@ const unfollow = (id: string | undefined) => {
   return user ? (
     <>
       <Row id='userProfileContainer' className="justify-content-center">
-        <Col id="jumbotron-banner1"   className="userJumbo magicRow mb-3" sm={6} md={7} lg={7}>
-          <div  className="rounded-lg bg-white p-0">
-         
-            <Row className="magicRow p-2" style={{ marginTop: "250px" }}>
-              <div id="jinx" className="d-flex col-md-8">
+        <Col className="userJumbo magicRow jumbotron-banner1 p-0 pb-3" sm={6} md={7} lg={7}>
+            <Row className="magicRow d-flex p-0">
+              <div className="coverDiv">
+                <img className='cover mb-2' src={cover} alt='new Cover' height='250px'/>
+              </div>
+              <div className="coverModal">
+              <Cover getUser={getUser} />
+              </div>
+
+              <div id="jinx"  className="d-flex px-4 col-lg-10">
 
                 <div className="imgDiv">
                   <Image roundedCircle id="profile-pic" onClick={handlePic} 
@@ -132,8 +137,7 @@ const unfollow = (id: string | undefined) => {
                   user!.followers!.length === 0 ? <span className="ml5 customLinks1">{user?.followers?.length} follower</span> : null 
                 }
                 </div>
-              </div>
-              <Col md={4} className="text-left justify-content-center">
+              <div className="text-left ml-auto justify-content-center">
               <br />
                 <div className="d-flex mb-3">
                   { user?.isVerified === true &&
@@ -167,13 +171,13 @@ const unfollow = (id: string | undefined) => {
                   }
              
                 <EditProfile show={show} setShow={setShow}/>
-              </Col>
+              </div>
+              </div>
             </Row>
-          </div>
-        </Col>
-            <Col xs={12} sm={10} md={6} lg={8}>
-              <Recentposts id={id} posts={posts}/>
+            <Col className='px-1'>
+            <Recentposts id={id} posts={posts}/>
             </Col>
+        </Col>
       </Row>
     </>
   ) : ( <div className="text-center mt-3">

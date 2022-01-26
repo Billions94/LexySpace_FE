@@ -2,6 +2,7 @@ export interface ReduxState {
     data: {
         user: User 
         followers: User[]
+        cover: string
         following: boolean
         hideMe: boolean
         likes: User[]
@@ -53,4 +54,8 @@ export interface Replies {
     user: User;
     commentId: string
     createdAt: Date
+}
+
+export interface Cover {
+    coverId: string;
 }

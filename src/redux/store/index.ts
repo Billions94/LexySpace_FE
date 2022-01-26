@@ -7,20 +7,23 @@ import usersReducer from "../reducers/usersReducer"
 import postsReducer from "../reducers/postsReducer"
 import { Posts, ReduxState, User } from "../interfaces"
 
+const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/images.asianage.com/images/aa-Cover-mj9i8cmdi35dsqiqgumar4cu74-20170925171720.Medi.jpeg'
+
 
 const ghost = process.env.REACT_APP_SECRET_KEY!
-const allCompose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose 
+const allCompose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 // Initial state of the store
 export const initialState: ReduxState = {
     data: {
         user: <User>{},
         followers: [],
+        cover: defaultCover,
         following: false,
         hideMe: false,
         likes: [],
         reroute: false,
-        isLoading: true
+        isLoading: false
     },
     posts: <Posts[]>[]
 }
@@ -46,7 +49,7 @@ const allReducers = combineReducers({
 const persistedReducer = persistReducer(persistConfig, allReducers)
 
 // Store
-const store = createStore(persistedReducer, initialState, allCompose(applyMiddleware(thunk)))
+const store = createStore(allReducers, initialState, allCompose(applyMiddleware(thunk)))
 
 export default store 
 

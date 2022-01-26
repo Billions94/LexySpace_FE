@@ -5,6 +5,7 @@ import { User } from "../interfaces"
 export const GET_USERS = 'GET_USERS'
 export const GET_BLOGS = 'GET_BLOGS'
 export const GET_FOLLOWERS = 'GET_FOLLOWERS'
+export const SET_COVER = 'SET_COVER'
 export const TOGGLE_FOLLOW = 'TOGGLE_FOLLOW'
 export const TOGGLE_HIDE_ME = 'TOGGLE_HIDE_ME'
 export const TOGGLE_LIKE = 'TOGGLE_LIKE'
@@ -24,13 +25,6 @@ export const getUsersAction = () => {
                     type: GET_USERS,
                     payload: data
                 })
-
-                setTimeout(()=> {
-                    dispatch({
-                        type: TOGGLE_LOADER,
-                        payload: false
-                    })
-                }, 3000)
             } else {
                 throw new Error("Roger we've got a problem")
             }
@@ -51,13 +45,6 @@ export const getPosts = () => {
                 type: GET_BLOGS,
                 payload: newPost
               })
-
-              setTimeout(()=> {
-                dispatch({
-                    type: TOGGLE_LOADER,
-                    payload: false
-                })
-            }, 3000)
             } else throw new Error('Could not get post')
           } catch (error) {
             console.log(error)

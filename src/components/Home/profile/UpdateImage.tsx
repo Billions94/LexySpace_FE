@@ -60,9 +60,9 @@ const UpdateImage = ({ xUser, show, setShow }: UpdateImageProps) => {
       }
     }
     
-    useEffect(()=> {
-      dispatch(getUsersAction())
-    }, [updateProfilePic])
+    // useEffect(()=> {
+    //   dispatch(getUsersAction())
+    // }, [updateProfilePic])
   
   return (
     <div>

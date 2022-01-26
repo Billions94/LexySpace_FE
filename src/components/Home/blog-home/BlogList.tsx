@@ -71,7 +71,7 @@ const BlogList = () => {
         <Col key={i} md={12} lg={12} style={{ borderTop: '1px solid rgb(216, 215, 215)',
          padding: '0px'}}>
             <div className="blogList">
-                <BlogItem key={i}  {...post} post={post} getData={getData}/>
+                <BlogItem key={i}  {...post} getData={getData}/>
             </div>
           </Col>
         )) }

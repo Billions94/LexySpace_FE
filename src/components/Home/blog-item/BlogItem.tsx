@@ -19,13 +19,12 @@ interface BlogItemProps {
   user: User
   _id: string
   likes: User[]
-  post: Posts
   createdAt: Date
   getData: () => Promise<void>
 }
 
 
-const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: BlogItemProps) => {
+const BlogItem = ({ text, cover, user, _id, likes, createdAt, getData }: BlogItemProps) => {
   // console.log('i am the author', user.userName)
 
   const navigate = useNavigate()
@@ -130,7 +129,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
   }
 
   const likedPost = likes.find(like => like._id === me)
-  console.log(newPost!.sharedPost)
+  // console.log(newPost!.sharedPost)
 
   return (
     <div>
