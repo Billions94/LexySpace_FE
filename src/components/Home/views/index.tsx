@@ -275,7 +275,23 @@ const Blog = () => {
                     <img className="blog-details-cover" alt=''  
                       src={blog?.cover} width='100%' />
                 </div>
-                <div>{blog?.likes.length} like</div>
+                <div className='d-flex justify-content-evenly'>
+                <div>
+                  { blog && blog.comments.length > 1 ?
+                   <span>{blog?.comments.length} comments</span> :
+                   <span>{blog?.comments.length} comment</span>
+                   }
+                </div>
+                <div>
+                  { blog && blog?.likes.map(user => (
+                    <><img src={user.userName} alt='' width='20px' /></>
+                  ))}
+                  { blog && blog.likes.length > 1 ?
+                   <span>{blog?.likes.length} likes</span> :
+                   <span>{blog?.likes.length} like</span>
+                   }
+                </div>
+                </div>
                 {/* { newPost!.sharedPost!._id !== id ? 
                 <>
                   <div className="mt-3">{newPost!.sharedPost!.text}</div>

@@ -12,6 +12,8 @@ import Recentposts from "./recentPost/RecentPosts"
 import Cover from "./Cover"
 import "./styles.scss"
 
+const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/images.asianage.com/images/aa-Cover-mj9i8cmdi35dsqiqgumar4cu74-20170925171720.Medi.jpeg'
+
 const UserProfile = () => {
 
   useAuthGuard()
@@ -102,52 +104,64 @@ const unfollow = (id: string | undefined) => {
   return user ? (
     <>
       <Row id='userProfileContainer' className="justify-content-center">
-        <Col className="userJumbo magicRow jumbotron-banner1 p-0 pb-3" sm={6} md={7} lg={7}>
+        <Col className="userJumbo magicRow jumbotron-banner1 p-0 pb-3" sm={12} md={8} lg={7}>
             <Row className="magicRow d-flex p-0">
-              <div className="coverDiv">
-                <img className='cover mb-2' src={cover} alt='new Cover' height='250px'/>
-              </div>
+              <Col sm={6} md={7} lg={7} className="coverDiv">
+                { id !== me ?
+                <>
+                { user?.cover === undefined || null ? <img className='cover mb-2' src={defaultCover} alt='new Cover' height='250px'/> : 
+                  <img className='cover mb-2' src={user.cover} alt='new Cover' height='250px'/> 
+                }
+                </> 
+                  : 
+                  <img className='cover mb-2' src={cover} alt='new Cover' height='250px'/>
+                }
+              </Col>
               <div className="coverModal">
-              <Cover getUser={getUser} />
+                { id !== me ? null :
+                  <Cover getUser={getUser} />
+                }
               </div>
 
               <div id="jinx"  className="d-flex px-4 col-lg-10">
 
-                <div className="imgDiv">
+                <div className="imgDiv ml5">
                   <Image roundedCircle id="profile-pic" onClick={handlePic} 
                     src={user.image}
                     alt="ProfilePicture" width="130" height="130"/>
+                    
+                <div>
+                <div className="nameHeader ">{user.firstName} {user.lastName}</div>
+                <div className="">lives in {user.location}</div>
+                <div className="">{user.bio}</div>
+                {
+                  user!.followers!.length > 1 ? <span className=" customLinks1"
+                  onClick={()=> navigate(`/followers/${user?._id}`)}>{user?.followers?.length} followers</span> : null
+                }
+                {
+                  user!.followers!.length === 1 ? <span className=" customLinks1"
+                  onClick={()=> navigate(`/followers/${user?._id}`)}>{user?.followers?.length} follower</span> : null 
+                }
+                {
+                  user!.followers!.length === 0 ? <span className=" customLinks1">{user?.followers?.length} follower</span> : null 
+                }
+                </div>
                 </div>
 
                 <UpdateImage xUser={user} show={pic} setShow={setPic}/>
               
-                <div>
-                <div className="nameHeader ml5">{user.firstName} {user.lastName}</div>
-                <div className="ml5">lives in {user.location}</div>
-                <div className="ml5">{user.bio}</div>
-                {
-                  user!.followers!.length > 1 ? <span className="ml5 customLinks1"
-                  onClick={()=> navigate(`/followers/${user?._id}`)}>{user?.followers?.length} followers</span> : null
-                }
-                {
-                  user!.followers!.length === 1 ? <span className="ml5 customLinks1"
-                  onClick={()=> navigate(`/followers/${user?._id}`)}>{user?.followers?.length} follower</span> : null 
-                }
-                {
-                  user!.followers!.length === 0 ? <span className="ml5 customLinks1">{user?.followers?.length} follower</span> : null 
-                }
-                </div>
               <div className="text-left ml-auto justify-content-center">
               <br />
-                <div className="d-flex mb-3">
+                <div className="d-flex justify-content-center mb-3">
                   { user?.isVerified === true &&
                     <div className=" mt-1  d-flex-row align-items-center">
                     <img alt='' className="mr-2" width="22px"
                        src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"/>
-                      <b>verified</b>
+                      {/* <b>verified</b> */}
                     </div>
                   }
                 </div>
+                <Col md={12} lg={12}>
                   { id !== me ? null 
                     :  
                     <Button onClick={handleShow} variant="white" className="jumbobtn">
@@ -169,8 +183,8 @@ const unfollow = (id: string | undefined) => {
                   }
                     </p>
                   }
-             
-                <EditProfile show={show} setShow={setShow}/>
+                  <EditProfile show={show} setShow={setShow}/>
+                </Col>
               </div>
               </div>
             </Row>

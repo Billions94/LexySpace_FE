@@ -24,6 +24,7 @@ export interface User {
     bio: string;
     location: string;
     image: string;
+    cover: string
     isVerified: boolean
     updatedAt: Date  
 }

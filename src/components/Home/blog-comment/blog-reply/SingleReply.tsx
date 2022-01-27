@@ -44,7 +44,7 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
         <>
         { reply.commentId === commentID ? (
           <div className="d-flex">
-            <Link to={`userProfile/${user._id}`}>
+            <Link to={`userProfile/${reply.user._id}`}>
             <div>
               <Image
                   className=" d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
@@ -57,7 +57,7 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies}: SingleReply
             <div className="text-dark mb-1 postedReply" style={{ fontSize: "12px", borderBottom: "1px solid rgb(216, 215, 215)",}}>
               Posted: {postTimer(reply.createdAt)}
             </div>
-            <div className="replyUserInfo  mb-0">
+            <div className="replyUserInfo  mb-1">
               {reply.user.firstName} {reply.user.lastName}
             </div>
             <div className="replyText mb-1">

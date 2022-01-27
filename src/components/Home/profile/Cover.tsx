@@ -37,11 +37,13 @@ const Cover = ({ getUser }: CoverProps) => {
 
     const newCover = async () => {
     try {
+        const token = localStorage.getItem('accessToken')
       const formDt = new FormData()
       formDt.append('cover', cover)
-      const response = await fetch(`${beUrl}/covers`, {
+      const response = await fetch(`${beUrl}/users/me/cover`, {
         method: 'POST',
-        body: formDt
+        body: formDt,
+        headers: { Authorization: `Bearer ${token}`}
       })
       if(response.ok) {
         const data = await response.json()
