@@ -11,6 +11,7 @@ export const TOGGLE_HIDE_ME = 'TOGGLE_HIDE_ME'
 export const TOGGLE_LIKE = 'TOGGLE_LIKE'
 export const TOGGLE_REROUTE = 'TOGGLE_REROUTE'
 export const TOGGLE_LOADER = 'TOGGLE_LOADER'
+export const SAVE_TASKS = 'SAVE_TASKS'
 export const TOGGLE_HIDE_TASK = 'TOGGLE_HIDE_TASK'
 
 export const apiUrl = process.env.REACT_APP_GET_URL
@@ -99,6 +100,11 @@ export const loaderAction = (payload: boolean) => ({
 
 export const hideTaskAction = (payload: boolean) => ({
     type: TOGGLE_HIDE_TASK,
+    payload: payload
+})
+
+export const saveTasksAction = (payload: string) => ({
+    type: SAVE_TASKS,
     payload: payload
 })
 

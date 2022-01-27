@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { GET_USERS, GET_FOLLOWERS, TOGGLE_FOLLOW, TOGGLE_HIDE_ME, TOGGLE_LIKE, TOGGLE_REROUTE, TOGGLE_LOADER, SET_COVER, TOGGLE_HIDE_TASK } from "../actions";
+import { GET_USERS, GET_FOLLOWERS, TOGGLE_FOLLOW, TOGGLE_HIDE_ME, TOGGLE_LIKE, TOGGLE_REROUTE, TOGGLE_LOADER, SET_COVER, TOGGLE_HIDE_TASK, SAVE_TASKS } from "../actions";
 import { initialState } from "../store";
 
 const usersReducer = (state = initialState.data, action: AnyAction) => {
@@ -29,6 +29,11 @@ const usersReducer = (state = initialState.data, action: AnyAction) => {
             return {
                 ...state,
                 hideMe: payload
+            }
+        case SAVE_TASKS:  
+            return {
+                ...state,
+                tasks: payload
             }
         case TOGGLE_HIDE_TASK: 
             return {

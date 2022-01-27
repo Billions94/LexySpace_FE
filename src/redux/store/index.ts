@@ -24,6 +24,7 @@ export const initialState: ReduxState = {
         likes: [],
         reroute: false,
         isLoading: false,
+        tasks: '',
         hideTask: false
     },
     posts: <Posts[]>[]
