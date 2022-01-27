@@ -49,7 +49,7 @@ const Blog = () => {
     const [commentLabel, setCommentLabel] = useState(false)
     const [likeLabel, setLikeLabel] = useState(false)
     const [shareLabel, setShareLabel] = useState(false)
-
+  // for handle the reshare modal
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
     const handleShare = () => setShare(true)
@@ -131,7 +131,7 @@ const Blog = () => {
     like(id)
     dispatch(likeAction())
   }
-
+// Like function, takes the user id and appends the likers to posts document by pushing the likers id to the likes array
   const like = async (id: string | undefined) => {
     try {
       const token = localStorage.getItem('accessToken')

@@ -118,8 +118,6 @@
 
 #newUserForm {
   padding: 30px 30px;
-  .formCol {
-  }
   .newUserForm {
     font-weight: 400;
     font-size: 15px;
@@ -132,3 +130,32 @@
   }
 }
 
+.modal-btn {
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background-color: #f91880;
+}
+
+.modal-btn:hover {
+  background-color: #e41575 !important;
+}
+
+.modal-btn:focus {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  background-color: #f91880 !important;
+}
+.modal-btn:active {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  background-color: #f91880 !important;
+}
+.modal-btn:focus-visible {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  background-color: #f91880 !important;
+}

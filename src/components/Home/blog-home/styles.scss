@@ -9,6 +9,17 @@
   border-radius: 50px !important;
 }
 
+.customInput:focus {
+  box-shadow: none;
+  outline: 1px solid #f91880;
+  border-color: rgb(216, 215, 215)
+}
+.customInput:active {
+  box-shadow: none;
+  outline: none;
+  border-color: rgb(216, 215, 215)
+}
+
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap");
 
 :root {
@@ -422,6 +433,8 @@
     border: none;
   }
   .feed {
+    display: flex;
+    justify-content: center;
     padding: 12px 0;
     border-left: 1px solid rgb(216, 215, 215) !important;
     border-right: 1px solid rgb(216, 215, 215) !important;
@@ -513,9 +526,10 @@
 #Task {
   .taskList {
     border-radius: 20px;
+    resize: none;
   }
   .taskList:focus {
-    outline: none;
+    outline: 1px solid #f91880;
     box-shadow: none;
     border-color: rgb(216, 215, 215)
   }

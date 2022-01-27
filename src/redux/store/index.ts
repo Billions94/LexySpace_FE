@@ -3,7 +3,7 @@ import thunk from "redux-thunk"
 import { persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage/session"
 import { encryptTransform } from "redux-persist-transform-encrypt"
-import usersReducer from "../reducers/usersReducer"
+import usersReducer from "../reducers/dataReducer"
 import postsReducer from "../reducers/postsReducer"
 import { Posts, ReduxState, User } from "../interfaces"
 
@@ -23,7 +23,8 @@ export const initialState: ReduxState = {
         hideMe: false,
         likes: [],
         reroute: false,
-        isLoading: false
+        isLoading: false,
+        hideTask: false
     },
     posts: <Posts[]>[]
 }

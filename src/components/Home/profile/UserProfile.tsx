@@ -104,7 +104,7 @@ const unfollow = (id: string | undefined) => {
   return user ? (
     <>
       <Row id='userProfileContainer' className="justify-content-center">
-        <Col className="userJumbo magicRow jumbotron-banner1 p-0 pb-3" sm={12} md={8} lg={7}>
+        <Col className="userJumbo magicRow jumbotron-banner1 p-0 pb-3" sm={12} md={10} lg={7}>
             <Row className="magicRow d-flex p-0">
               <Col sm={6} md={7} lg={7} className="coverDiv">
                 { id !== me ?

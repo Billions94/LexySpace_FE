@@ -8,6 +8,7 @@ export interface ReduxState {
         likes: User[]
         reroute: boolean
         isLoading: boolean
+        hideTask: boolean
     },
     posts: Posts[] 
 }
