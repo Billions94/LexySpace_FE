@@ -165,11 +165,6 @@ const Messages = () => {
 
   const notification = chatHistory.length > 0
 
-  // function enter(e: FormEvent){
-  //   if (e.target === "Enter") {
-  //     handleMessageSubmit(e)
-  //   }
-  // }
 
   return (
     <Container fluid className='customRowDm p-0'>
@@ -222,7 +217,7 @@ const Messages = () => {
               className="roundpic" alt=''   width={37} height={37}/>
               <div className="ml-2 dmUserName">
                 <div>{user.userName}</div>
-                  { notification && chatHistory.filter(m => m.socketId === room) && <div>new message</div>}
+                  { notification && chatHistory.filter(m => m.socketId !== id) && <div>new message</div>}
                 <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
                   width={10} height={10}/>
               </div>

@@ -135,7 +135,10 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                 </div>
                 <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
                 <Card.Title>{post.sharedPost.text}</Card.Title>
+                  { !post.sharedPost.cover ? 
+                    <Card.Img variant="top" src={post.sharedPost.cover} className="d-none" /> :
                     <Card.Img variant="top" src={post.sharedPost.cover} className="blog-cover" />
+                  }
                     <Card.Body className="mb-0">
             
                     </Card.Body>
