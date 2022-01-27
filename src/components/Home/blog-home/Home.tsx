@@ -13,6 +13,7 @@ import Blog from "../views";
 import Footer from "../../footer/Footer";
 import PostContainer from "./Post";
 import TaskList from "./TaskList";
+import Search from "./Search";
 // import Blog from "../views/Index";
 
 
@@ -43,6 +44,7 @@ const Home = () => {
       <Row className="pt-0 mainContainer">
         <Col className='sidebar d-xs-none d-sm-none d-md-flex' xs={0} sm={4} md={4} lg={4}>
           <Col>
+            <Search />
             <HotPosts />
             <div onClick={() => toggleHide()}
               style={{ cursor: 'pointer' }}>

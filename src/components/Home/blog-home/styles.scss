@@ -525,3 +525,70 @@
     border-color: rgb(216, 215, 215)
   }
 }
+
+#searchContainer {
+  .profile-pic {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  .firstandlastname {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 8px;
+  }
+  .username {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 10px;
+  }
+  .bio {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 10px;
+  }
+  .linkToProfile {
+    display: flex;
+    cursor: pointer;
+  }
+  .followbtn {
+    border-radius: 20px;
+    border: 1px solid grey;
+    color: black;
+    background-color: transparent;
+  }
+  .followbtn:hover {
+    border-radius: 20px;
+    color: black;
+    background-color: antiquewhite;
+  }
+  .followbtn:active {
+    outline: none;
+    box-shadow: none;
+  }
+  .followbtn:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .followbtn:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+  .nowfollowing {
+    border-radius: 20px !important;
+    border: none;
+    background-color: #f91880 !important;
+  }
+  .nowfollowing:active {
+    outline: none;
+    box-shadow: none;
+  }
+  .nowfollowing:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .nowfollowing:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+}
