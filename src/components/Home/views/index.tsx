@@ -12,6 +12,7 @@ import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
 import ShareModal from "./SharedModal"
 import { likeAction, loaderAction, reRouteAction } from "../../../redux/actions"
+import ViewModal from "./ViewModal"
 // import UserInfo from "../blog-author/UserInfo"
 
 
@@ -167,6 +168,7 @@ const Blog = () => {
   }
 
   const likedPost = blog?.likes.find(blog => blog._id === me)
+  const [view, setView] = useState(false)
 
   return isLoading === true ? ( <Loader /> ) : (
         <Row id='indexDiv'>
@@ -175,7 +177,7 @@ const Blog = () => {
                 <div className="d-flex align-items-center">
                   <Button className='nav-back' onClick={() => navigateHome('')}>
                   <img src="https://img.icons8.com/ios-filled/50/000000/left.png"
-                    className="arrowBack"/>
+                     className="arrowBack"/>
                   </Button>
                   <div className="mt-2 ml-2">
                     <h5>Posts</h5>
@@ -272,9 +274,11 @@ const Blog = () => {
             }
                 <h4 className="mt-3 blogText">{blog?.text}</h4>
                 <div className="mt-2 mb-4">
-                    <img className="blog-details-cover" alt=''  
+                    <img className="blog-details-cover" alt=''
+                      onClick={() => setView(true)}  
                       src={blog?.cover} width='100%' />
                 </div>
+                <ViewModal view={view} setView={setView} cover={blog?.cover}/>
                 <div className='d-flex justify-content-evenly'>
                 <div>
                   { blog && blog.comments.length > 1 ?

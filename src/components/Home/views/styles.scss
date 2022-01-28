@@ -70,6 +70,7 @@
   .blog-details-cover {
     width: 100%;
     border-radius: 10px;
+    cursor: pointer;
   }
 
   .authorDetails {
@@ -253,5 +254,44 @@
     cursor: pointer;
     text-decoration: underline;
     color: #0056b3;
+  }
+}
+
+#viewModal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-clip: padding-box;
+  border-radius: 20px;
+  width: 700px;
+
+  .modal-content {
+    height: 630px;
+    width: 700px;
+    border-radius: 20px;
+    background-color: transparent !important;
+    border: none;
+  }
+
+  .modal-header {
+    border-bottom: none;
+    background-color: transparent !important;
+  }
+
+  .modal-body {
+    padding-bottom: 20px;
+  }
+
+  .modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-top: none;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
   }
 }
