@@ -2,11 +2,14 @@ export interface ReduxState {
     data: {
         user: User 
         followers: User[]
+        cover: string
         following: boolean
         hideMe: boolean
         likes: User[]
         reroute: boolean
         isLoading: boolean
+        tasks: string
+        hideTask: boolean
     },
     posts: Posts[] 
 }
@@ -23,6 +26,7 @@ export interface User {
     bio: string;
     location: string;
     image: string;
+    cover: string
     isVerified: boolean
     updatedAt: Date  
 }
@@ -53,4 +57,8 @@ export interface Replies {
     user: User;
     commentId: string
     createdAt: Date
+}
+
+export interface Cover {
+    coverId: string;
 }

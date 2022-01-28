@@ -9,7 +9,7 @@
             display: flex;
             font-weight: 500;
             font-size: 15px;
-            line-height: 18px;
+            line-height: 20px;
         }
         .replyText {
             font-weight: 400;
@@ -17,9 +17,6 @@
             line-height: 18px;
         }
         .delete {
-            position: absolute;
-            margin-top: -65px;
-            margin-left: 320px;
             height: 30px;
             width: 30px;
         }
@@ -27,6 +24,7 @@
             background-color: silver;
         }
         .postedReply {
+            display: flex;
             padding: 5px 5px;
         }
     }

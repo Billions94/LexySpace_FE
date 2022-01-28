@@ -93,6 +93,31 @@
   margin-left: 11px;
 }
 
+.dropdownbtn {
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  margin-top: 0px;
+  margin-left: 102px;
+  padding-bottom: 20px;
+  background-color: transparent;
+  border-radius: 50px;
+  border: none;
+
+}
+
+.dropdownbtn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+.dropdownbtn:hover {
+  outline: none;
+  box-shadow: none;
+  background-color: #f7e6ee;
+}
+
 .like {
   width: 30px;
   height: 30px;

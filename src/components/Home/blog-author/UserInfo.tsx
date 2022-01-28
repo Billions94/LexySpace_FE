@@ -114,19 +114,19 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
         </div>
         <div className="followers1">
           {followers!.length > 1 ? (
-            <span className="ml5 customLinks1"
+            <span className="customLinks1"
               onClick={() => navigate(`/followers/${_id}`)}>
               {followers?.length} followers
             </span>
           ) : null}
           {followers!.length === 1 ? (
-            <span className="ml5 customLinks1"
+            <span className="customLinks1"
               onClick={() => navigate(`/followers/${_id}`)}>
               {followers?.length} follower
             </span>
           ) : null}
           {followers!.length === 0 ? (
-            <span className="ml5 customLinks1">
+            <span className="customLinks1">
               {followers?.length} follower
             </span>
           ) : null}

@@ -138,7 +138,7 @@ const EditNewUser = () => {
                 </div>
                 <div className='d-flex'>
                     <></>
-                    <Button type='submit' className='ml-auto'>
+                    <Button type='submit' className='ml-auto modal-btn'>
                         sumbit
                     </Button>
                 </div>

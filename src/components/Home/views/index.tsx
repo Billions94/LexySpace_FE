@@ -12,6 +12,7 @@ import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
 import ShareModal from "./SharedModal"
 import { likeAction, loaderAction, reRouteAction } from "../../../redux/actions"
+import ViewModal from "./ViewModal"
 // import UserInfo from "../blog-author/UserInfo"
 
 
@@ -49,7 +50,7 @@ const Blog = () => {
     const [commentLabel, setCommentLabel] = useState(false)
     const [likeLabel, setLikeLabel] = useState(false)
     const [shareLabel, setShareLabel] = useState(false)
-
+  // for handle the reshare modal
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
     const handleShare = () => setShare(true)
@@ -131,7 +132,7 @@ const Blog = () => {
     like(id)
     dispatch(likeAction())
   }
-
+// Like function, takes the user id and appends the likers to posts document by pushing the likers id to the likes array
   const like = async (id: string | undefined) => {
     try {
       const token = localStorage.getItem('accessToken')
@@ -167,6 +168,7 @@ const Blog = () => {
   }
 
   const likedPost = blog?.likes.find(blog => blog._id === me)
+  const [view, setView] = useState(false)
 
   return isLoading === true ? ( <Loader /> ) : (
         <Row id='indexDiv'>
@@ -175,7 +177,7 @@ const Blog = () => {
                 <div className="d-flex align-items-center">
                   <Button className='nav-back' onClick={() => navigateHome('')}>
                   <img src="https://img.icons8.com/ios-filled/50/000000/left.png"
-                    className="arrowBack"/>
+                     className="arrowBack"/>
                   </Button>
                   <div className="mt-2 ml-2">
                     <h5>Posts</h5>
@@ -272,10 +274,28 @@ const Blog = () => {
             }
                 <h4 className="mt-3 blogText">{blog?.text}</h4>
                 <div className="mt-2 mb-4">
-                    <img className="blog-details-cover" alt=''  
+                    <img className="blog-details-cover" alt=''
+                      onClick={() => setView(true)}  
                       src={blog?.cover} width='100%' />
                 </div>
-                <div>{blog?.likes.length} like</div>
+                <ViewModal view={view} setView={setView} cover={blog?.cover}/>
+                <div className='d-flex justify-content-evenly'>
+                <div>
+                  { blog && blog.comments.length > 1 ?
+                   <span>{blog?.comments.length} comments</span> :
+                   <span>{blog?.comments.length} comment</span>
+                   }
+                </div>
+                <div>
+                  { blog && blog?.likes.map(user => (
+                    <><img src={user.userName} alt='' width='20px' /></>
+                  ))}
+                  { blog && blog.likes.length > 1 ?
+                   <span>{blog?.likes.length} likes</span> :
+                   <span>{blog?.likes.length} like</span>
+                   }
+                </div>
+                </div>
                 {/* { newPost!.sharedPost!._id !== id ? 
                 <>
                   <div className="mt-3">{newPost!.sharedPost!.text}</div>

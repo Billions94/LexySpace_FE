@@ -58,6 +58,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 0;
   }
 
   .blog-details-title {
@@ -69,6 +70,7 @@
   .blog-details-cover {
     width: 100%;
     border-radius: 10px;
+    cursor: pointer;
   }
 
   .authorDetails {
@@ -91,11 +93,12 @@
   .dropDownMenu {
     padding: 18px !important;
     border-radius: 25px !important;
-    border: 1px solid rgb(216, 215, 215) !important;
+    border: 1px solid #d8d7d7 !important;
     position: absolute !important;
     inset: 0px auto auto 0px !important;
     margin: 0px !important;
-    transform: translate3d(-20px, 30px, 0px) !important;
+    transform: translate3d(-20px, 0px, 0px) !important;
+    width: 162px;
   }
 
   .blog-details-author {
@@ -189,7 +192,7 @@
   .blogContent {
     border-radius: 20px;
     border: none;
-    padding: 15px;
+    // padding: 0 15px;
     background-color: transparent;
     color: black;
     text-decoration: none;
@@ -222,19 +225,19 @@
     background-color: transparent;
     border-radius: 50px;
     border: none;
-
+  
   }
-
+  
   .dropdownbtn:focus {
-    outline: none;
-    box-shadow: none;
-    background-color: transparent;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
   }
-
+  
   .dropdownbtn:hover {
     outline: none;
     box-shadow: none;
-    background-color: antiquewhite;
+    background-color: #f7e6ee;
   }
 
   .customPicContainer {
@@ -251,5 +254,44 @@
     cursor: pointer;
     text-decoration: underline;
     color: #0056b3;
+  }
+}
+
+#viewModal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-clip: padding-box;
+  border-radius: 20px;
+  width: 700px;
+
+  .modal-content {
+    height: 630px;
+    width: 700px;
+    border-radius: 20px;
+    background-color: transparent !important;
+    border: none;
+  }
+
+  .modal-header {
+    border-bottom: none;
+    background-color: transparent !important;
+  }
+
+  .modal-body {
+    padding-bottom: 20px;
+  }
+
+  .modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-top: none;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
   }
 }

@@ -1,6 +1,6 @@
 import { Modal, Form, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import { useState, Dispatch, SetStateAction } from "react"
+import { useState, Dispatch, SetStateAction, useEffect } from "react"
 import { getUsersAction } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
 // import API from "../../login&register/Api.js"
@@ -65,11 +65,13 @@ const EditProfile = ({ show, setShow }: EditProfileProps) => {
         //         console.log(error)
         //     }
         // }
-    
+    useEffect(() => {
+        dispatch(getUsersAction())
+    },[])
 
     return (
     <div>
-        <Modal id='editModal' size="lg" className="px-4" style={{height: "500px"}}
+        <Modal id='editModal'  size="lg" className="px-4" style={{height: "500px"}}
             show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title >edit Profile</Modal.Title>

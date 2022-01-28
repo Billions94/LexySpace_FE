@@ -31,6 +31,7 @@ const LogIn = () => {
   const [error, setError] = useState(false)
   const navigate = useNavigate()
 
+// Loggin in a registered user  
   const login = async (props: LoginFormikProps) => {
     try {
       const response = await fetch(`${url}/users/login`, {
@@ -40,9 +41,9 @@ const LogIn = () => {
       })
         if(response.ok) {
           const data = await response.json()
-              
+          // Extracting the secure tokens from the server     
           const { accessToken, refreshToken } = data
-  
+          // Setting the secure tokens from the server to our localstorage window(client)
           localStorage.setItem('accessToken',  accessToken)
           localStorage.setItem('refreshToken',  refreshToken)
           if(data){
@@ -82,11 +83,11 @@ const LogIn = () => {
                 <img className='google' src="https://img.icons8.com/color/50/000000/google-logo.png" 
                   alt='' width='20' height='20'/>
               </div>
-              <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 res">
+              <Col xs={12} sm={12} md={12} lg={12} className="res">
                 <button type="button" className="btn googleBtn btn-lg">
                   <p> CONTINUE WITH GOOGLE </p>
                   </button>
-              </div>
+              </Col>
           </div> 
         </a>               
         <div className="mx-auto">
@@ -149,7 +150,7 @@ const LogIn = () => {
 
                 <div className="loginBtn">
                   <Button variant="primary"
-                    className="SignUpButton register text-dark customBtn"
+                    className="modal-btn"
                     type="submit">
                     log In
                   </Button>

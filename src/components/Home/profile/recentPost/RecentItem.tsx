@@ -1,7 +1,8 @@
 import { Posts, ReduxState } from '../../../../redux/interfaces'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { reRouteAction } from '../../../../redux/actions'
+import { reRouteAction, GET_BLOGS } from '../../../../redux/actions'
+import BlogItem from '../../blog-item/BlogItem'
 
 
 interface RecentItemProps {
@@ -18,9 +19,27 @@ const RecentItem = ({ post }: RecentItemProps) => {
         dispatch(reRouteAction(true))
     }
 
+    const apiUrl = process.env.REACT_APP_GET_URL
+   const getData = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/posts`)
+      if (response.ok) {
+        const { posts } = await response.json()
+        const newPost = posts.reverse()
+        console.log('here is the post', newPost)
+        dispatch({
+          type: GET_BLOGS,
+          payload: newPost
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
     return (
-        <>
-            <div className="postContainer ml-3"
+        <div className='recentItem'>
+            {/* <div className="postContainer ml-3"
                 onClick={() => route(post._id)}>
                 <img src={post.cover} alt='' width={150} height={150} />
                 <div className='mb-2'>
@@ -43,8 +62,9 @@ const RecentItem = ({ post }: RecentItemProps) => {
                          {post.likes.length}
                     </div>
                 </div>
-            </div>
-        </>
+            </div> */}
+            <BlogItem {...post} getData={getData} />
+        </div>
     )
 }
 

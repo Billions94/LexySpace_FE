@@ -28,7 +28,7 @@ const Register = () => {
   const beUrl = process.env.REACT_APP_GET_URL
 
   const navigate = useNavigate()
-
+// Register and create new user account
   const register = async (props: FormikProps) => {
       const response = await fetch(`http://localhost:3001/users/register`, {
         method: 'POST',
@@ -38,9 +38,9 @@ const Register = () => {
       console.log(response)
         if(response.ok) {
           const data = await response.json()
-              
+          // Extracting the secure tokens from the server  
           const { accessToken, refreshToken } = data
-  
+          // Setting the secure tokens from the server to our localstorage window(client)
           localStorage.setItem('accessToken',  accessToken)
           localStorage.setItem('refreshToken',  refreshToken)
           navigate('/editNewUser')
@@ -56,9 +56,11 @@ const Register = () => {
                 <img className='google' src="https://img.icons8.com/color/50/000000/google-logo.png" 
                   alt='' width='20' height='20'/>
               </div>
-              <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 res">
-                <button type="button" className="btn googleBtn btn-lg">SIGN UP WITH GOOGLE</button>
-              </div>
+              <Col xs={12} sm={12} md={12} lg={12} className="res">
+                <button type="button" className="btn googleBtn btn-lg">
+                  <p> CONTINUE WITH GOOGLE </p>
+                  </button>
+              </Col>
           </div> 
         </a> 
         <div className="mx-auto">
@@ -119,8 +121,6 @@ const Register = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-
-
                 <Form.Group className='format'
                     controlId="formBasicPassword">
                   <Form.Control
@@ -138,12 +138,10 @@ const Register = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-
                 <Button
                   variant="primary"
-                  className="SignUpButton register text-dark customBtn"
-                  type="submit"
-                >
+                  className="modal-btn"
+                  type="submit">
                   Sign Up
                 </Button>
                 <Form.Text>

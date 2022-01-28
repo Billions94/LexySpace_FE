@@ -3,7 +3,7 @@ import { Card, Badge, Dropdown, Image } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { Posts, User } from "../../../redux/interfaces"
+import { Comments, User } from "../../../redux/interfaces"
 import { ReduxState } from "../../../redux/interfaces"
 import "./styles.scss"
 import CommentModal from "../blog-home/new/CommentModal"
@@ -16,16 +16,16 @@ import { postTimer } from "../../../lib"
 interface BlogItemProps {
   text: string
   cover: string
+  comments: Comments[]
   user: User
   _id: string
   likes: User[]
-  post: Posts
   createdAt: Date
   getData: () => Promise<void>
 }
 
 
-const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: BlogItemProps) => {
+const BlogItem = ({ text, cover, comments, user, _id, likes, createdAt, getData }: BlogItemProps) => {
   // console.log('i am the author', user.userName)
 
   const navigate = useNavigate()
@@ -130,7 +130,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
   }
 
   const likedPost = likes.find(like => like._id === me)
-  console.log(newPost!.sharedPost)
+  // console.log(newPost!.sharedPost)
 
   return (
     <div>
@@ -186,14 +186,12 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
         <div onClick={() => doSomething(_id)}
           className="blog-link">
           <div className="d-flex mb-0 p-0">
-            <div style={{ width: '50px' }}></div>
-            <div style={{ marginLeft: "10px" }}>
+            <div>
               <h6>{text}</h6>
             </div>
           </div>
           <div className="d-flex mb-0 p-0">
-            <div style={{ width: '50px' }}></div>
-            <div style={{ marginLeft: "10px" }}>
+            <div>
               <h6> <img src={cover} className="blog-cover" /></h6>
             </div>
           </div>
@@ -244,6 +242,7 @@ const BlogItem = ({ text, cover, user, _id, likes, createdAt, post, getData }: B
               <img src="https://img.icons8.com/wired/64/000000/comments.png"
                 width='20px' />
             </button>
+            <span className="text-dark">{comments.length}</span>
             {commentLabel === false ? null :
               <Badge pill variant="secondary"
                 className='interactionBadge'>

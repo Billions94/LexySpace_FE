@@ -4,7 +4,7 @@ import { Container, Navbar, Button, Dropdown } from "react-bootstrap"
 import logo from "../../assets/asset6.png"
 import { useLocation, useNavigate, Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { getUsersAction } from "../../redux/actions"
+import { getUsersAction, reRouteAction } from "../../redux/actions"
 import { ReduxState } from "../../redux/interfaces"
 import PostModal from "../Home/blog-home/new/PostModal"
 import "./styles.scss"
@@ -31,6 +31,10 @@ const NavBar = () => {
     navigate('/')
   }
   
+  function route() {
+    dispatch(reRouteAction(false))
+    navigate('/home')
+  }
 
   useEffect(()=> {
     dispatch(getUsersAction())
@@ -83,7 +87,7 @@ const NavBar = () => {
               <PostModal show={show} setShow={setShow} />
             </div>
             <div className="customDD">
-              <Dropdown style={{ marginLeft: "-65px", marginTop: "7px" }}>
+              <Dropdown style={{ marginTop: "7px" }}>
                 <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
@@ -147,7 +151,7 @@ const NavBar = () => {
             </Navbar.Brand>
 
             <div className="customDD">
-              <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
+              <Dropdown style={{ marginTop: "7px"}}>
                 <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
@@ -199,7 +203,7 @@ const NavBar = () => {
             </Navbar.Brand>
 
             <div className="customDD">
-              <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
+              <Dropdown style={{ marginTop: "7px"}}>
                 <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
@@ -251,7 +255,7 @@ const NavBar = () => {
             </Navbar.Brand>
 
             <div className="customDD">
-              <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
+              <Dropdown style={{ marginTop: "7px"}}>
                 <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
@@ -293,7 +297,7 @@ const NavBar = () => {
             </Navbar.Brand>
 
             <div className="customDD">
-              <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
+              <Dropdown style={{ marginTop: "7px"}}>
                 <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
@@ -365,13 +369,13 @@ const NavBar = () => {
         location.pathname !== '/register' && location.pathname !== '/login' && location.pathname !== '/editNewUser' &&
         <div  className="blog-navbar p-1 sticky-top" >
           <Container className="justify-content-between d-flex px-4">
-            <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
+            <Navbar.Brand className="customCursor" onClick={() => route()}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
                 <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
-              <Dropdown style={{ marginLeft: "-65px", marginTop: "7px"}}>
+              <Dropdown style={{ marginTop: "7px"}}>
                 <Dropdown.Toggle className="btn btn-dark navToggle">
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
