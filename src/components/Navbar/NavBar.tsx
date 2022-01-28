@@ -249,7 +249,7 @@ const NavBar = () => {
       { location.pathname === '/settings' &&  
         <div  className="blog-navbar p-1 sticky-top" >
           <Container className="justify-content-between d-flex px-4">
-            <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
+            <Navbar.Brand className="customCursor" onClick={() => route()}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
                 <span className="navspan ml-2">lexySpace</span>
             </Navbar.Brand>
@@ -262,7 +262,7 @@ const NavBar = () => {
                     </Dropdown.Toggle>
                     <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
                 <br />
-                  <Link to={"/home"} className="deleteBlog">
+                  <div className="customLinks" onClick={() => route()}>
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
                         <img alt='' className="lrdimg" width="17px"
@@ -270,7 +270,7 @@ const NavBar = () => {
                       </div>
                       <div>home</div>
                     </div>
-                  </Link>
+                  </div>
                               
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">
@@ -382,7 +382,7 @@ const NavBar = () => {
                     </Dropdown.Toggle>
                     <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
                 <br />
-                  <Link to={"/home"} className="deleteBlog">
+                  <div className="customLinks" onClick={() => route()}>
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
                         <img alt='' className="lrdimg" width="17px"
@@ -390,9 +390,9 @@ const NavBar = () => {
                       </div>
                       <div>home</div>
                     </div>
-                  </Link>
+                  </div>
                               
-                  <Link to={"/settings"} className="deleteBlog">
+                  <div className="customLinks" onClick={() => navigate("/settings")}>
                     <div className="d-flex">
                       <div className="mr-3">
                         <img alt='' className='lrdimg' width='18px'  
@@ -400,7 +400,7 @@ const NavBar = () => {
                       </div>
                       <div>settings</div>
                     </div>
-                  </Link>
+                  </div>
 
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">

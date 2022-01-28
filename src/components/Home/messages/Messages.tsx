@@ -166,7 +166,7 @@ const Messages = () => {
   const notification = chatHistory.length > 0
 
   const meDm = chatHistory.find(m => m.sender === user.userName)
-
+//new
 
   return (
     <Container fluid className='customRowDm p-0'>
@@ -211,7 +211,7 @@ const Messages = () => {
               setInput({ ...input, text: e.target.value })}/>
           </div>
           <div className="listofDM mt-4">
-           {onlineUsers.length > 0 ? <div>{onlineUsers.length -1} user online</div> : <></>}
+           {onlineUsers.length > 0 ? <div>{onlineUsers.length -1} user online</div> : <>No user online</>}
           <ListGroup variant={'flush'} className="mt-3 customList">
           {onlineUsers.filter(u => u.userName !== user.userName).map((user, i) => (
             <div onClick={() => navigate(`/messages/${user.socketId}`)} 
