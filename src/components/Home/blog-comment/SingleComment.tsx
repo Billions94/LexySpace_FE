@@ -79,7 +79,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
       }
 
     return(
-        <div key={comment._id}>
+        <div key={comment._id} className="mt-2">
         <div className="cardHeader">
           <div className="d-flex col-12">
             <Link to={`/userProfile/${comment.user._id}`}>
@@ -138,7 +138,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
           { show === false ? null :
             <div className='reply'>
             <Link to={`/userProfile/${user._id}`}>
-              <div>
+              <div className='mt-2'> 
                 <Image roundedCircle src={user.image} alt=''
                   width={37} height={37} />
               </div>
