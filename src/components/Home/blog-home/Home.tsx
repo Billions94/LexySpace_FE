@@ -45,8 +45,8 @@ const Home = () => {
 
   return isLoading === true ? (<Loader />) : (
     <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">
-      <Row className="pt-0 mainContainer">
-        <Col className='sidebar d-none d-xs-none d-sm-none d-md-flex' xs={0} sm={4} md={5} lg={4}>
+      <Row className="pt-0 mainContainer justify-content-center">
+        <Col className='sidebar d-none d-xs-none d-sm-none d-md-flex'sm={4} md={4} lg={4}>
           <Col>
             <Search />
             <HotPosts />
@@ -92,6 +92,7 @@ const Home = () => {
             </Col>
           }
         </Col>
+        <Col lg={1}></Col>
       </Row>
     </Container>
   )

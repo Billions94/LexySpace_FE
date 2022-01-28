@@ -8,7 +8,7 @@ import { ReduxState } from "../../../redux/interfaces"
 
 interface UserInfoProps {
   show: boolean
-  props: User 
+  props: User | null
   handleShow: ()=> void
   setTimer: Dispatch<SetStateAction<boolean>>
   handleClose: ()=> void
@@ -24,7 +24,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
   const { following } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 
-  const { image, firstName, lastName, isVerified, userName, followers, _id, bio } = props
+  // props?.
   const follower = { followerId: me }
   
 
@@ -74,33 +74,33 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
       onMouseLeave={() => {handleClose(); setTimer(true)}}>
       <div className="p-2 userInfoContainer">
         <div className="d-flex">
-          <div id='userDetails' onClick={()=> navigate(`/userProfile/${_id}`)}
+          <div id='userDetails' onClick={()=> navigate(`/userProfile/${props?._id}`)}
               style={{cursor: 'pointer'}}>
-            <img src={image} alt="" className="roundpic" width={47} height={47} />
+            <img src={props?.image} alt="" className="roundpic" width={47} height={47} />
             <div className="">
               <h5 className="userDetails mb-0">
-                {firstName} {lastName}
-                { isVerified === true &&
+                {props?.firstName} {props?.lastName}
+                { props?.isVerified === true &&
                     <span className=" ml-1">
                     <img alt='' className="mr-2" width="15"
                        src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"/>
                     </span>
                   }
               </h5>
-              <span className="userUserName text-muted">@{userName}</span>
+              <span className="userUserName text-muted">@{props?.userName}</span>
             </div>
           </div>
           {
-            _id !== me &&
+            props?._id !== me &&
             <div className='ml-auto'>
             { following === false ?
-              <Button onClick={()=> toggle(_id)}
+              <Button onClick={()=> toggle(props?._id)}
                 size="sm" variant="primary" 
                 className="followbtn ml-auto">
                 follow
               </Button>
               : 
-              <Button onClick={()=> toggle(_id)}
+              <Button onClick={()=> toggle(props?._id)}
               size="sm" variant="primary" 
               className="nowfollowing ml-auto">
               following
@@ -110,24 +110,24 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
           }
         </div>
         <div>
-          {bio}
+          {props?.bio}
         </div>
         <div className="followers1">
-          {followers!.length > 1 ? (
+          {props!.followers!.length > 1 ? (
             <span className="customLinks1"
-              onClick={() => navigate(`/followers/${_id}`)}>
-              {followers?.length} followers
+              onClick={() => navigate(`/followers/${props?._id}`)}>
+              {props?.followers?.length} followers
             </span>
           ) : null}
-          {followers!.length === 1 ? (
+          {props!.followers!.length === 1 ? (
             <span className="customLinks1"
-              onClick={() => navigate(`/followers/${_id}`)}>
-              {followers?.length} follower
+              onClick={() => navigate(`/followers/${props?._id}`)}>
+              {props?.followers?.length} follower
             </span>
           ) : null}
-          {followers!.length === 0 ? (
+          {props?.followers!.length === 0 ? (
             <span className="customLinks1">
-              {followers?.length} follower
+              {props?.followers?.length} follower
             </span>
           ) : null}
         </div>

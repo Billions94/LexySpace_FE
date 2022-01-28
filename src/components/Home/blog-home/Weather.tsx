@@ -82,8 +82,8 @@ const Weather = () => {
         <>
               <div className="weather-gradient" />
                 <div  className="date-container1">
-                    <h2 className="date-dayname">{format(new Date(data.timezone * 24), 'iii')}</h2>
-                    <span className="date-day">{format(new Date(data.timezone / 365), 'dd MMM yyyy')}</span>
+                    <h2 className="date-dayname">{new Date().getMonth()}</h2>
+                    <span className="date-day">{new Date().getFullYear()}</span>
                     <i className="location-icon" data-feather="map-pin" />
                     <span className="location">{data.name}, {data.sys.country}</span>
                     <div className="precipitation mt-2">

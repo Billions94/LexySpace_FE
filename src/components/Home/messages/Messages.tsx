@@ -168,13 +168,13 @@ const Messages = () => {
 
   return (
     <Container fluid className='customRowDm p-0'>
-      <Row id='dmContainer' className='mx-auto pt-5 customDmRow'>
+      <Row id='dmContainer' className='mx-auto p-3 customDmRow'>
       
-        <Col className="customCol1 ml-auto" sm={5} md={3}>
+        <Col className="customCol1 ml-auto" sm={5} md={3} lg={3}>
           <div className="d-flex customMess">
-          <h3 className="text-center mt-2 ml-2">Messaging</h3>
+          <h3 className="text-center mt-2 ml-2">Messages</h3>
           <div>
-        <Dropdown>
+        {/* <Dropdown>
           <Dropdown.Toggle className="customSetDrop" variant="success" id="dropdown-basic">
           <Button className="customSetDm">
             <img src="https://img.icons8.com/wired/50/000000/settings.png" alt='' width="17px" height="17px"/>
@@ -194,7 +194,7 @@ const Messages = () => {
             <span className="ml-2">dm Settings </span>
             </div>
           </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown> */}
           </div>
           </div>
         
@@ -203,14 +203,16 @@ const Messages = () => {
               src="https://img.icons8.com/pastel-glyph/50/000000/search--v1.png"
               width="30" alt=''/>
             <input className="form-control shareComment search"
-              placeholder="search Messages...."
+              placeholder="search...."
               value={input.text}
               onChange={(e) =>
               setInput({ ...input, text: e.target.value })}/>
           </div>
           <div className="listofDM mt-4">
           <ListGroup variant={'flush'} className="mt-3 customList">
-          {onlineUsers.filter(user => user.room === room).map((user, i) => (
+          {onlineUsers.filter(user => {
+            console.log(user.userName, 'username is different from my username')
+            return user.socketId !== room}).map((user, i) => (
             <div onClick={() => navigate(`/messages/${user.socketId}`)} 
                 key={i} className="dmHeader  d-flex">
               <img src={user.image} 
@@ -240,7 +242,7 @@ const Messages = () => {
           </ListGroup>
         </Col> */}
 
-      <Col className="mr-auto customCol2" sm={7} md={7}>
+      <Col className="mr-auto customCol2" sm={7} md={6} lg={5}>
         { !reciever ? null :
           <div className="dmHeader d-flex">
             <img src={reciever!.image} 
@@ -280,7 +282,7 @@ const Messages = () => {
             <div className="panel-body mt-3">
               <textarea
                 className="form-control dmText"
-                rows={2}
+                rows={1}
                 placeholder="write a Message...."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}/>

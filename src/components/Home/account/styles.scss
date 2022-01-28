@@ -159,12 +159,16 @@
     .submitBtn {
         border-radius: 20px;
         background-color: transparent;
-        border: 1px solid black;
-        color: black;
+        background-color: #f91880;
+        border: none;
+        color: white;
         outline: none;
         box-shadow: none;
     }
     .submitBtn:hover {
-       background-color: antiquewhite;
+       background-color: #e41575;
+    }
+    .submitBtn:focus {
+        box-shadow: none;
     }
 }

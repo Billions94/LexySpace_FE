@@ -12,6 +12,7 @@ import Recentposts from "./recentPost/RecentPosts"
 import Cover from "./Cover"
 import "./styles.scss"
 import Loader from "../loader/Loader"
+import Footer from "../../footer/Footer"
 
 const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/images.asianage.com/images/aa-Cover-mj9i8cmdi35dsqiqgumar4cu74-20170925171720.Medi.jpeg'
 
@@ -194,6 +195,9 @@ const UserProfile = () => {
             </Col>
         </Col>
       </Row>
+      {/* <Col lg={12} className="justify-content-center">
+      <Footer />
+      </Col> */}
     </>
   ) : ( <div className="text-center mt-3">
   { loading === true &&
