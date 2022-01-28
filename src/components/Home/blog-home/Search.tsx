@@ -30,7 +30,7 @@ const Search = () => {
             console.log(error)
         }
     }
-    console.log('we are the users', users)
+
 
     const follow = async (userId: string | undefined) => {
         try {
