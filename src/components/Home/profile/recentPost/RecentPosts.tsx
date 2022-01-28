@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { ReduxState, Posts } from "../../../../redux/interfaces"
 import RecentItem from "./RecentItem"
 
@@ -11,15 +11,18 @@ interface RecentPostsProps {
 const Recentposts = ({ id, posts }: RecentPostsProps) => {
 
     const [showRecent, setShowRecent] = useState(true)
-    
     function toggle() {
         showRecent === false ? setShowRecent(true) : setShowRecent(false)
     }
+    console.log('i am the id', id)
+    useEffect(() => {
+
+    }, [])
 
     return(
         <div id="recentPost">
                 <h5 onClick={() => toggle()}
-                className='text-center'>#recent posts</h5>
+                className='text-center'>#recent activities</h5>
             <div className="">
             { showRecent === false ? null :
                 <>

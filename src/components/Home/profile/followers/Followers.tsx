@@ -48,7 +48,7 @@ const Followers = () => {
    return followers.length > 0 ? (
     <Container>
       <Row className='justify-content-center mt-5'>
-        <Col xs={12} sm={12} md={6} lg={8}>
+        <Col xs={12} sm={12} md={9} lg={8}>
           {user && 
             <>
             {user.followers.length > 1 ?

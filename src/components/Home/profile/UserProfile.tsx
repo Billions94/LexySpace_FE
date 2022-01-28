@@ -11,6 +11,7 @@ import { ReduxState, User } from "../../../redux/interfaces"
 import Recentposts from "./recentPost/RecentPosts"
 import Cover from "./Cover"
 import "./styles.scss"
+import Loader from "../loader/Loader"
 
 const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/images.asianage.com/images/aa-Cover-mj9i8cmdi35dsqiqgumar4cu74-20170925171720.Medi.jpeg'
 
@@ -87,18 +88,17 @@ const UserProfile = () => {
 
   const toggle = (id: string | undefined) => {
     following === false ? nowFollow(id) : unfollow(id)
-}
+  }
 
-const nowFollow = (id: string | undefined) => {
-  follow()
-  dispatch(followAction(true))
+  const nowFollow = (id: string | undefined) => {
+    follow()
+    dispatch(followAction(true))
 
-}
-const unfollow = (id: string | undefined) => {
-  follow()
-  dispatch(followAction(false))
-}
-
+  }
+  const unfollow = (id: string | undefined) => {
+    follow()
+    dispatch(followAction(false))
+  }
 
 
   return user ? (
@@ -110,13 +110,14 @@ const unfollow = (id: string | undefined) => {
                 { id !== me ?
                 <>
                 { user?.cover === undefined || null ? <img className='cover mb-2' src={defaultCover} alt='new Cover' height='250px'/> : 
-                  <img className='cover mb-2' src={user.cover} alt='new Cover' height='250px'/> 
+                  <img className='cover mb-2' src={user.cover} alt='' height='250px'/> 
                 }
                 </> 
                   : 
-                  <img className='cover mb-2' src={cover} alt='new Cover' height='250px'/>
+                  <img className='cover mb-2' src={cover} alt='' height='250px'/>
                 }
-              </Col>
+              </Col> 
+      
               <div className="coverModal">
                 { id !== me ? null :
                   <Cover getUser={getUser} />
@@ -189,7 +190,7 @@ const unfollow = (id: string | undefined) => {
               </div>
             </Row>
             <Col className='px-1'>
-            <Recentposts id={id} posts={posts}/>
+            <Recentposts id={id}  posts={posts}/>
             </Col>
         </Col>
       </Row>
