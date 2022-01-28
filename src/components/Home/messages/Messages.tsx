@@ -165,6 +165,8 @@ const Messages = () => {
 
   const notification = chatHistory.length > 0
 
+  const meDm = chatHistory.find(m => m.sender === user.userName)
+
 
   return (
     <Container fluid className='customRowDm p-0'>
@@ -209,17 +211,18 @@ const Messages = () => {
               setInput({ ...input, text: e.target.value })}/>
           </div>
           <div className="listofDM mt-4">
+           {onlineUsers.length > 0 ? <div>{onlineUsers.length -1} user online</div> : <></>}
           <ListGroup variant={'flush'} className="mt-3 customList">
-          {onlineUsers.filter(user => {
-            console.log(user.userName, 'username is different from my username')
-            return user.socketId !== room}).map((user, i) => (
+          {onlineUsers.filter(u => u.userName !== user.userName).map((user, i) => (
             <div onClick={() => navigate(`/messages/${user.socketId}`)} 
-                key={i} className="dmHeader  d-flex">
+            key={i} className="dmHeader  d-flex">
               <img src={user.image} 
               className="roundpic" alt=''   width={37} height={37}/>
               <div className="ml-2 dmUserName">
                 <div>{user.userName}</div>
-                  { notification && chatHistory.filter(m => m.socketId !== id) && <div>new message</div>}
+                  { notification && chatHistory.find(m => m.sender === user.userName) && 
+                  <div>new message</div>
+                  }
                 <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
                   width={10} height={10}/>
               </div>
