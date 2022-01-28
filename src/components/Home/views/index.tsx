@@ -13,6 +13,7 @@ import "./styles.scss"
 import ShareModal from "./SharedModal"
 import { likeAction, loaderAction, reRouteAction } from "../../../redux/actions"
 import ViewModal from "./ViewModal"
+import UserInfo from "../blog-author/UserInfo"
 // import UserInfo from "../blog-author/UserInfo"
 
 
@@ -244,7 +245,7 @@ const Blog = () => {
                   handleShow={handleDisplayShow}
                   handleClose={handleDisplayClose}
                   setTimer={setTimer}
-                  props={user}
+                  props={author}
                   /> */}
                   <div>
                     <Link to={`/userProfile/${author?._id}`}>

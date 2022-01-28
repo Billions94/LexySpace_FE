@@ -210,7 +210,9 @@ const Messages = () => {
           </div>
           <div className="listofDM mt-4">
           <ListGroup variant={'flush'} className="mt-3 customList">
-          {onlineUsers.filter(user => user.room === room).map((user, i) => (
+          {onlineUsers.filter(user => {
+            console.log(user.userName, 'username is different from my username')
+            return user.socketId !== room}).map((user, i) => (
             <div onClick={() => navigate(`/messages/${user.socketId}`)} 
                 key={i} className="dmHeader  d-flex">
               <img src={user.image} 
