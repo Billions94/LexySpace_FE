@@ -10,8 +10,8 @@ import { User } from "../../../redux/interfaces"
  const BlogAuthor = (props: User) => {
   const [timer, setTimer] = useState(false)
   const [show, setShow] = useState(false)
-  const handleShow = () => setTimeout(() => { setShow(true)}, 1000)
-  const handleClose = () => {{setTimeout(() =>{if (timer === true){setShow(false);setTimer(false)}}, 1000)}}
+  const handleShow = () => setTimeout(() => { setShow(true)}, 500)
+  const handleClose = () => {{setTimeout(() =>{if (timer === true){setShow(false)}}, 1000)}}
 
   
 

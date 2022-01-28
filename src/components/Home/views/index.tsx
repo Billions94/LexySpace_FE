@@ -274,19 +274,25 @@ const Blog = () => {
             }
                 <h4 className="mt-3 blogText">{blog?.text}</h4>
                 <div className="mt-2 mb-4">
+                  { !blog?.cover ? 
+                    <img className="d-none" alt=''
+                    onClick={() => setView(true)}  
+                    src={blog?.cover} width='100%' />
+                    :
                     <img className="blog-details-cover" alt=''
                       onClick={() => setView(true)}  
                       src={blog?.cover} width='100%' />
+                  }
                 </div>
                 <ViewModal view={view} setView={setView} cover={blog?.cover}/>
                 <div className='d-flex justify-content-evenly'>
-                <div>
+                <div className="comments">
                   { blog && blog.comments.length > 1 ?
                    <span>{blog?.comments.length} comments</span> :
                    <span>{blog?.comments.length} comment</span>
                    }
                 </div>
-                <div>
+                <div className='likes'>
                   { blog && blog?.likes.map(user => (
                     <><img src={user.userName} alt='' width='20px' /></>
                   ))}
