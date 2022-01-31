@@ -16,6 +16,7 @@ import ViewModal from "./ViewModal"
 import UserInfo from "../blog-author/UserInfo"
 import DeleteModal from "../blog-item/DeleteModal"
 import { Element, scroller } from 'react-scroll'
+import LikesModal from "./LikesModal"
 // import UserInfo from "../blog-author/UserInfo"
 
 
@@ -37,6 +38,9 @@ const Blog = () => {
   const [share, setShare] = useState(false)
   const [display, setDisplay] = useState(false)
   const [timer, setTimer] = useState(false)
+  const [view, setView] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [likeShow, setLikeShow] = useState(false)
   const handleDisplayShow = () => setTimeout(() => { setDisplay(true)}, 1000)
   const handleDisplayClose = () => {{setTimeout(() =>{if (timer === true){setDisplay(false);setTimer(false)}}, 1000)}}
   
@@ -76,7 +80,7 @@ const Blog = () => {
       if (response.ok) {
         const data: Posts = await response.json()
         setBlog(data)
-        console.log("i am the data", data.user)
+        console.log("i am the data", data.likes.map(user => user._id))
         setAuthor(data.user)
         setTimeout(()=> {
           dispatch(loaderAction(false))
@@ -168,8 +172,8 @@ const Blog = () => {
   }
 
   const likedPost = blog?.likes.find(blog => blog._id === me)
-  const [view, setView] = useState(false)
-  const [open, setOpen] = useState(false)
+
+  
 
   return !blog ? ( <Loader /> ) : (
         <Row id='indexDiv'>
@@ -291,18 +295,22 @@ const Blog = () => {
                 <div className='d-flex justify-content-evenly'>
                 <div className="comments">
                   { blog && blog.comments.length > 1 ?
-                   <span>{blog?.comments.length} comments</span> :
-                   <span>{blog?.comments.length} comment</span>
+                   <span className="text-muted">{blog?.comments.length} comments</span> :
+                   <span className="text-muted">{blog?.comments.length} comment</span>
                    }
                 </div>
                 <div className='likes'>
                   { blog && blog?.likes.map(user => (
-                    <><img src={user.userName} alt='' width='20px' /></>
+                    <img className="likeImg" src={user?.image} alt='' width='20px' 
+                        onClick={() => setLikeShow(true)}/>
                   ))}
+                  <LikesModal likeShow={likeShow} setLikeShow={setLikeShow} post={blog}/>
+                  <div>
                   { blog && blog.likes.length > 1 ?
-                   <span>{blog?.likes.length} likes</span> :
-                   <span>{blog?.likes.length} like</span>
+                    <span className="text-muted ml-1">{blog?.likes.length} likes</span> :
+                    <span className="text-muted ml-1">{blog?.likes.length} like</span>
                    }
+                   </div>
                 </div>
                 </div>
                 {/* { newPost!.sharedPost!._id !== id ? 
