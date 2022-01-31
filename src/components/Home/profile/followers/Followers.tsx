@@ -19,6 +19,8 @@ const Followers = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const [user, setUser] = useState<User | null>(null)
+    const [refresh, setRefresh] = useState(false)
+    const follower = { followerId: user?._id }
 
     const getUser = async () => {
       try {
@@ -38,11 +40,12 @@ const Followers = () => {
       }
     }
 
+    console.log(refresh)
 
   useEffect(()=> {
     dispatch(getFollowersAction(id))
     getUser()
-  }, [])
+  }, [refresh])
 
 
    return followers.length > 0 ? (
@@ -62,7 +65,7 @@ const Followers = () => {
               {
                 followers.map(f => (
                   <ListGroup.Item>
-                    <FollowersList f={f}/>
+                    <FollowersList f={f} getUser={getUser} refresh={refresh} setRefresh={setRefresh}/>
                   </ListGroup.Item>
                 ))
               }

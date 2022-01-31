@@ -3,15 +3,19 @@ import { Avatar } from "@mui/material"
 import { useNavigate, Link } from "react-router-dom";
 import FollowButton from "./FollowButton";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 import { User, ReduxState } from "../../../../redux/interfaces";
 import { followAction } from "../../../../redux/actions";
+import { setFlagsFromString } from "v8";
 
 interface FollowersListProps {
   f: User
+  getUser: () => Promise<void>
+  refresh: boolean
+  setRefresh: Dispatch<SetStateAction<boolean>>
 }
 
-const FollowersList = ({ f }: FollowersListProps) => {
+const FollowersList = ({ f, refresh, setRefresh }: FollowersListProps) => {
 
   const navigate = useNavigate()
 
@@ -34,6 +38,7 @@ const FollowersList = ({ f }: FollowersListProps) => {
         if(response.ok) {
           const data = await response.json();
           console.log('Now following user', data)
+          refresh === false ? setRefresh(true) : setRefresh(false)
         } else {
           throw new Error('Something went wrong :(')
         }
@@ -44,7 +49,7 @@ const FollowersList = ({ f }: FollowersListProps) => {
 
 
   const toggle = (userId: string) => {
-    following === false ? nowFollow(userId) : unfollow(userId)
+    !f.followers  ? nowFollow(userId) : unfollow(userId)
   }
 
   const nowFollow = (userId: string) => {
@@ -61,7 +66,7 @@ const FollowersList = ({ f }: FollowersListProps) => {
     if(followers.map(flw => flw._id).indexOf(f._id) !== -1){
         dispatch(followAction(true))
     }else dispatch(followAction(false))
-  }, [following])
+  }, [followers])
 
   return (
     <>

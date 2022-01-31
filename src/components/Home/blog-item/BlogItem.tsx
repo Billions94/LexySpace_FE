@@ -34,7 +34,6 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
   const apiUrl = process.env.REACT_APP_GET_URL
   const dispatch = useDispatch()
   const posts = useSelector((state: ReduxState) => state.posts)
-  // const { likes } = useSelector((state: ReduxState) => state.data)
   const newUser = useSelector((state: ReduxState) => state.data.user)
   const me = newUser!._id
 
@@ -118,8 +117,6 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
     }
   }
 
-  // console.log('i am the id', _id)
-  // console.log('i am the id of shared', newPost?.sharedPost._id)
 
   const doSomething = (id: string | undefined) => {
     navigate(`/posts/${id}`)

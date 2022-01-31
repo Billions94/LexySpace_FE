@@ -1,8 +1,6 @@
 import { Button } from "react-bootstrap"
-import { useEffect, Dispatch, SetStateAction } from "react"
-import { User } from "../../../../redux/interfaces"
-import { useDispatch } from "react-redux"
-import { followAction } from "../../../../redux/actions"
+import { User, ReduxState } from "../../../../redux/interfaces"
+import { useSelector } from "react-redux"
 
 interface FollowButtonProps {
   followers: User[]
@@ -12,11 +10,14 @@ interface FollowButtonProps {
   f: User
 }
 
-const FollowButton = ({ following, toggle, f }: FollowButtonProps) => {
+const FollowButton = ({ toggle, f }: FollowButtonProps) => {
+
+  const { user } = useSelector((state: ReduxState['data']) => state)
+  const me = user?._id
   
     return(
         <div className="ml-auto">
-        { following === false ? 
+        { !f.followers.some(elem => elem._id === me) ?
             <Button onClick={() => toggle(f._id)} variant="primary" className="followbtn mt-2">
               follow
             </Button>

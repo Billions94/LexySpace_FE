@@ -15,6 +15,8 @@ import PostContainer from "./Post"
 import TaskList from "./TaskList"
 import Search from "./Search"
 import { Element, scroller } from 'react-scroll'
+import { matchPath } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 // import Blog from "../views/Index"
 
 
@@ -22,7 +24,9 @@ const Home = () => {
 
   useAuthGuard()
 
+  const location = useLocation()
   const dispatch = useDispatch()
+  const [value, setValue] = useState<number>()
   const { hideMe, reroute, isLoading, hideTask } = useSelector((state: ReduxState) => state.data)
   const { posts } = useSelector((state: ReduxState) => state)
   // console.log('user', user)
@@ -41,47 +45,62 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getUsersAction())
-    scroller.scrollTo('postSectionInner', {
+    /*scroller.scrollTo('postSectionInner', {
       // duration: 1000,
-      // delay: 100,
+      delay: 0,
       smooth: true,
       offset: -150,
-  })
+  })*/
     // dispatch(getPosts())
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reroute])
+
+  console.log(value)
+
+  const isHome = location.pathname === "/home"
+  useEffect(() => {
+    console.log(isHome)
+
+    window.addEventListener("scroll", (event) => {
+      console.log(window.scrollY)
+      setValue(window.scrollY)
+    })
+
+    window.scrollTo({ top: value, behavior: "smooth" })
+
   }, [reroute])
 
   return posts ? (
     <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">
       <Row className="pt-0 mainContainer justify-content-center">
-        <Col className='sidebar d-none d-xs-none d-sm-none d-md-flex'sm={4} md={4} lg={4}>
+        <Col className='sidebar d-none d-xs-none d-sm-none d-md-flex' sm={4} md={4} lg={4}>
           <Col>
             <Search />
             <HotPosts />
             <div onClick={() => toggleHide()}
               style={{ cursor: 'pointer' }}>
-              { hideMe === false  ?
-                  <img src="https://img.icons8.com/ios-filled/50/000000/visible--v1.png"
+              {hideMe === false ?
+                <img src="https://img.icons8.com/ios-filled/50/000000/visible--v1.png"
                   width='27px' height='27px' />
-                  :
-                  <img src="https://img.icons8.com/ios-filled/50/000000/hide.png"
-                    width='27px' height='27px' />
+                :
+                <img src="https://img.icons8.com/ios-filled/50/000000/hide.png"
+                  width='27px' height='27px' />
               }
             </div>
-            { hideMe === false ?
+            {hideMe === false ?
               <Weather /> : null
             }
             <div onClick={() => toggleHideTask()}
               style={{ cursor: 'pointer' }}>
-              { hideTask === false  ?
-                  <img src="https://img.icons8.com/ios-filled/50/000000/visible--v1.png"
+              {hideTask === false ?
+                <img src="https://img.icons8.com/ios-filled/50/000000/visible--v1.png"
                   width='27px' height='27px' />
-                  :
-                  <img src="https://img.icons8.com/ios-filled/50/000000/hide.png"
-                    width='27px' height='27px' />
+                :
+                <img src="https://img.icons8.com/ios-filled/50/000000/hide.png"
+                  width='27px' height='27px' />
               }
             </div>
-            { hideTask === false ?
+            {hideTask === false ?
               <TaskList /> : null
             }
             <div className='sticky-top mt-5'>
@@ -93,11 +112,11 @@ const Home = () => {
           {reroute === false ?
             <Col className=' justify-content-center' md={11} lg={12}>
               <PostContainer />
-              <BlogList posts={posts}/>
+              <BlogList posts={posts} />
             </Col> :
             <Col md={11} lg={12}>
               <Element name='postSectionInner'>
-              <Blog />
+                <Blog />
               </Element>
             </Col>
           }
