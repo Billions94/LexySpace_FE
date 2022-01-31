@@ -1,21 +1,23 @@
-import { Row, Col, Button } from "react-bootstrap"
+import { Row, Col } from "react-bootstrap"
 import BlogItem from "../blog-item/BlogItem"
 import { useNavigate } from "react-router-dom"
-import { useEffect, Dispatch, SetStateAction } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
 import { GET_BLOGS } from "../../../redux/actions"
-import { ReduxState } from "../../../redux/interfaces"
 import Loader from "../loader/Loader"
-import Blog from "../views"
+import { ReduxState, Posts } from "../../../redux/interfaces"
 
+interface BlogListProps {
+  posts: Posts[]
+}
 
-const BlogList = () => {
+const BlogList = ({ posts }: BlogListProps) => {
   
 
   const apiUrl = process.env.REACT_APP_GET_URL 
   const navigate = useNavigate()
  
-  const posts = useSelector((state: ReduxState) => state.posts)
+  // const posts = useSelector((state: ReduxState) => state.posts)
 
   const dispatch = useDispatch()
 
@@ -35,27 +37,6 @@ const BlogList = () => {
       console.log(error)
     }
   }
-
-
-
-  const deleteBlogPost = async(id: string) => {
-    try {
-      const response = await fetch(`${apiUrl}/${id}` , {
-        method: 'DELETE',
-      })
-        if(response.ok){
-          console.log('Deleted')
-          getData()
-          navigate("/")
-        }
-    } catch (error) {
-      console.log('ooops we encountered an error', error)
-    }
-  }
-
-  // const [reroute, setReRoute] = useState(false)
-  // const [id, setId] = useState<string | undefined>('')
-
  
 
   useEffect(() => {

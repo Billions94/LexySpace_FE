@@ -124,11 +124,16 @@
 
 .date-day {
   display: block;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .location {
+  font-weight: 700;
+  font-size: 16px;
   display: inline-block;
   margin-top: 10px;
+  margin-left: 5px;
 }
 
 .location-icon {
@@ -177,13 +182,16 @@
   margin: 0 0 10px 0;
 }
 
-.today-info>div .title {
+.title {
+  font-size: 15px;
   float: left;
   font-weight: 700;
 }
-
-.today-info>div .value {
+.value {
+  margin-left: 15px;
   float: right;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .week-list {
@@ -452,6 +460,13 @@
 
     .userImage{
       cursor: pointer;
+    }
+
+    .emojiDiv {
+      cursor: pointer !important;
+    }
+    .emojiDiv:hover {
+      background-color: #f5d1e2 !important;
     }
 
     .modal-btn {

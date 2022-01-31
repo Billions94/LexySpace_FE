@@ -20,6 +20,13 @@ const Search = () => {
     const me = newUser._id
     const follower = { followerId: newUser._id }
 
+    function filter (query: string) {
+        const filteredUser = users.filter(user => {
+            return (user.firstName || user.lastName || user.userName).toLowerCase().includes(query.toLowerCase())
+        })
+        setUsers(filteredUser)
+    }
+
     const getUsers = async () => {
         try {
             const { data } = await API.get<User[]>(`/users?name=${input}`)
@@ -82,7 +89,7 @@ const Search = () => {
                             className="customInput"
                             type="search"
                             value={input}
-                            onChange={(e) => setInput(e.target.value)}
+                            onChange={(e) => {setInput(e.target.value);filter(e.target.value)}}
                             placeholder="Search LexySpace"
                         />
                     </Form.Group>

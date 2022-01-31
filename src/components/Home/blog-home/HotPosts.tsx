@@ -1,7 +1,6 @@
-import { useEffect, useState, Dispatch, SetStateAction } from "react"
-import { Badge, Image } from "react-bootstrap"
+import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { GET_BLOGS, reRouteAction } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
 import Loader from "../loader/Loader"
@@ -15,9 +14,9 @@ const HotPosts = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const posts = useSelector((state: ReduxState) => state.posts)
-    const { reroute } = useSelector((state: ReduxState) => state.data)
+    const { posts } = useSelector((state: ReduxState) => state)
     const [seeMore, setSeeMore] = useState(false)
+    const [loading, setLoading] = useState(true)
 
    
     const newPost = posts.map(p => p).sort((a,b) => b.likes.length - a.likes.length)
@@ -54,7 +53,7 @@ const HotPosts = () => {
         dispatch(reRouteAction(true))
       }
     
-    return (
+    return posts ? (
         <div id='hotposts' className="mb-4">
             <div className="p-3 d-flex">
             <img src="https://img.icons8.com/ios-filled/50/000000/anonymous-mask.png" width='27px' height='27px'/>
@@ -131,7 +130,11 @@ const HotPosts = () => {
             }
             </div>
         </div>
-    ) 
+    ) : ( <>
+        { loading === true &&
+            <Loader />
+        }
+        </> )
 }
 
 export default  HotPosts

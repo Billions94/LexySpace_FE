@@ -3,7 +3,16 @@
   object-fit: cover;
   object-position: 0% 0%;
   border-radius: 20px;
-  border: 1px solid rgb(216, 215, 215);
+  // border: 1px solid rgb(216, 215, 215);
+}
+
+.blog-video {
+  width: 100%;
+  object-fit: cover;
+  object-position: 0% 0%;
+  border-radius: 20px;
+  max-height: 100%;
+  // border: 1px solid rgb(216, 215, 215);
 }
 
 .interactions {
@@ -117,4 +126,103 @@
   margin: 0px !important;
   transform: translate3d(-28px, 5px, 0px) !important;
   width: 162px;
+  a {
+    text-decoration: none;
+  }
+}
+
+#deleteModal {
+  // position: relative;
+  // display: flex;
+  // flex-direction: column;
+  // width: 100%;
+  // pointer-events: auto;
+  // background-clip: padding-box;
+  border-radius: 20px;
+
+  .modal-header {
+    border-bottom: none !important;
+  }
+
+  .modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 270px;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 20px;
+  }
+
+  .modal-body {
+    padding: 32px;
+  }
+
+  .modalbtn {
+    border-radius: 25px;
+    width: 230px;
+    height: 42px;
+  }
+
+  .modalbtn:active {
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  .modalbtn:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  .modalbtn-cancel {
+    border-radius: 25px;
+    width: 230px;
+    height: 42px;
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(216, 215, 215);
+  }
+
+  .modalbtn-cancel:hover {
+    background-color: rgb(241, 241, 241);
+  }
+
+  .modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    padding-top: 0;
+    border-top: none;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
+  }
+
+  .modal-btn {
+    border-radius: 20px;
+    border: none;
+    color: white;
+    background-color: #f91880;
+  }
+
+  .modal-btn:hover {
+    background-color: #e41575;
+  }
+
+  .modal-btn:focus {
+    box-shadow: none;
+  }
+
+  .modal-title {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 0;
+  }
 }

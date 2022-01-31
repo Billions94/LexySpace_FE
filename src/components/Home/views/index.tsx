@@ -11,9 +11,11 @@ import { ReduxState } from "../../../redux/interfaces"
 import { Posts, Comments, User } from "../../../redux/interfaces"
 import "./styles.scss"
 import ShareModal from "./SharedModal"
-import { likeAction, loaderAction, reRouteAction } from "../../../redux/actions"
+import { getPosts, likeAction, loaderAction, reRouteAction } from "../../../redux/actions"
 import ViewModal from "./ViewModal"
 import UserInfo from "../blog-author/UserInfo"
+import DeleteModal from "../blog-item/DeleteModal"
+import { Element, scroller } from 'react-scroll'
 // import UserInfo from "../blog-author/UserInfo"
 
 
@@ -38,31 +40,29 @@ const Blog = () => {
   const handleDisplayShow = () => setTimeout(() => { setDisplay(true)}, 1000)
   const handleDisplayClose = () => {{setTimeout(() =>{if (timer === true){setDisplay(false);setTimer(false)}}, 1000)}}
   
-  
   const url = process.env.REACT_APP_GET_URL
   const dispatch = useDispatch()
   const posts = useSelector((state: ReduxState['posts']) => state)
-  const { user, likes, isLoading } = useSelector((state: ReduxState) => state.data)
+  const { user, likes } = useSelector((state: ReduxState) => state.data)
   const liker = { userId: user!._id}
   const me = user!._id
-  
   // for interaction icons label
-    const [show, setShow] = useState(false)
-    const [commentLabel, setCommentLabel] = useState(false)
-    const [likeLabel, setLikeLabel] = useState(false)
-    const [shareLabel, setShareLabel] = useState(false)
+  const [show, setShow] = useState(false)
+  const [commentLabel, setCommentLabel] = useState(false)
+  const [likeLabel, setLikeLabel] = useState(false)
+  const [shareLabel, setShareLabel] = useState(false)
   // for handle the reshare modal
-    const handleShow = () => setShow(true)
-    const handleClose = () => setShow(false)
-    const handleShare = () => setShare(true)
+  const handleShow = () => setShow(true)
+  const handleClose = () => setShow(false)
+  const handleShare = () => setShare(true)
     
-    const handleCommentLabelShow = () => setCommentLabel(true)
-    const handleLikeLabelShow = () => setLikeLabel(true)
-    const handleShareLabelShow = () => setShareLabel(true)
+  const handleCommentLabelShow = () => setCommentLabel(true)
+  const handleLikeLabelShow = () => setLikeLabel(true)
+  const handleShareLabelShow = () => setShareLabel(true)
   
-    const handleCommentLabelClose = () => setCommentLabel(false)
-    const handleLikeLabelClose = () => setLikeLabel(false)
-    const handleShareLabelClose = () => setShareLabel(false)
+  const handleCommentLabelClose = () => setCommentLabel(false)
+  const handleLikeLabelClose = () => setLikeLabel(false)
+  const handleShareLabelClose = () => setShareLabel(false)
   
     const showNHidde = () => {
       show === false ? handleShow() : handleClose()
@@ -112,8 +112,7 @@ const Blog = () => {
         method: "DELETE",
       })
       if (response.ok) {
-        fetchBlog(id)
-        navigate("/home")
+        dispatch(getPosts())
       }
     } catch (error) {
       console.log("ooops we encountered an error", error)
@@ -170,8 +169,9 @@ const Blog = () => {
 
   const likedPost = blog?.likes.find(blog => blog._id === me)
   const [view, setView] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  return isLoading === true ? ( <Loader /> ) : (
+  return !blog ? ( <Loader /> ) : (
         <Row id='indexDiv'>
           <Container key={blog?._id} className="blog-details-root">
               <Col md={12} className="blogContent mb-2">
@@ -226,10 +226,11 @@ const Blog = () => {
                         <img alt='' className="lrdimg" width="17px"
                           src="https://img.icons8.com/fluency/50/000000/delete-sign.png"/>
                       </div>
-                      <div onClick={() => navigateHome(blog?._id)} >
+                      <div onClick={() => setOpen(true)} >
                         delete
                       </div> 
                     </div>
+                      <DeleteModal id={blog?._id} smShow={open} setSmShow={setOpen} deleteBlogPost={deleteBlogPost}/>
                   </>
                 }
                 </Dropdown.Menu>
@@ -284,6 +285,7 @@ const Blog = () => {
                       onClick={() => setView(true)}  
                       src={blog?.cover} width='100%' />
                   }
+                  {blog?.video && <video src={blog?.video} className="blog-cover" controls autoPlay muted></video>}
                 </div>
                 <ViewModal view={view} setView={setView} cover={blog?.cover}/>
                 <div className='d-flex justify-content-evenly'>

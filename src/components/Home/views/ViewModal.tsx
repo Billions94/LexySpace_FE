@@ -22,7 +22,7 @@ function ViewModal({ view, setView, cover }: ViewModalProps) {
                 </Modal.Header>
                 <Modal.Body className='d-flex justify-content-center'>
                     <img src={cover} alt='' 
-                        width='100%'/>
+                        className="img"/>
                 </Modal.Body>
             </Modal>
         </>

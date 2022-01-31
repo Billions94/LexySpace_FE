@@ -78,7 +78,7 @@ const NavBar = () => {
     
           <div className="d-flex justity-content-between">
             <div>
-              <Button onClick={handleShow} className="blog-navbar-add-button  newBlogPost" size="lg">
+              <Button onClick={handleShow} className="newBlogPost" size="lg">
                   <div>
                     <img alt='' src="https://img.icons8.com/ios-filled/50/000000/new.png" width="23px"/>
                   </div>
@@ -94,71 +94,8 @@ const NavBar = () => {
                     </Dropdown.Toggle>
                     <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
                 <br />
-                  <Link to={`/userProfile/${id}`} className="deleteBlog">
-                    <div style={{marginTop: "-20px"}} className="d-flex">
-                      <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src={"https://img.icons8.com/wired/50/000000/user.png"}/>
-                      </div>
-                      <div>goTo Profile</div>
-                    </div>
-                  </Link>
-                              
-                  <Link to={"/messages"} className="deleteBlog">
-                    <div className="d-flex">
-                      <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'  
-                          src="https://img.icons8.com/carbon-copy/50/000000/chat-message.png"/>
-                      </div>
-                      <div>messages</div>
-                    </div>
-                  </Link>
 
-                  <Link to={"/settings"} className="deleteBlog">
-                    <div className="d-flex">
-                      <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'  
-                          src="https://img.icons8.com/wired/50/000000/settings.png"/>
-                      </div>
-                      <div>settings</div>
-                    </div>
-                  </Link>
-
-                  <div onClick={() => customFunc()} className="customLinks">
-                    <div className="d-flex">
-                      <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'
-                          src="https://img.icons8.com/dotty/50/000000/logout-rounded.png"/>
-                      </div>
-                      <div>signOut</div>
-                    </div>
-                  </div>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          </div>
-          </Container>
-        </div>
-       )}
-
-
-      { location.pathname === '/userProfile' && 
-        <div  className="blog-navbar p-1 sticky-top" >
-          <Container className="justify-content-between d-flex px-4">
-            <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
-                <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
-            </Navbar.Brand>
-
-            <div className="customDD">
-              <Dropdown style={{ marginTop: "7px"}}>
-                <Dropdown.Toggle className="btn btn-dark navToggle">
-                  <Avatar className="d-block avatar" alt="" src={user!.image}
-                        sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
-                <br />
-                  <Link to={"/home"} className="deleteBlog">
+                  <div className="customLinks" onClick={() => navigate(`/home`)}>
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
                         <img alt='' className="lrdimg" width="17px"
@@ -166,9 +103,29 @@ const NavBar = () => {
                       </div>
                       <div>home</div>
                     </div>
-                  </Link>
+                  </div>
 
-                  <Link to={"/settings"} className="deleteBlog">
+                  <div className="customLinks" onClick={() => navigate("/messages")}>
+                    <div className="d-flex">
+                      <div className="mr-3">
+                        <img alt='' className='lrdimg' width='18px'  
+                          src="https://img.icons8.com/carbon-copy/50/000000/chat-message.png"/>
+                      </div>
+                      <div>messages</div>
+                    </div>
+                  </div>
+
+                  <div className="customLinks" onClick={() => navigate(`/userProfile/${id}`)}>
+                    <div className="d-flex">
+                      <div className="mr-3">
+                        <img alt='' className="lrdimg" width="17px"
+                          src={"https://img.icons8.com/wired/50/000000/user.png"}/>
+                      </div>
+                      <div>goTo Profile</div>
+                    </div>
+                  </div>
+                              
+                  <div className="customLinks" onClick={() => navigate(`/settings`)}>
                     <div className="d-flex">
                       <div className="mr-3">
                         <img alt='' className='lrdimg' width='18px'  
@@ -176,7 +133,7 @@ const NavBar = () => {
                       </div>
                       <div>settings</div>
                     </div>
-                  </Link>
+                  </div>
 
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">
@@ -187,12 +144,14 @@ const NavBar = () => {
                       <div>signOut</div>
                     </div>
                   </div>
+
                 </Dropdown.Menu>
               </Dropdown>
             </div>
+          </div>
           </Container>
         </div>
-      }
+       )}
 
       { location.pathname === '/messages' &&  
         <div  className="blog-navbar p-1 sticky-top" >
@@ -210,7 +169,8 @@ const NavBar = () => {
                     </Dropdown.Toggle>
                     <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
                 <br />
-                  <Link to={"/home"} className="deleteBlog">
+
+                  <div className="customLinks" onClick={() => navigate(`/home`)}>
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
                         <img alt='' className="lrdimg" width="17px"
@@ -218,9 +178,19 @@ const NavBar = () => {
                       </div>
                       <div>home</div>
                     </div>
-                  </Link>
+                  </div>
+
+                  <div className="customLinks" onClick={() => navigate(`/userProfile/${id}`)}>
+                    <div className="d-flex">
+                      <div className="mr-3">
+                        <img alt='' className="lrdimg" width="17px"
+                          src={"https://img.icons8.com/wired/50/000000/user.png"}/>
+                      </div>
+                      <div>goTo Profile</div>
+                    </div>
+                  </div>
                               
-                  <Link to={"/settings"} className="deleteBlog">
+                  <div className="customLinks" onClick={() => navigate(`/settings`)}>
                     <div className="d-flex">
                       <div className="mr-3">
                         <img alt='' className='lrdimg' width='18px'  
@@ -228,7 +198,7 @@ const NavBar = () => {
                       </div>
                       <div>settings</div>
                     </div>
-                  </Link>
+                  </div>
 
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">
@@ -389,6 +359,16 @@ const NavBar = () => {
                           src="https://img.icons8.com/dotty/50/000000/home.png"/>
                       </div>
                       <div>home</div>
+                    </div>
+                  </div>
+
+                  <div className="customLinks" onClick={() => navigate("/messages")}>
+                    <div className="d-flex">
+                      <div className="mr-3">
+                        <img alt='' className='lrdimg' width='18px'  
+                          src="https://img.icons8.com/carbon-copy/50/000000/chat-message.png"/>
+                      </div>
+                      <div>messages</div>
                     </div>
                   </div>
                               

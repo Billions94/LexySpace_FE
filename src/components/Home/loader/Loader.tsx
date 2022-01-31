@@ -5,9 +5,9 @@ import "./styles.scss"
 
 const Loader = () => {
     return (
-        <Col className="text-center mt-5">
-            <Spinner animation="grow"/>
-        </Col>
+        <div className='spinner-container'>
+            <Spinner  className="spinner" animation="grow"/>
+        </div>
     )
 }
 

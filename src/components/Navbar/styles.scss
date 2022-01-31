@@ -40,21 +40,21 @@
   color: #0056b3;
 }
 
-.blog-navbar-add-button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 120px;
-  text-decoration: none;
-}
+// .blog-navbar-add-button {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   width: 120px;
+//   text-decoration: none;
+// }
 
-.blog-navbar-add-button:hover {
-  background-color: antiquewhite !important;
-}
+// .blog-navbar-add-button:hover {
+//   background-color: antiquewhite !important;
+// }
 
-.blog-navbar-add-button:focus {
-  box-shadow: none;
-}
+// .blog-navbar-add-button:focus {
+//   box-shadow: none;
+// }
 
 
 .newBlogPost {
@@ -62,6 +62,11 @@
   color: white;
   background-color: #f91880;
   border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+  text-decoration: none;
 }
 
 .newBlogPost:hover {
@@ -72,18 +77,21 @@
   box-shadow: none !important;
   border: none !important;
   outline: none !important;
+  background-color: #e41575 !important
 }
 
 .newBlogPost:focus-visible {
   box-shadow: none !important;
   border: none !important;
   outline: none !important;
+  background-color: #e41575 !important
 }
 
 .newBlogPost:active {
   box-shadow: none !important;
   border: none !important;
   outline: none !important;
+  background-color: #e41575 !important
 }
 
 .avatar {

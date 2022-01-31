@@ -99,6 +99,7 @@ const UserProfile = () => {
   const unfollow = (id: string | undefined) => {
     follow()
     dispatch(followAction(false))
+    setLoading(true)
   }
 
 
@@ -199,11 +200,11 @@ const UserProfile = () => {
       <Footer />
       </Col> */}
     </>
-  ) : ( <div className="text-center mt-3">
-  { loading === true &&
-      <Spinner animation="grow" />
-  }
-</div> )
+  ) : ( <div className="text-center">
+    { loading === true &&
+      <Loader />
+    }
+    </div> )
 }
 
 export default UserProfile

@@ -1,9 +1,12 @@
 .spinner-container {
-    width: calc(100% - 260px) !important;
-    text-align: center;
-    background: transparent
+    display: flex;
+    justify-content: center;
+    .spinner {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        margin-top: 260px !important;
+        background-color: #f91880;
+    }
 }
   
-.spinner-logo {
-    background: #9A9A9A;
-}

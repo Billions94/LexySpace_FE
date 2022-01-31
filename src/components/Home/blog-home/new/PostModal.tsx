@@ -34,11 +34,13 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
     text: "" 
   })
   const [image, setImage] = useState<string>('')
+  const [video, setVideo] = useState('')
 
   const target = (e: any) => {
     console.log(e.target.files[0])
     if (e.target && e.target.files[0]) {
       setImage(e.target.files[0])
+      setVideo(e.target.files[0])
     }
   }
 
@@ -65,52 +67,89 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
   }
 
   const newPost = async () => {
-    if(image) {
-      try {
-        const response = await fetch(`${url}/posts/${userName}`, {
-          method: "POST",
-          body: JSON.stringify(post),
-          headers: { 'Content-Type': 'application/json' }
-        })  
-            if(response.ok) {
-              const data = await response.json()
-              console.log('post successful', data)
-              setPost({ text: '' })
-              try {
-                const formDt = new FormData()
-                formDt.append("cover", image)
-                let postImage = await fetch(`${url}/posts/${data._id}/upload`, {
-                  method: "PUT", 
-                  body: formDt,
-                })
-                if (postImage.ok) {
-                  setShow(false)
-                  navigate('/home')
-                  getPosts()
+    if (image) {
+        try {
+            const response = await fetch(`${url}/posts/${userName}`, {
+                method: "POST",
+                body: JSON.stringify(post),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            if (response.ok) {
+                const data = await response.json()
+                try {
+                    const formDt = new FormData()
+                    formDt.append("cover", image)
+                    let postImage = await fetch(`${url}/posts/${data._id}/upload`, {
+                        method: "PUT",
+                        body: formDt,
+                    })
+                    if (postImage.ok) {
+                        setShow(false)
+                        setPost({ text:'' })
+                        getPosts()
+                    }
+                } catch (error) {
+                    console.log(error)
                 }
-              } catch (error) {
-                console.log(error)
-              }
             }
-      } catch (error) {
-        console.log(error)
-      }
+        } catch (error) {
+            console.log(error)
+        }
     } else {
-      try {
-        const response = await fetch(`${url}/posts/${userName}`, {
-          method: "POST",
-          body: JSON.stringify(post),
-          headers: { 'Content-Type': 'application/json'
-          }})
-          if(response.ok) {
-            setShow(false)
-            setPost({ text: '' })
-            getPosts()
-          }
-      } catch (error) {
-        console.log(error)
-      }
+        try {
+            const response = await fetch(`${url}/posts/${userName}`, {
+                method: "POST",
+                body: JSON.stringify(post),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (response.ok) {
+                setShow(false)
+                setPost({ text: '' })
+                getPosts()
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
+    
+  }
+
+  const postVideo = async () => {
+    try {
+      const response = await fetch(`${url}/posts/${userName}`, {
+        method: "POST",
+        body: JSON.stringify(post),
+        headers: { 'Content-Type': 'application/json' }
+    })
+    if (response.ok) {
+        const data = await response.json()
+        try {
+            const formDt = new FormData()
+            formDt.append("video", video)
+            let postVideo = await fetch(`${url}/posts/${data._id}/videoUpload?video`, {
+                method: "PUT",
+                body: formDt,
+            })
+            if (postVideo.ok) {
+                setShow(false)
+                setPost({ text:'' })
+                getPosts()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const check = () => {
+    if(image) {
+      newPost()
+    } else if(video) { postVideo() }
   }
   
 
@@ -166,7 +205,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
                   </svg>
                   </button>
                 </div>
-          <Button variant="primary" className='btn btn-md modal-btn' onClick={() => newPost()}>
+          <Button variant="primary" className='btn btn-md modal-btn' onClick={() => postVideo()}>
             post
           </Button>
         </Modal.Footer>

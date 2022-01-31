@@ -157,7 +157,7 @@ const PostContainer = () => {
 
                             { showEmoji === false ? null :
                                 <Picker onEmojiClick={onEmojiClick}  
-                                pickerStyle={{ width: '100%' }}/>
+                                    pickerStyle={{ width: '100%' }}/>
                             }
                         </div>
                         <div className="mar-top clearfix mt-2 ml-auto">      

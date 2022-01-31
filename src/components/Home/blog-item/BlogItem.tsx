@@ -11,11 +11,13 @@ import SharePost from "../blog-home/new/SharePost"
 import Edit from "../blog-home/new/EditPost"
 import { likeAction, reRouteAction } from "../../../redux/actions"
 import { postTimer } from "../../../lib"
+import DeleteModal from "./DeleteModal"
 
 
 interface BlogItemProps {
   text: string
   cover: string
+  video: string
   comments: Comments[]
   user: User
   _id: string
@@ -25,7 +27,7 @@ interface BlogItemProps {
 }
 
 
-const BlogItem = ({ text, cover, comments, user, _id, likes, createdAt, getData }: BlogItemProps) => {
+const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, getData }: BlogItemProps) => {
   // console.log('i am the author', user.userName)
 
   const navigate = useNavigate()
@@ -37,6 +39,7 @@ const BlogItem = ({ text, cover, comments, user, _id, likes, createdAt, getData 
   const me = newUser!._id
 
   const [show, setShow] = useState(false)
+  const [smShow, setSmShow] = useState(false)
   const [share, setShare] = useState(false)
 
   // for interaction icons label
@@ -149,8 +152,8 @@ const BlogItem = ({ text, cover, comments, user, _id, likes, createdAt, getData 
             <Dropdown.Menu className='dropdownmenu'>
               <br />
 
-              <a className="deleteBlog customLinks"
-                href={`${apiUrl}/${_id}/downloadPDF`}>
+              <a className="customLinks"
+                href={`${apiUrl}/posts/${_id}/downloadPDF`}>
                 <div
                   style={{ marginTop: "-20px" }}
                   className="d-flex">
@@ -174,10 +177,11 @@ const BlogItem = ({ text, cover, comments, user, _id, likes, createdAt, getData 
                       <img alt='' className="lrdimg" width="17px"
                         src="https://img.icons8.com/fluency/50/000000/delete-sign.png" />
                     </div>
-                    <div onClick={(e) => deleteBlogPost(_id)} >
+                    <div onClick={() => setSmShow(true)} >
                       delete
                     </div>
                   </div>
+                  <DeleteModal id={_id} smShow={smShow} setSmShow={setSmShow} deleteBlogPost={deleteBlogPost}/>
                 </>
               }
             </Dropdown.Menu>
@@ -192,7 +196,10 @@ const BlogItem = ({ text, cover, comments, user, _id, likes, createdAt, getData 
           </div>
           <div className="d-flex mb-0 p-0">
             <div>
-              <h6> <img src={cover} className="blog-cover" /></h6>
+              {!cover ? null :
+                <h6> <img src={cover} className="blog-cover" /></h6>
+              }
+              {video && <video src={video} className="blog-video" controls autoPlay muted></video>}
             </div>
           </div>
         </div>

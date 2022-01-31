@@ -23,7 +23,7 @@ export const initialState: ReduxState = {
         hideMe: false,
         likes: [],
         reroute: false,
-        isLoading: false,
+        isLoading: true,
         tasks: '',
         hideTask: false
     },
