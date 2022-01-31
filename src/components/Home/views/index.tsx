@@ -293,12 +293,6 @@ const Blog = () => {
                 </div>
                 <ViewModal view={view} setView={setView} cover={blog?.cover}/>
                 <div className='d-flex justify-content-evenly'>
-                <div className="comments">
-                  { blog && blog.comments.length > 1 ?
-                   <span className="text-muted">{blog?.comments.length} comments</span> :
-                   <span className="text-muted">{blog?.comments.length} comment</span>
-                   }
-                </div>
                 <div className='likes'>
                   { blog && blog?.likes.map(user => (
                     <img className="likeImg" src={user?.image} alt='' width='20px' 
@@ -311,6 +305,12 @@ const Blog = () => {
                     <span className="text-muted ml-1">{blog?.likes.length} like</span>
                    }
                    </div>
+                </div>
+                <div className="comments">
+                  { blog && blog.comments.length > 1 ?
+                   <span className="text-muted">{blog?.comments.length} comments</span> :
+                   <span className="text-muted">{blog?.comments.length} comment</span>
+                   }
                 </div>
                 </div>
                 {/* { newPost!.sharedPost!._id !== id ? 

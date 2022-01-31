@@ -371,6 +371,16 @@ const NavBar = () => {
                       <div>messages</div>
                     </div>
                   </div>
+
+                  <div className="customLinks" onClick={() => navigate(`/userProfile/${id}`)}>
+                    <div className="d-flex">
+                      <div className="mr-3">
+                        <img alt='' className="lrdimg" width="17px"
+                          src={"https://img.icons8.com/wired/50/000000/user.png"}/>
+                      </div>
+                      <div>goTo Profile</div>
+                    </div>
+                  </div>
                               
                   <div className="customLinks" onClick={() => navigate("/settings")}>
                     <div className="d-flex">

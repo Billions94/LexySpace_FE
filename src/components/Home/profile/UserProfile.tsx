@@ -85,7 +85,7 @@ const UserProfile = () => {
   useEffect(()=> {
     dispatch(getPosts())
     getUser()
-  }, [])
+  }, [id])
 
   const toggle = (id: string | undefined) => {
     following === false ? nowFollow(id) : unfollow(id)
