@@ -27,7 +27,7 @@ const UserProfile = () => {
   const dispatch = useDispatch()
   const posts = useSelector((state: ReduxState) => state.posts)
   const stateUser = useSelector((state: ReduxState) => state.data.user)
-  const { following, cover } = useSelector((state: ReduxState) => state.data)
+  const { following, cover, followers } = useSelector((state: ReduxState) => state.data)
   const me = stateUser?._id
 
   const follower = { followerId: me }
@@ -84,6 +84,7 @@ const UserProfile = () => {
 
   useEffect(()=> {
     dispatch(getPosts())
+    dispatch(getFollowersAction(id))
     getUser()
   }, [id])
 
@@ -151,7 +152,7 @@ const UserProfile = () => {
                 </div>
                 </div>
 
-                <UpdateImage xUser={user} show={pic} setShow={setPic}/>
+                <UpdateImage xUser={user} show={pic} setShow={setPic} getUser={getUser}/>
               
               <div className="text-left ml-auto justify-content-center">
               <br />
@@ -174,7 +175,7 @@ const UserProfile = () => {
                   {
                     id !== me &&
                     <p>
-                  { following === false ? 
+                  { !followers.some(elem => elem._id === me) ? 
                     <Button onClick={() => toggle(id)} variant="primary" className="followbtn mt-2">
                       follow
                     </Button>
@@ -186,7 +187,7 @@ const UserProfile = () => {
                   }
                     </p>
                   }
-                  <EditProfile show={show} setShow={setShow}/>
+                  <EditProfile show={show} setShow={setShow} getUser={getUser}/>
                 </Col>
               </div>
               </div>

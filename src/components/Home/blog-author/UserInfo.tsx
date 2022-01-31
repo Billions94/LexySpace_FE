@@ -93,7 +93,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
           {
             props?._id !== me &&
             <div className='ml-auto'>
-            { following === false ?
+            { !props?.followers.some(elem => elem._id === me) ?
               <Button onClick={()=> toggle(props?._id)}
                 size="sm" variant="primary" 
                 className="followbtn ml-auto">

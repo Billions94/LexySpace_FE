@@ -8,14 +8,12 @@ import { ReduxState } from "../../../redux/interfaces"
 interface EditProfileProps {
   show: boolean
   setShow: Dispatch<SetStateAction<boolean>>
+  getUser: () => Promise<void>
 }
 
-const EditProfile = ({ show, setShow }: EditProfileProps) => {
+const EditProfile = ({ show, setShow, getUser }: EditProfileProps) => {
 
     const url = process.env.REACT_APP_GET_URL
-
-    const dispatch = useDispatch()
-
     const handleClose = () => setShow(false);
 
     const [user, setUser] = useState({
@@ -25,9 +23,6 @@ const EditProfile = ({ show, setShow }: EditProfileProps) => {
         bio: '',
         location: '',
     })
-
-    const users = useSelector((state: ReduxState) => state.data.user)
-
 
     const edit = async () => {
         try {
@@ -42,7 +37,7 @@ const EditProfile = ({ show, setShow }: EditProfileProps) => {
             if(response.ok) {
                 console.log('User Profile successfully updated')
                 setShow(false)
-                dispatch(getUsersAction())
+                getUser()
             } else {
                 throw new Error('Failed to update profile')
             }
@@ -51,23 +46,6 @@ const EditProfile = ({ show, setShow }: EditProfileProps) => {
         }
     }
 
-        // const edit = async () => {
-        //     try {
-        //         const { data } = await API.put('/users/me', { user }, {method: 'PUT'})
-        //         if(data) {
-        //             console.log('User Profile successfully updated')
-        //             dispatch(getUsersAction())
-        //             setShow(false)
-        //         } else {
-        //             throw new Error('Failed to update profile')
-        //         }
-        //     } catch (error) {
-        //         console.log(error)
-        //     }
-        // }
-    useEffect(() => {
-        dispatch(getUsersAction())
-    },[])
 
     return (
     <div>

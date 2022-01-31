@@ -16,11 +16,10 @@ const Followers = () => {
     const beUrl = process.env.REACT_APP_GET_URL
     const { followers } = useSelector((state: ReduxState) => state.data)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { id } = useParams()
     const [user, setUser] = useState<User | null>(null)
     const [refresh, setRefresh] = useState(false)
-    const follower = { followerId: user?._id }
+   
 
     const getUser = async () => {
       try {

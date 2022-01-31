@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Button, Col, Form } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { followAction } from "../../../redux/actions"
+import { followAction, getFollowersAction } from "../../../redux/actions"
 
 
 
@@ -15,8 +15,8 @@ const Search = () => {
     const dispatch = useDispatch()
     const [input, setInput] = useState('')
     const [users, setUsers] = useState<User[]>([])
-    const { following } = useSelector((state: ReduxState['data']) => state)
     const newUser = useSelector((state: ReduxState) => state.data.user)
+    const { followers } = useSelector((state: ReduxState['data']) => state)
     const me = newUser._id
     const follower = { followerId: newUser._id }
 
@@ -62,9 +62,10 @@ const Search = () => {
         }
     }
 
+    const xUser = users.find(u => u._id !== me)
 
     const toggle = (userId: string | undefined) => {
-        following === false ? nowFollow(userId) : unfollow(userId)
+        !xUser?.followers ? nowFollow(userId) : unfollow(userId)
     }
 
     const nowFollow = (userId: string | undefined) => {
@@ -75,6 +76,8 @@ const Search = () => {
         follow(userId)
         dispatch(followAction(false))
     }
+
+    console.log(xUser?._id)
 
     useEffect(() => {
         getUsers()
@@ -119,7 +122,7 @@ const Search = () => {
                             {
                                 user._id !== me &&
                                 <div className='ml-auto'>
-                                    {following === false ?
+                                    {!user.followers.some(elem => elem._id === me) ?
                                         <Button onClick={() => toggle(user._id)}
                                             size="sm" variant="primary"
                                             className="followbtn ml-auto">

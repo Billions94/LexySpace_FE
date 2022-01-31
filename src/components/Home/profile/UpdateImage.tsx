@@ -10,9 +10,10 @@ interface UpdateImageProps {
   xUser: User
   show: boolean
   setShow: Dispatch<SetStateAction<boolean>>
+  getUser: () => Promise<void>
 }
 
-const UpdateImage = ({ xUser, show, setShow }: UpdateImageProps) => {
+const UpdateImage = ({ xUser, show, setShow, getUser }: UpdateImageProps) => {
 
   const beUrl = process.env.REACT_APP_GET_URL
 
@@ -52,6 +53,7 @@ const UpdateImage = ({ xUser, show, setShow }: UpdateImageProps) => {
         if(response.ok){
           console.log('User Profile successfully updated')
           setShow(false)
+          getUser()
         } else {
           throw new Error('Failed to update profile picture')
         }   
@@ -60,9 +62,6 @@ const UpdateImage = ({ xUser, show, setShow }: UpdateImageProps) => {
       }
     }
     
-    // useEffect(()=> {
-    //   dispatch(getUsersAction())
-    // }, [updateProfilePic])
   
   return (
     <div>
