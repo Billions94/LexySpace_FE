@@ -39,7 +39,7 @@ const NavBar = () => {
 
   useEffect(()=> {
     dispatch(getUsersAction())
-  }, [])
+  }, [show])
 
   return (
     <> 
