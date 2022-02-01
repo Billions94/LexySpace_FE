@@ -1,13 +1,15 @@
 import { Modal, Button } from "react-bootstrap"
 import { useState, Dispatch, SetStateAction } from "react"
+import { Posts } from "../../../redux/interfaces";
 
 interface ViewModalProps {
     view: boolean
     setView: Dispatch<SetStateAction<boolean>>
     cover: string | undefined
+    post: Posts
 }
 
-function ViewModal({ view, setView, cover }: ViewModalProps) {
+function ViewModal({ view, setView, cover, post }: ViewModalProps) {
     // const [show, setShow] = useState(false);
 
     return (
@@ -23,6 +25,10 @@ function ViewModal({ view, setView, cover }: ViewModalProps) {
                 <Modal.Body className='d-flex justify-content-center'>
                     <img src={cover} alt='' 
                         className="img"/>
+                        { post.sharedPost && 
+                            <img src={post.sharedPost.cover} alt='' 
+                            className="img"/>
+                        }
                 </Modal.Body>
             </Modal>
         </>

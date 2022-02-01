@@ -129,8 +129,6 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
     dispatch(reRouteAction(true))
   }
 
-  const likedPost = likes.find(like => like._id === me)
-  // console.log(newPost!.sharedPost)
 
   return (
     <div>
@@ -202,8 +200,8 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
         </div>
         {newPost!.sharedPost && newPost!.sharedPost!._id !== _id ?
           <div className='sharePostDiv'>
-            <div className='sharePost'>
-              <div className='authorinfo d-flex ' style={{ justifyContent: 'space-between' }}>
+            <div className='sharePost pt-3'>
+              {/* <div className='authorinfo d-flex ' style={{ justifyContent: 'space-between' }}>
                 <div className="text-decoration-none" onClick={() => route(newPost!.sharedPost.user._id)} >
                   <div id="authorDetails" className="d-flex">
                     <Image
@@ -215,7 +213,7 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
                     <div style={{ marginLeft: "10px" }}>
                       <h6 className="text-dark authorFirstName mb-0">
                         {user?.firstName}
-                        {newPost!.sharedPost?.user?.isVerified === true &&
+                        { newPost!.sharedPost!.user! && newPost!.sharedPost!.user!.isVerified === true &&
                           <span className=" mt-1 ml-1  d-flex-row align-items-center">
                             <img alt='' className="mr-2" width="15"
                               src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png" />
@@ -227,14 +225,16 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
                     </div>
                   </div>
                 </div>
-              </div>
-              <Link to={`/posts/${newPost!._id}`} className="blog-link">
+              </div> */}
+              
+              <BlogAuthor {...user}/>
+              <div onClick={() => route(_id)} className="blog-link">
                 <Card.Title>{newPost!.sharedPost.text}</Card.Title>
                 <Card.Img variant="top" src={newPost!.sharedPost.cover} className="blog-cover" />
                 <Card.Body className="mb-0">
 
                 </Card.Body>
-              </Link>
+              </div>
             </div>
           </div> : null
         }

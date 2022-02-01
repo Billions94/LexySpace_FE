@@ -54,6 +54,7 @@ const UserProfile = () => {
       if(response.ok) {
         const data = await response.json()
         getUser()
+        dispatch(getFollowersAction(id))
         console.log('Now following user', data)
       } else {
         throw new Error('Something went wrong :(')
@@ -82,27 +83,27 @@ const UserProfile = () => {
 
 
 
-  useEffect(()=> {
-    dispatch(getPosts())
-    dispatch(getFollowersAction(id))
-    getUser()
-  }, [id])
-
+  
   const toggle = (id: string | undefined) => {
     following === false ? nowFollow(id) : unfollow(id)
   }
-
+  
   const nowFollow = (id: string | undefined) => {
     follow()
     dispatch(followAction(true))
-
+    
   }
   const unfollow = (id: string | undefined) => {
     follow()
     dispatch(followAction(false))
     setLoading(true)
   }
-
+  
+  useEffect(()=> {
+    dispatch(getPosts())
+    dispatch(getFollowersAction(id))
+    getUser()
+  }, [id])
 
   return user ? (
     <>

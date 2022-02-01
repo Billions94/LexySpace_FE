@@ -46,7 +46,7 @@ const Blog = () => {
 
   const url = process.env.REACT_APP_GET_URL
   const dispatch = useDispatch()
-  const posts = useSelector((state: ReduxState['posts']) => state)
+  const { posts } = useSelector((state: ReduxState) => state)
   const { user } = useSelector((state: ReduxState) => state.data)
   const liker = { userId: user!._id }
   const me = user!._id
@@ -163,6 +163,9 @@ const Blog = () => {
   }
 
 
+  const newPost = posts.find(p => p._id === id)
+  // console.log(posts.find(p => p._id === id))
+  console.log(newPost)
 
   useEffect(() => {
     fetchBlog(id)
@@ -295,8 +298,19 @@ const Blog = () => {
                 src={blog?.cover} width='100%' />
             }
             {blog?.video && <video src={blog?.video} className="blog-cover" controls autoPlay muted></video>}
+              { newPost!.sharedPost && newPost!.sharedPost._id !== id ? 
+                  <>
+                    <div className="mt-3">{newPost!.sharedPost.text}</div>
+                    <div className="mt-2">
+                        <img onClick={() => setView(true)}
+                          className="blog-details-cover" alt=''  
+                          src={newPost!.sharedPost.cover} width='100%' />
+                    </div> 
+                  </>
+                  : null
+              } 
           </div>
-          <ViewModal view={view} setView={setView} cover={blog?.cover} />
+          <ViewModal view={view} setView={setView} cover={blog?.cover} post={blog} />
           <div className='d-flex justify-content-evenly'>
             <div className='likes'>
               {blog && blog?.likes.map(user => (
@@ -318,16 +332,7 @@ const Blog = () => {
               }
             </div>
           </div>
-          {/* { newPost!.sharedPost!._id !== id ? 
-                <>
-                  <div className="mt-3">{newPost!.sharedPost!.text}</div>
-                  <div className="mt-2">
-                      <img className="blog-details-cover" alt=''  
-                        src={newPost!.sharedPost!.cover} width='100%' />
-                  </div> 
-                </>
-                  : null
-                }  */}
+
 
           <div className="interactionContainer d-flex mt-2">
             <div onMouseEnter={handleCommentLabelShow}

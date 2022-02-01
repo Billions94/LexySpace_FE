@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import { followAction, getPosts } from "../../../redux/actions";
+import { followAction, getFollowersAction, getPosts } from "../../../redux/actions";
 import { User } from "../../../redux/interfaces";
 import { ReduxState } from "../../../redux/interfaces"
 
@@ -20,7 +20,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { user } = useSelector((state: ReduxState) => state.data)
+  const { user, followers } = useSelector((state: ReduxState) => state.data)
   const { following } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 
@@ -65,6 +65,10 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
     follow(userId)
     dispatch(followAction(false))
   }
+
+  useEffect(() => {
+    dispatch(getFollowersAction(props?._id))
+  }, [show])
   
   return (
     <>
@@ -93,7 +97,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
           {
             props?._id !== me &&
             <div className='ml-auto'>
-            { !props?.followers.some(elem => elem._id === me) ?
+            { !followers.some(elem => elem._id === me) ?
               <Button onClick={()=> toggle(props?._id)}
                 size="sm" variant="primary" 
                 className="followbtn ml-auto">

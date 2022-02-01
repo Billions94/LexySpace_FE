@@ -139,6 +139,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                     <Card.Img variant="top" src={post.sharedPost.cover} className="d-none" /> :
                     <Card.Img variant="top" src={post.sharedPost.cover} className="blog-cover" />
                   }
+                  { post.sharedPost.video && <video src={post.sharedPost.video} className="blog-video" controls autoPlay muted></video>}
                     <Card.Body className="mb-0">
             
                     </Card.Body>

@@ -41,6 +41,7 @@ const Home = () => {
     hideTask === false ? dispatch(hideTaskAction(true)) : dispatch(hideTaskAction(false))
   }
 
+  console.log(posts)
 
 
   useEffect(() => {
