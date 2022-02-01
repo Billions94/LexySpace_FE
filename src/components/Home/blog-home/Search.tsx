@@ -122,7 +122,7 @@ const Search = () => {
                             {
                                 user._id !== me &&
                                 <div className='ml-auto'>
-                                    {!user.followers.some(elem => elem._id === me) ?
+                                    {!xUser!.followers.some(elem => elem._id === me) ?
                                         <Button onClick={() => toggle(user._id)}
                                             size="sm" variant="primary"
                                             className="followbtn ml-auto">

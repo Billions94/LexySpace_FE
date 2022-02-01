@@ -1,9 +1,9 @@
 import { Button, Modal } from "react-bootstrap"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 import { Posts, ReduxState, User } from "../../../redux/interfaces"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { followAction } from "../../../redux/actions"
+import { followAction, getFollowersAction, getPosts } from "../../../redux/actions"
 
 
 
@@ -18,10 +18,14 @@ const LikesModal = ({ likeShow, setLikeShow, post }: LikesModalProps) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const beUrl = process.env.REACT_APP_GET_URL
-    const { following } = useSelector((state: ReduxState['data']) => state)
+    const { following, followers } = useSelector((state: ReduxState['data']) => state)
     const newUser = useSelector((state: ReduxState) => state.data.user)
     const me = newUser?._id
     const follower = { followerId: newUser?._id }
+
+    const likedBy = post.likes.find(liker => liker._id !== me)
+
+    
 
     const follow = async (userId: string | undefined) => {
         try {
@@ -36,6 +40,7 @@ const LikesModal = ({ likeShow, setLikeShow, post }: LikesModalProps) => {
             })
             if (response.ok) {
                 const data = await response.json()
+                // dispatch(getFollowersAction(userId))
                 // dispatch(getPosts())
                 console.log('Now following user?', data)
             } else {
@@ -46,6 +51,7 @@ const LikesModal = ({ likeShow, setLikeShow, post }: LikesModalProps) => {
         }
     }
 
+    console.log('liker', likedBy)
 
     const toggle = (userId: string | undefined) => {
         following === false ? nowFollow(userId) : unfollow(userId)
@@ -60,11 +66,11 @@ const LikesModal = ({ likeShow, setLikeShow, post }: LikesModalProps) => {
         dispatch(followAction(false))
     }
 
+
     return (
         <div>
             <Modal id='likesModal'
                 style={{ borderRadius: '20px' }}
-
                 show={likeShow}
                 centered
                 onHide={() => setLikeShow(false)}
@@ -98,7 +104,7 @@ const LikesModal = ({ likeShow, setLikeShow, post }: LikesModalProps) => {
                                 {
                                     user?._id !== me ?
                                         <div className='ml-auto'>
-                                            {following === false ?
+                                            { likedBy!.followers && !likedBy!.followers.some(elem => elem._id === me) ?
                                                 <Button onClick={() => toggle(user?._id)}
                                                     size="sm" variant="primary"
                                                     className="followbtn ml-auto">
