@@ -30,7 +30,7 @@ const Register = () => {
   const navigate = useNavigate()
 // Register and create new user account
   const register = async (props: FormikProps) => {
-      const response = await fetch(`http://localhost:3001/users/register`, {
+      const response = await fetch(`${beUrl}/users/register`, {
         method: 'POST',
         body: JSON.stringify(props),
         headers: {'Content-Type': 'application/json'}
