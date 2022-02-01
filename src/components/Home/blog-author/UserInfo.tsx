@@ -41,6 +41,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
       if(response.ok) {
         const data = await response.json()
         dispatch(getPosts())
+        dispatch(getFollowersAction(props?._id))
         console.log('Now following user', data)
       } else {
         throw new Error('Something went wrong :(')
@@ -54,7 +55,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
 
 
   const toggle = (userId: string | undefined) => {
-    following === false ? nowFollow(userId) : unfollow(userId)
+    !followers ? nowFollow(userId) : unfollow(userId)
   }
 
   const nowFollow = (userId: string | undefined) => {
