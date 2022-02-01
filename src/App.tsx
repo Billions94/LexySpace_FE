@@ -14,9 +14,12 @@ import CloseAccount from "./components/Home/account/CloseAccount"
 import Settings from "./components/Home/account/Settings"
 import Footer from "./components/footer/Footer"
 import EditNewUser from "./components/login&register/EditNewUser"
+import { useState } from "react"
 
 
 function App() {
+
+  const [refresh, setRefresh] = useState(false)
 
   return (
     <Router>

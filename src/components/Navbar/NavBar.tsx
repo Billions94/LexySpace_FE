@@ -18,6 +18,7 @@ const NavBar = () => {
   const { user } = useSelector((state: ReduxState) => state.data)
 
   const id = user!._id
+  const refresh = user!.image
 
   const handleShow = () => setShow(true)
   

@@ -1,7 +1,7 @@
 import { Modal, Button } from "react-bootstrap"
 import { useState, Dispatch, SetStateAction, createRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getUsersAction } from "../../../redux/actions"
+import { getPosts, getUsersAction } from "../../../redux/actions"
 import { ReduxState, User } from "../../../redux/interfaces"
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -53,6 +53,7 @@ const UpdateImage = ({ xUser, show, setShow, getUser }: UpdateImageProps) => {
         if(response.ok){
           console.log('User Profile successfully updated')
           setShow(false)
+          dispatch(getPosts())
           getUser()
         } else {
           throw new Error('Failed to update profile picture')
