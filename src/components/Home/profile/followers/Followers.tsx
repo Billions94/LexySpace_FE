@@ -47,22 +47,27 @@ const Followers = () => {
 
    return followers.length > 0 ? (
     <Container id='followersContainer'>
-      <Row className='justify-content-center mt-5 mb-5'>
-        <Col xs={12} sm={12} md={9} lg={8}>
+      <Row className='justify-content-center'>
+        <Col className='COL pb-5 px-0' xs={12} sm={12} md={9} lg={8}>
           {user && 
             <div className="userInfo" >
-            <img className="userImg" src={user.image} alt='' width='59px' />
-            {user.followers.length > 1 ?
-            <h6 className='text-center mb-3'>{user.firstName} {user.lastName}'s followers</h6>
-            :
-            <h6 className='text-center mb-3'>{user.firstName} {user.lastName}'s follower</h6>
-            }
+              <div className="position-relative">
+                <img className="userCov" src={user.cover} alt='' width='59px' />
+              </div>
+              <div className="userImgContainer">
+                <img className="userImg" src={user.image} alt='' width='59px' />
+                {user.followers.length > 1 ?
+                <h6 className='text-center mb-3'>{user.firstName} {user.lastName}'s followers</h6>
+                :
+                <h6 className='text-center mb-3'>{user.firstName} {user.lastName}'s follower</h6>
+                }
+              </div>
             </div>
           }
           <ListGroup id='listGroup'>
               { followers && 
                 followers.map(f => (
-                  <ListGroup.Item key={f._id}>
+                  <ListGroup.Item id='listGroup'  key={f._id}>
                     <FollowersList f={f} id={id} getUser={getUser} refresh={refresh} setRefresh={setRefresh}/>
                   </ListGroup.Item>
                 ))
