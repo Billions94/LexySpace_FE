@@ -178,7 +178,7 @@ const Blog = () => {
 
   function navigateHome() {
     dispatch(reRouteAction(false))
-    navigate('/home')
+    navigate(-1)
   }
 
 

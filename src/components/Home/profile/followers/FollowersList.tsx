@@ -10,18 +10,22 @@ import { setFlagsFromString } from "v8";
 
 interface FollowersListProps {
   f: User
+  id: string | undefined
   getUser: () => Promise<void>
   refresh: boolean
   setRefresh: Dispatch<SetStateAction<boolean>>
 }
 
-const FollowersList = ({ f, refresh, setRefresh }: FollowersListProps) => {
+const FollowersList = ({ f, id, getUser, refresh, setRefresh }: FollowersListProps) => {
 
   const navigate = useNavigate()
 
   const beUrl = process.env.REACT_APP_GET_URL
   const dispatch = useDispatch()
   const { user, followers, following } = useSelector((state: ReduxState) => state.data)
+  const me = user!._id
+
+  console.log(me)
 
   // const [following, setFollowing] = useState(false)
   const follower = { followerId: user?._id }
@@ -63,14 +67,14 @@ const FollowersList = ({ f, refresh, setRefresh }: FollowersListProps) => {
   }
 
   useEffect(() => {
-    if(followers.map(flw => flw._id).indexOf(f._id) !== -1){
-        dispatch(followAction(true))
-    }else dispatch(followAction(false))
+    // if(followers.map(flw => flw._id).indexOf(f._id) !== -1){
+    //     dispatch(followAction(true))
+    // }else dispatch(followAction(false))
   }, [followers])
 
   return (
     <>
-      <div className="d-flex mb-2">
+      <div key={f._id} className="d-flex mb-2">
         <Link
           to={`/userProfile/${f._id}`}
           className="d-flex followersContainer customLinks1">
@@ -91,12 +95,16 @@ const FollowersList = ({ f, refresh, setRefresh }: FollowersListProps) => {
             </span>
           </div>
         </Link>
+        
+        { f._id !== me ? 
         <FollowButton
           followers={followers}
           following={following}
           toggle={toggle}
           // setFollowing={setFollowing}
           f={f}/>
+        : null }
+  
       </div>
     </>
   );

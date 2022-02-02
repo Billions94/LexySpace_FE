@@ -18,7 +18,6 @@
     z-index: -1;
     object-fit: cover;
     width: 100%;
-    
   }
 
   .coverDiv {
@@ -72,7 +71,9 @@
   #profile-pic {
     top: 20%;
     left: 25px;
-    border-radius: 20%;
+    border-radius: 50%;
+    display: block;
+    // border: 1px solid rgb(216, 215, 215);
   }
 
   #jinx {

@@ -15,7 +15,7 @@ const useAuthGuard = () => {
         navigate("/login");
       } else if (params.get("accessToken")) {
         localStorage.setItem("accessToken", token);
-        navigate("/editNewUser");
+        navigate("/home");
       }
     }, 
     // eslint-disable-next-line react-hooks/exhaustive-deps

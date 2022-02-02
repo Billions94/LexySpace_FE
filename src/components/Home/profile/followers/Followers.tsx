@@ -44,7 +44,7 @@ const Followers = () => {
   useEffect(()=> {
     dispatch(getFollowersAction(id))
     getUser()
-  }, [refresh])
+  }, [refresh, id])
 
 
    return followers.length > 0 ? (
@@ -61,10 +61,10 @@ const Followers = () => {
             </>
           }
           <ListGroup id='listGroup'>
-              {
+              { followers && 
                 followers.map(f => (
-                  <ListGroup.Item>
-                    <FollowersList f={f} getUser={getUser} refresh={refresh} setRefresh={setRefresh}/>
+                  <ListGroup.Item key={f._id}>
+                    <FollowersList f={f} id={id} getUser={getUser} refresh={refresh} setRefresh={setRefresh}/>
                   </ListGroup.Item>
                 ))
               }

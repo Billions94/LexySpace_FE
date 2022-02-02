@@ -24,6 +24,7 @@ const Home = () => {
 
   useAuthGuard()
 
+  const beUrl = process.env.REACT_APP_GET_URL
   const location = useLocation()
   const dispatch = useDispatch()
   const [value, setValue] = useState<number>()
@@ -31,7 +32,6 @@ const Home = () => {
   const { posts } = useSelector((state: ReduxState) => state)
   // console.log('user', user)
   // const [reroute, setReRoute] = useState(false)
-
 
   const toggleHide = () => {
     hideMe === false ? dispatch(hideMeAction(true)) : dispatch(hideMeAction(false))

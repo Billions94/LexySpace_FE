@@ -131,9 +131,14 @@ const UserProfile = () => {
               <div id="jinx"  className="d-flex px-4 col-lg-10">
 
                 <div className="imgDiv ml5">
+                  { user.image === undefined || null ? 
+                    <Image roundedCircle id="profile-pic" onClick={handlePic}
+                    src='https://cdn-icons-png.flaticon.com/512/3508/3508549.png'
+                    alt="ProfilePicture" width="130" height="130"/> : 
                   <Image roundedCircle id="profile-pic" onClick={handlePic} 
                     src={user.image}
                     alt="ProfilePicture" width="130" height="130"/>
+                    }
                     
                 <div>
                 <div className="nameHeader ">{user.firstName} {user.lastName}</div>
