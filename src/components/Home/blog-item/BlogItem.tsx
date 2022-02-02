@@ -1,5 +1,5 @@
 import { useState, Dispatch, SetStateAction } from "react"
-import { Card, Badge, Dropdown, Image } from "react-bootstrap"
+import { Card, Badge, Dropdown, Image, ListGroup } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
@@ -131,8 +131,8 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
 
 
   return (
-    <div>
-      <div style={{ border: "1px solid rgb(216, 215, 215)", borderRadius: "20px" }} key={_id} className="blog-card">
+    <ListGroup>
+      <ListGroup.Item style={{ border: "1px solid rgb(216, 215, 215)", borderRadius: "20px" }} key={_id} className="blog-card">
         <div className='authorinfo d-flex ' style={{ justifyContent: 'space-between' }}>
           
           <BlogAuthor {...user} createdAt={createdAt} />
@@ -227,7 +227,9 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
                 </div>
               </div> */}
               
-              <BlogAuthor {...user}/>
+              <div className="d-flex">
+              <BlogAuthor {...user}/> <div></div>
+              </div>
               <div onClick={() => route(_id)} className="blog-link">
                 <Card.Title>{newPost!.sharedPost.text}</Card.Title>
                 <Card.Img variant="top" src={newPost!.sharedPost.cover} className="blog-cover" />
@@ -308,8 +310,8 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
               createdAt={createdAt} />
           </div>
         </div>
-      </div>
-    </div>
+      </ListGroup.Item>
+    </ListGroup>
   )
 }
 

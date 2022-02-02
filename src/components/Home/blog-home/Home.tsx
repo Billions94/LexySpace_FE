@@ -111,7 +111,7 @@ const Home = () => {
         </Col>
         <Col className="feed" sm={12} md={7} lg={7}>
           {reroute === false ?
-            <Col className=' justify-content-center' md={11} lg={12}>
+            <Col className='mainfeed justify-content-center' md={11} lg={12}>
               <PostContainer />
               <BlogList posts={posts} />
             </Col> :
