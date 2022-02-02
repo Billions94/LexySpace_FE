@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react"
 import { Col, Container, ListGroup, Row } from "react-bootstrap"
-import { Avatar } from "@mui/material"
-import '../styles.scss'
 import { useSelector } from "react-redux"
-import FollowButton from "./FollowButton"
 import Loader from "../../loader/Loader"
-import { useNavigate, useParams, Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { getFollowersAction } from "../../../../redux/actions"
 import { ReduxState, User } from "../../../../redux/interfaces"
 import FollowersList from "./FollowersList"
+import './styles.scss'
 
 const Followers = () => {
 
@@ -48,17 +46,18 @@ const Followers = () => {
 
 
    return followers.length > 0 ? (
-    <Container>
-      <Row className='justify-content-center mt-5'>
+    <Container id='followersContainer'>
+      <Row className='justify-content-center mt-5 mb-5'>
         <Col xs={12} sm={12} md={9} lg={8}>
           {user && 
-            <>
+            <div className="userInfo" >
+            <img className="userImg" src={user.image} alt='' width='59px' />
             {user.followers.length > 1 ?
             <h6 className='text-center mb-3'>{user.firstName} {user.lastName}'s followers</h6>
             :
             <h6 className='text-center mb-3'>{user.firstName} {user.lastName}'s follower</h6>
             }
-            </>
+            </div>
           }
           <ListGroup id='listGroup'>
               { followers && 

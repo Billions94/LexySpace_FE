@@ -1,0 +1,10 @@
+#followersContainer {
+    .userInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .userImg {
+            border-radius: 50%;
+        }
+    }
+}
