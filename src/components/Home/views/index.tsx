@@ -291,11 +291,14 @@ const Blog = () => {
             {!blog?.media ?
               <img className="d-none" alt='' />
               :
+              blog.media && blog.media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
               <img className="blog-details-cover" alt=''
                 onClick={() => setView(true)}
                 src={blog?.media} width='100%' />
             }
-            {blog?.media && <video src={blog?.media} className="blog-cover" controls autoPlay muted></video>}
+            {!blog?.media ? null :
+              blog.media && blog.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
+               <video src={blog?.media} className="blog-cover" controls autoPlay muted></video>}
               { newPost!.sharedPost && newPost!.sharedPost._id !== id ? 
                   <>
                     <div className="mt-3">{newPost!.sharedPost.text}</div>
