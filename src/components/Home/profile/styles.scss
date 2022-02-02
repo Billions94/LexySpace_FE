@@ -1,5 +1,6 @@
 #userProfileContainer {
   margin-bottom: 0 !important;
+
   .opened-to-work {
     border-radius: 10px;
     background-color: rgb(231, 226, 221);
@@ -11,7 +12,7 @@
   //   background-repeat: no-repeat;
   //   background-size: 80%;
   //   // width: 567px;
-   
+
   // }
 
   .cover {
@@ -30,7 +31,7 @@
     margin-top: 10px;
     margin-left: 5px;
   }
-  
+
   .userJumbo {
     border: 1px solid rgb(216, 215, 215);
   }
@@ -41,13 +42,14 @@
     border-radius: 50%;
     background-color: #f91880;
     border: none;
+
     .img {
       margin-left: -2px;
     }
   }
 
   .coverUpdateBtn:hover {
-    background-color: #d3176f ;
+    background-color: #d3176f;
   }
 
   .coverUpdateBtn:active {
@@ -169,11 +171,62 @@
     cursor: pointer;
   }
 
+  // .followbtn {
+  //     border-radius: 20px;
+  //     border: 1px solid grey;
+  //     color: black;
+  //     background-color: transparent;
+  //     box-shadow: 5px 5px 1px black;
+  // }
+
+  // .followbtn:hover {
+  //     border-radius: 20px;
+  //     color: black;
+  //     background-color: antiquewhite;
+  // }
+
+  // .followbtn:active {
+  //     outline: none;
+  //     box-shadow: 5px 5px 1px black;
+  // }
+
+  // .followbtn:focus {
+  //     outline: none;
+  //     box-shadow: 5px 5px 1px black;
+  // }
+
+  // .followbtn:focus-visible {
+  //     outline: none;
+  //     box-shadow: none;
+  // }
+
+  // .nowfollowing {
+  //     border-radius: 20px !important;
+  //     background-color: #f91880 !important;
+  //     border: 1px solid #f91880 !important;
+  //     box-shadow: 5px 5px 1px black !important
+  // }
+
+  // .nowfollowing:active {
+  //     outline: none;
+  //     box-shadow: 5px 5px 1px black;
+  // }
+
+  // .nowfollowing:focus {
+  //     outline: none;
+  //     box-shadow: 5px 5px 1px black;
+  // }
+
+  // .nowfollowing:focus-visible {
+  //     outline: none;
+  //     box-shadow: none;
+  // }
   .followbtn {
     border-radius: 20px;
     border: 1px solid grey;
     color: black;
     background-color: transparent;
+    box-shadow: 5px 5px 1px black;
   }
 
   .followbtn:hover {
@@ -184,12 +237,12 @@
 
   .followbtn:active {
     outline: none;
-    box-shadow: none;
+    box-shadow: 5px 5px 1px black;
   }
 
   .followbtn:focus {
     outline: none;
-    box-shadow: none;
+    box-shadow: 5px 5px 1px black;
   }
 
   .followbtn:focus-visible {
@@ -201,16 +254,17 @@
     border-radius: 20px !important;
     background-color: #f91880 !important;
     border: 1px solid #f91880 !important;
+    box-shadow: 5px 5px 1px black !important
   }
 
   .nowfollowing:active {
     outline: none;
-    box-shadow: none;
+    box-shadow: 5px 5px 1px black;
   }
 
   .nowfollowing:focus {
     outline: none;
-    box-shadow: none;
+    box-shadow: 5px 5px 1px black;
   }
 
   .nowfollowing:focus-visible {
@@ -248,6 +302,7 @@
 
 #updatePicModal {
   width: 1000px !important;
+
   // .modal-dialog {
   //   width: 100%;
   //   height: 100%;
@@ -404,6 +459,7 @@
   // border: 1px solid rgb(216, 215, 215);
   // padding: 20px;
   margin-top: 50px;
+
   .recentItem {
     border-top: 1px solid rgb(216, 215, 215);
   }

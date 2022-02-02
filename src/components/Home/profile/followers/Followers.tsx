@@ -47,11 +47,11 @@ const Followers = () => {
 
    return followers.length > 0 ? (
     <Container id='followersContainer'>
-      <Row className='justify-content-center'>
+      <Row className='ROW justify-content-center'>
         <Col className='COL pb-5 px-0' xs={12} sm={12} md={9} lg={8}>
           {user && 
             <div className="userInfo" >
-              <div className="position-relative">
+              <div className="position-relative w-100">
                 <img className="userCov" src={user.cover} alt='' width='59px' />
               </div>
               <div className="userImgContainer">
