@@ -8,29 +8,39 @@
       border-left: 1px solid rgb(226, 226, 226);
       border-top: 1px solid rgb(226, 226, 226);
       border-bottom: 1px solid rgb(226, 226, 226);
-      border-top-left-radius: 20px;
+      // border-top-left-radius: 20px;
       background-color: white;
+      padding: 0;
     }
     .customCol2 {
       border-right: 1px solid rgb(226, 226, 226);
       border-top: 1px solid rgb(226, 226, 226);
       border-bottom: 1px solid rgb(226, 226, 226);
       // border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
+      // border-bottom-right-radius: 20px;
       background-color: white;
+      padding: 0;
+    }
+
+    .dmUserName {
+      font-weight: 600;
+      font-size: 16px;
     }
 
     .search {
       width: 100%;
       border-radius: 20px;
       border: none;
-      padding-left: 43px;
+      padding: 0 43px;
       transition: ease-in-out 0.3s;
     }
 
     .btnTextArea {
       display: flex;
       justify-content: space-between;
+      position: absolute;
+      top: -4px;
+      left: 333px;
     }
 
     .roundpic {
@@ -38,32 +48,56 @@
     }
 
     .uploadicons {
-      border-radius: 20px;
-      border: 1px solid rgb(216, 215, 215) ;
+      // border-radius: 20px;
+      // border: 1px solid #d8d7d7;
       background-color: transparent;
       color: black;
       text-decoration: none;
     }
-    .uploadicons:hover {
-      background-color: antiquewhite;
-      outline: antiquewhite 
-    }
+    // .uploadicons:hover {
+    //   background-color: antiquewhite;
+    //   outline: antiquewhite 
+    // }
     .uploadicons:focus {
       box-shadow: none ;
     }
 
 
     .sendBtnDm {
-      border-radius: 20px;
-      border: 1px solid rgb(216, 215, 215) !important;
+      border: none;
       background-color: transparent;
-      color: black;
+      color: #f91880;
       text-decoration: none;
+      position: absolute;
+      bottom: 1px;
+      right: 14px;
+      width: 40px;
+      height: 40px;
+      font-weight: bolder;
+      cursor: pointer !important;
+      z-index: 11;
     }
 
-    .sendBtnDm:hover {
-      background-color: antiquewhite;;
-      color: black;
+    .sendBtnDm:active {
+      box-shadow: none;
+      outline: none;
+      border: none;
+    }
+
+    .sendBtnDm:focus {
+      box-shadow: none;
+      outline: none;
+      border: none;
+    }
+
+    .sendBtnDm:focus-visible {
+      box-shadow: none;
+      outline: none;
+      border: none;
+    }
+
+    .messageBody {
+      padding: 10px;
     }
 
     .dmText {
@@ -72,8 +106,19 @@
       background-color: transparent;
       color: black;
       text-decoration: none;
-      resize: none;
+      position: relative;
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      resize: both;
+      min-height: 40px;
+      line-height: 20px;
     }
+
+    // .dmText[contenteditable]:empty::before {
+    //   content: "Placeholder still possible";
+    //   color: gray;
+    // }
 
     .dmText:focus {
       outline: none;
@@ -84,6 +129,7 @@
     .listofDM {
       height: 450px;
       overflow-y: scroll;
+      padding: 12px;
     }
 
     .textAreaDm {
@@ -93,6 +139,7 @@
     .customMess {
       justify-content: space-between;
       align-items: center;
+      padding: 12px;
     }
 
     .customSetDrop {
@@ -132,6 +179,13 @@
       padding-bottom: 10px;
     }
 
+    .dmHeader1 {
+      border-bottom: 1px solid rgb(216, 215, 215);
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding: 11px;
+    }
+
     .dmHeader:hover {
       cursor: pointer;
     }
@@ -144,7 +198,7 @@
     }
 
     .dmUserName {
-      align-self: end;
+      align-self: center;
     }
 
     .customSetDrop:focus-within {
@@ -207,15 +261,45 @@
 
     #input-container {
       position: relative;
+      border-bottom: 1px solid rgb(216, 215, 215);
+    }
+
+    #textArea-container {
+      position: relative;
+      cursor: pointer;
     }
 
     #input-icon {
       position: absolute;
-      bottom: 8px;
-      left: 15px;
-      width: 24px;
-      height: 24px;
+      bottom: 0px;
+      right: 7px;
+      width: 40px;
+      height: 40px;
       font-weight: bolder;
+      cursor: pointer !important;
+      z-index: 11;
+    }
+
+    #input-icon1 {
+      position: absolute;
+      bottom: 8px;
+      left: 7px;
+      width: 22px;
+      height: 22px;
+      font-weight: bolder;
+      cursor: pointer !important;
+      z-index: 11;
+    }
+
+    #input-icon2 {
+      position: absolute;
+      bottom: 8px;
+      right: 7px;
+      width: 22px;
+      height: 22px;
+      font-weight: bolder;
+      cursor: pointer !important;
+      z-index: 11;
     }
 
     // .customList {
@@ -236,7 +320,12 @@
       border: 1px solid rgb(226, 226, 226) !important;
       border-radius: 20px !important;
       padding: 10px;
-      width: 80%;
+      width: 100%;
+    }
+
+    .h1 {
+      font-weight: 600;
+      font-size: 12px;
     }
 
     .replyBubble {

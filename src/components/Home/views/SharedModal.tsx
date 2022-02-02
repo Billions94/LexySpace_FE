@@ -30,12 +30,12 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
         sharedPost: sharePostBody!
     })
    
-    const [image, setImage] = useState('')
+    const [media, setMedia] = useState('')
     const handleClose = () => setShow(false)
 
     const target = (e: any) => {
         if(e.target && e.target.files[0]) {
-            setImage(e.target.files[0])
+            setMedia(e.target.files[0])
         }
     }
 
@@ -46,7 +46,7 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
     }
 
     const sharePost = async () => {
-        if(image) {
+        if(media) {
             try {
                 const response = await fetch(`${apiUrl}/posts/${userName}`, {
                     method: 'POST',
@@ -58,7 +58,7 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
                     const postId = data._id
                     try {
                         const formDt = new FormData()
-                        formDt.append('image', image)
+                        formDt.append('media', media)
                         const uploadCover = await fetch(`${apiUrl}/posts/${postId}/upload`, {
                             method: 'PUT',
                             body: formDt
@@ -141,7 +141,7 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
                 </div>
                 <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
                 <Card.Title>{post.sharedPost.text}</Card.Title>
-                    <Card.Img variant="top" src={post.sharedPost.cover} className="blog-cover" />
+                    <Card.Img variant="top" src={post.sharedPost.media} className="blog-cover" />
                     <Card.Body className="mb-0">
             
                     </Card.Body>

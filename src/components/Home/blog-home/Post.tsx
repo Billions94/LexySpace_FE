@@ -16,7 +16,7 @@ const PostContainer = () => {
     const { user } = useSelector((state: ReduxState) => state.data)
     const userName = user!.userName
     const [post, setPost] = useState({text: ''})
-    const [image, setImage] = useState<string>('')
+    const [media, setMedia] = useState<string>('')
     const [show, setShow] = useState(false)
     const [showEmoji, setShowEmoji] = useState(false)
 
@@ -30,7 +30,7 @@ const PostContainer = () => {
     const target = (e: any) => {
         console.log(e.target.files[0])
         if (e.target && e.target.files[0]) {
-            setImage(e.target.files[0])
+            setMedia(e.target.files[0])
         }
     }
 
@@ -48,7 +48,7 @@ const PostContainer = () => {
     };
 
     const newPost = async () => {
-        if (image) {
+        if (media) {
             try {
                 const response = await fetch(`${url}/posts/${userName}`, {
                     method: "POST",
@@ -60,7 +60,7 @@ const PostContainer = () => {
                     console.log('post successful', data)
                     try {
                         const formDt = new FormData()
-                        formDt.append("cover", image)
+                        formDt.append("media", media)
                         let postImage = await fetch(`${url}/posts/${data._id}/upload`, {
                             method: "PUT",
                             body: formDt,

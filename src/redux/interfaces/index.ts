@@ -33,9 +33,9 @@ export interface User {
 
 export interface Posts {
     _id: string
-    cover: string
+    // cover: string
     text: string
-    video: string
+    media: string
     sharedPost: Posts
     user: User
     comments: Comments[]

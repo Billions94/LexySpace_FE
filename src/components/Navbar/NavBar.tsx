@@ -81,7 +81,7 @@ const NavBar = () => {
             <div>
               <Button onClick={handleShow} className="newBlogPost" size="lg">
                   <div>
-                    <img alt='' src="https://img.icons8.com/ios-filled/50/000000/new.png" width="23px"/>
+                    <img alt='' src="https://img.icons8.com/ios-filled/50/ffffff/new.png" width="23px"/>
                   </div>
                 <div style={{fontSize: "16px"}}> newPost </div>
               </Button>

@@ -288,29 +288,27 @@ const Blog = () => {
           }
           <h4 className="mt-3 blogText">{blog?.text}</h4>
           <div className="mt-2 mb-4">
-            {!blog?.cover ?
-              <img className="d-none" alt=''
-                onClick={() => setView(true)}
-                src={blog?.cover} width='100%' />
+            {!blog?.media ?
+              <img className="d-none" alt='' />
               :
               <img className="blog-details-cover" alt=''
                 onClick={() => setView(true)}
-                src={blog?.cover} width='100%' />
+                src={blog?.media} width='100%' />
             }
-            {blog?.video && <video src={blog?.video} className="blog-cover" controls autoPlay muted></video>}
+            {blog?.media && <video src={blog?.media} className="blog-cover" controls autoPlay muted></video>}
               { newPost!.sharedPost && newPost!.sharedPost._id !== id ? 
                   <>
                     <div className="mt-3">{newPost!.sharedPost.text}</div>
                     <div className="mt-2">
                         <img onClick={() => setView(true)}
                           className="blog-details-cover" alt=''  
-                          src={newPost!.sharedPost.cover} width='100%' />
+                          src={newPost!.sharedPost.media} width='100%' />
                     </div> 
                   </>
                   : null
               } 
           </div>
-          <ViewModal view={view} setView={setView} cover={blog?.cover} post={blog} />
+          <ViewModal view={view} setView={setView} cover={blog?.media} post={blog} />
           <div className='d-flex justify-content-evenly'>
             <div className='likes'>
               {blog && blog?.likes.map(user => (

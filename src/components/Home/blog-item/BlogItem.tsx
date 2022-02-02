@@ -16,8 +16,8 @@ import DeleteModal from "./DeleteModal"
 
 interface BlogItemProps {
   text: string
-  cover: string
-  video: string
+  // cover: string
+  media: string
   comments: Comments[]
   user: User
   _id: string
@@ -27,7 +27,7 @@ interface BlogItemProps {
 }
 
 
-const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, getData }: BlogItemProps) => {
+const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData }: BlogItemProps) => {
   // console.log('i am the author', user.userName)
 
   const navigate = useNavigate()
@@ -191,10 +191,11 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
           </div>
           <div className="d-flex mb-0 p-0">
             <div>
-              {!cover ? null :
-                <h6> <img src={cover} className="blog-cover" /></h6>
+              { !media ? null : media && media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
+                <h6> <img src={media} className="blog-cover" /></h6>
               }
-              {video && <video src={video} className="blog-video" controls autoPlay muted></video>}
+              { !media ? null : media && media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
+              <video src={media} className="blog-video" controls autoPlay muted></video> }
             </div>
           </div>
         </div>
@@ -232,7 +233,13 @@ const BlogItem = ({ text, cover, video, comments, user, _id, likes, createdAt, g
               </div>
               <div onClick={() => route(_id)} className="blog-link">
                 <Card.Title>{newPost!.sharedPost.text}</Card.Title>
-                <Card.Img variant="top" src={newPost!.sharedPost.cover} className="blog-cover" />
+                {!newPost?.sharedPost! ? null : newPost!.sharedPost.media && 
+                  newPost!.sharedPost.media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
+                  <Card.Img variant="top" src={newPost!.sharedPost.media} className="blog-cover" />
+                }
+                {!newPost?.sharedPost! ? null : newPost!.sharedPost.media && 
+                  newPost!.sharedPost.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
+                 <video src={newPost!.sharedPost.media} className="blog-video" controls autoPlay muted></video>}
                 <Card.Body className="mb-0">
 
                 </Card.Body>

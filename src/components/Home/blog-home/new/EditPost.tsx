@@ -12,7 +12,7 @@ const Edit = () => {
   useAuthGuard()
   
   const [show, setShow] = useState(false)
-  const [image, setImage] = useState<string>('')
+  const [media, setMedia] = useState<string>('')
   const { user } = useSelector((state: ReduxState) => state.data)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -29,7 +29,7 @@ const Edit = () => {
   const target = (e: any) => {
     console.log(e.target.files[0])
     if (e.target && e.target.files[0]) {
-      setImage(e.target.files[0])
+      setMedia(e.target.files[0])
     }
   }
   
@@ -42,7 +42,7 @@ const Edit = () => {
   const apiUrl = process.env.REACT_APP_GET_URL
 
   const editBlogPost = async () => {
-    if(image) {
+    if(media) {
       try {
         const response = await fetch(`${apiUrl}/posts/${id}`, {
           method: "PUT",
@@ -54,7 +54,7 @@ const Edit = () => {
           console.log(`another console log for the res`, data)
           try {
             const formDt = new FormData()
-            formDt.append("cover", image)
+            formDt.append("media", media)
             let postImage = await fetch(`${apiUrl}/posts/${data._id}/upload`, {
               method: "PUT",
               body: formDt,

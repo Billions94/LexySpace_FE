@@ -26,7 +26,7 @@ function ViewModal({ view, setView, cover, post }: ViewModalProps) {
                     <img src={cover} alt='' 
                         className="img"/>
                         { post.sharedPost && 
-                            <img src={post.sharedPost.cover} alt='' 
+                            <img src={post.sharedPost.media} alt='' 
                             className="img"/>
                         }
                 </Modal.Body>
