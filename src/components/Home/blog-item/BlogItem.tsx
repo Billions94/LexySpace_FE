@@ -40,6 +40,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
   const [show, setShow] = useState(false)
   const [smShow, setSmShow] = useState(false)
   const [share, setShare] = useState(false)
+  const [reload, setReload] = useState(false)
 
   // for interaction icons label
   const [commentLabel, setCommentLabel] = useState(false)
@@ -166,7 +167,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
               {user!._id !== me ? null
                 :
                 <>
-                  <Edit />
+                  <Edit id={_id} refresh={reload} setRefresh={setReload}/>
                   <div className="d-flex customLinks">
                     <div className="mr-3">
                       <img alt='' className="lrdimg" width="17px"

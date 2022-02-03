@@ -1,4 +1,4 @@
-import { useState, useEffect, createRef } from "react"
+import { useState, useEffect, createRef, Dispatch, SetStateAction } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Container, Form, Button, Modal } from "react-bootstrap"
 import useAuthGuard from "../../../../lib/index"
@@ -7,7 +7,13 @@ import { ReduxState } from "../../../../redux/interfaces"
 import "./styles.scss"
 import { getPosts } from "../../../../redux/actions"
 
-const Edit = () => {
+interface EditProps {
+  id: string 
+  refresh: boolean
+  setRefresh: Dispatch<SetStateAction<boolean>>
+}
+
+const Edit = ({ id, refresh, setRefresh }: EditProps) => {
 
   useAuthGuard()
   
@@ -24,7 +30,7 @@ const Edit = () => {
   const dispatch = useDispatch()
 
   
-  const { id } = useParams()
+  // const { id } = useParams()
   
   const target = (e: any) => {
     console.log(e.target.files[0])
@@ -61,7 +67,8 @@ const Edit = () => {
             })
             if (postImage.ok) {
               setShow(false)
-              navigate("/home")
+              refresh === false ? setRefresh(true) : setRefresh(false)
+              // navigate("/home")
               dispatch(getPosts())
             }
           } catch (error) {
@@ -82,7 +89,8 @@ const Edit = () => {
       })
       if(response.ok) {
         setShow(false)
-        navigate('/home')
+        refresh === false ? setRefresh(true) : setRefresh(false)
+        // navigate('/home')
         dispatch(getPosts())
       }
     }

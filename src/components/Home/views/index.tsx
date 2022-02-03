@@ -41,6 +41,7 @@ const Blog = () => {
   const [view, setView] = useState(false)
   const [open, setOpen] = useState(false)
   const [likeShow, setLikeShow] = useState(false)
+  const [refresh, setRefresh] = useState(false)
   const handleDisplayShow = () => setTimeout(() => { setDisplay(true) }, 1000)
   const handleDisplayClose = () => { { setTimeout(() => { if (timer === true) { setDisplay(false); setTimer(false) } }, 1000) } }
 
@@ -170,7 +171,7 @@ const Blog = () => {
   useEffect(() => {
     fetchBlog(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+  }, [id, refresh])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -232,7 +233,7 @@ const Blog = () => {
                 {blog && blog.user._id !== me ? null
                   :
                   <>
-                    <Edit />
+                    <Edit id={blog?._id} refresh={refresh} setRefresh={setRefresh}/>
                     <div className="d-flex customLinks">
                       <div className="mr-3">
                         <img alt='' className="lrdimg" width="17px"
@@ -289,15 +290,15 @@ const Blog = () => {
           <h4 className="mt-3 blogText">{blog?.text}</h4>
           <div className="mt-2 mb-4">
             {!blog?.media ?
-              <img className="d-none" alt='' />
+              null
               :
-              blog.media && blog.media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
+              blog?.media && blog?.media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
               <img className="blog-details-cover" alt=''
                 onClick={() => setView(true)}
                 src={blog?.media} width='100%' />
             }
             {!blog?.media ? null :
-              blog.media && blog.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
+              blog?.media && blog?.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
                <video src={blog?.media} className="blog-cover" controls autoPlay muted></video>}
               { newPost!.sharedPost && newPost!.sharedPost._id !== id ? 
                   <>
