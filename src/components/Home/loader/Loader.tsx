@@ -6,7 +6,7 @@ import "./styles.scss"
 const Loader = () => {
     return (
         <div className='spinner-container'>
-            <Spinner  className="spinner" animation="grow"/>
+            <Spinner  className="spinner" animation="border"/>
         </div>
     )
 }

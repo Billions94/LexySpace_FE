@@ -342,6 +342,22 @@
   padding: 0;
   background-color: rgb(245, 245, 245);
 
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+    .spinner {
+      // width: 40px;
+      // height: 40px;
+      text-align: center;
+      // margin-top: 100px;
+      color: #f91880;
+      z-index: 11;
+      padding: 10px
+  }
+  }
+
   .hotpostList {
     cursor: pointer;
     padding: 15px 15px;
@@ -538,6 +554,11 @@
   //   cursor: pointer;
   //   background-color: rgb(245, 245, 245);
   // }
+  .loader {
+    display: flex;
+    justify-content: center;
+    color: #f91880
+  }
 }
 
 #Task {

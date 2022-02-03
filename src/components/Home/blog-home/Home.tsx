@@ -4,7 +4,7 @@ import BlogList from "./BlogList"
 import Weather from "./Weather"
 import useAuthGuard from "../../../lib/index"
 import { useDispatch, useSelector } from "react-redux"
-import { getPosts, getUsersAction, hideMeAction, hideTaskAction } from "../../../redux/actions"
+import { getPosts, getUsersAction, GET_BLOGS, hideMeAction, hideTaskAction } from "../../../redux/actions"
 import HotPosts from "./HotPosts"
 import Loader from "../loader/Loader"
 import { ReduxState } from "../../../redux/interfaces"
@@ -28,7 +28,8 @@ const Home = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const [value, setValue] = useState<number>()
-  const { hideMe, reroute, isLoading, hideTask } = useSelector((state: ReduxState) => state.data)
+  const [isLoading, setIsLoading] = useState(true)
+  const { hideMe, reroute, hideTask } = useSelector((state: ReduxState) => state.data)
   const { posts } = useSelector((state: ReduxState) => state)
   // console.log('user', user)
   // const [reroute, setReRoute] = useState(false)
@@ -41,10 +42,29 @@ const Home = () => {
     hideTask === false ? dispatch(hideTaskAction(true)) : dispatch(hideTaskAction(false))
   }
 
-  console.log(posts)
+  const getData = async () => {
+  try {
+    const response = await fetch(`${beUrl}/posts`)
+    if (response.ok) {
+      const { posts } = await response.json()
+      const newPost = posts.reverse()
+      console.log('here is the post', newPost)
+      dispatch({
+        type: GET_BLOGS,
+        payload: newPost
+      })
+      setTimeout(() => {
+          setIsLoading(false)
+      }, 2000)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
   useEffect(() => {
+    dispatch(getPosts())
     dispatch(getUsersAction())
     /*scroller.scrollTo('postSectionInner', {
       // duration: 1000,
@@ -71,7 +91,7 @@ const Home = () => {
 
   }, [reroute])
 
-  return posts ? (
+  return posts && (
     <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">
       <Row className="pt-0 mainContainer justify-content-center">
         <Col className='sidebar d-none d-xs-none d-sm-none d-md-flex' sm={4} md={4} lg={4}>
@@ -113,7 +133,7 @@ const Home = () => {
           {reroute === false ?
             <Col className='mainfeed justify-content-center' md={11} lg={12}>
               <PostContainer />
-              <BlogList posts={posts} />
+              <BlogList posts={posts} getData={getData} isLoading={isLoading} setIsLoading={setIsLoading}/>
             </Col> :
             <Col md={11} lg={12}>
               <Element name='postSectionInner'>
@@ -125,7 +145,7 @@ const Home = () => {
         <Col lg={1}></Col>
       </Row>
     </Container>
-  ) : <Loader />
+  ) 
 
 }
 
