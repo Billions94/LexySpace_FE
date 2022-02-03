@@ -27,12 +27,12 @@ export const getUsersAction = () => {
                     type: GET_USERS,
                     payload: data
                 })
-                setTimeout(() => {
-                    dispatch({
-                        type: TOGGLE_LOADER,
-                        payload: false
-                    })
-                }, 4000)
+                // setTimeout(() => {
+                //     dispatch({
+                //         type: TOGGLE_LOADER,
+                //         payload: false
+                //     })
+                // }, 4000)
             } else {
                 throw new Error("Roger we've got a problem")
             }
@@ -53,12 +53,12 @@ export const getPosts = () => {
                 type: GET_BLOGS,
                 payload: newPost
               })
-              setTimeout(() => {
-                dispatch({
-                    type: TOGGLE_LOADER,
-                    payload: false
-                })
-            }, 2000)
+            //   setTimeout(() => {
+            //     dispatch({
+            //         type: TOGGLE_LOADER,
+            //         payload: false
+            //     })
+            // }, 2000)
             } else throw new Error('Could not get post')
           } catch (error) {
             console.log(error)

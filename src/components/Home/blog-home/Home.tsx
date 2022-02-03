@@ -28,7 +28,7 @@ const Home = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const [value, setValue] = useState<number>()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const { hideMe, reroute, hideTask } = useSelector((state: ReduxState) => state.data)
   const { posts } = useSelector((state: ReduxState) => state)
   // console.log('user', user)
@@ -53,9 +53,9 @@ const Home = () => {
         type: GET_BLOGS,
         payload: newPost
       })
-      setTimeout(() => {
-          setIsLoading(false)
-      }, 2000)
+      // setTimeout(() => {
+      //     setIsLoading(false)
+      // }, 2000)
     }
   } catch (error) {
     console.log(error)

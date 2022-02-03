@@ -77,17 +77,14 @@ const Blog = () => {
 
 
 
-  const fetchBlog = async (_id: string | undefined) => {
+  const fetchBlog = async (id: string | undefined) => {
     try {
-      const response = await fetch(`${url}/posts/${_id}`)
+      const response = await fetch(`${url}/posts/${id}`)
       if (response.ok) {
         const data: Posts = await response.json()
         setBlog(data)
         console.log("i am the data", data.likes.map(user => user._id))
         setAuthor(data.user)
-        setTimeout(() => {
-          dispatch(loaderAction(false))
-        }, 3000)
       } else {
         throw new Error('cannot post')
       }
@@ -174,7 +171,7 @@ const Blog = () => {
   }, [id, refresh])
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    window.scrollTo({ top: 0, behavior: "auto" })
   }, [])
 
   function navigateHome() {
