@@ -60,8 +60,7 @@ const BlogList = ({ posts, getData, isLoading, setIsLoading }: BlogListProps) =>
       {isLoading ? <div className='loader'><Spinner animation='border' /> </div>:
       <>
       { posts.map((post, i) => (
-        <Col key={i} md={12} lg={12} style={{ borderTop: '1px solid rgb(216, 215, 215)',
-         padding: '0px'}}>
+        <Col key={i} md={12} lg={12} style={{ padding: '0px'}}>
             <div className="blogList">
                 <BlogItem key={i}  {...post} getData={getData}/>
             </div>
