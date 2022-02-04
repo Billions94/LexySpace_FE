@@ -159,14 +159,14 @@ const Edit = ({ id, refresh, setRefresh }: EditProps) => {
                 </svg>
                 </button>
               </div>
-            <Button
-                size="lg"
-                className="modal-btn ml-auto"
-                variant="dark"
-                style={{ fontSize: '15px' }}
-                onClick={(e) => editBlogPost()}>
-                Update
-              </Button>
+            {!post.text ? 
+            <Button variant="primary" disabled className='btn btn-md modal-btn' onClick={() => editBlogPost()}>
+              update
+            </Button> :   
+            <Button variant="primary" className='btn btn-md modal-btn' onClick={() => editBlogPost()}>
+              update
+            </Button>
+            }
           </Modal.Footer>
         </Modal>
       </div>

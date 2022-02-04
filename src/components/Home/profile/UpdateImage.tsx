@@ -98,9 +98,15 @@ const UpdateImage = ({ xUser, show, setShow, getUser }: UpdateImageProps) => {
                     </div>
                 </button>
             </div>
-          <Button onClick={() => updateProfilePic()} 
-          variant="primary" className='modal-btn'>update
-          </Button>
+            {!image ?
+                   <Button disabled variant="primary" className='modal-btn'>
+                     update
+                   </Button> :
+                  <Button onClick={() => updateProfilePic()} 
+                    variant="primary" className='modal-btn'>
+                      update
+                  </Button>
+                }  
           </Modal.Footer>
         }
       </Modal>

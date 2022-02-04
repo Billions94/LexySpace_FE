@@ -159,9 +159,14 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                 </svg>
                   </button>
                 </div>
-          <Button variant="primary" className='modal-btn' onClick={() => sharePost()}>
+                {!post.text ? 
+            <Button variant="primary" disabled className='btn btn-md modal-btn' onClick={() => sharePost()}>
+              post
+            </Button> :   
+            <Button variant="primary" className='btn btn-md modal-btn' onClick={() => sharePost()}>
             post
-          </Button>
+            </Button>
+            }
         </Modal.Footer>
       </Modal>
         </>

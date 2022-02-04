@@ -12,6 +12,9 @@
 
   .customMT {
     margin-top: 100px;
+    padding: 15px;
+    box-shadow: 0px 0px 7px black;
+    border-radius: 20px;
   }
   
   .register {
@@ -40,6 +43,7 @@
   .googleIcon {
     display: flex;
     justify-content: space-around;
+    position: relative;
   }
   
   .googleBtn{
@@ -47,11 +51,15 @@
     width: 100%;
     color: grey;
     border-radius: 30px;
-    border: 2px solid grey;
+    border: 1px solid rgb(179, 179, 179);
     letter-spacing: 1px;
     font-size: 15px;
     font-weight: bold;
     height: 50px;
+    box-shadow: 0px 0px 5px rgb(179, 179, 179);
+    p {
+      margin: auto;
+    }
   }
   
   .or {

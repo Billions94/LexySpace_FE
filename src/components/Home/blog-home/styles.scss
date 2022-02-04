@@ -7,6 +7,10 @@
 
 .customInput {
   border-radius: 50px !important;
+  padding-left: 15px;
+  background-color: whitesmoke;
+  box-shadow: -5px 5px 1px rgb(216, 215, 215);
+  border: none;
 }
 
 .customInput:focus {
@@ -110,6 +114,7 @@
   background-image: var(--gradient);
   border-radius: 25px;
   opacity: 0.8;
+  box-shadow: -5px 5px 1px rgb(216, 215, 215);
 }
 
 .date-container1 {
@@ -341,6 +346,7 @@
   border-radius: 20px;
   padding: 0;
   background-color: rgb(245, 245, 245);
+  box-shadow: -5px 5px 1px rgb(216, 215, 215);
 
   .loader {
     display: flex;
@@ -496,6 +502,7 @@
       border: none;
       color: white;
       background-color: #f91880;
+      box-shadow: -5px 5px 1px black;
     }
   
     .modal-btn:hover {
@@ -572,6 +579,9 @@
   .taskList {
     border-radius: 20px;
     resize: none;
+    box-shadow: -5px 5px 1px rgb(216, 215, 215);
+    border: none;
+    background-color: whitesmoke;
   }
   .taskList:focus {
     outline: 1px solid #f91880;

@@ -136,9 +136,14 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
             </svg>
           </button>
         </div>
-        <Button variant="primary" className='modal-btn' onClick={() => postComment()}>
-          send
-        </Button>
+        {!comments.text ? 
+            <Button variant="primary" disabled className='btn btn-md modal-btn' onClick={() => postComment()}>
+              post
+            </Button> :   
+            <Button variant="primary" className='btn btn-md modal-btn' onClick={() => postComment()}>
+            post
+            </Button>
+            }
       </Modal.Footer>
     </Modal>
   </>  

@@ -273,7 +273,7 @@ const NavBar = () => {
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
-                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
+                    <Dropdown.Menu id='dropdwnMenu' style={{ borderRadius: "20px", padding: "18px"}}>
                 <br />
                   <Link to={"/home"} className="deleteBlog">
                     <div style={{marginTop: "-20px"}} className="d-flex">

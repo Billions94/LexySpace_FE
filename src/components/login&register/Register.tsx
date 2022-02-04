@@ -19,8 +19,8 @@ const schema = yup.object({
 
 export type FormikProps = {
   userName?: string
-  email: string 
-  password: string 
+  email: string
+  password: string
 }
 
 const Register = () => {
@@ -28,45 +28,45 @@ const Register = () => {
   const beUrl = process.env.REACT_APP_GET_URL
 
   const navigate = useNavigate()
-// Register and create new user account
+  // Register and create new user account
   const register = async (props: FormikProps) => {
-      const response = await fetch(`${beUrl}/users/register`, {
-        method: 'POST',
-        body: JSON.stringify(props),
-        headers: {'Content-Type': 'application/json'}
-      })
-      console.log(response)
-        if(response.ok) {
-          const data = await response.json()
-          // Extracting the secure tokens from the server  
-          const { accessToken, refreshToken } = data
-          // Setting the secure tokens from the server to our localstorage window(client)
-          localStorage.setItem('accessToken',  accessToken)
-          localStorage.setItem('refreshToken',  refreshToken)
-          navigate('/editNewUser')
-        }
+    const response = await fetch(`${beUrl}/users/register`, {
+      method: 'POST',
+      body: JSON.stringify(props),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    console.log(response)
+    if (response.ok) {
+      const data = await response.json()
+      // Extracting the secure tokens from the server  
+      const { accessToken, refreshToken } = data
+      // Setting the secure tokens from the server to our localstorage window(client)
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', refreshToken)
+      navigate('/editNewUser')
+    }
   }
 
   return (
     <div id='loginContainer'>
-    <Col sm={6} md={4} className='customMT mx-auto'>
+      <Col sm={6} md={4} className='customMT mx-auto'>
         <a href={`${beUrl}/users/googleLogin`}>
           <div className="googleIcon justify-content-center my-2">
-              <div>
-                <img className='google' src="https://img.icons8.com/color/50/000000/google-logo.png" 
-                  alt='' width='20' height='20'/>
-              </div>
-              <Col xs={12} sm={12} md={12} lg={12} className="res">
-                <button type="button" className="btn googleBtn btn-lg">
-                  <p> CONTINUE WITH GOOGLE </p>
-                  </button>
-              </Col>
-          </div> 
-        </a> 
+            <div>
+              <img className='google' src="https://img.icons8.com/color/50/000000/google-logo.png"
+                alt='' width='20' height='20' />
+            </div>
+            <Col xs={12} sm={12} md={12} lg={12} className="res">
+              <button type="button" className="btn googleBtn btn-lg">
+                <p> CONTINUE WITH GOOGLE </p>
+              </button>
+            </Col>
+          </div>
+        </a>
         <div className="mx-auto">
-              <div className='text-center'>OR</div>
+          <div className='text-center'>OR</div>
         </div>
-       <Formik
+        <Formik
           validationSchema={schema}
           onSubmit={register}
           initialValues={{
@@ -88,7 +88,7 @@ const Register = () => {
               <h4 className="SignInHeading register1">SIGN UP</h4>
               <Form noValidate className='register' onSubmit={handleSubmit}>
                 <Form.Group className='format'
-                    controlId="formBasicUserName">
+                  controlId="formBasicUserName">
                   <Form.Control
                     size="lg"
                     className="register"
@@ -105,7 +105,7 @@ const Register = () => {
                 </Form.Group>
 
                 <Form.Group className='format'
-                    controlId="formBasicEmail">
+                  controlId="formBasicEmail">
                   <Form.Control
                     type="email"
                     placeholder="Email"
@@ -122,7 +122,7 @@ const Register = () => {
                 </Form.Group>
 
                 <Form.Group className='format'
-                    controlId="formBasicPassword">
+                  controlId="formBasicPassword">
                   <Form.Control
                     className="register"
                     size="lg"
@@ -137,17 +137,26 @@ const Register = () => {
                     {errors.password}
                   </Form.Control.Feedback>
                 </Form.Group>
+                
+                {!values.userName && !values.email && !values.password  ?
+                  <Button variant="primary" disabled className='modal-btn' type="submit">
+                    Sign Up
+                  </Button> :
+                  <Button variant="primary" className='modal-btn' type="submit">
+                    Sign Up
+                  </Button>
+                }
 
-                <Button
+                {/* <Button
                   variant="primary"
                   className="modal-btn"
                   type="submit">
                   Sign Up
-                </Button>
+                </Button> */}
                 <Form.Text>
                   Already a User?{" "}
                   <Link to="/login">
-                    <a href="#signin" onClick={()=> navigate("/login")}>
+                    <a href="#signin" onClick={() => navigate("/login")}>
                       Sign In
                     </a>
                   </Link>
@@ -156,7 +165,7 @@ const Register = () => {
             </div>
           )}
         </Formik>
-    </Col>
+      </Col>
     </div>
   )
 }

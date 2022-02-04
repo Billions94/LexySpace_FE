@@ -199,9 +199,14 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
                   </svg>
                   </button>
                 </div>
-          <Button variant="primary" className='btn btn-md modal-btn' onClick={() => newPost()}>
+            {!post.text ? 
+            <Button variant="primary" disabled className='btn btn-md modal-btn' onClick={() => newPost()}>
+              post
+            </Button> :   
+            <Button variant="primary" className='btn btn-md modal-btn' onClick={() => newPost()}>
             post
-          </Button>
+            </Button>
+            }
         </Modal.Footer>
       </Modal>
     </>
