@@ -26,6 +26,25 @@
   background-color: transparent;
   box-shadow: 1px 1px 5px #d8d7d7;
 }
+
+.candl:active {
+  background-color: transparent !important;
+  box-shadow: 1px 1px 5px #d8d7d7 !important;
+  border: none !important;
+}
+
+.candl:focus {
+  background-color: transparent !important;
+  box-shadow: 1px 1px 5px #d8d7d7 !important;
+  border: none !important;
+}
+
+.candl:focus-visible {
+  background-color: transparent !important;
+  box-shadow: 1px 1px 5px #d8d7d7 !important;
+  border: none !important;
+}
+
 .btnX {
   border-radius: 50px;
   border: none;
@@ -117,7 +136,7 @@
 
 .interactionBadge {
   position: absolute;
-  margin-top: 25px;
+  margin-top: 48px;
   margin-left: -50px;
 }
 

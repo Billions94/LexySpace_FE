@@ -161,11 +161,17 @@ const PostContainer = () => {
                                     pickerStyle={{ width: '100%' }}/>
                             }
                         </div>
-                        <div className="mar-top clearfix mt-2 ml-auto">      
-                            <button className="btn btn-md modal-btn"
+                        <div className="mar-top clearfix mt-2 ml-auto"> 
+                        {!post.text ? 
+                            <button disabled className="btn btn-md modal-btn"
                                 onClick={() => newPost()}>
                                 <i className="fa fa-pencil fa-fw" /> Post
-                            </button>
+                            </button> : 
+                            <button className="btn btn-md modal-btn"
+                            onClick={() => newPost()}>
+                            <i className="fa fa-pencil fa-fw" /> Post
+                        </button> 
+                        }     
                            
                         </div>
                         </div>
