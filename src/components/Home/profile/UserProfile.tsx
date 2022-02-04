@@ -174,7 +174,7 @@ const UserProfile = () => {
                 <Col md={12} lg={12}>
                   { id !== me ? null 
                     :  
-                    <Button onClick={handleShow} variant="white" className="jumbobtn">
+                    <Button onClick={handleShow} variant="white" className="nowfollowing text-white">
                       edit Profile
                     </Button>
                   }
@@ -198,7 +198,7 @@ const UserProfile = () => {
               </div>
               </div>
             </Row>
-            <Col className='px-1'>
+            <Col className='recentDiv'>
             <Recentposts id={id}  posts={posts}/>
             </Col>
         </Col>

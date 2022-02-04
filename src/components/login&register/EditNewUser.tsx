@@ -44,35 +44,55 @@ const EditNewUser = () => {
     }
 
     const sumbit = async () => {
-        try {
-            const token = localStorage.getItem('accessToken')
-            const response = await fetch(`${apiUrl}/users/me`, {
-                method: 'PUT',
-                body: JSON.stringify(newUser),
-                headers:{ 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}` }
-            })
-            if(response.ok) {
-                try {
-                    const formDt = new FormData()
-                    formDt.append('image', image)
-                    const uploadpic = await fetch(`${apiUrl}/users/me/profilePic`, {
-                        method: 'PUT',
-                        body: formDt,
-                        headers: { Authorization: `Bearer ${token}`}
-                    })
-                    if(uploadpic.ok) {
-                        setTimeout(() => {
-                            setLoading(true)
-                        }, 1000)
-                        navigate('/home')
+        if(image) {
+            try {
+                const token = localStorage.getItem('accessToken')
+                const response = await fetch(`${apiUrl}/users/me`, {
+                    method: 'PUT',
+                    body: JSON.stringify(newUser),
+                    headers:{ 'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}` }
+                })
+                if(response.ok) {
+                    try {
+                        const formDt = new FormData()
+                        formDt.append('image', image)
+                        const uploadpic = await fetch(`${apiUrl}/users/me/profilePic`, {
+                            method: 'PUT',
+                            body: formDt,
+                            headers: { Authorization: `Bearer ${token}`}
+                        })
+                        if(uploadpic.ok) {
+                            setTimeout(() => {
+                                setLoading(true)
+                            }, 3000)
+                            navigate('/home')
+                        }
+                    } catch (error) {
+                        console.log(error)
                     }
-                } catch (error) {
-                    console.log(error)
                 }
+            } catch (error) {
+                console.log(error)
             }
-        } catch (error) {
-            console.log(error)
+        } else {
+            try {
+                const token = localStorage.getItem('accessToken')
+                const response = await fetch(`${apiUrl}/users/me`, {
+                    method: 'PUT',
+                    body: JSON.stringify(newUser),
+                    headers:{ 'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}` }
+                })
+                if(response.ok) {
+                    setTimeout(() => {
+                        setLoading(true)
+                    }, 3000)
+                    navigate('/home')
+                } else throw new Error('Could not update user')
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 

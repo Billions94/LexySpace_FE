@@ -4,7 +4,7 @@ import { ReduxState, Posts, User } from '../../../redux/interfaces'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import BlogAuthor from '../blog-author/BlogAuthor'
-import { getPosts } from '../../../redux/actions'
+import { getPosts, reRouteAction } from '../../../redux/actions'
 
 interface ShareModalProps {
     id: string | undefined
@@ -64,6 +64,7 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
                             body: formDt
                         })
                         if(uploadCover.ok) {
+                            dispatch(reRouteAction(false))
                             setShow(false)
                             navigate('/home')
                             dispatch(getPosts())
@@ -86,7 +87,8 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
                 })
                 if(response.ok) {
                     setShow(false)
-                    // navigate('/home')
+                    dispatch(reRouteAction(false))
+                    navigate('/home')
                     dispatch(getPosts())
                 }
             } catch (error) {
@@ -140,25 +142,28 @@ const ShareModal = ({ id, user, show, setShow, createdAt }: ShareModalProps) => 
                 <BlogAuthor {...user} createdAt={createdAt}/>
                 </div>
                 <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
-                <Card.Title>{post.sharedPost.text}</Card.Title>
-                    <Card.Img variant="top" src={post.sharedPost.media} className="blog-cover" />
-                    <Card.Body className="mb-0">
-            
+                    <Card.Title>{post.sharedPost.text}</Card.Title>
+                    { !post.sharedPost.media ? null : post.sharedPost.media && 
+                        post?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
+                        <Card.Img variant="top" src={post.sharedPost.media} className="blog-cover" />
+                    }
+                    { !post.sharedPost.media ? null : post.sharedPost.media && 
+                        post?.sharedPost.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) && 
+                        <video src={post.sharedPost.media} className="blog-video" controls autoPlay muted></video>}
+                        <Card.Body className="mb-0">
+                
                     </Card.Body>
                 </Link>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer className='mt-0'>
-                <div >
-                  <button onClick={openInputFile} className="btn btn-sm btnIcon">
-                  <input type="file" ref={inputBtn} className="d-none" onChange={(e)=> target(e)} />
-                    <img src="https://img.icons8.com/wired/50/000000/picture.png" alt='' height='27px' width='27px'/>
-                  </button>
-                  <button onClick={openInputFile} className="btn btn-sm btnIcon ml-2">
-                  <input type="file" ref={inputBtn} className="d-none" onChange={(e)=> target(e)} />
-                    <img src="https://img.icons8.com/dotty/50/000000/attach.png" alt='' height='27px' width='27px'/>
-                  </button>
+                <div className='inputbtn'>
+                    <input type="file" ref={inputBtn} className="d-none" onChange={(e)=> target(e)} />
+                    <svg onClick={openInputFile} xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="#f91880" className="bi bi-card-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+                    </svg>
                 </div>
           <Button variant="primary" className='btn btn-md modal-btn' onClick={() => sharePost()}>
             post

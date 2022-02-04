@@ -289,21 +289,29 @@ const Blog = () => {
             {!blog?.media ?
               null
               :
-              blog?.media && blog?.media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
+              blog?.media && blog?.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
               <img className="blog-details-cover" alt=''
                 onClick={() => setView(true)}
                 src={blog?.media} width='100%' />
             }
             {!blog?.media ? null :
               blog?.media && blog?.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
-               <video src={blog?.media} className="blog-cover" controls autoPlay muted></video>}
+               <video src={blog?.media} className="blog-cover" controls autoPlay muted></video>
+            }
               { newPost!.sharedPost && newPost!.sharedPost._id !== id ? 
                   <>
                     <div className="mt-3">{newPost!.sharedPost.text}</div>
                     <div className="mt-2">
+                      { !newPost?.sharedPost.media ? null : newPost?.sharedPost.media && 
+                        newPost?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
                         <img onClick={() => setView(true)}
                           className="blog-details-cover" alt=''  
                           src={newPost!.sharedPost.media} width='100%' />
+                      }
+                      { !newPost?.sharedPost.media ? null : newPost?.sharedPost.media && 
+                        newPost?.sharedPost.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&
+                        <video src={newPost!.sharedPost.media} className="blog-cover" controls autoPlay muted></video>
+                      }
                     </div> 
                   </>
                   : null

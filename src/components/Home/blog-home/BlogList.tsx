@@ -48,13 +48,16 @@ const BlogList = ({ posts, getData, isLoading, setIsLoading }: BlogListProps) =>
 
   useEffect(() => {
     getData()
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
   return posts ? (
     <Row id='blogList' className='blogList justify-content-center'>
-      {isLoading === true ? <div className='loader'><Spinner animation='border' /> </div>:
+      {isLoading ? <div className='loader'><Spinner animation='border' /> </div>:
       <>
       { posts.map((post, i) => (
         <Col key={i} md={12} lg={12} style={{ borderTop: '1px solid rgb(216, 215, 215)',

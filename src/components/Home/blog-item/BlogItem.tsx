@@ -133,7 +133,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
 
   return (
     <ListGroup>
-      <ListGroup.Item style={{ border: "1px solid rgb(216, 215, 215)", borderRadius: "20px" }} key={_id} className="blog-card">
+      <ListGroup.Item style={{ border: "1px solid rgb(216, 215, 215)"}} key={_id} className="blog-card">
         <div className='authorinfo d-flex ' style={{ justifyContent: 'space-between' }}>
           
           <BlogAuthor {...user} createdAt={createdAt} />
@@ -185,20 +185,20 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
         </div>
         <div onClick={() => doSomething(_id)}
           className="blog-link">
-          <div className="d-flex mb-0 p-0">
+          <div className="d-flex postBody">
             <div>
               <h6>{text}</h6>
+              <div>
+                { !media ? null : media && media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
+                  <h6> <img src={media} className="blog-cover" /></h6>
+                }
+                { !media ? null : media && media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
+                <video src={media} className="blog-video" controls autoPlay muted></video> }
+              </div>
             </div>
           </div>
-          <div className="d-flex mb-0 p-0">
-            <div>
-              { !media ? null : media && media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
-                <h6> <img src={media} className="blog-cover" /></h6>
-              }
-              { !media ? null : media && media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
-              <video src={media} className="blog-video" controls autoPlay muted></video> }
-            </div>
-          </div>
+          {/* <div className="d-flex postBody">
+          </div> */}
         </div>
         {newPost!.sharedPost && newPost!.sharedPost!._id !== _id ?
           <div className='sharePostDiv'>
@@ -235,7 +235,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
               <div onClick={() => route(_id)} className="blog-link">
                 <Card.Title>{newPost!.sharedPost.text}</Card.Title>
                 {!newPost?.sharedPost! ? null : newPost!.sharedPost.media && 
-                  newPost!.sharedPost.media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
+                  newPost!.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
                   <Card.Img variant="top" src={newPost!.sharedPost.media} className="blog-cover" />
                 }
                 {!newPost?.sharedPost! ? null : newPost!.sharedPost.media && 
@@ -256,7 +256,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
               <img src="https://img.icons8.com/wired/64/000000/comments.png"
                 width='20px' />
             </button>
-            <span className="text-dark">{comments.length}</span>
+            <button className="text-dark btnX"><span>{comments.length}</span></button>
             {commentLabel === false ? null :
               <Badge pill variant="secondary"
                 className='interactionBadge'>
@@ -275,7 +275,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
                     src="https://img.icons8.com/wired/64/000000/hearts.png"
                     width='20px' />
                 </button>
-                <span className="text-dark">{likes.length}</span>
+                <button className="text-dark btnX"><span>{likes.length}</span></button>
                 {likeLabel === false ? null :
                   <Badge pill variant="secondary"
                     className='interactionBadge'>
@@ -290,7 +290,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
                     src="https://img.icons8.com/dusk/64/000000/hearts.png"
                     width='20px' />
                 </button>
-                <span className="text-dark">{likes.length}</span>
+                <button className="text-dark btnX"><span>{likes.length}</span></button>
                 {likeLabel === false ? null :
                   <Badge pill variant="secondary"
                     className='interactionBadge'>

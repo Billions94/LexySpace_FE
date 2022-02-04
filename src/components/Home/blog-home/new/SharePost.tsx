@@ -135,11 +135,13 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                 </div>
                 <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
                 <Card.Title>{post.sharedPost.text}</Card.Title>
-                  { !post.sharedPost.media ? 
-                    <Card.Img variant="top" src={post.sharedPost.media} className="d-none" /> :
+                  { !post.sharedPost.media ? null : post.sharedPost.media && 
+                    post?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
                     <Card.Img variant="top" src={post.sharedPost.media} className="blog-cover" />
                   }
-                  { post.sharedPost.media && <video src={post.sharedPost.media} className="blog-video" controls autoPlay muted></video>}
+                  { !post.sharedPost.media ? null : post.sharedPost.media && 
+                    post?.sharedPost.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) && 
+                    <video src={post.sharedPost.media} className="blog-video" controls autoPlay muted></video>}
                     <Card.Body className="mb-0">
             
                     </Card.Body>
@@ -155,12 +157,6 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                     <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                     <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
                 </svg>
-                  </button>
-                  <button onClick={openInputFile} className="btn btn-sm btnIcon ml-2">
-                  <input type="file" ref={inputBtn} className="d-none" onChange={(e)=> target(e)} />
-                  <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#f91880" className="bi bi-paperclip" viewBox="0 0 16 16">
-                    <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
-                  </svg>
                   </button>
                 </div>
           <Button variant="primary" className='modal-btn' onClick={() => sharePost()}>

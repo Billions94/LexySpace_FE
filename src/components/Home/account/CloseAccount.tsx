@@ -25,6 +25,7 @@ const CloseAccount = () => {
             const { data } = await API.delete('/users/me')
             if(data) {
                 alert('User account successfully deleted')
+                localStorage.clear()
                 navigate('/')
             } else {
                 throw new Error('User account could not be deleted')

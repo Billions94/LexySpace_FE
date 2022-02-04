@@ -15,22 +15,24 @@
     cursor: pointer;
     border: 1px solid rgb(216, 215, 215);
     border-radius: 20px;
-    padding: 1px 5px
+    padding: 7px 7px ;
+    box-shadow: 1px 1px 5px #d8d7d7;
   }
 
   .likes {
     cursor: pointer;
     border: 1px solid rgb(216, 215, 215);
     border-radius: 20px;
-    padding: 1px 5px;
+    padding: 7px 7px;
+    box-shadow: 1px 1px 5px #d8d7d7;
     display: flex;
     align-items: center;
     position: relative;
     .likeImg {
       border-radius: 50%;
       margin-left: 2px;
-      
-      
+      width: 20px !important;
+      height: 20px !important;
     }
   }
 
@@ -60,6 +62,7 @@
     border-radius: 50px;
     border: none;
     background-color: transparent;
+    box-shadow: 1px 1px 5px #d8d7d7;
     // height: 40px;
     // width: 40px;
   }
@@ -122,6 +125,7 @@
     margin: 0px !important;
     transform: translate3d(-20px, 0px, 0px) !important;
     width: 162px;
+    box-shadow: -13px -6px 2px #d8d7d7;
   }
 
   .blog-details-author {
@@ -213,9 +217,10 @@
   }
 
   .blogContent {
-    border-radius: 20px;
+    // border-radius: 20px;
     border: none;
-    // padding: 0 15px;
+    box-shadow: 1px 1px 5px #d8d7d7;
+    padding: 15px 15px;
     background-color: transparent;
     color: black;
     text-decoration: none;
@@ -301,6 +306,9 @@
   .modal-header {
     border-bottom: none;
     background-color: transparent !important;
+    .close {
+      margin-left: 780px
+    }
   }
 
   .modal-body {
@@ -316,6 +324,11 @@
     border-top: none;
     border-bottom-right-radius: calc(0.3rem - 1px);
     border-bottom-left-radius: calc(0.3rem - 1px);
+  }
+
+  .img {
+    object-fit: contain;
+    max-height: 520px;
   }
 }
 
@@ -338,6 +351,10 @@
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 20px;
+    width: 532px;
+    height: 532px;
+    max-height: 600px !important;
+    box-shadow: -15px 15px 5px #505050;
   }
 
   .modal-body {
@@ -438,40 +455,56 @@
       border: 1px solid grey;
       color: black;
       background-color: transparent;
+      box-shadow: 5px 5px 1px black;
     }
+  
     .followbtn:hover {
       border-radius: 20px;
       color: black;
       background-color: antiquewhite;
     }
+  
     .followbtn:active {
       outline: none;
-      box-shadow: none;
+      box-shadow: 5px 5px 1px black;
     }
+  
     .followbtn:focus {
       outline: none;
-      box-shadow: none;
+      box-shadow: 5px 5px 1px black;
     }
+  
     .followbtn:focus-visible {
       outline: none;
       box-shadow: none;
     }
+  
     .nowfollowing {
       border-radius: 20px !important;
-      border: none;
       background-color: #f91880 !important;
+      border: 1px solid #f91880 !important;
+      box-shadow: 5px 5px 1px black !important
     }
+  
     .nowfollowing:active {
       outline: none;
-      box-shadow: none;
+      box-shadow: 5px 5px 1px black;
     }
+  
     .nowfollowing:focus {
       outline: none;
-      box-shadow: none;
+      box-shadow: 5px 5px 1px black;
     }
+  
     .nowfollowing:focus-visible {
       outline: none;
       box-shadow: none;
     }
+  }
+}
+
+#shareModal {
+  .inputbtn {
+    cursor: pointer;
   }
 }
