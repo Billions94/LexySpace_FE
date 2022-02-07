@@ -449,11 +449,12 @@
     padding: 12px 0;
     max-height: auto;
     overflow-x: scroll;
-    box-shadow: -20px 1px 5px #d8d7d7;
+    // box-shadow: -20px 1px 5px #d8d7d7;
+    border-left: 1px solid rgb(216, 215, 215);
   }
 
   .textarea {
-    box-shadow: -5px 20px 32px rgb(216, 215, 215);
+    box-shadow: -5px 20px 1px #d8d7d7;
     border: none;
     resize: none;
   }
@@ -466,10 +467,10 @@
   .feed {
     display: flex;
     justify-content: center;
-    padding: 15px 15px;
+    padding: 15px 0px;
     border-left: 1px solid rgb(216, 215, 215) !important;
     border-right: 1px solid rgb(216, 215, 215) !important;
-    box-shadow: 20px 1px 5px #d8d7d7;
+    // box-shadow: 20px 1px 5px #d8d7d7;
     .feedBorders {
       border-top: 1px solid rgb(216, 215, 215) !important;
     }
@@ -555,10 +556,12 @@
 #blogList {
   .col {
     margin-bottom: 50px !important;
-    border-top: 1px solid rgb(216, 215, 215) !important;
+    // border-top: 1px solid rgb(216, 215, 215) !important;
   }
   .blogList {
-    padding: 0 0 15px 0;
+    padding: 0 0 0px 0;
+    border-top: 1px solid rgb(216, 215, 215) !important;
+    border: none;
   }
   // .blogList:hover {
   //   cursor: pointer;
@@ -572,6 +575,7 @@
 
   .blog-card {
     border-radius: none;
+    border: none !important;
   }
 }
 

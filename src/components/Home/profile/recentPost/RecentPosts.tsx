@@ -23,7 +23,7 @@ const Recentposts = ({ id, posts }: RecentPostsProps) => {
         <div id="recentPost">
                 <h5 onClick={() => toggle()}
                 className='text-center nowfollwing'>#recent activities</h5>
-            <div className="">
+            <div className="recentDiv">
             { showRecent === false ? null :
                 <>
                 {

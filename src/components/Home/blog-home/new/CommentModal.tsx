@@ -31,7 +31,7 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
   })
   const handleClose= () => setShow(false)
 
-  const [image, setImage] = useState<string>('')
+  const [media, setMedia] = useState<string>('')
 
   const fetchComments = async () => {
     try {
@@ -51,24 +51,58 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
   };
 
   const postComment = async () => {
-
-    try {
-      const response = await fetch(`${apiUrl}/comments/${id}`, {
-        method: "POST",
-        body: JSON.stringify(comments),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (response.ok) {
-        fetchComments()
-        setComments({
-          text: "",
-          user: userId
-        })
-        setShow(false)
-
+    if(media) {
+      try {
+        const response = await fetch(`${apiUrl}/comments/${id}`, {
+          method: "POST",
+          body: JSON.stringify(comments),
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.ok) {
+          const data = await response.json()
+          // const comments = data.data.comments[0]
+          // console.log(comments)
+          try {
+            const formDt = new FormData()
+            formDt.append('media', media)
+            const addMedia = await fetch(`${apiUrl}/comments/${data.data.comments[0]._id}/upload`, {
+              method: 'PUT',
+              body: formDt
+            })
+            if(addMedia.ok) {
+              fetchComments()
+              setComments({
+                text: "",
+                user: userId
+              })
+              setShow(false)
+            } else throw new Error('Comment could not be updated')
+          } catch (error) {
+            console.log(error)
+          }
+        }
+      } catch (error) {
+        console.error("oops with encountered an error ", error);
       }
-    } catch (error) {
-      console.error("oops with encountered an error ", error);
+    }  else {
+      try {
+        const response = await fetch(`${apiUrl}/comments/${id}`, {
+          method: "POST",
+          body: JSON.stringify(comments),
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.ok) {
+          fetchComments()
+          setComments({
+            text: "",
+            user: userId
+          })
+          setShow(false)
+  
+        }
+      } catch (error) {
+        console.error("oops with encountered an error ", error);
+      }
     }
   }
 
@@ -76,7 +110,7 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
   const target = (e: any) => {
     console.log(e.target.files[0]);
     if (e.target && e.target.files[0]) {
-      setImage(e.target.files[0]);
+      setMedia(e.target.files[0]);
     }
   };
 

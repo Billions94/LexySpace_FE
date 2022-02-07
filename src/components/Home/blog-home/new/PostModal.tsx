@@ -116,42 +116,6 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
     
   }
 
-  // const postVideo = async () => {
-  //   try {
-  //     const response = await fetch(`${url}/posts/${userName}`, {
-  //       method: "POST",
-  //       body: JSON.stringify(post),
-  //       headers: { 'Content-Type': 'application/json' }
-  //   })
-  //   if (response.ok) {
-  //       const data = await response.json()
-  //       try {
-  //           const formDt = new FormData()
-  //           formDt.append("video", video)
-  //           let postVideo = await fetch(`${url}/posts/${data._id}/videoUpload?video`, {
-  //               method: "PUT",
-  //               body: formDt,
-  //           })
-  //           if (postVideo.ok) {
-  //               setShow(false)
-  //               setPost({ text:'' })
-  //               getPosts()
-  //           }
-  //       } catch (error) {
-  //           console.log(error)
-  //       }
-  //   }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // const check = () => {
-  //   if(image) {
-  //     newPost()
-  //   } else if(video) { postVideo() }
-  // }
-  
 
   return (
     <>
