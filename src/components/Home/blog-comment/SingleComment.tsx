@@ -127,7 +127,15 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
                 {comment.user.firstName} {comment.user.lastName}
               </div>
               <div className="commentText mb-2">
-                {comment.text}
+                <div>{comment.text}</div>  
+                <div>
+                  {!comment.media ? null : comment.media && comment.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
+                    <img src={comment.media} alt='' />
+                  }
+                  {!comment.media ? null : comment.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
+                  <video src={comment.media} className="blog-video" controls autoPlay muted></video>
+                  }
+                </div>
               </div>
               <span onClick={() => toggle()}
                 className="replyspan">

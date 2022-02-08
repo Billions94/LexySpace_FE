@@ -11,12 +11,19 @@
     margin-top: 50px;
   }
 
+  .blog-author {
+    width: 50px;
+    height: 50px;
+  }
+
   .comments {
     cursor: pointer;
     border: 1px solid rgb(216, 215, 215);
     border-radius: 20px;
     padding: 7px 7px ;
-    box-shadow: 1px 1px 5px #d8d7d7;
+    display: flex;
+    align-items: center;
+    // box-shadow: 1px 1px 5px #d8d7d7;
   }
 
   .likes {
@@ -24,7 +31,7 @@
     border: 1px solid rgb(216, 215, 215);
     border-radius: 20px;
     padding: 7px 7px;
-    box-shadow: 1px 1px 5px #d8d7d7;
+    // box-shadow: 1px 1px 5px #d8d7d7;
     display: flex;
     align-items: center;
     position: relative;
@@ -349,12 +356,12 @@
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid rgb(216, 215, 215);
     border-radius: 20px;
     width: 532px;
     height: 532px;
     max-height: 600px !important;
-    box-shadow: -15px 15px 5px #505050;
+    // box-shadow: -15px 15px 5px #505050;
   }
 
   .modal-body {

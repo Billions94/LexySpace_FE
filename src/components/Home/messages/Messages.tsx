@@ -34,7 +34,7 @@ const Messages = () => {
   const [chatHistory, setChatHistory] = useState<IMessage[]>([])
   const [userId, setUserId] = useState<UserId | undefined>('')
   const [room, setRoom] = useState<Room | undefined>('blue')
-  const [image, setImage] = useState<string>('')
+  const [media, setMedia] = useState<string>('')
   const [input, setInput] = useState({ text: '' })
 
 
@@ -121,6 +121,7 @@ const Messages = () => {
       text: message,
       sender: username,
       image: user.image,
+      media: media,
       socketId: socket.id,
       timestamp: Date.now(), // <-- ms expired 01/01/1970
     }
@@ -149,7 +150,7 @@ const Messages = () => {
   const target = (e: any) => {
     console.log(e.target.files[0])
     if (e.target && e.target.files[0]) {
-      setImage(e.target.files[0])
+      setMedia(e.target.files[0])
     }
   }
 
@@ -266,31 +267,7 @@ const Messages = () => {
                 ))}
               </div>
               <div className="textAreaDm">
-                {/* <div className="panel-body mt-3 d-flex position-relative">
-                  <textarea
-                    className="form-control dmText"
-                    rows={1}
-                    placeholder="Message..."
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)} />
 
-                  <div className="mt-2 btnTextArea">
-                    { !message ?  
-                  <div id=''>
-                    <button onClick={openInputFile} className="btn btn-sm uploadicons"> 
-                    <input type="file" ref={inputBtn} className="d-none" onChange={target} />
-                      <img onClick={openInputFile} className="btn btn-sm uploadicons"
-                        src="https://img.icons8.com/wired/50/000000/picture.png" alt='' width='17px'/>
-                     </button> 
-                  </div> : 
-                <button className="btn ml-auto btn-sm btn-dark sendBtnDm"
-                        onClick={(e) => handleMessageSubmit(e)}>
-                  <i className="fa fa-pencil fa-fw" /> send
-                </button>
-                }
-                
-                  </div>
-                </div> */}
                 <div id='textArea-container' className="panel-body">
                   <svg id='input-icon1' xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="#f91880" className="bi bi-emoji-smile ml-2" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />

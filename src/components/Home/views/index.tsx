@@ -317,6 +317,9 @@ const Blog = () => {
                   : null
               } 
           </div>
+
+
+          <div className="interactionContainer d-flex mt-2">
           <ViewModal view={view} setView={setView} cover={blog?.media} post={blog} />
           <div className='d-flex justify-content-evenly'>
             <div className='likes'>
@@ -332,16 +335,13 @@ const Blog = () => {
                 }
               </div>
             </div>
-            <div className="comments">
+            <div className="comments ml-2">
               {blog && blog.comments.length > 1 ?
                 <span className="text-muted">{blog?.comments.length} comments</span> :
                 <span className="text-muted">{blog?.comments.length} comment</span>
               }
             </div>
           </div>
-
-
-          <div className="interactionContainer d-flex mt-2">
             <div onMouseEnter={handleCommentLabelShow}
               onMouseLeave={handleCommentLabelClose}
               onClick={() => showNHidde()}

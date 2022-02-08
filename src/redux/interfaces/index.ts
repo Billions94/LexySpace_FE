@@ -46,6 +46,7 @@ export interface Posts {
 export interface Comments {
     _id: string
     text: string
+    media: string
     user: User
     postId: string
     replies: Replies[]

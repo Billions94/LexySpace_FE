@@ -40,7 +40,7 @@ const RecentItem = ({ post }: RecentItemProps) => {
   return (
     <div className='recentItem mb-3' onClick={() => route(post._id)}>
       <div className="">
-        <div>
+        <div className='circleBorders'>
           {!post.media ? <h6>{post.text}</h6> :
             <div>
               {post.media && post.media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&

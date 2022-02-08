@@ -71,7 +71,7 @@
 // }
 
 .postBody {
-  padding: 16px 19px 25px 61px;
+  padding: 16px 0px 25px 61px;
 }
 
 .candl:active {
@@ -141,6 +141,7 @@
   position: absolute;
   margin-top: 48px;
   margin-left: -50px;
+  z-index: 10;
 }
 
 .dropdownbtn {

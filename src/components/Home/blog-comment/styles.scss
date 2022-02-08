@@ -14,7 +14,7 @@
 }
 
 .g-width-50 {
-  width: 35px !important;
+  width: 50px !important;
 }
 
 @media (min-width: 0) {
@@ -57,9 +57,13 @@
 }
 
 .commentText {
+  position: relative;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
+  img {
+    width: 100%;
+  }
 }
 
 .posted {
