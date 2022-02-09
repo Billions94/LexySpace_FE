@@ -189,7 +189,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
             <div>
               <h6>{text}</h6>
               <div>
-                { !media ? null : media && media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
+                { !media ? null : media && media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
                   <h6> <img src={media} className="blog-cover" /></h6>
                 }
                 { !media ? null : media && media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  

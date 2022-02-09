@@ -303,7 +303,7 @@ const Blog = () => {
                     <div className="mt-3">{newPost!.sharedPost.text}</div>
                     <div className="mt-2">
                       { !newPost?.sharedPost.media ? null : newPost?.sharedPost.media && 
-                        newPost?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
+                        newPost?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
                         <img onClick={() => setView(true)}
                           className="blog-details-cover" alt=''  
                           src={newPost!.sharedPost.media} width='100%' />
