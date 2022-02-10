@@ -3,6 +3,7 @@
   object-fit: cover;
   object-position: 0% 0%;
   border-radius: 20px;
+  border: 1px solid #24224a
   // border: 1px solid rgb(216, 215, 215);
 }
 
@@ -24,7 +25,7 @@
   border: none;
   padding: 10px;
   background-color: transparent;
-  box-shadow: 1px 1px 5px #d8d7d7;
+  box-shadow: 0px 0px 5px #d8d7d7;
 }
 
 .candl:active {
@@ -51,7 +52,7 @@
   padding: 5px;
   width: 22px;
   height: 22px;
-  background-color: white;
+  background-color: #24224a;
   /* box-shadow: 1px 1px 5px #d8d7d7 !important; */
   position: absolute;
   margin-left: -15px;
@@ -99,9 +100,7 @@
   padding-bottom: 15px;
   // box-shadow: 0px 0px 4px #d8d7d7 !important;
   background: rgb(2,0,36);
-  color: white
-  
-  
+  color: #dadada 
 }
 
 .blog-link {
@@ -158,6 +157,11 @@
 
 }
 
+.dots {
+  margin-left: -4px;
+  margin-top: 2px;
+}
+
 .dropdownbtn:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -167,7 +171,7 @@
 .dropdownbtn:hover {
   outline: none;
   box-shadow: none;
-  background-color: #f7e6ee;
+  background-color: #460020;
 }
 
 .dropdownmenu {

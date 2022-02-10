@@ -1,9 +1,10 @@
-import React, { useState } from "react"
+import { useState, useEffect } from "react"
 import { Formik } from "formik"
 import { Form, Button, Col, Alert } from "react-bootstrap"
 import { useNavigate, Link } from "react-router-dom"
 import * as yup from "yup"
 import "./styles.scss"
+import Loader from "../Home/loader/Loader"
 
 
 const schema = yup.object({
@@ -34,6 +35,7 @@ const LogIn = () => {
 // Loggin in a registered user  
   const login = async (props: LoginFormikProps) => {
     try {
+      setLoading(true)
       const response = await fetch(`${url}/users/login`, {
         method: 'POST',
         body: JSON.stringify(props),
@@ -47,7 +49,10 @@ const LogIn = () => {
           localStorage.setItem('accessToken',  accessToken)
           localStorage.setItem('refreshToken',  refreshToken)
           if(data){
-            navigate('/home')
+            setTimeout(() => {
+              setLoading(false)
+              navigate('/home')
+            }, 1000)
           } else {
             setError(true)
             triggerError()
@@ -61,13 +66,21 @@ const LogIn = () => {
     }
   }
 
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
+  }, [])
+
   const triggerError = () => {
     setTimeout(() => {
       setError(false)
     }, 4000)
   }
 
-  return (
+  return loading ? <Loader /> : (
     <div id='loginContainer' className="col3">
     <div className='text-center createAcc textColor'>Login to LexySpace</div>            
     <Col sm={6} md={4} className='customMT mx-auto'>

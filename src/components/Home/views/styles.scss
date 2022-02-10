@@ -18,7 +18,7 @@
 
   .comments {
     cursor: pointer;
-    border: 1px solid rgb(216, 215, 215);
+    border: 2px solid #24224a;
     border-radius: 20px;
     padding: 7px 7px ;
     display: flex;
@@ -28,7 +28,7 @@
 
   .likes {
     cursor: pointer;
-    border: 1px solid rgb(216, 215, 215);
+    border: 2px solid #24224a;
     border-radius: 20px;
     padding: 7px 7px;
     // box-shadow: 1px 1px 5px #d8d7d7;
@@ -69,7 +69,7 @@
     border-radius: 50px;
     border: none;
     background-color: transparent;
-    box-shadow: 1px 1px 5px #d8d7d7;
+    box-shadow: 0px 0px 5px #d8d7d7;
     // height: 40px;
     // width: 40px;
   }
@@ -109,6 +109,7 @@
   .authorDetails {
     font-weight: 700;
     font-size: 14px;
+    color: #dadada !important;
   }
 
 
@@ -133,6 +134,15 @@
     transform: translate3d(-20px, 0px, 0px) !important;
     width: 162px;
     box-shadow: -13px -6px 2px #d8d7d7;
+  }
+
+  .dots {
+    margin-left: -4px;
+    margin-top: 2px;
+  }
+
+  .textColor {
+    color: #dadada;
   }
 
   .blog-details-author {

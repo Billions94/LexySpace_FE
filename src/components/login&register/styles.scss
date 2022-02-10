@@ -68,6 +68,12 @@
     color: white;
   }
 
+  .form-control:active {
+    border: 1px solid #6e767d;
+    color: white;
+    background: #020024;
+  }
+
   .format {
     margin-bottom: 1rem;
   }

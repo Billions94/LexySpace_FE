@@ -13,12 +13,17 @@
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #fff;
+    background: #020024;
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid #24224a;
     border-radius: 20px;
     // box-shadow: -15px 15px 5px #505050;
     // box-shadow: 10px 10px 5px #505050;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #24224a;
+    color: #dadada;
   }
 
   .modal-body {
@@ -40,7 +45,7 @@
   .modal-btn {
     border-radius: 20px;
     border: none;
-    color: white;
+    color: #dadada;
     background-color: #f91880;
     box-shadow: -5px 5px 1px black;
   }
@@ -58,6 +63,7 @@
     font-size: 20px;
     line-height: 28px;
     margin-bottom: 0;
+    color: #dadada;
   }
 
   .btnIcon {
@@ -78,7 +84,9 @@
     line-height: 24px;
     font-style: normal;
     font-family: -apple-system, system-ui, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
-    ;
+    span {
+      color: #dadada;
+    }
   }
 
   .textarea {
@@ -90,6 +98,8 @@
     box-shadow: none;
     outline: none;
     border: none;
+    background: #020024;
+    color: #dadada;
   }
 
   .form1 {
@@ -150,14 +160,19 @@
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #fff;
+    background: #020024;
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid #24224a;
     border-radius: 20px;
     height: 430px;
     border-radius: 20px;
     // box-shadow: -15px 15px 5px #505050;
     border-radius: 20px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #24224a;
+    color: #dadada;
   }
 
   .modal-body {
@@ -216,7 +231,9 @@
     line-height: 24px;
     font-style: normal;
     font-family: -apple-system, system-ui, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
-    ;
+    span {
+      color: #dadada;
+    }
   }
 
   .textarea {
@@ -228,6 +245,8 @@
     box-shadow: none;
     outline: none;
     border: none;
+    background: #020024;
+    color: #dadada;
   }
 
   .form1 {
@@ -253,8 +272,9 @@
 
   .sharePost {
     padding: 0 10px;
-    border: 1px solid rgb(216, 215, 215);
+    border: 1px solid #24224a;
     border-radius: 20px;
+    color: #dadada;
   }
   
   .sharePostDiv {

@@ -54,18 +54,19 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies }: SingleRepl
                 </div>
               </Link>
               <div className="rply mb-2">
-                <div className="text-dark mb-1 postedReply" style={{ fontSize: "14px", borderBottom: "1px solid rgb(216, 215, 215)", }}>
-                  <div> Posted: {postTimer(reply.createdAt)} </div>
+                <div className="text-dark mb-1 timer postedReply" style={{ fontSize: "14px", borderBottom: "1px solid rgb(216, 215, 215)", }}>
+                  <div className="textColor"> Posted: {postTimer(reply.createdAt)} </div>
                   <div className="ml-auto">
                       {
                         reply.user._id !== me ? null :
                           <Dropdown className="dropdowntext ml-auto">
                             <Dropdown.Toggle
                               className="btn btn-dark dropdownbtn">
-                              <img alt=''
+                              <div className="text-muted dots"><b><strong>•••</strong></b></div>
+                              {/* <img alt=''
                                 className="lrdimg"
                                 width="15px"
-                                src="https://img.icons8.com/android/50/000000/more.png" />
+                                src="https://img.icons8.com/android/50/000000/more.png" /> */}
                             </Dropdown.Toggle>
                             <Dropdown.Menu
                               className='dropDownMenu'

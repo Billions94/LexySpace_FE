@@ -45,15 +45,17 @@
 
 
 .customBB {
-  border-bottom: 1px solid rgb(216, 215, 215);
+  border-bottom: 1px solid #24224a;
   margin-bottom: 7px;
   align-items: baseline;
+  padding-bottom: 5px;
 }
 
 .userInfo {
   font-weight: 600;
   font-size: 14px;
   line-height: 18px;
+  color: #dadada !important;
 }
 
 .commentText {
@@ -85,12 +87,12 @@
   flex-direction: column;
   align-self: end;
   border-radius: 10px;
-  border: 1px solid rgb(216, 215, 215);
-  background-color: rgb(253, 253, 253);
-  padding-left: 10px;
-  padding-right: 10px;
+  border: 1px solid #24224a;
+  // background-color: rgb(253, 253, 253);
+  padding: 10px;
   margin-bottom: 30px;
   width: 100%;
+  color: #dadada;
 }
 
 .dropdowntext {
@@ -211,11 +213,12 @@
 
 .rply {
   border-radius: 10px;
-  border: 1px solid rgb(216, 215, 215);
-  background-color: rgb(199, 199, 199);
-  padding-left: 10px;
-  padding-right: 10px;
-  
+  border: 1px solid #24224a;;
+  background: #24224a;
+  padding-bottom: 10px !important;
+  padding-right: 10px !important; 
+  padding-left: 10px !important; 
+  color: #dadada;
 }
 
 .cardHeader {
@@ -231,11 +234,14 @@
 
 .shareComment {
   border-radius: 20px;
-  border: 1px solid rgb(216, 215, 215) !important;
+  border: 1px solid #24224a!important;
   background-color: transparent;
   color: black;
   text-decoration: none;
-  box-shadow: 1px 1px 5px #d8d7d7;
+  box-shadow: 0px 0px 4px #d8d7d7 !important;
+  span {
+    color: #dadada;
+  }
 }
 
 .commentText {
@@ -261,13 +267,13 @@
 .modal-btn {
   border-radius: 20px;
   border: none;
-  color: white;
+  color: #dadada;
   background-color: #f91880;
 }
 
 .modal-btn:hover {
   background-color: #e41575;
-  color: white
+  color: #dadada;
 }
 
 .modal-btn:focus {
@@ -277,22 +283,31 @@
 .addComments {
   margin-left: 14px;
   padding: 6px 0px 6px 12px;
-  border-top: 1px solid rgb(216, 215, 215);
+  border-top:  1px solid #24224a;
+}
+
+.accCard {
+  background: transparent;
+  color: #dadada;
 }
 
 .replyarea {
   border-radius: 20px;
   resize: none;
+  background: #020024;
+  border: 1px solid #24224a;
 }
 
 .replyarea:focus {
   box-shadow: none;
   outline: none;
-  border-color: rgb(216, 215, 215);
+  color: #dadada;
+  border: 1px solid #f91880;
+  background: #020024;
 }
 
 .reply {
-  padding: 0px 4px 0px 67px;
+  padding: 0px 0px 0px 67px;
   display: flex;
   align-items: start;
 }

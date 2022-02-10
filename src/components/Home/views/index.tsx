@@ -187,11 +187,11 @@ const Blog = () => {
         <Col md={12} className="blogContent mb-2">
           <div className="d-flex align-items-center">
             <Button className='nav-back' onClick={() => navigateHome()}>
-              <img src="https://img.icons8.com/ios-filled/50/000000/left.png"
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/long-arrow-left.png"
                 className="arrowBack" />
             </Button>
             <div className="mt-2 ml-2">
-              <h5>Posts</h5>
+              <h5 className="textColor">Posts</h5>
             </div>
             <div className="text-muted timer ml-auto">
               Posted : {postTimer(blog?.createdAt)} ago
@@ -201,10 +201,11 @@ const Blog = () => {
             <Dropdown className="dropdowntext ml-auto">
               <Dropdown.Toggle
                 className="btn btn-dark dropdownbtn">
-                <img alt=''
+                <div className="text-muted dots"><b><strong>•••</strong></b></div>
+                {/* <img alt=''
                   className="lrdimg"
                   width="17px"
-                  src="https://img.icons8.com/android/50/000000/more.png" />
+                  src="https://img.icons8.com/android/50/000000/more.png" /> */}
               </Dropdown.Toggle>
               <Dropdown.Menu
                 className='dropDownMenu'
@@ -230,7 +231,7 @@ const Blog = () => {
                 {blog && blog.user._id !== me ? null
                   :
                   <>
-                    <Edit id={blog?._id} refresh={refresh} setRefresh={setRefresh}/>
+                    <Edit id={blog?._id} refresh={refresh} setRefresh={setRefresh} />
                     <div className="d-flex customLinks">
                       <div className="mr-3">
                         <img alt='' className="lrdimg" width="17px"
@@ -295,59 +296,59 @@ const Blog = () => {
                 src={blog?.media} width='100%' />
             }
             {!blog?.media ? null :
-              blog?.media && blog?.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
-               <video src={blog?.media} className="blog-cover" controls autoPlay muted></video>
+              blog?.media && blog?.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&
+              <video src={blog?.media} className="blog-cover" controls autoPlay muted></video>
             }
-              { newPost!.sharedPost && newPost!.sharedPost._id !== id ? 
-                  <>
-                    <div className="mt-3">{newPost!.sharedPost.text}</div>
-                    <div className="mt-2">
-                      { !newPost?.sharedPost.media ? null : newPost?.sharedPost.media && 
-                        newPost?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
-                        <img onClick={() => setView(true)}
-                          className="blog-details-cover" alt=''  
-                          src={newPost!.sharedPost.media} width='100%' />
-                      }
-                      { !newPost?.sharedPost.media ? null : newPost?.sharedPost.media && 
-                        newPost?.sharedPost.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&
-                        <video src={newPost!.sharedPost.media} className="blog-cover" controls autoPlay muted></video>
-                      }
-                    </div> 
-                  </>
-                  : null
-              } 
+            {newPost!.sharedPost && newPost!.sharedPost._id !== id ?
+              <>
+                <div className="mt-3">{newPost!.sharedPost.text}</div>
+                <div className="mt-2">
+                  {!newPost?.sharedPost.media ? null : newPost?.sharedPost.media &&
+                    newPost?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
+                    <img onClick={() => setView(true)}
+                      className="blog-details-cover" alt=''
+                      src={newPost!.sharedPost.media} width='100%' />
+                  }
+                  {!newPost?.sharedPost.media ? null : newPost?.sharedPost.media &&
+                    newPost?.sharedPost.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&
+                    <video src={newPost!.sharedPost.media} className="blog-cover" controls autoPlay muted></video>
+                  }
+                </div>
+              </>
+              : null
+            }
           </div>
 
 
           <div className="interactionContainer d-flex mt-2">
-          <ViewModal view={view} setView={setView} cover={blog?.media} post={blog} />
-          <div className='d-flex justify-content-evenly'>
-            <div className='likes'>
-              {blog && blog?.likes.map(user => (
-                <img className="likeImg" src={user?.image} alt='' width='20px'
-                  onClick={() => setLikeShow(true)} />
-              ))}
-              <LikesModal likeShow={likeShow} setLikeShow={setLikeShow} post={blog} />
-              <div>
-                {blog && blog.likes.length > 1 ?
-                  <span className="text-muted ml-1">{blog?.likes.length} likes</span> :
-                  <span className="text-muted ml-1">{blog?.likes.length} like</span>
+            <ViewModal view={view} setView={setView} cover={blog?.media} post={blog} />
+            <div className='d-flex justify-content-evenly'>
+              <div className='likes'>
+                {blog && blog?.likes.map(user => (
+                  <img className="likeImg" src={user?.image} alt='' width='20px'
+                    onClick={() => setLikeShow(true)} />
+                ))}
+                <LikesModal likeShow={likeShow} setLikeShow={setLikeShow} post={blog} />
+                <div>
+                  {blog && blog.likes.length > 1 ?
+                    <span className="text-muted ml-1">{blog?.likes.length} likes</span> :
+                    <span className="text-muted ml-1">{blog?.likes.length} like</span>
+                  }
+                </div>
+              </div>
+              <div className="comments ml-2">
+                {blog && blog.comments.length > 1 ?
+                  <span className="text-muted">{blog?.comments.length} comments</span> :
+                  <span className="text-muted">{blog?.comments.length} comment</span>
                 }
               </div>
             </div>
-            <div className="comments ml-2">
-              {blog && blog.comments.length > 1 ?
-                <span className="text-muted">{blog?.comments.length} comments</span> :
-                <span className="text-muted">{blog?.comments.length} comment</span>
-              }
-            </div>
-          </div>
             <div onMouseEnter={handleCommentLabelShow}
               onMouseLeave={handleCommentLabelClose}
               onClick={() => showNHidde()}
               className='position-relative'>
               <button className='candl comment'>
-                <img className="interactions" src="https://img.icons8.com/wired/64/000000/comments.png"
+                <img className="interactions" src="https://img.icons8.com/ios-filled/50/ffffff/comment-discussion.png"
                   width='25px' />
               </button>
               {commentLabel === false ? null :
@@ -365,7 +366,7 @@ const Blog = () => {
                 <>
                   <button className='candl '>
                     <img className="interactions" onClick={() => toggle(blog?._id)}
-                      src="https://img.icons8.com/wired/64/000000/hearts.png"
+                      src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
                       width='25px' />
                   </button>
                   {likeLabel === false ? null :
@@ -379,7 +380,7 @@ const Blog = () => {
                 <>
                   <button className='candl '>
                     <img className="interactions" onClick={() => toggle(blog?._id)}
-                      src="https://img.icons8.com/dusk/64/000000/hearts.png"
+                      src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
                       width='25px' />
                   </button>
                   {likeLabel === false ? null :
@@ -396,7 +397,7 @@ const Blog = () => {
               className="interactions position-relative m-0">
               <button onClick={handleShare}
                 className='candl share'>
-                <img src="https://img.icons8.com/wired/64/000000/share-2.png"
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/right2.png"
                   width='25px' />
               </button>
               {shareLabel === false ? null :
@@ -417,7 +418,7 @@ const Blog = () => {
             :
             <AddComment fetchComments={fetchComments} id={id} />
           }
-          <Col className='mt-5'>
+          <Col className='mt-5 p-0'>
             <Comment blog={blog} id={id} comments={comments}
               author={author} fetchComments={fetchComments} />
           </Col>

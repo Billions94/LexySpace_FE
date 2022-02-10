@@ -9,7 +9,7 @@ import Loader from "../Home/loader/Loader"
 
 const EditNewUser = () => {
 
-    // useAuthGuard()
+    useAuthGuard()
 
     const apiUrl = process.env.REACT_APP_GET_URL
 
@@ -25,7 +25,7 @@ const EditNewUser = () => {
         location: '',
     })
     const [image, setImage] = useState('')
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [alert, setAlert] = useState(false)
 
     useEffect(() => {
@@ -44,13 +44,16 @@ const EditNewUser = () => {
 
     const inputBtn = createRef<HTMLInputElement>()
 
-    const openInputFile = () => {
+
+
+    const openInputFile = (e: any) => {
         inputBtn!.current!.click();
     }
 
     const sumbit = async () => {
         if (image) {
             try {
+                setLoading(true)
                 const token = localStorage.getItem('accessToken')
                 const response = await fetch(`${apiUrl}/users/me`, {
                     method: 'PUT',
@@ -71,9 +74,9 @@ const EditNewUser = () => {
                         })
                         if (uploadpic.ok) {
                             setTimeout(() => {
-                                setLoading(true)
-                            }, 3000)
-                            navigate('/home')
+                                setLoading(false)
+                                navigate('/home')
+                            }, 1000)
                         }
                     } catch (error) {
                         console.log(error)
@@ -84,6 +87,7 @@ const EditNewUser = () => {
             }
         } else {
             try {
+                setLoading(true)
                 const token = localStorage.getItem('accessToken')
                 const response = await fetch(`${apiUrl}/users/me`, {
                     method: 'PUT',
@@ -95,9 +99,9 @@ const EditNewUser = () => {
                 })
                 if (response.ok) {
                     setTimeout(() => {
-                        setLoading(true)
-                    }, 3000)
-                    navigate('/home')
+                        setLoading(false)
+                        navigate('/home')
+                    }, 1000)
                 } else throw new Error('Could not update user')
             } catch (error) {
                 console.log(error)
@@ -110,13 +114,16 @@ const EditNewUser = () => {
         sumbit()
     }
 
-    return (
+    return loading === true ? <Loader /> : (
         <Row id='newUserDiv' className='justify-content-center'>
             <Col className='' md={6} lg={5}>
                 <div className='welcome1 text-center mb-3'>Edit your User Profile <img src="https://img.icons8.com/fluency/50/ffffff/user-male-circle.png" alt='' height='48px' width='48px' /></div>
                 {loading === false ?
-                    <Form noValidate className='newUserForm' onSubmit={handleSumbit}>
-                        {alert ? <img src='https://cdn.dribbble.com/users/928909/screenshots/6232696/completed.gif' alt='' /> :
+                    <Form noValidate className='newUserForm'>
+                        {alert ?
+                        <div className="text-center">
+                            <img src='https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif' height='38px' width='38px' alt='' />
+                        </div> :
                         <div className="text-center">
                             <button onClick={openInputFile} className="btn btn-lg btnIcon">
                                 <input type="file" ref={inputBtn} className="d-none" onChange={(e) => target(e)} />
@@ -167,10 +174,12 @@ const EditNewUser = () => {
                         <div className='d-flex'>
                             <></>
                             {!newUser.firstName && !newUser.lastName && !newUser.location && !newUser.bio ?
-                                <Button variant="primary" className='btn btn-md modal-btn disabled1'>
+                                <Button variant="primary" onClick={(e) => handleSumbit(e)}
+                                    className='btn btn-md modal-btn disabled1'>
                                     submit
                                 </Button> :
-                                <Button variant="primary" className='btn btn-md modal-btn'>
+                                <Button variant="primary" onClick={(e) => handleSumbit(e)}
+                                    className='btn btn-md modal-btn'>
                                     sumbit
                                 </Button>
                             }

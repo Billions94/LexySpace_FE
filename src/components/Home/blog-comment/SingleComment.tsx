@@ -81,7 +81,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
     return(
         <div key={comment._id} className="mt-2">
         <div className="cardHeader">
-          <div className="d-flex col-12">
+          <div className="d-flex">
             <Link to={`/userProfile/${comment.user._id}`}>
               <div>
                 <Image
@@ -100,10 +100,11 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
                 <Dropdown className="dropdowntext ml-auto">
                   <Dropdown.Toggle
                     className="btn btn-dark dropdownbtn">
-                    <img alt=''
+                    <div className="text-muted dots"><b><strong>•••</strong></b></div>
+                    {/* <img alt=''
                       className="lrdimg"
                       width="15px"
-                      src="https://img.icons8.com/android/50/000000/more.png" />
+                      src="https://img.icons8.com/android/50/000000/more.png" /> */}
                   </Dropdown.Toggle>
                   <Dropdown.Menu
                     className='dropDownMenu'
@@ -126,7 +127,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
               <div className="text-dark mb-2 userInfo">
                 {comment.user.firstName} {comment.user.lastName}
               </div>
-              <div className="commentText mb-2">
+              <div className="commentText">
                 <div>{comment.text}</div>  
                 <div>
                   {!comment.media ? null : comment.media && comment.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&

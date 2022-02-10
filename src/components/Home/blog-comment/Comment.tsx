@@ -31,18 +31,18 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
 
   return comments ? (
     <>
-      <Accordion className="" defaultActiveKey="0">
-        <Card style={{ border: "none" }}>
+      {/* <Accordion className="" defaultActiveKey="0">
+        <Card className="accCard" >
           <Card.Header className="cardHeader">
             <Accordion.Toggle
               className="text-dark shareComment"
               as={Button}
               variant="link"
               eventKey="0">
-              Show comments
+              <span>Show comments</span>
             </Accordion.Toggle>
           </Card.Header>
-          <Accordion.Collapse eventKey="0">
+          <Accordion.Collapse eventKey="0"> */}
             <div>
               {
                 comments.map((c) => (
@@ -55,9 +55,9 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
                   fetchComments={fetchComments}/>
                 ))}
             </div>
-          </Accordion.Collapse>
+          {/* </Accordion.Collapse>
         </Card>
-      </Accordion>
+      </Accordion> */}
     </>
   ) : (<Loader />)
 }

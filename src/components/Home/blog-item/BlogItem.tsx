@@ -133,17 +133,16 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
 
   return (
     <ListGroup>
-      <ListGroup.Item style={{ border: "1px solid rgb(216, 215, 215)"}} key={_id} className="blog-card">
+      <ListGroup.Item style={{ border: "1px solid rgb(216, 215, 215)" }} key={_id} className="blog-card">
         <div className='authorinfo d-flex ' style={{ justifyContent: 'space-between' }}>
-          
+
           <BlogAuthor {...user} createdAt={createdAt} />
           <Dropdown className="dropdowntext ml-auto">
             <Dropdown.Toggle
               className="btn btn-dark dropdownbtn">
-              <img alt=''
-                className="lrdimg"
-                width="17px"
-                src="https://img.icons8.com/android/50/000000/more.png" />
+                <div className="text-muted dots"><b><strong>•••</strong></b></div>
+              {/* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAABIklEQVRoge3WQUrEMBQG4L8lWMgmB3CdjR2wB+kJdD16p64dT6D3CGjdZO2+3RRmCMZNrXVs2ipIBvy/VcnL+8kjtBQgIiIiIiIiolOUHC9Ya7O2bW8BXAHY9MvPAHZKqUprvV8KjZHxZRBjzLlz7hHAZSDfCCHKoiheQweIlZF+PFhrs4VmACiccw/W2myqGDNjGKS/xrnmIaRpmu1UIWZGOipcr2gGACRJEtobLWM8yMXaAHy+fMeiZaRzu2a8/bLvzzLGg7z8ICC0N1rGeJC7td3e+12gFC1jGEQpVQEwK/qNlLKaKsTMGAbRWu+FEOVCiBFClHmeH6aKMTO+/aLUdX3Wdd1N/2nbAID3/gnAvZSyCh3gFDOIiIiIiIjoP3oHzGHME9QNRNcAAAAASUVORK5CYII=" 
+                className="lrdimg" width='17px' alt=''  /> */}
             </Dropdown.Toggle>
             <Dropdown.Menu className='dropdownmenu'>
               <br />
@@ -167,7 +166,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
               {user!._id !== me ? null
                 :
                 <>
-                  <Edit id={_id} refresh={reload} setRefresh={setReload}/>
+                  <Edit id={_id} refresh={reload} setRefresh={setReload} />
                   <div className="d-flex customLinks">
                     <div className="mr-3">
                       <img alt='' className="lrdimg" width="17px"
@@ -177,7 +176,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
                       delete
                     </div>
                   </div>
-                  <DeleteModal id={_id} smShow={smShow} setSmShow={setSmShow} deleteBlogPost={deleteBlogPost}/>
+                  <DeleteModal id={_id} smShow={smShow} setSmShow={setSmShow} deleteBlogPost={deleteBlogPost} />
                 </>
               }
             </Dropdown.Menu>
@@ -189,11 +188,11 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
             <div>
               <h6>{text}</h6>
               <div>
-                { !media ? null : media && media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
+                {!media ? null : media && media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
                   <h6> <img src={media} className="blog-cover" /></h6>
                 }
-                { !media ? null : media && media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
-                <video src={media} className="blog-video" controls autoPlay muted></video> }
+                {!media ? null : media && media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&
+                  <video src={media} className="blog-video" controls autoPlay muted></video>}
               </div>
             </div>
           </div>
@@ -228,19 +227,19 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
                   </div>
                 </div>
               </div> */}
-              
+
               <div className="d-flex">
-              <BlogAuthor {...user}/> <div></div>
+                <BlogAuthor {...user} /> <div></div>
               </div>
               <div onClick={() => route(_id)} className="blog-link">
                 <Card.Title>{newPost!.sharedPost.text}</Card.Title>
-                {!newPost?.sharedPost! ? null : newPost!.sharedPost.media && 
+                {!newPost?.sharedPost! ? null : newPost!.sharedPost.media &&
                   newPost!.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
                   <Card.Img variant="top" src={newPost!.sharedPost.media} className="blog-cover" />
                 }
-                {!newPost?.sharedPost! ? null : newPost!.sharedPost.media && 
-                  newPost!.sharedPost.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
-                 <video src={newPost!.sharedPost.media} className="blog-video" controls autoPlay muted></video>}
+                {!newPost?.sharedPost! ? null : newPost!.sharedPost.media &&
+                  newPost!.sharedPost.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&
+                  <video src={newPost!.sharedPost.media} className="blog-video" controls autoPlay muted></video>}
                 <Card.Body className="mb-0">
 
                 </Card.Body>
@@ -253,7 +252,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
             onMouseLeave={handleCommentLabelClose}
             className='postition-relative'>
             <button className='candl' onClick={handleShow}>
-              <img src="https://img.icons8.com/wired/64/000000/comments.png"
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/comment-discussion.png"
                 width='20px' />
             </button>
             <button className="text-dark btnX"><span>{comments.length}</span></button>
@@ -267,12 +266,13 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
           </div>
           <div onMouseEnter={handleLikeLabelShow}
             onMouseLeave={handleLikeLabelClose}
+            onClick={() => toggle()}
             className='postition-relative'>
             {!likes.some(elem => elem._id === me) ?
               <>
                 <button className='candl'>
-                  <img className="interactions" onClick={() => toggle()}
-                    src="https://img.icons8.com/wired/64/000000/hearts.png"
+                  <img className="interactions" 
+                    src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
                     width='20px' />
                 </button>
                 <button className="text-dark btnX"><span>{likes.length}</span></button>
@@ -286,8 +286,8 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
               :
               <>
                 <button className='candl'>
-                  <img className="interactions" onClick={() => toggle()}
-                    src="https://img.icons8.com/dusk/64/000000/hearts.png"
+                  <img className="interactions"
+                    src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
                     width='20px' />
                 </button>
                 <button className="text-dark btnX"><span>{likes.length}</span></button>
@@ -304,7 +304,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
             onMouseLeave={handleShareLabelClose}
             className='postition-relative'>
             <button className="candl" onClick={handleShareShow}>
-              <img src="https://img.icons8.com/wired/64/000000/share-2.png"
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/right2.png"
                 width='20px' />
             </button>
             {shareLabel === false ? null :

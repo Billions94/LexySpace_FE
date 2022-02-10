@@ -3,6 +3,8 @@ import * as yup from "yup"
 import { Link, useNavigate } from "react-router-dom"
 import { Form, Col, Button } from "react-bootstrap"
 import "./styles.scss"
+import { useEffect, useState } from "react"
+import Loader from "../Home/loader/Loader"
 
 
 const schema = yup.object({
@@ -28,14 +30,21 @@ const Register = () => {
   const beUrl = process.env.REACT_APP_GET_URL
 
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
+  }, [])
   // Register and create new user account
   const register = async (props: FormikProps) => {
+    setLoading(true)
     const response = await fetch(`${beUrl}/users/register`, {
       method: 'POST',
       body: JSON.stringify(props),
       headers: { 'Content-Type': 'application/json' }
     })
-    console.log(response)
     if (response.ok) {
       const data = await response.json()
       // Extracting the secure tokens from the server  
@@ -43,11 +52,14 @@ const Register = () => {
       // Setting the secure tokens from the server to our localstorage window(client)
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', refreshToken)
-      navigate('/editNewUser')
+      setTimeout(() => {
+        setLoading(false)
+        navigate('/editNewUser')
+      }, 1000)
     }
   }
 
-  return (
+  return loading ? <Loader /> : (
     <div id='loginContainer'>
       <div className='text-center createAcc textColor'>Create your account now</div>
       <Col sm={6} md={4} className='customMT mx-auto'>
