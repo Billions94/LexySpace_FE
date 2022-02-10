@@ -49,7 +49,7 @@ const Weather = () => {
   return (
     <div className="mt-3 mb-5">
       <>
-        <Col>
+        <Col className="customInputDiv">
           <Form className='mb-4'>
             <Form.Group controlId="formBasicEmail">
               <Form.Control

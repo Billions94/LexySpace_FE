@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Formik } from "formik"
 import { Form, Button, Col, Alert } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import * as yup from "yup"
 import "./styles.scss"
 
@@ -69,7 +69,7 @@ const LogIn = () => {
 
   return (
     <div id='loginContainer' className="col3">
-                
+    <div className='text-center createAcc textColor'>Login to LexySpace</div>            
     <Col sm={6} md={4} className='customMT mx-auto'>
         {
           error === true &&  
@@ -109,7 +109,7 @@ const LogIn = () => {
             errors,
           }) => (
             <div className="register">
-              <h4 className="SignInHeading register1">log IN</h4>
+              <h4 className="SignInHeading register1">LOG IN</h4>
               <Form noValidate className='register' onSubmit={handleSubmit}>
 
                 <Form.Group className='format'
@@ -149,12 +149,23 @@ const LogIn = () => {
                 </Form.Group>
 
                 <div className="loginBtn">
-                  <Button variant="primary"
-                    className="modal-btn"
-                    type="submit">
-                    log In
+                { values.password.length < 8  ?
+                  <Button variant="primary" disabled className='disabled1' type="submit">
+                    Log in
+                  </Button> :
+                  <Button variant="primary" className='modal-btn' type="submit">
+                    Log in
                   </Button>
+                }
                 </div>
+                <Form.Text>
+                  Don't have an account?{" "}
+                  <Link className="signin" to="/register">
+                    <a href="#signin" className="signin">
+                      Sign Up
+                    </a>
+                  </Link>
+                </Form.Text>
               </Form>
             </div>
           )}

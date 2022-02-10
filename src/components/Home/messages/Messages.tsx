@@ -10,7 +10,7 @@ import { Room } from '../../../interfaces/Room'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getUsersAction } from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { ReduxState } from '../../../redux/interfaces'
+import { ReduxState, User } from '../../../redux/interfaces'
 import useAuthGuard from "../../../lib/index"
 import "./styles.scss"
 
@@ -27,13 +27,14 @@ const Messages = () => {
 
   useAuthGuard()
 
+  const apiUrl = process.env.REACT_APP_GET_URL
   const [username, setUsername] = useState<string | undefined>('')
   const [loggedIn, setLoggedIn] = useState(false)
   const [message, setMessage] = useState('')
   const [onlineUsers, setOnlineUsers] = useState<IUser[]>([])
   const [chatHistory, setChatHistory] = useState<IMessage[]>([])
   const [userId, setUserId] = useState<UserId | undefined>('')
-  const [room, setRoom] = useState<Room | undefined>('blue')
+  const [room, setRoom] = useState<Room | undefined>('')
   const [media, setMedia] = useState<string>('')
   const [input, setInput] = useState({ text: '' })
 
@@ -45,9 +46,32 @@ const Messages = () => {
 
   const dispatch = useDispatch()
   const { user } = useSelector((state: ReduxState) => state.data)
+  const [users, setUsers] = useState<User | null>(null)
+
+  const getAllUsers = async () => {
+    try {
+      const token = localStorage.getItem('accessToken')
+      const response = await fetch(`${apiUrl}/users`, {
+        headers: { Authorization: `Bearer ${token}`}
+      })
+      if(response.ok) {
+        const data: User = await response.json()
+        console.log(' i am the data', data)
+        setUsers(data)
+      } else throw new Error('Could not get users from the server :(')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  console.log(users)
 
   const socket = useMemo(() => {
     return io(ADDRESS, { transports: ['websocket'] })
+  }, [])
+
+  useEffect(() => {
+    getAllUsers()
   }, [])
 
   useEffect(() => {
@@ -82,13 +106,14 @@ const Messages = () => {
   }, [])
 
   useEffect(() => {
-    username && socket.emit('setUsername', { userName: username, image: user!.image, room: id })
+    username && socket.emit('setUsername', { _id: id, userName: username, image: user!.image, room: id })
   }, [username])
 
   useEffect(() => {
     setRoom(id)
     setLoggedIn(true)
   }, [])
+
 
   const fetchPreviousMessages = useCallback(async () => {
     try {

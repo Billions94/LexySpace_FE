@@ -44,23 +44,23 @@ const NavBar = () => {
   return (
     <> 
       { location.pathname === '/' && ( 
-        <Navbar  expand="lg" className="blog-navbar1 p-1" fixed="top">
+        <Navbar  expand="lg" className="blog-navbar1 " fixed="top">
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand as={Link} to="/">
               <img className="blog-navbar-brand" alt="logo" src={logo} />
-              <span className="navspan ml-2">lexySpace</span>
+              <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
             <div className='d-flex signup'>
               <Button onClick={()=> navigate('/register')} className="blog-navbar-add-button  newBlogPost" size="lg">
                 <div className=''>
-                  <img alt='' src="https://img.icons8.com/wired/50/000000/edit-user-male.png" width='25px'/>
+                <img src="https://img.icons8.com/material-rounded/50/ffffff/add-user-male.png" width='20px'/>
                 </div>
                 <div style={{fontSize: "16px"}}> sign Up </div>
               </Button>
 
               <Button onClick={()=> navigate('/login')} className="ml-2 blog-navbar-add-button  newBlogPost" size="lg">
                 <div className=''>
-                  <img alt='' src="https://img.icons8.com/carbon-copy/50/000000/login-rounded-right.png" width='25px'/>
+                <img src="https://img.icons8.com/glyph-neue/50/ffffff/logout-rounded.png" width='20px'/>
                 </div>
                 <div style={{fontSize: "16px"}}> log In </div>
               </Button>
@@ -70,11 +70,11 @@ const NavBar = () => {
       )}
 
       { location.pathname === '/home' && (
-        <div  className="blog-navbar p-1 sticky-top" >
+        <div  className="blog-navbar  sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
               <img className="blog-navbar-brand" alt="logo" src={logo} width='50px'/>
-              <span className="navspan ml-2">lexySpace</span>
+              <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
     
           <div className="d-flex justity-content-between">
@@ -155,11 +155,11 @@ const NavBar = () => {
        )}
 
       { location.pathname === '/messages' &&  
-        <div  className="blog-navbar p-1 sticky-top" >
+        <div  className="blog-navbar  sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
+                <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
@@ -218,11 +218,11 @@ const NavBar = () => {
       }
 
       { location.pathname === '/settings' &&  
-        <div  className="blog-navbar p-1 sticky-top" >
+        <div  className="blog-navbar  sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => route()}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
+                <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
@@ -260,11 +260,11 @@ const NavBar = () => {
       }
 
       { location.pathname === '/closeAccount' &&  
-        <div  className="blog-navbar p-1 sticky-top" >
+        <div  className="blog-navbar  sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/home")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
+                <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">
@@ -303,33 +303,33 @@ const NavBar = () => {
 
 
       { location.pathname === '/register' && 
-        <div  className="blog-navbar p-1 sticky-top" >
+        <div  className="blog-navbar  sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
+                <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
           </Container>
         </div>
       }
 
       { location.pathname === '/login' && 
-        <div  className="blog-navbar p-1 sticky-top" >
+        <div  className="blog-navbar  sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
+                <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
           </Container>
         </div>
       }
 
       { location.pathname === '/editNewUser' && 
-        <div  className="blog-navbar p-1 sticky-top" >
+        <div  className="blog-navbar  sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => navigate("/")}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
+                <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
           </Container>
         </div>
@@ -338,11 +338,11 @@ const NavBar = () => {
       { location.pathname !== '/messages' &&  location.pathname !== '/home' && location.pathname !== '/userProfile' &&
         location.pathname !== '/settings' && location.pathname !== '/closeAccount' && location.pathname !== '/' &&
         location.pathname !== '/register' && location.pathname !== '/login' && location.pathname !== '/editNewUser' &&
-        <div  className="blog-navbar p-1 sticky-top" >
+        <div  className="blog-navbar  sticky-top" >
           <Container className="justify-content-between d-flex px-4">
             <Navbar.Brand className="customCursor" onClick={() => route()}>
                 <img className="blog-navbar-brand" alt="logo" src={logo} />
-                <span className="navspan ml-2">lexySpace</span>
+                <span className="navspan ml-2">LexySpace</span>
             </Navbar.Brand>
 
             <div className="customDD">

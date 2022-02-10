@@ -98,28 +98,34 @@ const Home = () => {
           <Col>
             <Search />
             <HotPosts />
-            <div onClick={() => toggleHide()}
-              style={{ cursor: 'pointer' }}>
-              {hideMe === false ?
-                <img src="https://img.icons8.com/ios-filled/50/000000/visible--v1.png"
+            <div onClick={() => toggleHide()} className='d-flex'
+              style={{ cursor: 'pointer' }} >
+                <div className="text-muted sidebarFont">Weather</div>
+              <div className="ml-auto">
+              { hideMe === false ?
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
                   width='27px' height='27px' />
                 :
-                <img src="https://img.icons8.com/ios-filled/50/000000/hide.png"
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/closed-eye.png"
                   width='27px' height='27px' />
               }
+              </div>
             </div>
             {hideMe === false ?
               <Weather /> : null
             }
-            <div onClick={() => toggleHideTask()}
+            <div onClick={() => toggleHideTask()} className="d-flex"
               style={{ cursor: 'pointer' }}>
-              {hideTask === false ?
-                <img src="https://img.icons8.com/ios-filled/50/000000/visible--v1.png"
+                <div className="text-muted sidebarFont">NotePad</div>
+              <div className="ml-auto">
+              { hideTask === false ?
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
                   width='27px' height='27px' />
                 :
-                <img src="https://img.icons8.com/ios-filled/50/000000/hide.png"
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/closed-eye.png"
                   width='27px' height='27px' />
               }
+              </div>
             </div>
             {hideTask === false ?
               <TaskList /> : null

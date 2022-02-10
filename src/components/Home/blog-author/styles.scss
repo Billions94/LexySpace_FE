@@ -13,11 +13,13 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 16px;
+    color: white !important;
   }
 
   .authorUserName {
     font-size: 12px;
     line-height: 14px;
+    color: white !important;
   }
 
   .postTime {
@@ -50,12 +52,12 @@
   flex-direction: column;
   width: 270px;
   pointer-events: auto;
-  background-color: white;
+  background: rgb(2,0,36);
   background-clip: padding-box;
   margin-top: 222px;
   border-radius: 20px;
-  border: 1px solid rgb(216, 215, 215);
-  box-shadow: 0px 1px 5px  rgb(216, 215, 215);
+  border: 2px solid rgb(2,0,36);
+  box-shadow: 0px 0px 7px  rgb(216, 215, 215);
 
   .modal-content {
     position: relative;

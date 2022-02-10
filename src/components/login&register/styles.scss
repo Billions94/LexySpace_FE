@@ -1,6 +1,6 @@
 #loginContainer{
-  background-image: url(https://pressbooks.ulib.csuohio.edu/bright-continent/wp-content/uploads/sites/21/2018/04/Four-heads-in-scale2-1024x717.jpg);
-  background-size: contain ;
+  // background-image: url(https://pressbooks.ulib.csuohio.edu/bright-continent/wp-content/uploads/sites/21/2018/04/Four-heads-in-scale2-1024x717.jpg);
+  // background-size: contain ;
   height: 72vh;
 
   .blog-main-title {
@@ -10,17 +10,62 @@
     margin-bottom: 50px;
   }
 
+  .createAcc {
+    margin-top: 50px;
+    font-weight: 600;
+    font-size: 37px;
+    line-height: 20px;
+    color: #e5e5e5;
+  }
+
+  .signin {
+    color: #f91880;
+    font-weight: 400;
+    font-size: 15px;
+    text-decoration: none;
+  }
+
+  .signin:hover {
+    color: #f91880;
+    font-weight: 400;
+    font-size: 15px;
+    text-decoration: underline;
+  }
+
   .customMT {
-    margin-top: 100px;
+    margin-top: 50px;
     padding: 15px;
-    box-shadow: 0px 0px 7px black;
+    box-shadow: 0px 0px 20px #24224a;
     border-radius: 20px;
+    background: #020024;
+    color: #e5e5e5;
+    border: 1px solid #24224a;
+  }
+
+  .customMTNew {
+    
   }
   
   .register {
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
+    background: #020024;
+  }
+
+  .register:focus {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    background: #020024;
+    border: 2px solid #f91880;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .form-control {
+    border: 1px solid #6e767d;
+    color: white;
   }
 
   .format {
@@ -47,16 +92,16 @@
   }
   
   .googleBtn{
-    background-color: white;
+    background: #020024;
     width: 100%;
     color: grey;
     border-radius: 30px;
-    border: 1px solid rgb(179, 179, 179);
+    border: 1px solid #6e767d;
     letter-spacing: 1px;
     font-size: 15px;
     font-weight: bold;
     height: 50px;
-    box-shadow: 0px 0px 5px rgb(179, 179, 179);
+    box-shadow: 0px 0px 10px -4px #9f9d9da8;
     p {
       margin: auto;
     }
@@ -86,7 +131,7 @@
   } */
   
   .googleBtn:hover {
-    background-color: antiquewhite;
+    background-color: #24224a;
   }
   
   .loginBtn {
@@ -124,18 +169,61 @@
   }
 }
 
-#newUserForm {
+#newUserDiv {
   padding: 30px 30px;
   .newUserForm {
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 20px;
+    border: 1px solid #24224a;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 0px 20px #24224a;
   }
   .newUserFormControl {
     font-weight: 400;
     font-size: 15px;
     height: 45px;
+    background: #020024;
+    border: 1px solid #6e767d;
+    color: #dadada;
   }
+
+  .newUserFormControl:focus {
+    font-weight: 400;
+    font-size: 15px;
+    height: 45px;
+    background: #020024;
+    border: 2px solid #f91880;
+    outline: none;
+    box-shadow: none;
+    color: #dadada;
+  }
+  .welcome1 {
+    font-size: 35px;
+    font-weight: 500;
+    color: #dadada;
+  }
+
+  .addPhoto {
+    color: #dadada;
+  }
+
+  .btnIcon {
+    
+  }
+
+  .btnIcon:focus {
+    box-shadow: none;
+    outline: none;
+  }
+  .btnIcon:active {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.disabled1 {
+  background-color: rgb(192, 192, 192)  !important;
+  border: 1px solid rgb(192, 192, 192) !important;;
+  border-radius: 20px;
 }
 
 .modal-btn {

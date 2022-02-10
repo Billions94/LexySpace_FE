@@ -9,7 +9,7 @@ import Loader from "../Home/loader/Loader"
 
 const EditNewUser = () => {
 
-    useAuthGuard()
+    // useAuthGuard()
 
     const apiUrl = process.env.REACT_APP_GET_URL
 
@@ -26,6 +26,7 @@ const EditNewUser = () => {
     })
     const [image, setImage] = useState('')
     const [loading, setLoading] = useState(false)
+    const [alert, setAlert] = useState(false)
 
     useEffect(() => {
         dispatch(getUsersAction())
@@ -34,6 +35,10 @@ const EditNewUser = () => {
     const target = (e: any) => {
         if (e.target && e.target.files[0]) {
             setImage(e.target.files[0])
+            setAlert(true)
+            setTimeout(() => {
+                setAlert(false)
+            }, 3000)
         }
     }
 
@@ -106,64 +111,63 @@ const EditNewUser = () => {
     }
 
     return (
-        <Row id='newUserForm' className='justify-content-center'>
-            <Col className='formCol' md={6} lg={5}>
+        <Row id='newUserDiv' className='justify-content-center'>
+            <Col className='' md={6} lg={5}>
+                <div className='welcome1 text-center mb-3'>Edit your User Profile <img src="https://img.icons8.com/fluency/50/ffffff/user-male-circle.png" alt='' height='48px' width='48px' /></div>
                 {loading === false ?
                     <Form noValidate className='newUserForm' onSubmit={handleSumbit}>
-                        <Form.Group controlId="blog-form" className="mt-3">
-                            <Form.Label className="text-muted">first Name</Form.Label>
-                            <Form.Control
-                                size="sm"
-                                className='newUserFormControl'
-                                value={newUser.firstName}
-                                onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })} />
-                        </Form.Group>
-                        <Form.Group controlId="blog-form" className="mt-3">
-                            <Form.Label className="text-muted">last Name</Form.Label>
-                            <Form.Control
-                                size="sm"
-                                className='newUserFormControl'
-                                value={newUser.lastName}
-                                onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })} />
-                        </Form.Group>
-                        {/* <Form.Group controlId="blog-form" className="mt-3">
-                            <Form.Label className="text-muted">userName</Form.Label>
-                            <Form.Control
-                                size="sm"
-                                className='newUserFormControl'
-                                value={newUser.userName}
-                                onChange={(e) => setNewUser({ ...newUser, userName: e.target.value })} />
-                        </Form.Group> */}
-                        <Form.Group controlId="blog-form" className="mt-3">
-                            <Form.Label className="text-muted">bio</Form.Label>
-                            <Form.Control
-                                size="sm"
-                                className='newUserFormControl'
-                                as="textarea"
-                                value={newUser.bio}
-                                onChange={(e) => setNewUser({ ...newUser, bio: e.target.value })} />
-                        </Form.Group>
-                        <Form.Group controlId="blog-form" className="mt-3">
-                            <Form.Label className="text-muted">location</Form.Label>
-                            <Form.Control
-                                size="sm"
-                                className='newUserFormControl'
-                                value={newUser.location}
-                                onChange={(e) => setNewUser({ ...newUser, location: e.target.value })} />
-                        </Form.Group>
-                        <div >
-                            <button onClick={openInputFile} className="btn btn-sm btnIcon">
+                        {alert ? <img src='https://cdn.dribbble.com/users/928909/screenshots/6232696/completed.gif' alt='' /> :
+                        <div className="text-center">
+                            <button onClick={openInputFile} className="btn btn-lg btnIcon">
                                 <input type="file" ref={inputBtn} className="d-none" onChange={(e) => target(e)} />
-                                <img src="https://img.icons8.com/wired/50/000000/picture.png" alt='' width='27px' />
+                                <img src="https://img.icons8.com/fluency/50/ffffff/user-male-circle.png" alt='' height='38px' width='38px' />
                                 <div className="addPhoto">
-                                    add Photo
+                                    Add image
                                 </div>
                             </button>
                         </div>
+                        }
+                        <Form.Group controlId="blog-form" className="">
+                            <Form.Label className="text-muted">first Name</Form.Label>
+                            <Form.Control
+                                size="lg"
+                                className='newUserFormControl'
+                                placeholder=""
+                                value={newUser.firstName}
+                                onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })} />
+                        </Form.Group>
+                        <Form.Group controlId="blog-form" className="">
+                            <Form.Label className="text-muted">last Name</Form.Label>
+                            <Form.Control
+                                size="lg"
+                                className='newUserFormControl'
+                                placeholder=""
+                                value={newUser.lastName}
+                                onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })} />
+                        </Form.Group>
+                        <Form.Group controlId="blog-form" className="">
+                            <Form.Label className="text-muted">bio</Form.Label>
+                            <Form.Control
+                                size="lg"
+                                className='newUserFormControl'
+                                as="textarea"
+                                placeholder="A little detail about yourself..."
+                                value={newUser.bio}
+                                onChange={(e) => setNewUser({ ...newUser, bio: e.target.value })} />
+                        </Form.Group>
+                        <Form.Group controlId="blog-form" className="">
+                            <Form.Label className="text-muted">location</Form.Label>
+                            <Form.Control
+                                size="lg"
+                                className='newUserFormControl'
+                                placeholder="Where are you located ?"
+                                value={newUser.location}
+                                onChange={(e) => setNewUser({ ...newUser, location: e.target.value })} />
+                        </Form.Group>
                         <div className='d-flex'>
                             <></>
                             {!newUser.firstName && !newUser.lastName && !newUser.location && !newUser.bio ?
-                                <Button variant="primary" disabled className='btn btn-md modal-btn'>
+                                <Button variant="primary" className='btn btn-md modal-btn disabled1'>
                                     submit
                                 </Button> :
                                 <Button variant="primary" className='btn btn-md modal-btn'>

@@ -289,7 +289,7 @@ const Blog = () => {
             {!blog?.media ?
               null
               :
-              blog?.media && blog?.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
+              blog?.media && blog?.media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
               <img className="blog-details-cover" alt=''
                 onClick={() => setView(true)}
                 src={blog?.media} width='100%' />

@@ -85,7 +85,7 @@ const Search = () => {
 
     return (
         <div id='searchContainer' className="mb-3">
-            <Col>
+            <Col className="customInputDiv">
                 <Form className='mb-4'>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Control

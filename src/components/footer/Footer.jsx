@@ -12,9 +12,9 @@ const Footer = () => {
         <footer className="customFooter mb-1">
           <Container className="customFooter">
             <Col xs={10}>
-              <p className='text-muted'>{`${new Date().getFullYear()} - © LexySpace | Developed by Ejiroghene.`}</p>
+              <p className='textColor'>{`${new Date().getFullYear()} - © LexySpace | Developed by Ejiroghene.`}</p>
             </Col>
-            <Col className='d-flex'>
+            <Col className='d-flex textColor'>
             Contact me @
             <div className='ml-2'>
               <a href="mailto:e.a.egbedi@gmail.com">

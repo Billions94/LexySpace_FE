@@ -163,7 +163,7 @@ const PostContainer = () => {
                         </div>
                         <div className="mar-top clearfix mt-2 ml-auto"> 
                         {!post.text ? 
-                            <button disabled className="btn btn-md modal-btn"
+                            <button disabled className="btn btn-md disabled1"
                                 onClick={() => newPost()}>
                                 <i className="fa fa-pencil fa-fw" /> Post
                             </button> : 

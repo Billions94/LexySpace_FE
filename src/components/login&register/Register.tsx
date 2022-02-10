@@ -49,6 +49,7 @@ const Register = () => {
 
   return (
     <div id='loginContainer'>
+      <div className='text-center createAcc textColor'>Create your account now</div>
       <Col sm={6} md={4} className='customMT mx-auto'>
         <a href={`${beUrl}/users/googleLogin`}>
           <div className="googleIcon justify-content-center my-2">
@@ -137,9 +138,9 @@ const Register = () => {
                     {errors.password}
                   </Form.Control.Feedback>
                 </Form.Group>
-                
-                {!values.userName && !values.email && !values.password  ?
-                  <Button variant="primary" disabled className='modal-btn' type="submit">
+
+                { values.password.length < 8  ?
+                  <Button variant="primary" disabled className='disabled1' type="submit">
                     Sign Up
                   </Button> :
                   <Button variant="primary" className='modal-btn' type="submit">
@@ -155,8 +156,8 @@ const Register = () => {
                 </Button> */}
                 <Form.Text>
                   Already a User?{" "}
-                  <Link to="/login">
-                    <a href="#signin" onClick={() => navigate("/login")}>
+                  <Link className="signin" to="/login">
+                    <a href="#signin" className="signin" onClick={() => navigate("/login")}>
                       Sign In
                     </a>
                   </Link>

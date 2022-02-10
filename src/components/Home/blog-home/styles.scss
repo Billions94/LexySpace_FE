@@ -5,17 +5,23 @@
   margin-bottom: 50px;
 }
 
+.customInputDiv {
+  padding: 0;
+}
+
 .customInput {
   border-radius: 50px !important;
   padding-left: 15px;
   background-color: whitesmoke;
-  box-shadow: -5px 5px 1px rgb(216, 215, 215);
   border: none;
+  background: #24224a;
 }
 
 .customInput:focus {
   box-shadow: none;
   outline: 1px solid #f91880;
+  background: #24224a;
+  color: white;
   border-color: rgb(216, 215, 215)
 }
 .customInput:active {
@@ -345,9 +351,8 @@
 #hotposts {
   border-radius: 20px;
   padding: 0;
-  background-color: rgb(245, 245, 245);
-  box-shadow: -5px 5px 1px rgb(216, 215, 215);
-
+  background: #24224a;
+  color: white;
   .loader {
     display: flex;
     justify-content: center;
@@ -371,7 +376,7 @@
 
   .hotpostList:hover {
     cursor: pointer;
-    background-color: #ececec;
+    background-color: #2c295c;
   }
 
   .index {
@@ -429,7 +434,7 @@
 
   .seeMoreDiv:hover {
     cursor: pointer;
-    background-color: #ececec;
+    background-color: #2c295c;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
   }
@@ -450,11 +455,16 @@
     max-height: auto;
     overflow-x: scroll;
     // box-shadow: -20px 1px 5px #d8d7d7;
-    border-left: 1px solid rgb(216, 215, 215);
+    border-left: 2px solid #24224a;
+    .sidebarFont {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: white !important;
+    }
   }
 
   .textarea {
-    box-shadow: -5px 20px 1px #d8d7d7;
     border: none;
     resize: none;
   }
@@ -463,13 +473,16 @@
     box-shadow: none;
     outline: none;
     border: none;
+    background: #020024;
+    color: white;
   }
   .feed {
     display: flex;
     justify-content: center;
     padding: 15px 0px;
-    border-left: 1px solid rgb(216, 215, 215) !important;
-    border-right: 1px solid rgb(216, 215, 215) !important;
+    border-left: 2px solid #24224a !important;
+    border-right: 2px solid #24224a !important;
+    
     // box-shadow: 20px 1px 5px #d8d7d7;
     .feedBorders {
       border-top: 1px solid rgb(216, 215, 215) !important;
@@ -489,6 +502,11 @@
 
     .userImage{
       cursor: pointer;
+    }
+
+    .disabled1 {
+      background-color: rgb(192, 192, 192) ;
+      border-radius: 20px;
     }
 
     .emojiDiv {
@@ -523,7 +541,7 @@
     }
 
     .textareaborder {
-      border-bottom: 1px solid rgb(216, 215, 215);
+      border-bottom: 2px solid #24224a;
     }
 
     .relative {
@@ -560,7 +578,7 @@
   }
   .blogList {
     padding: 0 0 0px 0;
-    border-top: 1px solid rgb(216, 215, 215) !important;
+    border-top: 2px solid #24224a !important;
     border: none;
   }
   // .blogList:hover {
@@ -583,9 +601,8 @@
   .taskList {
     border-radius: 20px;
     resize: none;
-    box-shadow: -5px 5px 1px rgb(216, 215, 215);
     border: none;
-    background-color: whitesmoke;
+    background: #24224a;
   }
   .taskList:focus {
     outline: 1px solid #f91880;
@@ -600,6 +617,7 @@
 }
 
 #searchContainer {
+  padding: 0;
   .profile-pic {
     border-radius: 50%;
     width: 50px;

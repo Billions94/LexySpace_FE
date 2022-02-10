@@ -43,7 +43,7 @@ const RecentItem = ({ post }: RecentItemProps) => {
         <div className='circleBorders'>
           {!post.media ? <h6>{post.text}</h6> :
             <div>
-              {post.media && post.media.split('.').slice(-1).join().match('heic|png|jpg|pdf|jpeg') &&
+              {post.media && post.media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
                 <img src={post.media} className="media" />
               }
               {post.media && post.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&

@@ -64,7 +64,7 @@ const HotPosts = () => {
             { isLoading === true ?  <div className='loader'><Spinner className='spinner' animation="border" /> </div>: 
             <>
             <div className="p-3 d-flex">
-            <img src="https://img.icons8.com/ios-filled/50/000000/anonymous-mask.png" width='27px' height='27px'/>
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/anonymous-mask.png" width='27px' height='27px'/>
                 <h4 className="text-muted ml-1"> Top Posts</h4>
             </div>
             <div className="mb-0">

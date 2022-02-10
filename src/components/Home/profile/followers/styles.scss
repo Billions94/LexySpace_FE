@@ -58,7 +58,7 @@
         border: 1px solid grey;
         color: black;
         background-color: transparent;
-        box-shadow: 5px 5px 1px black;
+        box-shadow: 0px 7px 20px -4px #9f9d9da8;
     }
 
     .followbtn:hover {
@@ -69,12 +69,12 @@
 
     .followbtn:active {
         outline: none;
-        box-shadow: 5px 5px 1px black;
+        box-shadow: none;
     }
 
     .followbtn:focus {
         outline: none;
-        box-shadow: 5px 5px 1px black;
+        box-shadow: 0px 7px 20px -4px #9f9d9da8;   
     }
 
     .followbtn:focus-visible {
@@ -86,17 +86,24 @@
         border-radius: 20px !important;
         background-color: #f91880 !important;
         border: 1px solid #f91880 !important;
-        box-shadow: -5px 5px 1px black !important
+        box-shadow: 0px 7px 20px -4px #9f9d9da8;
+    }
+
+    .nowfollowing:hover {
+        border-radius: 20px !important;
+        background-color: #e91678 !important;
+        border: 1px solid #e91678 !important;
+        box-shadow: 0px 7px 20px -4px #9f9d9da8;
     }
 
     .nowfollowing:active {
         outline: none;
-        box-shadow: 5px 5px 1px black;
+        box-shadow: 0px 7px 20px -4px #9f9d9da8;
     }
 
     .nowfollowing:focus {
         outline: none;
-        box-shadow: 5px 5px 1px black;
+        box-shadow: 0px 7px 20px -4px #9f9d9da8;
     }
 
     .nowfollowing:focus-visible {
