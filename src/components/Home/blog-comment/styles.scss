@@ -121,7 +121,7 @@
 .dropdownbtn:hover {
   outline: none;
   box-shadow: none;
-  background-color: #f7e6ee;
+  background: #24224a;
 }
 
 .like {
@@ -263,12 +263,20 @@
   border: none;
 }
 
+.btnIcon {
+  border-radius: 50px;
+}
+
+.btnIcon:hover {
+  background: #24224a;
+}
 
 .modal-btn {
   border-radius: 20px;
   border: none;
   color: #dadada;
   background-color: #f91880;
+  border: 1px solid #f91880;
 }
 
 .modal-btn:hover {

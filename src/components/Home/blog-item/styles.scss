@@ -28,6 +28,10 @@
   box-shadow: 0px 0px 5px #d8d7d7;
 }
 
+.candl:hover {
+  background: #24224a !important;
+}
+
 .candl:active {
   background-color: transparent !important;
   box-shadow: 1px 1px 5px #d8d7d7 !important;
@@ -171,7 +175,7 @@
 .dropdownbtn:hover {
   outline: none;
   box-shadow: none;
-  background-color: #460020;
+  background: #24224a;
 }
 
 .dropdownmenu {

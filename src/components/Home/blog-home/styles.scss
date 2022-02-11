@@ -409,7 +409,8 @@
     font-weight: 700;
     line-height: 1;
     color: #fff;
-    text-align: center;
+    text-align: start;
+    margin-left: -5px;
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 1.25rem;
@@ -500,9 +501,9 @@
     border: none;
     // padding: 12px;
 
-    .userImage{
-      cursor: pointer;
-    }
+    // .userImage{
+    //   cursor: pointer;
+    // }
 
     .disabled1 {
       background-color: rgb(192, 192, 192) ;
@@ -521,6 +522,7 @@
       border: none;
       color: white;
       background-color: #f91880;
+      border: 1px solid #f91880;
       box-shadow: -5px 5px 1px black;
     }
   
@@ -550,6 +552,7 @@
 
     .absolute {
       position: absolute;
+      margin-left: -8px;
       color: black;
       font-family: 200 !important;
       font-size: 12px !important;
@@ -565,7 +568,7 @@
     }
   
     .btnIcon:hover {
-      background-color: #f5d1e2
+      background: #24224a;
      
     }
   }

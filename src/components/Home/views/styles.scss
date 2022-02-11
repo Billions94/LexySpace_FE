@@ -26,6 +26,10 @@
     // box-shadow: 1px 1px 5px #d8d7d7;
   }
 
+  .comments:hover {
+    background: #24224a;
+  }
+
   .likes {
     cursor: pointer;
     border: 2px solid #24224a;
@@ -41,6 +45,10 @@
       width: 20px !important;
       height: 20px !important;
     }
+  }
+
+  .likes:hover {
+    background: #24224a;
   }
 
   .interactionContainer {
@@ -74,8 +82,12 @@
     // width: 40px;
   }
 
+  .candl:hover {
+    background: #24224a;
+  }
+
   .nav-back:hover {
-    background-color: #f5d1e2;
+    background: #24224a;
   }
 
   .arrowBack {
@@ -283,7 +295,7 @@
   .dropdownbtn:hover {
     outline: none;
     box-shadow: none;
-    background-color: #f7e6ee;
+    background: #24224a;
   }
 
   .customPicContainer {
