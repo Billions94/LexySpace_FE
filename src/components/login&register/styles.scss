@@ -241,6 +241,9 @@
 
 .modal-btn:hover {
   background-color: #e41575 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid #e41575 !important;
 }
 
 .modal-btn:focus {
