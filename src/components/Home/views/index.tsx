@@ -319,10 +319,12 @@ const Blog = () => {
             <ViewModal view={view} setView={setView} cover={blog?.media} post={blog} />
             <div className='d-flex justify-content-evenly'>
               <div className='likes'>
-                {blog && blog?.likes.map(user => (
-                  <img className="likeImg" src={user?.image} alt='' width='20px'
-                    onClick={() => setLikeShow(true)} />
+                {blog && blog?.likes.slice(0, 2).map(user => (
+                  // <img className="likeImg" src={user?.image} alt='' width='20px'
+                  //   onClick={() => setLikeShow(true)} />
+                  <SingleImage user={user} setLikeShow={setLikeShow} />
                 ))}
+                {/* {blog?.likes.length > 3 && <div className="text-muted">+</div>} */}
                 <LikesModal likeShow={likeShow} setLikeShow={setLikeShow} post={blog} />
                 <div>
                   {blog && blog.likes.length > 1 ?
@@ -424,3 +426,17 @@ const Blog = () => {
 }
 
 export default Blog
+
+interface SingleImageProps {
+ user: User
+ setLikeShow: Dispatch<SetStateAction<boolean>>
+}
+
+const SingleImage = ({ user, setLikeShow }: SingleImageProps) => {
+  return(
+    <div className="singleImage">
+    <img className="likeImg" src={user?.image} alt='' width='20px'
+      onClick={() => setLikeShow(true)} />
+    </div>
+  )
+}

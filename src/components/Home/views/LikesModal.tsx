@@ -81,7 +81,7 @@ const LikesModal = ({ likeShow, setLikeShow, post }: LikesModalProps) => {
                     </div>
                 </Modal.Header>
                 <Modal.Body>
-                    {post?.likes.slice(0, 3).map((user, i) => (
+                    {post?.likes.map((user, i) => (
                         <div key={i} id='searchContainer' className="d-flex mt-2">
                             <div onClick={() => navigate(`/userProfile/${user?._id}`)}
                                 className='linkToProfile'>

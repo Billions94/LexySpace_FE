@@ -500,8 +500,11 @@
   color: #dadada;
   // border: 1px solid rgb(216, 215, 215);
   // padding: 20px;
-  margin-top: 50px;
-
+  margin-top: 10px;
+  h5 {
+    border-bottom: 1px solid #24224a;
+    padding: 10px;
+  }
   .recentItem {
     // border-top: 1px solid rgb(216, 215, 215);
     width: 100px;
