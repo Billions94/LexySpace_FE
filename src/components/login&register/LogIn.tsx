@@ -30,18 +30,19 @@ const LogIn = () => {
   const url = process.env.REACT_APP_GET_URL
 
   const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
 // Loggin in a registered user  
   const login = async (props: LoginFormikProps) => {
     try {
-      setLoading(true)
       const response = await fetch(`${url}/users/login`, {
         method: 'POST',
         body: JSON.stringify(props),
         headers: { 'Content-Type': 'application/json'}
       })
-        if(response.ok) {
+      if(response.ok) {
+          setLoading(true)
           const data = await response.json()
           // Extracting the secure tokens from the server     
           const { accessToken, refreshToken } = data
@@ -66,7 +67,7 @@ const LogIn = () => {
     }
   }
 
-  const [loading, setLoading] = useState(true)
+  
 
   useEffect(() => {
     setTimeout(() => {
@@ -86,8 +87,8 @@ const LogIn = () => {
     <Col sm={6} md={4} className='customMT mx-auto'>
         {
           error === true &&  
-          <Alert className="alert" variant='warning'>
-            you don't have an account, please register
+          <Alert className="alert text-center" variant='danger'>
+            Email or password is incorrect!
           </Alert>
         }
         <a href={`${url}/users/googleLogin`}>
