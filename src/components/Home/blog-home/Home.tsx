@@ -65,6 +65,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getPosts())
+    getData()
     dispatch(getUsersAction())
     /*scroller.scrollTo('postSectionInner', {
       // duration: 1000,

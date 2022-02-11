@@ -106,7 +106,7 @@ const Messages = () => {
   }, [])
 
   useEffect(() => {
-    username && socket.emit('setUsername', { _id: id, userName: username, image: user!.image, room: id })
+    username && socket.emit('setUsername', { userName: username, image: user!.image, room: id })
   }, [username])
 
   useEffect(() => {
@@ -117,7 +117,7 @@ const Messages = () => {
 
   const fetchPreviousMessages = useCallback(async () => {
     try {
-      let response = await fetch(ADDRESS + '/messages/' + room)
+      let response = await fetch(`${ADDRESS}/messages/room`)
       if (response) {
         let data = await response.json()
         // data is an array with all the current connected users

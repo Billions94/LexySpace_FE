@@ -18,7 +18,7 @@ const HotPosts = () => {
     const { posts } = useSelector((state: ReduxState) => state)
     // const { isLoading } = useSelector((state: ReduxState['data']) => state)
     const [seeMore, setSeeMore] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
    
 
    
@@ -31,9 +31,10 @@ const HotPosts = () => {
             const { posts } = await response.json()
             const newPost = posts.reverse()
             console.log('here is the post', newPost)
+            setIsLoading(true)
             setTimeout(() => {
                 setIsLoading(false)
-            }, 4000)
+            }, 2000)
             dispatch({
               type: GET_BLOGS,
               payload: newPost
@@ -47,7 +48,8 @@ const HotPosts = () => {
       const length = newPost.map(p => p)
 
       useEffect(() => {
-        getData()
+          getData()
+          dispatch(getPosts())
       }, [length.length])
 
       const toggle = () => {
