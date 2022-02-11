@@ -1,11 +1,12 @@
 #accordion {
     .card {
         border: none;
+        background: transparent;
     }
     .card>.card-header {
         border-radius: 0;
         margin-bottom: -1px;
-        background-color: white;
+        background-color: transparent;
         padding: 0px;
     }
     .card-body {
@@ -55,16 +56,42 @@
         font-size: 18px;
         line-height: 20px;
     }
+    h5 {
+        color: #dadada;
+    }
+
+    .form-control {
+        border: 1px solid #6e767d;
+        background: #020024;
+    }
+    
+    .form-control:focus {
+        background: #020024;
+        color: #dadada;
+        border: 2px solid #f91880;
+        box-shadow: none;
+    }
 }
 
 #listGroup {
+    border-radius: none;
+    h5 {
+        color: #dadada;
+    }
+    .list-group-item {
+        background: transparent;
+        border-top: 1px solid #24224a;
+        border-bottom: 1px solid #24224a;
+        border-radius: 0 !important;
+    }
     .profileInfo {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
     .accountAccess {
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        // border-bottom-left-radius: 10px;
+        // border-bottom-right-radius: 10px;
+        border-radius: 0;
     }
     .a-links {
         text-decoration: none;
@@ -79,18 +106,51 @@
         font-weight: 400;
         font-size: 32px;
         line-height: 40px;
+        color: #dadada;
     }
     .customListItem {
         border-top: none;
     }
 }
 
+#closeAccount {
+    .submitBtn {
+        border-radius: 20px;
+        background-color: transparent;
+        background-color: #f91880;
+        border: none;
+        color: white;
+        outline: none;
+        box-shadow: none;
+    }
+    .submitBtn:hover {
+       background-color: #e41575;
+    }
+    .submitBtn:focus {
+        box-shadow: none;
+    }
+
+    .form-control {
+        border: 1px solid #6e767d;
+        background: #020024;
+    }
+    
+    .form-control:focus {
+        background: #020024;
+        color: #dadada;
+        border: 2px solid #f91880;
+        box-shadow: none;
+    }
+}
+
 #form {
+    color: #dadada;
     .save-btn {
         border-radius: 20px;
         border: 1px solid black;
         background-color: transparent;
         color: black;
+        padding: 10px;
     }
     .save-btn:hover {
         background-color: antiquewhite;
@@ -155,20 +215,10 @@
     }
 }
 
-#closeAccount {
-    .submitBtn {
-        border-radius: 20px;
-        background-color: transparent;
-        background-color: #f91880;
-        border: none;
-        color: white;
-        outline: none;
-        box-shadow: none;
-    }
-    .submitBtn:hover {
-       background-color: #e41575;
-    }
-    .submitBtn:focus {
-        box-shadow: none;
-    }
+
+.settingsCol {
+    border-left: 1px solid #24224a;
+    border-right: 1px solid #24224a;
+    padding: 30px 0;
 }
+

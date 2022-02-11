@@ -89,59 +89,8 @@ const Settings = () => {
     dispatch(getUsersAction())
   },[])
   return (
-    <Row className="justify-content-center mt-4">
-      <Col md={3}>
-        <ListGroup.Item className='accountSett'>
-          <Accordion id="accordion">
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                  <div className="d-flex">
-                    <div className="mr-3">
-                      <img alt="" className="lrdimg" width="28px"
-                        src="https://img.icons8.com/ios/50/000000/edit-administrator.png"/>
-                    </div>
-                    <div className='customSetHeaders'>account Preferences</div>
-                  </div>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item className='listGroupLinks'>profile Information</ListGroup.Item>
-                    <ListGroup.Item className='listGroupLinks'>account Management</ListGroup.Item>
-                  </ListGroup>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
-        </ListGroup.Item>
-        <ListGroup.Item className='signInSecurity'> 
-          <Accordion id="accordion">
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                  <div className="d-flex">
-                    <div className="mr-3">
-                      <img alt="" className="lrdimg" width="28px"
-                        src="https://img.icons8.com/wired/50/000000/user-credentials.png"/>
-                    </div>
-                    <div className='customSetHeaders'>sign In & security</div>
-                  </div>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item className='listGroupLinks'>account Access</ListGroup.Item>
-                  </ListGroup>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
-        </ListGroup.Item>
-      </Col>
-      <Col md={7}>
+    <Row className="justify-content-center">
+      <Col className='settingsCol' md={7}>
         <ListGroup id="listGroup">
           <div className="profileInfo">
             <ListGroup.Item><h4 className="customh3">profile Information</h4></ListGroup.Item>
@@ -210,13 +159,12 @@ const Settings = () => {
                   <Form.Group controlId="blog-form" className="mt-3 formgroup">
                       <Form.Label>email Address</Form.Label>
                       <Form.Control
-                      size="sm"
+                      size="lg"
                       type="password"
                       value={user.confirmPassword}
                       onChange={(e) => setUser({...user, confirmPassword: e.target.value })}/>
                   </Form.Group>
-                  <Button size="lg" className="save-btn"
-                    variant="primary" style={{ marginLeft: "1em" }}
+                  <Button className="save-btn"
                     onClick={() => checkPasswords()}>
                     save
                   </Button>
@@ -258,7 +206,7 @@ const Settings = () => {
                         passwords do not match!
                       </Alert> : null
                     }
-                    <div>
+                    <div className="text-muted">
                     Create a new password that is at least 8 characters long.
                     </div>
                     <div>
@@ -287,7 +235,7 @@ const Settings = () => {
                   <Form.Group controlId="blog-form" className="mt-3 formgroup">
                       <Form.Label>password</Form.Label>
                       <Form.Control
-                      size="sm"
+                      size="lg"
                       type="password"
                       value={user.password}
                       onChange={(e) => setUser({...user, password: e.target.value })}/>
@@ -295,13 +243,12 @@ const Settings = () => {
                   <Form.Group controlId="blog-form" className="mt-3 formgroup">
                       <Form.Label>confirm Password</Form.Label>
                       <Form.Control
-                      size="sm"
+                      size="lg"
                       type="password"
                       value={user.confirmPassword}
                       onChange={(e) => setUser({...user, confirmPassword: e.target.value })}/>
                   </Form.Group>
-                  <Button size="lg" className="save-btn"
-                    variant="primary" style={{ marginLeft: "1em" }}
+                  <Button  className="save-btn"
                     onClick={() => checkPasswords()}>
                     save
                   </Button>

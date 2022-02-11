@@ -45,11 +45,11 @@ const CloseAccount = () => {
     <Row id='closeAccount' className="justify-content-center mt-5">
       <Col xs={4} sm={4} md={7}>
         <div>
-          <h4>{user.firstName} {user.lastName}, we are sorry to see you leave 😔</h4>
-          <p>are you sure you want to close your Account ?</p>
+          <h4 className="textColor">{user.firstName} {user.lastName}, we are sorry to see you leave 😔</h4>
+          <p className="textColor">are you sure you want to close your Account ?</p>
         </div>
         <div className="mt-5">
-            <h5>tell us why you are closing your account:</h5>
+            <h5 className="textColor">tell us why you are closing your account:</h5>
             <Form className="mt-3">
                 <input type="radio" id="age1" name="age" value="30"/>
                 <label htmlFor="age1" className="ml-1 text-muted"> Need time away from social media</label>
@@ -60,7 +60,7 @@ const CloseAccount = () => {
                 <input type="radio" id="age3" name="age" value="100"/>
                 <label htmlFor="age3" className="ml-1 text-muted"> Other</label>
                 <br/><br/>
-                <textarea className="form-control dmText"
+                <textarea className="form-control"
                     rows={4}
                     value={text}
                     onChange={(e) => setText(e.target.value)}/>

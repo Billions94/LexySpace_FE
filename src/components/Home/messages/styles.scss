@@ -102,9 +102,9 @@
 
     .dmText {
       border-radius: 20px;
-      border: 1px solid rgb(216, 215, 215) !important;
-      background-color: transparent;
-      color: black;
+      border: 1px solid #6e767d;
+      background: #020024;
+      color: #dadada;
       text-decoration: none;
       position: relative;
       display: block;
@@ -121,10 +121,12 @@
     // }
 
     .dmText:focus {
-      outline: none;
-      border: none;
+      background: #020024 !important;
+      color: #dadada;
+      border: 2px solid #f91880;
       box-shadow: none;
     }
+    
 
     .listofDM {
       height: 450px;

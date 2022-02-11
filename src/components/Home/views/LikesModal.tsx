@@ -96,7 +96,7 @@ const LikesModal = ({ likeShow, setLikeShow, post }: LikesModalProps) => {
                                             </span>
                                         }
                                     </h6>
-                                    <h6 className='username'>@{user?.userName}</h6>
+                                    <h6 className='text-muted username'>@{user?.userName}</h6>
                                     <h6 className='bio'>{user?.bio}</h6>
                                 </div>
                             </div>

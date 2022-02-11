@@ -32,7 +32,7 @@ const DeleteModal = ({ id, smShow, setSmShow, deleteBlogPost }: DeleteModalProps
           aria-labelledby="example-modal-sizes-title-sm">
           <Modal.Body className='m-auto'>
               <div>
-                  <h5>Delete Post?</h5>
+                  <h5 className="textColor">Delete Post?</h5>
                   <div className='text-muted'>
                   This can't be undone and it will be removed from your profile, the feed of any accounts that follow you.
                   </div>

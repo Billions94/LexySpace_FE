@@ -114,7 +114,7 @@ const Search = () => {
                                         </span>
                                     }
                                 </h6>
-                                <h6 className='username'>@{user.userName}</h6>
+                                <h6 className='username text-muted'>@{user.userName}</h6>
                                 <h6 className='bio'>{user.bio}</h6>
                             </div>
                         </div>

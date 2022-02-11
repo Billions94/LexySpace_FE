@@ -209,9 +209,9 @@
     width: 100%;
     height: 270px;
     pointer-events: auto;
-    background-color: #fff;
+    background: #020024;
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid #24224a;
     border-radius: 20px;
   }
 
@@ -247,7 +247,7 @@
   }
 
   .modalbtn-cancel:hover {
-    background-color: rgb(241, 241, 241);
+    background-color: rgb(238, 238, 238);
   }
 
   .modal-footer {
