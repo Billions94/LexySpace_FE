@@ -191,8 +191,7 @@ const Messages = () => {
 
   const notification = chatHistory.length > 0
 
-  const meDm = chatHistory.find(m => m.sender === user.userName)
-  //new
+
 
   return (
     <Container fluid className='customRowDm p-0'>
