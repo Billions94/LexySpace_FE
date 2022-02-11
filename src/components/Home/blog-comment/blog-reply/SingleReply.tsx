@@ -47,7 +47,8 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies }: SingleRepl
               <Link to={`userProfile/${reply.user._id}`}>
                 <div>
                   <Image
-                    className=" d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+                    className="rounded-circle g-mt-3 g-mr-15"
+                    width='37px' height='37px'
                     src={reply.user.image}
                     alt="Image Description"
                   />

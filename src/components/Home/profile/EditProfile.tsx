@@ -51,7 +51,7 @@ const EditProfile = ({ show, setShow, getUser }: EditProfileProps) => {
 
     return (
         <div>
-            <Modal id='editModal' size="lg" className="px-4" style={{ height: "500px" }}
+            <Modal id='editModal' size="lg" centered className="px-4" 
                 show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title >edit Profile</Modal.Title>

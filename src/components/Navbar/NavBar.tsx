@@ -93,14 +93,14 @@ const NavBar = () => {
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
-                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
+                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "20px"}}>
                 <br />
 
                   <div className="customLinks" onClick={() => navigate(`/home`)}>
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src="https://img.icons8.com/dotty/50/000000/home.png"/>
+                        <img alt='' className="lrdimg" width="20px"
+                          src="https://img.icons8.com/material/50/ffffff/home--v5.png"/>
                       </div>
                       <div>home</div>
                     </div>
@@ -109,8 +109,8 @@ const NavBar = () => {
                   <div className="customLinks" onClick={() => navigate("/messages")}>
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'  
-                          src="https://img.icons8.com/carbon-copy/50/000000/chat-message.png"/>
+                        <img alt='' className='lrdimg' width='20px'  
+                          src="https://img.icons8.com/ios-filled/50/ffffff/communication.png"/>
                       </div>
                       <div>messages</div>
                     </div>
@@ -119,8 +119,8 @@ const NavBar = () => {
                   <div className="customLinks" onClick={() => navigate(`/userProfile/${id}`)}>
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src={"https://img.icons8.com/wired/50/000000/user.png"}/>
+                        <img alt='' className="lrdimg" width="20px"
+                          src="https://img.icons8.com/ios-filled/50/ffffff/administrator-male--v1.png"/>
                       </div>
                       <div>goTo Profile</div>
                     </div>
@@ -129,8 +129,8 @@ const NavBar = () => {
                   <div className="customLinks" onClick={() => navigate(`/settings`)}>
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'  
-                          src="https://img.icons8.com/wired/50/000000/settings.png"/>
+                        <img alt='' className='lrdimg' width='20px'  
+                          src="https://img.icons8.com/ios-glyphs/50/ffffff/settings--v1.png"/>
                       </div>
                       <div>settings</div>
                     </div>
@@ -139,8 +139,8 @@ const NavBar = () => {
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'
-                          src="https://img.icons8.com/dotty/50/000000/logout-rounded.png"/>
+                        <img alt='' className='lrdimg' width='20px'
+                          src="https://img.icons8.com/ios-filled/50/ffffff/logout-rounded.png"/>
                       </div>
                       <div>signOut</div>
                     </div>
@@ -168,14 +168,14 @@ const NavBar = () => {
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
-                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
+                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "20px"}}>
                 <br />
 
                   <div className="customLinks" onClick={() => navigate(`/home`)}>
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src="https://img.icons8.com/dotty/50/000000/home.png"/>
+                        <img alt='' className="lrdimg" width="20px"
+                          src="https://img.icons8.com/material/50/ffffff/home--v5.png"/>
                       </div>
                       <div>home</div>
                     </div>
@@ -184,8 +184,8 @@ const NavBar = () => {
                   <div className="customLinks" onClick={() => navigate(`/userProfile/${id}`)}>
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src={"https://img.icons8.com/wired/50/000000/user.png"}/>
+                        <img alt='' className="lrdimg" width="20px"
+                          src="https://img.icons8.com/ios-filled/50/ffffff/administrator-male--v1.png"/>
                       </div>
                       <div>goTo Profile</div>
                     </div>
@@ -194,8 +194,8 @@ const NavBar = () => {
                   <div className="customLinks" onClick={() => navigate(`/settings`)}>
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'  
-                          src="https://img.icons8.com/wired/50/000000/settings.png"/>
+                        <img alt='' className='lrdimg' width='20px'  
+                          src="https://img.icons8.com/ios-glyphs/50/ffffff/settings--v1.png"/>
                       </div>
                       <div>settings</div>
                     </div>
@@ -204,8 +204,8 @@ const NavBar = () => {
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'
-                          src="https://img.icons8.com/dotty/50/000000/logout-rounded.png"/>
+                        <img alt='' className='lrdimg' width='20px'
+                          src="https://img.icons8.com/ios-filled/50/ffffff/logout-rounded.png"/>
                       </div>
                       <div>signOut</div>
                     </div>
@@ -231,13 +231,13 @@ const NavBar = () => {
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
-                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
+                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "20px"}}>
                 <br />
                   <div className="customLinks" onClick={() => route()}>
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src="https://img.icons8.com/dotty/50/000000/home.png"/>
+                        <img alt='' className="lrdimg" width="20px"
+                          src="https://img.icons8.com/material/50/ffffff/home--v5.png"/>
                       </div>
                       <div>home</div>
                     </div>
@@ -246,8 +246,8 @@ const NavBar = () => {
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'
-                          src="https://img.icons8.com/dotty/50/000000/logout-rounded.png"/>
+                        <img alt='' className='lrdimg' width='20px'
+                          src="https://img.icons8.com/ios-filled/50/ffffff/logout-rounded.png"/>
                       </div>
                       <div>signOut</div>
                     </div>
@@ -273,13 +273,13 @@ const NavBar = () => {
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
-                    <Dropdown.Menu id='dropdwnMenu' style={{ borderRadius: "20px", padding: "18px"}}>
+                    <Dropdown.Menu id='dropdwnMenu' style={{ borderRadius: "20px", padding: "20px"}}>
                 <br />
                   <Link to={"/home"} className="deleteBlog">
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src="https://img.icons8.com/dotty/50/000000/home.png"/>
+                        <img alt='' className="lrdimg" width="20px"
+                          src="https://img.icons8.com/material/50/ffffff/home--v5.png"/>
                       </div>
                       <div>home</div>
                     </div>
@@ -288,8 +288,8 @@ const NavBar = () => {
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'
-                          src="https://img.icons8.com/dotty/50/000000/logout-rounded.png"/>
+                        <img alt='' className='lrdimg' width='20px'
+                          src="https://img.icons8.com/ios-filled/50/ffffff/logout-rounded.png"/>
                       </div>
                       <div>signOut</div>
                     </div>
@@ -351,13 +351,13 @@ const NavBar = () => {
                   <Avatar className="d-block avatar" alt="" src={user!.image}
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
-                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "18px"}}>
+                    <Dropdown.Menu style={{ borderRadius: "20px", padding: "20px"}}>
                 <br />
                   <div className="customLinks" onClick={() => route()}>
                     <div style={{marginTop: "-20px"}} className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src="https://img.icons8.com/dotty/50/000000/home.png"/>
+                        <img alt='' className="lrdimg" width="20px"
+                          src="https://img.icons8.com/material/50/ffffff/home--v5.png"/>
                       </div>
                       <div>home</div>
                     </div>
@@ -366,8 +366,8 @@ const NavBar = () => {
                   <div className="customLinks" onClick={() => navigate("/messages")}>
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'  
-                          src="https://img.icons8.com/carbon-copy/50/000000/chat-message.png"/>
+                        <img alt='' className='lrdimg' width='20px'  
+                          src="https://img.icons8.com/ios-filled/50/ffffff/communication.png"/>
                       </div>
                       <div>messages</div>
                     </div>
@@ -376,8 +376,8 @@ const NavBar = () => {
                   <div className="customLinks" onClick={() => navigate(`/userProfile/${id}`)}>
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className="lrdimg" width="17px"
-                          src={"https://img.icons8.com/wired/50/000000/user.png"}/>
+                        <img alt='' className="lrdimg" width="20px"
+                          src="https://img.icons8.com/ios-filled/50/ffffff/administrator-male--v1.png"/>
                       </div>
                       <div>goTo Profile</div>
                     </div>
@@ -386,8 +386,8 @@ const NavBar = () => {
                   <div className="customLinks" onClick={() => navigate("/settings")}>
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'  
-                          src="https://img.icons8.com/wired/50/000000/settings.png"/>
+                        <img alt='' className='lrdimg' width='20px'  
+                          src="https://img.icons8.com/ios-glyphs/50/ffffff/settings--v1.png"/>
                       </div>
                       <div>settings</div>
                     </div>
@@ -396,8 +396,8 @@ const NavBar = () => {
                   <div onClick={() => customFunc()} className="customLinks">
                     <div className="d-flex">
                       <div className="mr-3">
-                        <img alt='' className='lrdimg' width='18px'
-                          src="https://img.icons8.com/dotty/50/000000/logout-rounded.png"/>
+                        <img alt='' className='lrdimg' width='20px'
+                          src="https://img.icons8.com/ios-filled/50/ffffff/logout-rounded.png"/>
                       </div>
                       <div>signOut</div>
                     </div>

@@ -95,7 +95,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
 
     return(
         <>
-        <Modal id='shareModal' show={show} onHide={handleClose} animation={false}>
+        <Modal id='shareModal' centered show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
           <Modal.Title>Share</Modal.Title>
         </Modal.Header>

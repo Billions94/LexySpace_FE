@@ -103,8 +103,7 @@ const Edit = ({ id, refresh, setRefresh }: EditProps) => {
           <img alt=''
             className="lrdimg"
             width="17px"
-            src="https://img.icons8.com/ios/50/000000/edit--v1.png"
-          />
+            src="https://img.icons8.com/ios-filled/50/ffffff/edit--v1.png"/>
         </div>
         
         <div className="primary" onClick={handleShow}>
@@ -114,7 +113,7 @@ const Edit = ({ id, refresh, setRefresh }: EditProps) => {
         </div>
         
 
-        <Modal id='postModal' size="lg" className="px-4" style={{height: "500px", overflow: "auto"}}
+        <Modal id='postModal' centered className="px-4" animation={true}
          show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title >edit Post</Modal.Title>

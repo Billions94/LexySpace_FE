@@ -126,7 +126,7 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
 
   return (
     <>
-    <Modal id='postModal' show={show} onHide={handleClose} animation={true}>
+    <Modal id='postModal' centered show={show} onHide={handleClose} animation={true}>
       <Modal.Header closeButton>
         <Modal.Title>Post a comment</Modal.Title>
       </Modal.Header>

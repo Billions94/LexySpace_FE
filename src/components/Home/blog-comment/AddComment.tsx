@@ -98,7 +98,7 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
           <div className='textareaborder'>
             <textarea className="form-control textarea"
               rows={2}
-              placeholder="start typing to share your thoughts...."
+              placeholder="Write a comment...."
               value={comments.text}
               onChange={(e) => setComments({ ...comments, text: e.target.value })} />
           </div>

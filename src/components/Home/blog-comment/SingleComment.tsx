@@ -44,6 +44,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
               text: "",
               user: user!._id
             })
+            setShow(false)
             getReplies()
             fetchComments()
           }
@@ -144,35 +145,37 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
               </span>
             </div>
           </div>
-          { show === false ? null :
-            <div className='reply'>
-            <Link to={`/userProfile/${user._id}`}>
-              <div className='mt-2'> 
-                <Image roundedCircle src={user.image} alt=''
-                  width={37} height={37} />
-              </div>
-            </Link>
-              <div className="p-2 w-100">
-                <textarea className='form-control replyarea'
-                  rows={1}
-                  value={reply.text}
-                  onChange={(e) => setReply({ ...reply, text: e.target.value })} />
-                <div className="mt-2 d-flex">
-                  {!reply.text ? null :
-                    <button className="btn btn-sm modal-btn ml-auto"
-                      onClick={() => replyComment(comment)}>
-                      <i className="fa fa-pencil fa-fw" /> Reply
-                    </button>
-                  }
-                </div>
-              </div>
-            </div>
-          }
 
           <Reply
             blog={blog}
             comment={comment}
             commentID={comment._id} />
+
+            { show === false ? null :
+              <div className='reply'>
+              <Link to={`/userProfile/${user._id}`}>
+                <div className='mt-2'> 
+                  <Image roundedCircle src={user.image} alt=''
+                    width={37} height={37} />
+                </div>
+              </Link>
+                <div className="p-2 w-100">
+                  <textarea className='form-control replyarea'
+                    rows={1}
+                    value={reply.text}
+                    placeholder="Write a reply..."
+                    onChange={(e) => setReply({ ...reply, text: e.target.value })} />
+                  <div className="mt-2 d-flex">
+                    {!reply.text ? null :
+                      <button className="btn btn-sm modal-btn ml-auto"
+                        onClick={() => replyComment(comment)}>
+                        <i className="fa fa-pencil fa-fw" /> Reply
+                      </button>
+                    }
+                  </div>
+                </div>
+              </div>
+            }
         </div>
       </div>
     )

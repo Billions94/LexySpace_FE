@@ -1,4 +1,11 @@
+.modal-backdrop.show {
+  background-color: #627484 ;
+}
+
 #postModal {
+  .modal-backdrop.show.fade {
+    background-color: #627484 ;
+  }
   position: relative;
   display: flex;
   flex-direction: column;

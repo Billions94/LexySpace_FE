@@ -119,7 +119,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
 
   return (
     <>
-      <Modal id='postModal'  show={show} onHide={handleClose} animation={false}>
+      <Modal id='postModal' centered  show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
           <Modal.Title>start A Post</Modal.Title>
         </Modal.Header>

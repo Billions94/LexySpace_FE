@@ -145,18 +145,14 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
                 className="lrdimg" width='17px' alt=''  /> */}
             </Dropdown.Toggle>
             <Dropdown.Menu className='dropdownmenu'>
-              <br />
-
-              <a className="customLinks"
-                href={`${apiUrl}/posts/${_id}/downloadPDF`}>
-                <div
-                  style={{ marginTop: "-20px" }}
-                  className="d-flex">
+    
+              <a href={`${apiUrl}/posts/${_id}/downloadPDF`}>
+                <div className="d-flex customLinks">
                   <div className="mr-3">
                     <img alt=''
                       className="lrdimg"
                       width="17px"
-                      src="https://img.icons8.com/ios/50/000000/circled-down.png" />
+                      src="https://img.icons8.com/ios-filled/50/ffffff/circled-down.png"/>
                   </div>
                   <div >
                     download pdf

@@ -208,22 +208,17 @@ const Blog = () => {
                   src="https://img.icons8.com/android/50/000000/more.png" /> */}
               </Dropdown.Toggle>
               <Dropdown.Menu
-                className='dropDownMenu'
-                style={{ padding: "18px", borderRadius: "25px", border: "1px solid rgb(216, 215, 215)" }}>
-                <br />
-
-                <a className="deleteBlog customLinks"
+                className='dropDownMenu'>
+                <a className="deleteBlog"
                   href={`${url}/${id}/downloadPDF`}>
-                  <div
-                    style={{ marginTop: "-20px" }}
-                    className="d-flex">
+                  <div className="d-flex customLinks">
                     <div className="mr-3">
                       <img alt=''
                         className="lrdimg"
                         width="17px"
-                        src="https://img.icons8.com/ios/50/000000/circled-down.png" />
+                        src="https://img.icons8.com/ios-filled/50/ffffff/circled-down.png"/>
                     </div>
-                    <div >
+                    <div className="">
                       download pdf
                     </div>
                   </div>
