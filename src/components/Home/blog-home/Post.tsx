@@ -134,7 +134,7 @@ const PostContainer = () => {
                             <textarea className="form-control textarea"
                                 rows={2}
                                 placeholder="start typing to share your thoughts...."
-                                value={post.text && chosenEmoji}
+                                value={post.text}
                                 onChange={(e) => setPost({ ...post, text: e.target.value })} />
                         </div>
                         <div className="d-flex sharebtn">
