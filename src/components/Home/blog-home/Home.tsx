@@ -64,16 +64,9 @@ const Home = () => {
 
 
   useEffect(() => {
-    dispatch(getPosts())
     getData()
+    dispatch(getPosts())
     dispatch(getUsersAction())
-    /*scroller.scrollTo('postSectionInner', {
-      // duration: 1000,
-      delay: 0,
-      smooth: true,
-      offset: -150,
-  })*/
-    // dispatch(getPosts())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reroute])
 

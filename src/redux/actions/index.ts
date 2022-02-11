@@ -53,12 +53,6 @@ export const getPosts = () => {
                 type: GET_BLOGS,
                 payload: newPost
               })
-            //   setTimeout(() => {
-            //     dispatch({
-            //         type: TOGGLE_LOADER,
-            //         payload: false
-            //     })
-            // }, 2000)
             } else throw new Error('Could not get post')
           } catch (error) {
             console.log(error)

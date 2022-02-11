@@ -12,7 +12,7 @@
 .customInput {
   border-radius: 50px !important;
   padding-left: 15px;
-  background-color: whitesmoke;
+  color: #dadada;
   border: none;
   background: #24224a;
 }
@@ -21,7 +21,7 @@
   box-shadow: none;
   outline: 1px solid #f91880;
   background: #24224a;
-  color: white;
+  color: #dadada;
   border-color: rgb(216, 215, 215)
 }
 .customInput:active {
@@ -49,7 +49,7 @@
 .containerMod {
   border-radius: 25px;
   background-color: transparent;
-  color: black;
+  color: #dadada !important;
   height: 366px;
   width: 650px !important;
 }
@@ -117,10 +117,10 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-image: var(--gradient);
+  background: #24224a;
+  /* background-image: var(--gradient); */
   border-radius: 25px;
   opacity: 0.8;
-  box-shadow: -5px 5px 1px rgb(216, 215, 215);
 }
 
 .date-container1 {
@@ -606,10 +606,12 @@
     resize: none;
     border: none;
     background: #24224a;
+    color: #dadada;
   }
   .taskList:focus {
     outline: 1px solid #f91880;
     box-shadow: none;
+    color: #dadada;
     border-color: rgb(216, 215, 215)
   }
   .taskList:active {
