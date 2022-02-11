@@ -220,7 +220,7 @@ const Messages = () => {
                   </div>
                   {notification && chatHistory.find(m => m.sender === user.userName) &&
                     <div className='ml-auto'>
-                      <img src="https://img.icons8.com/glyph-neue/50/000000/new.png" alt='' width='25px' />
+                      <img src="https://img.icons8.com/ios-glyphs/50/ffffff/new.png" alt='' width='25px' />
                     </div>
                   }
                 </div>
@@ -282,7 +282,7 @@ const Messages = () => {
                             <img src={message.image}
                               className="roundpic" alt='' width={37} height={37} />
                             <div className="ml-2 dmUserName">
-                              <p className="dmBubble m-0">{message.text}</p>
+                              <p className="dmBubble1 m-0">{message.text}</p>
                               <h1 className='h1'>{new Date(message.timestamp).toLocaleTimeString('en-US')}</h1>
                             </div>
                           </div>

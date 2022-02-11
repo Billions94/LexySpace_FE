@@ -1,24 +1,26 @@
 #dmContainer {
-  background: url('https://desenio.de/bilder/artiklar/zoom/12307_2.jpg?imgwidth=435&qt=');
-  background-repeat: repeat;
-  background-position: -80px;
+  // background: url('https://desenio.de/bilder/artiklar/zoom/12307_2.jpg?imgwidth=435&qt=');
+  // background-repeat: repeat;
+  // background-position: -80px;
 
     .customCol1 {
-      border-right: 1px solid rgb(226, 226, 226);
-      border-left: 1px solid rgb(226, 226, 226);
-      border-top: 1px solid rgb(226, 226, 226);
-      border-bottom: 1px solid rgb(226, 226, 226);
+      border-right: 1px solid #24224a;
+      border-left: 1px solid #24224a;
+      // border-top: 1px solid #24224a;
+      border-bottom: 1px solid #24224a;
       // border-top-left-radius: 20px;
-      background-color: white;
+      background-color: transparent;
+      color: #dadada;
       padding: 0;
     }
     .customCol2 {
-      border-right: 1px solid rgb(226, 226, 226);
-      border-top: 1px solid rgb(226, 226, 226);
-      border-bottom: 1px solid rgb(226, 226, 226);
+      border-right: 1px solid #24224a;
+      // border-top: 1px solid #24224a;
+      border-bottom: 1px solid #24224a;
       // border-top-right-radius: 20px;
       // border-bottom-right-radius: 20px;
-      background-color: white;
+      background-color: transparent;
+      color: #dadada;
       padding: 0;
     }
 
@@ -176,13 +178,13 @@
     }
 
     .dmHeader {
-      border-bottom: 1px solid rgb(216, 215, 215);
+      border-bottom: 1px solid #24224a;
       padding-top: 10px;
       padding-bottom: 10px;
     }
 
     .dmHeader1 {
-      border-bottom: 1px solid rgb(216, 215, 215);
+      border-bottom: 1px solid #24224a;
       padding-top: 10px;
       padding-bottom: 10px;
       padding: 11px;
@@ -263,7 +265,7 @@
 
     #input-container {
       position: relative;
-      border-bottom: 1px solid rgb(216, 215, 215);
+      border-bottom: 1px solid #24224a;
     }
 
     #textArea-container {
@@ -319,7 +321,14 @@
     // }
 
     .dmBubble {
-      border: 1px solid rgb(226, 226, 226) !important;
+      border: 1px solid #24224a !important;
+      border-radius: 20px !important;
+      padding: 10px;
+      width: 100%;
+    }
+
+    .dmBubble1 {
+      background: #24224a !important;
       border-radius: 20px !important;
       padding: 10px;
       width: 100%;
