@@ -70,20 +70,20 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reroute])
 
-  console.log(value)
-
-  const isHome = location.pathname === "/home"
+  // const isHome = location.pathname === "/home"
   useEffect(() => {
-    console.log(isHome)
+    // console.log(isHome)
 
     window.addEventListener("scroll", (event) => {
-      console.log(window.scrollY)
+      // console.log(window.scrollY)
       setValue(window.scrollY)
     })
 
     window.scrollTo({ top: value, behavior: "smooth" })
 
   }, [reroute])
+
+  console.log(hideMe)
 
   return posts && (
     <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">
@@ -96,7 +96,7 @@ const Home = () => {
               style={{ cursor: 'pointer' }} >
                 <div className="text-muted sidebarFont">Weather</div>
               <div className="ml-auto">
-              { hideMe === false ?
+              {hideMe === false ?
                 <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
                   width='27px' height='27px' />
                 :
@@ -112,7 +112,7 @@ const Home = () => {
               style={{ cursor: 'pointer' }}>
                 <div className="text-muted sidebarFont">NotePad</div>
               <div className="ml-auto">
-              { hideTask === false ?
+              {hideTask === false ?
                 <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
                   width='27px' height='27px' />
                 :

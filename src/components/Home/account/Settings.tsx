@@ -93,7 +93,7 @@ const Settings = () => {
       <Col className='settingsCol' md={7}>
         <ListGroup id="listGroup">
           <div className="profileInfo">
-            <ListGroup.Item><h4 className="customh3">profile Information</h4></ListGroup.Item>
+            <ListGroup.Item><h4 className="customh3">Profile information</h4></ListGroup.Item>
             <ListGroup.Item>
               {/* <a href={`${feUrl}/userProfile/me`} className="a-links"> */}
                 <div onClick={()=> navigate(`/userProfile/${me}`)}
@@ -105,33 +105,33 @@ const Settings = () => {
                       others
                     </p>
                   </div>
-                  <div>Change</div>
+                  <div className='change'>Change</div>
                 </div>
               {/* </a> */}
             </ListGroup.Item>
           </div>
           <div className="">
             <ListGroup.Item className="customListItem">
-              <h4 className="customh3">account Management</h4>
+              <h4 className="customh3">Account management</h4>
             </ListGroup.Item>
             <ListGroup.Item>
               {/* <a href={`${feUrl}/closeAccount`} className="a-links"> */}
                 <div onClick={()=> navigate(`/closeAccount`)}
                     className="d-flex a-links justify-content-between">
                   <div>
-                    <h5>close and Delete account</h5>
+                    <h5>Close and delete account</h5>
                     <p className="text-muted">
                       learn about your options and decide if you want to delete your account
                     </p>
                   </div>
-                  <div>Change</div>
+                  <div className='change'>Change</div>
                 </div>
               {/* </a> */}
             </ListGroup.Item>
           </div>
           <div className="accountAccess">
             <ListGroup.Item className="customListItem">
-              <h4 className="customh3">account Access</h4>
+              <h4 className="customh3">Account access</h4>
             </ListGroup.Item>
             <ListGroup.Item className='py-0 px-1'>
             <Accordion id="accordion">
@@ -140,12 +140,12 @@ const Settings = () => {
                 <Accordion.Toggle as={Button} variant="link" eventKey="0">
                   <div className="d-flex justify-content-between">
                     <div>
-                      <h5 className="text-left">email Addresses</h5>
+                      <h5 className="text-left">Email Addresses</h5>
                       <p className="text-muted">
                         add or remove email addresses on your account.
                       </p>
                     </div>
-                    <div>Change</div>
+                    <div className='change'>Change</div>
                   </div>
                 </Accordion.Toggle>
               </Card.Header>
@@ -157,7 +157,7 @@ const Settings = () => {
                     </div>
                   <Form id='form'>
                   <Form.Group controlId="blog-form" className="mt-3 formgroup">
-                      <Form.Label>email Address</Form.Label>
+                      <Form.Label>Email address</Form.Label>
                       <Form.Control
                       size="lg"
                       type="password"
@@ -182,12 +182,12 @@ const Settings = () => {
                 <Accordion.Toggle as={Button} variant="link" eventKey="0">
                   <div className="d-flex justify-content-between">
                     <div>
-                      <h5 className="text-left">password</h5>
+                      <h5 className="text-left">Password</h5>
                       <p className="text-muted">
-                        change Your Password
+                        Change Your Password
                       </p>
                     </div>
-                    <div>Change</div>
+                    <div className="change">Change</div>
                   </div>
                 </Accordion.Toggle>
               </Card.Header>
@@ -197,20 +197,20 @@ const Settings = () => {
                     {
                       alert === true ?   
                       <Alert className="alert" variant='success'>
-                        password successfully changed!
+                        Password successfully changed!
                       </Alert> : null
                     }
                     {
                       match === true ?   
                       <Alert className="alert" variant='warning'>
-                        passwords do not match!
+                        Passwords do not match!
                       </Alert> : null
                     }
                     <div className="text-muted">
                     Create a new password that is at least 8 characters long.
                     </div>
                     <div>
-                    <img src="https://img.icons8.com/fluency-systems-filled/50/000000/security-shield-green.png" width='20px'/>
+                    <img src="https://img.icons8.com/ios-glyphs/50/ffffff/privacy.png" width='20px'/>
                       <OverlayTrigger
                           trigger="click"
                           placement='bottom' 
@@ -226,14 +226,14 @@ const Settings = () => {
                               <span className='customSpan'>It <strong>should not</strong> contain your name, phone number or email address</span>
                             </Popover.Content>
                           </Popover>}>
-                      <Button className='overlay-btn ml-2'>
-                        <span>What makes a strong password?</span>
+                      <Button className='overlay-btn'>
+                        <span className="text-muted">What makes a strong password?</span>
                       </Button>
                     </OverlayTrigger>
                     </div>
                   <Form id='form'>
                   <Form.Group controlId="blog-form" className="mt-3 formgroup">
-                      <Form.Label>password</Form.Label>
+                      <Form.Label>Password</Form.Label>
                       <Form.Control
                       size="lg"
                       type="password"
@@ -241,7 +241,7 @@ const Settings = () => {
                       onChange={(e) => setUser({...user, password: e.target.value })}/>
                   </Form.Group>
                   <Form.Group controlId="blog-form" className="mt-3 formgroup">
-                      <Form.Label>confirm Password</Form.Label>
+                      <Form.Label>Confirm password</Form.Label>
                       <Form.Control
                       size="lg"
                       type="password"

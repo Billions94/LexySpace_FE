@@ -58,6 +58,9 @@
     }
     h5 {
         color: #dadada;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 20px;
     }
 
     .form-control {
@@ -77,6 +80,9 @@
     border-radius: none;
     h5 {
         color: #dadada;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 20px;
     }
     .list-group-item {
         background: transparent;
@@ -103,8 +109,8 @@
         color: black;
     }
     .customh3 {
-        font-weight: 400;
-        font-size: 32px;
+        font-weight: 500;
+        font-size: 25px;
         line-height: 40px;
         color: #dadada;
     }
@@ -148,12 +154,12 @@
     .save-btn {
         border-radius: 20px;
         border: 1px solid black;
-        background-color: transparent;
+        background-color: rgb(238, 238, 238);
         color: black;
-        padding: 10px;
+        padding: 6px 15px;
     }
     .save-btn:hover {
-        background-color: antiquewhite;
+        background-color: #dadada;
     }
     .formgroup {
         width: 60%;
@@ -222,3 +228,6 @@
     padding: 30px 0;
 }
 
+.change {
+    color: #dadada
+}

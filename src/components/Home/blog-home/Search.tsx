@@ -77,7 +77,7 @@ const Search = () => {
         dispatch(followAction(false))
     }
 
-    console.log(xUser?._id)
+
 
     useEffect(() => {
         getUsers()

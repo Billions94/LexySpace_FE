@@ -99,7 +99,11 @@ const Messages = () => {
       setChatHistory((chatHistory) => [...chatHistory, newMessage])
     })
 
+    
     return () => {
+      socket.on('disconnect', () => {
+        fetchOnlineUsers()
+      })
       socket.disconnect()
     }
 
@@ -108,9 +112,13 @@ const Messages = () => {
   useEffect(() => {
     username && socket.emit('setUsername', { userName: username, image: user!.image, room: id })
   }, [username])
+  
+  const trigger = (id: string) => {
+    navigate(`/messages/${id}`)
+    // setRoom(id)  
+  }
 
   useEffect(() => {
-    setRoom(id)
     setLoggedIn(true)
   }, [])
 
@@ -208,7 +216,7 @@ const Messages = () => {
             {onlineUsers.length > 0 ? <div>{onlineUsers.length - 1} user online</div> : <>No user online</>}
             <ListGroup variant={'flush'} className="mt-3 customList">
               {onlineUsers.filter(u => u.userName !== user.userName).map((user, i) => (
-                <div onClick={() => navigate(`/messages/${user.socketId}`)}
+                <div onClick={() => trigger(user.socketId)}
                   key={i} className="dmHeader  d-flex">
                   <img src={user.image}
                     className="roundpic" alt='' width={37} height={37} />
@@ -263,7 +271,7 @@ const Messages = () => {
                 <span>{new Date(message.timestamp).toLocaleTimeString('en-US')}</span>
               </div> */}
                     {
-                      i % 2 !== 0 ?
+                      user!.userName !== message.sender ?
                         <>
                           <div className='d-flex'>
                             <img src={message.image}
