@@ -324,19 +324,28 @@
       border: 1px solid #24224a !important;
       border-radius: 20px !important;
       padding: 10px;
-      width: 100%;
+      max-width: 263px;
+      word-wrap: break-word;
     }
 
     .dmBubble1 {
       background: #24224a !important;
       border-radius: 20px !important;
       padding: 10px;
-      width: 100%;
+      max-width: 263px;
+      word-wrap: break-word;
     }
 
     .h1 {
       font-weight: 600;
       font-size: 12px;
+      text-align: start;
+    }
+
+    .h2 {
+      font-weight: 600;
+      font-size: 12px;
+      text-align: end;
     }
 
     .replyBubble {

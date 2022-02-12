@@ -39,7 +39,6 @@ const Register = () => {
   }, [])
   // Register and create new user account
   const register = async (props: FormikProps) => {
-    setLoading(true)
     const response = await fetch(`${beUrl}/users/register`, {
       method: 'POST',
       body: JSON.stringify(props),

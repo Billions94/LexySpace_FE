@@ -25,11 +25,15 @@ const EditNewUser = () => {
         location: '',
     })
     const [image, setImage] = useState('')
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [alert, setAlert] = useState(false)
 
     useEffect(() => {
         dispatch(getUsersAction())
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
     }, [])
 
     const target = (e: any) => {
@@ -53,7 +57,6 @@ const EditNewUser = () => {
     const sumbit = async () => {
         if (image) {
             try {
-                setLoading(true)
                 const token = localStorage.getItem('accessToken')
                 const response = await fetch(`${apiUrl}/users/me`, {
                     method: 'PUT',
@@ -73,6 +76,7 @@ const EditNewUser = () => {
                             headers: { Authorization: `Bearer ${token}` }
                         })
                         if (uploadpic.ok) {
+                            setLoading(true)
                             setTimeout(() => {
                                 setLoading(false)
                                 navigate('/home')
@@ -87,7 +91,6 @@ const EditNewUser = () => {
             }
         } else {
             try {
-                setLoading(true)
                 const token = localStorage.getItem('accessToken')
                 const response = await fetch(`${apiUrl}/users/me`, {
                     method: 'PUT',
@@ -98,6 +101,7 @@ const EditNewUser = () => {
                     }
                 })
                 if (response.ok) {
+                    setLoading(true)
                     setTimeout(() => {
                         setLoading(false)
                         navigate('/home')
@@ -120,7 +124,7 @@ const EditNewUser = () => {
                 <div className='welcome1 text-center mb-3'>Edit your User Profile <img src="https://img.icons8.com/fluency/50/ffffff/user-male-circle.png" alt='' height='48px' width='48px' /></div>
                 {loading === false ?
                     <Form noValidate className='newUserForm'>
-                        {alert ?
+                        {alert === true ?
                         <div className="text-center">
                             <img src='https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif' height='38px' width='38px' alt='' />
                         </div> :

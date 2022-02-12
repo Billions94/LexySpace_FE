@@ -37,6 +37,7 @@ const Messages = () => {
   const [room, setRoom] = useState<Room | undefined>('')
   const [media, setMedia] = useState<string>('')
   const [input, setInput] = useState({ text: '' })
+  const [isTyping, setIsTyping] = useState('')
 
 
   console.log('we are the user id', userId)
@@ -94,11 +95,16 @@ const Messages = () => {
       })
     })
 
+    socket.on('typing', (room: string) => {
+      console.log('user is typing')
+      setIsTyping(room)
+
+    })
+
     socket.on('message', (newMessage: IMessage) => {
       console.log('a new message appeared!')
       setChatHistory((chatHistory) => [...chatHistory, newMessage])
     })
-
     
     return () => {
       socket.on('disconnect', () => {
@@ -113,10 +119,7 @@ const Messages = () => {
     username && socket.emit('setUsername', { userName: username, image: user!.image, room: id })
   }, [username])
   
-  const trigger = (id: string) => {
-    navigate(`/messages/${id}`)
-    // setRoom(id)  
-  }
+  
 
   useEffect(() => {
     setLoggedIn(true)
@@ -195,11 +198,14 @@ const Messages = () => {
 
   const reciever = onlineUsers.find(user => user.socketId === id)
   const index = onlineUsers.findIndex(u => u.userName === user.userName)
-  console.log('index', index)
-
   const notification = chatHistory.length > 0
+  const typer = chatHistory.find(m => m.sender === user!.userName)
+ 
 
-
+  const trigger = () => {
+    setRoom(id)  
+    socket.emit('typing', {room: id} )
+  }
 
   return (
     <Container fluid className='customRowDm p-0'>
@@ -216,7 +222,7 @@ const Messages = () => {
             {onlineUsers.length > 0 ? <div>{onlineUsers.length - 1} user online</div> : <>No user online</>}
             <ListGroup variant={'flush'} className="mt-3 customList">
               {onlineUsers.filter(u => u.userName !== user.userName).map((user, i) => (
-                <div onClick={() => trigger(user.socketId)}
+                <div onClick={() => navigate(`/messages/${user.socketId}`)}
                   key={i} className="dmHeader  d-flex">
                   <img src={user.image}
                     className="roundpic" alt='' width={37} height={37} />
@@ -261,15 +267,6 @@ const Messages = () => {
               <div className='customDmBody mt-3'>
                 {chatHistory.map((message, i) => (
                   <div key={i} className="d-flex">
-                    {/* <div>
-                <img src={message.image} 
-                className="roundpic" alt=''   width={37} height={37}/>
-              </div>  
-              <div className="ml-2 dmUserName">
-                <strong>{message.sender}</strong>
-                <p className="dmBubble ml-2">{message.text}</p>
-                <span>{new Date(message.timestamp).toLocaleTimeString('en-US')}</span>
-              </div> */}
                     {
                       user!.userName !== message.sender ?
                         <>
@@ -286,11 +283,9 @@ const Messages = () => {
                         :
                         <div style={{ marginLeft: 'auto' }}>
                           <div className='d-flex'>
-                            <img src={message.image}
-                              className="roundpic" alt='' width={37} height={37} />
                             <div className="ml-2 dmUserName">
                               <p className="dmBubble1 m-0">{message.text}</p>
-                              <h1 className='h1'>{new Date(message.timestamp).toLocaleTimeString('en-US')}</h1>
+                              <h1 className='h2'>{new Date(message.timestamp).toLocaleTimeString('en-US')}</h1>
                             </div>
                           </div>
                         </div>
@@ -298,8 +293,10 @@ const Messages = () => {
                   </div>
                 ))}
               </div>
-              <div className="textAreaDm">
 
+                {message && typer?.sender && <div className='mb-2 ml-2'>{typer?.sender} is typing....</div>}
+
+              <div className="textAreaDm">
                 <div id='textArea-container' className="panel-body">
                   <svg id='input-icon1' xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="#f91880" className="bi bi-emoji-smile ml-2" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -325,7 +322,7 @@ const Messages = () => {
                   <Form.Control className="form-control dmText search"
                     placeholder="Message..."
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)} />
+                    onChange={(e) => {setMessage(e.target.value); trigger()}} />
                 </div>
               </div>
             </div>
