@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { followAction, getFollowersAction, getPosts } from "../../../redux/actions";
 import { User } from "../../../redux/interfaces";
 import { ReduxState } from "../../../redux/interfaces"
+import { defaultAvatar } from "../../../redux/store";
 
 interface UserInfoProps {
   show: boolean
@@ -81,7 +82,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
         <div className="d-flex">
           <div id='userDetails' onClick={()=> navigate(`/userProfile/${props?._id}`)}
               style={{cursor: 'pointer'}}>
-            <img src={props?.image} alt="" className="roundpic" width={47} height={47} />
+            <img src={props?.image ? props?.image : defaultAvatar} alt="" className="roundpic" width={47} height={47} />
             <div className="">
               <h5 className="userDetails mb-0">
                 {props?.firstName} {props?.lastName}

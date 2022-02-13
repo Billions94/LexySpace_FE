@@ -6,7 +6,7 @@ import EditProfile from "./EditProfile"
 import UpdateImage from "./UpdateImage"
 import { useDispatch, useSelector } from "react-redux"
 import { followAction, getFollowersAction, getPosts } from "../../../redux/actions"
-import { getUsersAction } from "../../../redux/actions"
+import { defaultCover, defaultAvatar } from "../../../redux/store"
 import { ReduxState, User } from "../../../redux/interfaces"
 import Recentposts from "./recentPost/RecentPosts"
 import Cover from "./Cover"
@@ -14,7 +14,6 @@ import "./styles.scss"
 import Loader from "../loader/Loader"
 import Footer from "../../footer/Footer"
 
-const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/images.asianage.com/images/aa-Cover-mj9i8cmdi35dsqiqgumar4cu74-20170925171720.Medi.jpeg'
 
 const UserProfile = () => {
 
@@ -131,14 +130,10 @@ const UserProfile = () => {
               <div id="jinx"  className="d-flex px-4 col-lg-10">
 
                 <div className="imgDiv ml5">
-                  { user.image === undefined || null ? 
-                    <Image roundedCircle id="profile-pic" onClick={handlePic}
-                    src='https://cdn-icons-png.flaticon.com/512/3508/3508549.png'
-                    alt="ProfilePicture" width="130" height="130"/> : 
-                  <Image roundedCircle id="profile-pic" onClick={handlePic} 
-                    src={user.image}
+                  { <Image roundedCircle id="profile-pic" onClick={handlePic} 
+                    src={user.image ? user.image : defaultAvatar}
                     alt="ProfilePicture" width="130" height="130"/>
-                    }
+                  }
                     
                 <div>
                 <div className="nameHeader ">{user.firstName} {user.lastName}</div>

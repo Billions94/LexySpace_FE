@@ -94,17 +94,6 @@ const NavBar = () => {
                         sx={{ width: 34, height: 34, marginLeft: "-14px", marginTop: "-8px"}} />
                     </Dropdown.Toggle>
                     <Dropdown.Menu style={{ borderRadius: "20px", padding: "20px"}}>
-                <br />
-
-                  <div className="customLinks" onClick={() => navigate(`/home`)}>
-                    <div style={{marginTop: "-20px"}} className="d-flex">
-                      <div className="mr-3">
-                        <img alt='' className="lrdimg" width="20px"
-                          src="https://img.icons8.com/material/50/ffffff/home--v5.png"/>
-                      </div>
-                      <div>home</div>
-                    </div>
-                  </div>
 
                   <div className="customLinks" onClick={() => navigate("/messages")}>
                     <div className="d-flex">

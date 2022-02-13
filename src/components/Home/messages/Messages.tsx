@@ -40,11 +40,11 @@ const Messages = () => {
   const [isTyping, setIsTyping] = useState('')
 
 
-  console.log('we are the user id', userId)
-
+  
   const navigate = useNavigate()
   const { id } = useParams()
-
+  
+  console.log('we are the user id', id)
   const dispatch = useDispatch()
   const { user } = useSelector((state: ReduxState) => state.data)
   const [users, setUsers] = useState<User | null>(null)
@@ -95,10 +95,8 @@ const Messages = () => {
       })
     })
 
-    socket.on('typing', (room: string) => {
+    socket.on('typing', (data: string) => {
       console.log('user is typing')
-      setIsTyping(room)
-
     })
 
     socket.on('message', (newMessage: IMessage) => {
@@ -204,7 +202,7 @@ const Messages = () => {
 
   const trigger = () => {
     setRoom(id)  
-    socket.emit('typing', {room: id} )
+    socket.emit('typing', {userName: username})
   }
 
   return (

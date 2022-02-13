@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { getFollowersAction } from "../../../../redux/actions"
 import { ReduxState, User } from "../../../../redux/interfaces"
+import { defaultAvatar, defaultCover } from "../../../../redux/store"
 import FollowersList from "./FollowersList"
 import './styles.scss'
 
@@ -52,10 +53,10 @@ const Followers = () => {
           {user && 
             <div className="userInfo" >
               <div className="position-relative w-100">
-                <img className="userCov" src={user.cover} alt='' width='59px' />
+                <img className="userCov" src={user.cover ? user.cover : defaultCover} alt='' width='59px' />
               </div>
               <div className="userImgContainer">
-                <img className="userImg" src={user.image} alt='' width='59px' />
+                <img className="userImg" src={user.image ? user.image : defaultAvatar} alt='' width='59px' />
                 {user.followers.length > 1 ?
                 <h6 className='text-center mb-3'>{user.firstName} {user.lastName}'s followers</h6>
                 :

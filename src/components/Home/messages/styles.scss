@@ -33,7 +33,7 @@
       width: 100%;
       border-radius: 20px;
       border: none;
-      padding: 0 43px;
+      padding: 0 50px;
       transition: ease-in-out 0.3s;
     }
 
@@ -104,7 +104,7 @@
 
     .dmText {
       border-radius: 20px;
-      border: 1px solid #6e767d;
+      border: 1px solid #24224a;
       background: #020024;
       color: #dadada;
       text-decoration: none;
@@ -195,7 +195,7 @@
     }
 
     .customDmBody {
-      height: 56.5vh;
+      height: 64vh;
       overflow-y: scroll;
       padding-right: 15px;
       
@@ -286,8 +286,8 @@
 
     #input-icon1 {
       position: absolute;
-      bottom: 8px;
-      left: 7px;
+      bottom: 10px;
+      left: 10px;
       width: 22px;
       height: 22px;
       font-weight: bolder;
@@ -326,6 +326,7 @@
       padding: 10px;
       max-width: 263px;
       word-wrap: break-word;
+      
     }
 
     .dmBubble1 {
@@ -334,6 +335,7 @@
       padding: 10px;
       max-width: 263px;
       word-wrap: break-word;
+      
     }
 
     .h1 {

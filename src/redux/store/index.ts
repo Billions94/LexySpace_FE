@@ -7,7 +7,8 @@ import usersReducer from "../reducers/dataReducer"
 import postsReducer from "../reducers/postsReducer"
 import { Posts, ReduxState, User } from "../interfaces"
 
-const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/images.asianage.com/images/aa-Cover-mj9i8cmdi35dsqiqgumar4cu74-20170925171720.Medi.jpeg'
+export const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/images.asianage.com/images/aa-Cover-mj9i8cmdi35dsqiqgumar4cu74-20170925171720.Medi.jpeg'
+export const defaultAvatar: string = 'https://cdn-icons-png.flaticon.com/512/3508/3508549.png'
 
 
 const ghost = process.env.REACT_APP_SECRET_KEY!

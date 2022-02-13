@@ -1,23 +1,21 @@
 import { Container, Dropdown, Image, Col, Badge, Button, Row } from "react-bootstrap"
-import { useNavigate, Link, useParams } from "react-router-dom"
 import { useState, useEffect, Dispatch, SetStateAction } from "react"
+import { Posts, Comments, User, ReduxState } from "../../../redux/interfaces"
+import { getPosts, likeAction, reRouteAction } from "../../../redux/actions"
+import { useNavigate, Link, useParams } from "react-router-dom"
+import useAuthGuard, { postTimer } from "../../../lib/index"
+import { useSelector, useDispatch } from "react-redux"
+import { defaultAvatar } from "../../../redux/store"
 import Comment from "../blog-comment/Comment"
 import AddComment from "../blog-comment/AddComment"
 import Edit from "../blog-home/new/EditPost"
-import useAuthGuard, { postTimer } from "../../../lib/index"
-import { useSelector, useDispatch } from "react-redux"
 import Loader from "../loader/Loader"
-import { ReduxState } from "../../../redux/interfaces"
-import { Posts, Comments, User } from "../../../redux/interfaces"
-import "./styles.scss"
 import ShareModal from "./SharedModal"
-import { getPosts, likeAction, loaderAction, reRouteAction } from "../../../redux/actions"
 import ViewModal from "./ViewModal"
-import UserInfo from "../blog-author/UserInfo"
 import DeleteModal from "../blog-item/DeleteModal"
-import { Element, scroller } from 'react-scroll'
 import LikesModal from "./LikesModal"
-// import UserInfo from "../blog-author/UserInfo"
+import "./styles.scss"
+
 
 
 interface BlogProps {
@@ -258,7 +256,7 @@ const Blog = () => {
                   <Link to={`/userProfile/${author?._id}`}>
                     <Image style={{ width: "60px", height: "60px" }}
                       className="blog-author authorDetails"
-                      src={author?.image}
+                      src={author?.image ? author?.image : defaultAvatar}
                       roundedCircle />
                   </Link>
                 </div>

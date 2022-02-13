@@ -5,6 +5,7 @@ import { postTimer } from "../../../lib/index"
 import UserInfo from "./UserInfo"
 import "./styles.scss"
 import { User } from "../../../redux/interfaces"
+import { defaultAvatar } from "../../../redux/store"
 
 
  const BlogAuthor = (props: User) => {
@@ -34,7 +35,7 @@ import { User } from "../../../redux/interfaces"
               <Image
                 style={{ width: "50px", height: "50px" }}
                 className="blog-author authorDetails"
-                src={image}
+                src={image ? image : defaultAvatar}
                 roundedCircle
               />
                 <div  style={{marginLeft: "10px"}}>
