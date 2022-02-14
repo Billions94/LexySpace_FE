@@ -22,19 +22,21 @@ const Search = () => {
 
     function filter (query: string) {
         const filteredUser = users.filter(user => {
-            return (user.firstName || user.lastName || user.userName).toLowerCase().includes(query.toLowerCase())
+            return user!.firstName!.toLowerCase().includes(query.toLowerCase())
         })
         setUsers(filteredUser)
     }
 
     const getUsers = async () => {
-        try {
-            const { data } = await API.get<User[]>(`/users?name=${input}`)
-            if (data) {
-                setUsers(data)
-            } else throw new Error('could not get users')
-        } catch (error) {
-            console.log(error)
+        if(input) {
+            try {
+                const { data } = await API.get<User[]>(`/users?name=${input}`)
+                if (data) {
+                    setUsers(data)
+                } else throw new Error('could not get users')
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 

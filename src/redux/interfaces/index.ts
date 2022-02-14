@@ -61,6 +61,21 @@ export interface Replies {
     createdAt: Date
 }
 
+export interface Rooms {
+    _id: string
+    members: User[] 
+}
+
+export interface Message {
+    roomId?: string
+    receiver?: string | undefined
+    text: string
+    image?: string
+    media?: string
+    sender: string
+    socketId?: string
+    createdAt: number
+}
 export interface Cover {
     coverId: string
 }

@@ -1,18 +1,17 @@
-import { Container, Row, Col, Form, FormControl, ListGroup } from 'react-bootstrap'
-import { Button, Dropdown, ListGroupItem } from 'react-bootstrap'
+import { Container, Row, Col, Form, ListGroup } from 'react-bootstrap'
 import { useState, useEffect, FormEvent, useMemo, useCallback, createRef } from 'react'
 import { io } from 'socket.io-client'
-import { IHome } from "../../../interfaces/IHome"
 import IMessage from '../../../interfaces/IMessage'
-import { UserId } from '../../../interfaces/UserID'
 import { IUser } from '../../../interfaces/IUser'
-import { Room } from '../../../interfaces/Room'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getUsersAction } from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { ReduxState, User } from '../../../redux/interfaces'
+import { Message, ReduxState, Rooms, User } from '../../../redux/interfaces'
 import useAuthGuard from "../../../lib/index"
 import "./styles.scss"
+import API from '../../../lib/API'
+import Convo from './Conversations'
+import { isConstructorDeclaration } from 'typescript'
 
 
 const ADDRESS = process.env.REACT_APP_GET_URL!
@@ -28,35 +27,52 @@ const Messages = () => {
   useAuthGuard()
 
   const apiUrl = process.env.REACT_APP_GET_URL
+
+  const navigate = useNavigate()
+
+  const { id } = useParams()
+
+  const dispatch = useDispatch()
+
+  const { user } = useSelector((state: ReduxState) => state.data)
+
+  const me = user!._id
+
   const [username, setUsername] = useState<string | undefined>('')
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [message, setMessage] = useState('')
-  const [onlineUsers, setOnlineUsers] = useState<IUser[]>([])
-  const [chatHistory, setChatHistory] = useState<IMessage[]>([])
-  const [userId, setUserId] = useState<UserId | undefined>('')
-  const [room, setRoom] = useState<Room | undefined>('')
+
+  const [room, setRoom] = useState<string>('')
+
   const [media, setMedia] = useState<string>('')
-  const [input, setInput] = useState({ text: '' })
+
+  // const [input, setInput] = useState({ text: '' })
   const [isTyping, setIsTyping] = useState('')
 
+  const [onlineUsers, setOnlineUsers] = useState<IUser[]>([])
 
-  
-  const navigate = useNavigate()
-  const { id } = useParams()
-  
-  console.log('we are the user id', id)
-  const dispatch = useDispatch()
-  const { user } = useSelector((state: ReduxState) => state.data)
-  const [users, setUsers] = useState<User | null>(null)
+  const [message, setMessage] = useState('')
+
+  const [currentChat, setCurrentChat] = useState<Rooms | null>(null)
+
+  const [chatHistory, setChatHistory] = useState<Message[]>([])
+
+  const [conversation, setConversation] = useState<Rooms[]>([])
+
+  const [users, setUsers] = useState<User[] | null>(null)
+
+  const [arrivalMessage, setArrivalMessage] = useState<Message | null>(null)
+
+  const scrollRef = createRef<HTMLDivElement>()
+
+
 
   const getAllUsers = async () => {
     try {
       const token = localStorage.getItem('accessToken')
       const response = await fetch(`${apiUrl}/users`, {
-        headers: { Authorization: `Bearer ${token}`}
+        headers: { Authorization: `Bearer ${token}` }
       })
-      if(response.ok) {
-        const data: User = await response.json()
+      if (response.ok) {
+        const data: User[] = await response.json()
         console.log(' i am the data', data)
         setUsers(data)
       } else throw new Error('Could not get users from the server :(')
@@ -65,11 +81,37 @@ const Messages = () => {
     }
   }
 
-  console.log(users)
 
   const socket = useMemo(() => {
     return io(ADDRESS, { transports: ['websocket'] })
   }, [])
+
+  useEffect(() => {
+    const getConversation = async () => {
+      try {
+        const { data } = await API.get<Rooms[]>(`/rooms/${me}`)
+        console.log(data)
+        setConversation(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getConversation()
+  }, [me])
+
+  useEffect(() => {
+    const getMessages = async () => {
+      try {
+        const { data } = await API.get<Message[]>(`/messages/${currentChat?._id}`)
+        if (data) {
+          setChatHistory(data)
+        } else throw new Error('Could not get messages')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getMessages()
+  }, [currentChat])
 
   useEffect(() => {
     getAllUsers()
@@ -95,15 +137,27 @@ const Messages = () => {
       })
     })
 
-    socket.on('typing', (data: string) => {
-      console.log('user is typing')
+    socket.on('getUsers', (users) => {
+      console.log(users)
     })
 
-    socket.on('message', (newMessage: IMessage) => {
+    socket.on('typing', (data: string) => {
+      console.log(data, 'user is typing')
+      setIsTyping(data)
+
+    })
+
+    socket.on('message', (newMessage: Message) => {
       console.log('a new message appeared!')
       setChatHistory((chatHistory) => [...chatHistory, newMessage])
     })
-    
+
+    socket.on('getMessage', (data: Message) => {
+      console.log(data)
+      setArrivalMessage(data)
+    })
+
+
     return () => {
       socket.on('disconnect', () => {
         fetchOnlineUsers()
@@ -113,31 +167,34 @@ const Messages = () => {
 
   }, [])
 
-  useEffect(() => {
-    username && socket.emit('setUsername', { userName: username, image: user!.image, room: id })
-  }, [username])
-  
-  
+
+  console.log(chatHistory)
 
   useEffect(() => {
-    setLoggedIn(true)
-  }, [])
+    arrivalMessage &&
+      setChatHistory(prev =>[...prev, arrivalMessage])
+  }, [arrivalMessage, currentChat])
+
+  useEffect(() => {
+    username && socket.emit('setUsername', { userId: me, userName: username, image: user!.image })
+  }, [username])
 
 
   const fetchPreviousMessages = useCallback(async () => {
     try {
-      let response = await fetch(`${ADDRESS}/messages/room`)
+      let response = await fetch(`${ADDRESS}/rooms`)
       if (response) {
         let data = await response.json()
+        console.log('_________>', data)
         // data is an array with all the current connected users
-        setChatHistory(data.chatHistory)
+        setChatHistory(data)
       } else {
         console.log('error fetching the online users')
       }
     } catch (error) {
       console.log(error)
     }
-  }, [room])
+  }, [chatHistory])
 
   useEffect(() => {
     socket.on("loggedin", fetchPreviousMessages)
@@ -148,22 +205,42 @@ const Messages = () => {
 
   console.log(username)
 
-  const handleMessageSubmit = (e: FormEvent) => {
+
+  const handleMessageSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    const newMessage: IMessage = {
+    const receiverID = currentChat?.members.find(m => m._id !== me)
+
+    const newMessage: Message = {
+      roomId: currentChat?._id,
       text: message,
-      sender: username,
+      sender: me,
+      receiver: receiverID?._id,
       image: user.image,
       media: media,
-      socketId: socket.id,
-      timestamp: Date.now(), // <-- ms expired 01/01/1970
+      createdAt: Date.now(),
     }
 
-    socket.emit('sendmessage', { message: newMessage, room: id })
-    setChatHistory([...chatHistory, newMessage])
-    setMessage('')
+    
+    try {
+      const { data } = await API.post(`/messages`, newMessage)
+      if (data) {
+        setChatHistory([...chatHistory, data])
+        setMessage('')
+      } else throw new Error('Could not send message :(')
+    } catch (error) {
+      console.log(error)
+    }
+    socket.emit('sendmessage', { message: newMessage })
+   
   }
+
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chatHistory])
+
+  console.log(chatHistory)
 
   const fetchOnlineUsers = async () => {
     try {
@@ -196,14 +273,15 @@ const Messages = () => {
 
   const reciever = onlineUsers.find(user => user.socketId === id)
   const index = onlineUsers.findIndex(u => u.userName === user.userName)
-  const notification = chatHistory.length > 0
-  const typer = chatHistory.find(m => m.sender === user!.userName)
- 
+  const notification = chatHistory && chatHistory.length > 0
+  const typer = chatHistory && chatHistory.find(m => m.sender === user!.userName)
+
 
   const trigger = () => {
-    setRoom(id)  
-    socket.emit('typing', {userName: username})
+    // setRoom(id)
+    socket.emit('typing', { room: id })
   }
+
 
   return (
     <Container fluid className='customRowDm p-0'>
@@ -219,7 +297,7 @@ const Messages = () => {
           <div className="listofDM mt-4">
             {onlineUsers.length > 0 ? <div>{onlineUsers.length - 1} user online</div> : <>No user online</>}
             <ListGroup variant={'flush'} className="mt-3 customList">
-              {onlineUsers.filter(u => u.userName !== user.userName).map((user, i) => (
+              {/* {onlineUsers.filter(u => u.userName !== user.userName).map((user, i) => (
                 <div onClick={() => navigate(`/messages/${user.socketId}`)}
                   key={i} className="dmHeader  d-flex">
                   <img src={user.image}
@@ -235,6 +313,11 @@ const Messages = () => {
                     </div>
                   }
                 </div>
+              ))} */}
+              {conversation && conversation.map((room, i) => (
+                <div onClick={() => setCurrentChat(room)}>
+                  <Convo key={i} room={room} currentUser={user} />
+                </div>
               ))}
             </ListGroup>
           </div>
@@ -242,7 +325,7 @@ const Messages = () => {
 
 
         <Col className="mr-auto customCol2" sm={7} md={6} lg={5}>
-          {!reciever ? null :
+          {/* {!reciever ? null :
             <div className="dmHeader1 d-flex">
               <img src={reciever!.image}
                 className="roundpic" alt='' width={37} height={37} />
@@ -250,23 +333,21 @@ const Messages = () => {
                 <span>{reciever!.userName}</span>
               </div>
             </div>
-          }
+          } */}
 
-          {!reciever ?
+          {!chatHistory ?
             <div className='d-flex beforeConvo mt-2'>
               <div className='text-muted px-3 mt-2'>
                 <span className='noMessages'>No Messages :(</span>
               </div>
-            </div> : null
-          }
+            </div> :
 
-          {!reciever ? null :
             <div className='messageBody'>
               <div className='customDmBody mt-3'>
                 {chatHistory.map((message, i) => (
-                  <div key={i} className="d-flex">
+                  <div ref={scrollRef} key={i} className="d-flex">
                     {
-                      user!.userName !== message.sender ?
+                      user._id !== message.sender ?
                         <>
                           <div className='d-flex'>
                             <img src={message.image}
@@ -274,7 +355,7 @@ const Messages = () => {
                             <div className="ml-2 dmUserName">
                               <p className="dmBubble m-0">{message.text}
                               </p>
-                              <h1 className='h1'>{new Date(message.timestamp).toLocaleTimeString('en-US')}</h1>
+                              <h1 className='h1'>{new Date(message.createdAt).toLocaleTimeString('en-US')}</h1>
                             </div>
                           </div>
                         </>
@@ -283,7 +364,7 @@ const Messages = () => {
                           <div className='d-flex'>
                             <div className="ml-2 dmUserName">
                               <p className="dmBubble1 m-0">{message.text}</p>
-                              <h1 className='h2'>{new Date(message.timestamp).toLocaleTimeString('en-US')}</h1>
+                              <h1 className='h2'>{new Date(message.createdAt).toLocaleTimeString('en-US')}</h1>
                             </div>
                           </div>
                         </div>
@@ -292,7 +373,7 @@ const Messages = () => {
                 ))}
               </div>
 
-                {message && typer?.sender && <div className='mb-2 ml-2'>{typer?.sender} is typing....</div>}
+              {message && typer?.sender && <div className='mb-2 ml-2'>{typer?.sender} is typing....</div>}
 
               <div className="textAreaDm">
                 <div id='textArea-container' className="panel-body">
@@ -320,11 +401,13 @@ const Messages = () => {
                   <Form.Control className="form-control dmText search"
                     placeholder="Message..."
                     value={message}
-                    onChange={(e) => {setMessage(e.target.value); trigger()}} />
+                    onChange={(e) => { setMessage(e.target.value); trigger() }} />
                 </div>
               </div>
             </div>
+
           }
+
         </Col>
 
       </Row>
