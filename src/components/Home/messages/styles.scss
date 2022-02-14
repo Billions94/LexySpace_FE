@@ -25,8 +25,9 @@
     }
 
     .dmUserName {
-      font-weight: 600;
+      font-weight: 500;
       font-size: 16px;
+      align-self: center;
     }
 
     .search {
@@ -131,8 +132,14 @@
     
 
     .listofDM {
-      height: 450px;
+      // height: 450px;
       overflow-y: scroll;
+      padding: 12px;
+      border-top: 1px solid #24224a;
+    }
+
+    .conversations {
+      align-items: flex-end;
       padding: 12px;
     }
 
@@ -178,7 +185,7 @@
     }
 
     .dmHeader {
-      border-bottom: 1px solid #24224a;
+      // border-bottom: 1px solid #24224a;
       padding-top: 10px;
       padding-bottom: 10px;
     }
@@ -201,9 +208,6 @@
       
     }
 
-    .dmUserName {
-      align-self: center;
-    }
 
     .customSetDrop:focus-within {
       background-color: transparent !important;
@@ -306,9 +310,9 @@
       z-index: 11;
     }
 
-    // .customList {
-    //   border-radius: 20px !important;
-    // }
+    .customList {
+      border: none !important;
+    }
 
 
     // .customRowDm {
@@ -369,5 +373,36 @@
       line-height: 20px;
     }
 
-}
+    
+    #onlineUserContainer {
+      padding: 12px;
+      border-bottom: 1px solid #24224a;
+      background: #24224a;
+      .username {
+        font-weight: 300;
+        font-size: 13px;
+      }
+      .onlineIcon {
+        position: relative;
+      }
+      .onlineBadge {
+        position: absolute;
+        top: 120px;
+        left: 38px;
+        img {
+          border: 1px solid #24224a;
+          border-radius: 50%;
+        }
+      }
+    }
 
+    #convo {
+      .textHolder{
+        .msgtext {
+          font-weight: 400;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  

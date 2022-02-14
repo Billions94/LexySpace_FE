@@ -10,8 +10,9 @@ import { Message, ReduxState, Rooms, User } from '../../../redux/interfaces'
 import useAuthGuard from "../../../lib/index"
 import "./styles.scss"
 import API from '../../../lib/API'
-import Convo from './Conversations'
+import Convo from './Conversation'
 import { isConstructorDeclaration } from 'typescript'
+import OnlineUsers from './OnlineUsers'
 
 
 const ADDRESS = process.env.REACT_APP_GET_URL!
@@ -99,6 +100,8 @@ const Messages = () => {
     getConversation()
   }, [me])
 
+  console.log(currentChat)
+
   useEffect(() => {
     const getMessages = async () => {
       try {
@@ -137,8 +140,8 @@ const Messages = () => {
       })
     })
 
-    socket.on('getUsers', (users) => {
-      console.log(users)
+    socket.on('getUsers', (users: IUser[]) => {
+      setOnlineUsers(users)
     })
 
     socket.on('typing', (data: string) => {
@@ -149,13 +152,14 @@ const Messages = () => {
 
     socket.on('message', (newMessage: Message) => {
       console.log('a new message appeared!')
+      // setArrivalMessage(newMessage)
       setChatHistory((chatHistory) => [...chatHistory, newMessage])
     })
 
-    socket.on('getMessage', (data: Message) => {
-      console.log(data)
-      setArrivalMessage(data)
-    })
+    // socket.on('getMessage', (data: Message) => {
+    //   console.log(data)
+    //   setArrivalMessage(data)
+    // })
 
 
     return () => {
@@ -170,10 +174,10 @@ const Messages = () => {
 
   console.log(chatHistory)
 
-  useEffect(() => {
-    arrivalMessage &&
-      setChatHistory(prev =>[...prev, arrivalMessage])
-  }, [arrivalMessage, currentChat])
+  // useEffect(() => {
+  //   arrivalMessage &&
+  //     setChatHistory(prev => [...prev, arrivalMessage])
+  // }, [arrivalMessage, currentChat])
 
   useEffect(() => {
     username && socket.emit('setUsername', { userId: me, userName: username, image: user!.image })
@@ -185,8 +189,8 @@ const Messages = () => {
       let response = await fetch(`${ADDRESS}/rooms`)
       if (response) {
         let data = await response.json()
-        console.log('_________>', data)
         // data is an array with all the current connected users
+        console.log('this is data', data)
         setChatHistory(data)
       } else {
         console.log('error fetching the online users')
@@ -194,7 +198,7 @@ const Messages = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [chatHistory])
+  }, [currentChat])
 
   useEffect(() => {
     socket.on("loggedin", fetchPreviousMessages)
@@ -202,8 +206,6 @@ const Messages = () => {
     return () => { socket.off("loggedin", fetchPreviousMessages) }
   }, [fetchPreviousMessages])
 
-
-  console.log(username)
 
 
   const handleMessageSubmit = async (e: FormEvent) => {
@@ -221,18 +223,18 @@ const Messages = () => {
       createdAt: Date.now(),
     }
 
-    
+    socket.emit('sendmessage', { message: newMessage })
+
     try {
       const { data } = await API.post(`/messages`, newMessage)
       if (data) {
-        setChatHistory([...chatHistory, data])
+        setChatHistory((chatHistory) =>[...chatHistory, data])
         setMessage('')
       } else throw new Error('Could not send message :(')
     } catch (error) {
       console.log(error)
     }
-    socket.emit('sendmessage', { message: newMessage })
-   
+
   }
 
 
@@ -275,13 +277,17 @@ const Messages = () => {
   const index = onlineUsers.findIndex(u => u.userName === user.userName)
   const notification = chatHistory && chatHistory.length > 0
   const typer = chatHistory && chatHistory.find(m => m.sender === user!.userName)
+ 
 
 
   const trigger = () => {
-    // setRoom(id)
     socket.emit('typing', { room: id })
   }
 
+  const multiTask = (room: Rooms, id: string | undefined) => {
+    navigate(`/messages/${id}`)
+    setCurrentChat(room)
+  }
 
   return (
     <Container fluid className='customRowDm p-0'>
@@ -294,29 +300,25 @@ const Messages = () => {
 
           <div id="input-container" className="panel-body"></div>
 
-          <div className="listofDM mt-4">
-            {onlineUsers.length > 0 ? <div>{onlineUsers.length - 1} user online</div> : <>No user online</>}
+          <OnlineUsers
+            onlineUsers={onlineUsers}
+            currentUser={user}
+            setCurrentChat={setCurrentChat} />
+
+            <div className=''>
+              <div className='conversations d-flex'>
+              <div>Conversations ( {conversation.length} )</div>
+              <div className='ml-auto'>
+                <img src='https://assets.website-files.com/5d015870ec9646043c2f3127/5ebc2a49a428098290267716_ezgif.com-optimize%20(18).gif' alt='' width='25px' />
+              </div>
+              </div>
+            </div>
+
+          <div className="listofDM">
             <ListGroup variant={'flush'} className="mt-3 customList">
-              {/* {onlineUsers.filter(u => u.userName !== user.userName).map((user, i) => (
-                <div onClick={() => navigate(`/messages/${user.socketId}`)}
-                  key={i} className="dmHeader  d-flex">
-                  <img src={user.image}
-                    className="roundpic" alt='' width={37} height={37} />
-                  <div className="ml-2 dmUserName">
-                    <div>{user.userName}</div>
-                    <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
-                      width={10} height={10} />
-                  </div>
-                  {notification && chatHistory.find(m => m.sender === user.userName) &&
-                    <div className='ml-auto'>
-                      <img src="https://img.icons8.com/ios-glyphs/50/ffffff/new.png" alt='' width='25px' />
-                    </div>
-                  }
-                </div>
-              ))} */}
               {conversation && conversation.map((room, i) => (
-                <div onClick={() => setCurrentChat(room)}>
-                  <Convo key={i} room={room} currentUser={user} />
+                <div onClick={() => multiTask(room, reciever?._id)}>
+                  <Convo key={i} room={room} currentUser={user} currentChat={currentChat} chatHistory={chatHistory}/>
                 </div>
               ))}
             </ListGroup>
@@ -325,7 +327,7 @@ const Messages = () => {
 
 
         <Col className="mr-auto customCol2" sm={7} md={6} lg={5}>
-          {/* {!reciever ? null :
+          {!reciever ? null :
             <div className="dmHeader1 d-flex">
               <img src={reciever!.image}
                 className="roundpic" alt='' width={37} height={37} />
@@ -333,7 +335,7 @@ const Messages = () => {
                 <span>{reciever!.userName}</span>
               </div>
             </div>
-          } */}
+          }
 
           {!chatHistory ?
             <div className='d-flex beforeConvo mt-2'>

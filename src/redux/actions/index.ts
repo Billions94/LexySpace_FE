@@ -27,12 +27,6 @@ export const getUsersAction = () => {
                     type: GET_USERS,
                     payload: data
                 })
-                // setTimeout(() => {
-                //     dispatch({
-                //         type: TOGGLE_LOADER,
-                //         payload: false
-                //     })
-                // }, 4000)
             } else {
                 throw new Error("Roger we've got a problem")
             }
