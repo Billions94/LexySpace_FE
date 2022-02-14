@@ -60,7 +60,7 @@ const Messages = () => {
 
   const [users, setUsers] = useState<User[] | null>(null)
 
-  const [arrivalMessage, setArrivalMessage] = useState<Message | null>(null)
+  const [arrivalMessage, setArrivalMessage] = useState<any | null>(null)
 
   const scrollRef = createRef<HTMLDivElement>()
 
@@ -150,16 +150,12 @@ const Messages = () => {
 
     })
 
-    socket.on('message', (newMessage: any) => {
-      console.log('a new message appeared!', newMessage)
-      // setArrivalMessage(newMessage)
+    socket.on('message', (newMessage) => {
+      console.log('a new message appeared!', newMessage.sender)
+      setArrivalMessage(newMessage.message)
       setChatHistory((chatHistory) => [...chatHistory, newMessage.message])
     })
 
-    // socket.on('getMessage', (data: Message) => {
-    //   console.log(data)
-    //   setArrivalMessage(data)
-    // })
 
 
     return () => {
@@ -172,12 +168,12 @@ const Messages = () => {
   }, [])
 
 
-  console.log(chatHistory)
+  console.log(arrivalMessage)
 
-  // useEffect(() => {
-  //   arrivalMessage &&
-  //     setChatHistory(prev => [...prev, arrivalMessage])
-  // }, [arrivalMessage, currentChat])
+  useEffect(() => {
+    arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+      setChatHistory(prev => [...prev, arrivalMessage])
+  }, [arrivalMessage, currentChat])
 
   useEffect(() => {
     username && socket.emit('setUsername', { userId: me, userName: username, image: user!.image })

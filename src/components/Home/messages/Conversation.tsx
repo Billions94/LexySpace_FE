@@ -33,7 +33,7 @@ export default function Convo({ room, currentUser, chatHistory, currentChat }: R
                                 {room!._id === message!.roomId &&
                                 <> 
                                 {i === chatHistory.length -1 && 
-                                    <span className='text-light msgtext'>{message.text}</span>
+                                    <p className='text-light msgtext'>{message.text}</p>
                                 }
                                 </>
                                 }

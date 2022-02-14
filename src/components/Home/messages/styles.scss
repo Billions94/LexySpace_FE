@@ -399,8 +399,13 @@
     #convo {
       .textHolder{
         .msgtext {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
           font-weight: 400;
           font-size: 13px;
+          line-height: 20px;
+          max-width: 237px;
         }
       }
     }
