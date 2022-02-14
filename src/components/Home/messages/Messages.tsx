@@ -150,10 +150,10 @@ const Messages = () => {
 
     })
 
-    socket.on('message', (newMessage: Message) => {
-      console.log('a new message appeared!')
+    socket.on('message', (newMessage: any) => {
+      console.log('a new message appeared!', newMessage)
       // setArrivalMessage(newMessage)
-      setChatHistory((chatHistory) => [...chatHistory, newMessage])
+      setChatHistory((chatHistory) => [...chatHistory, newMessage.message])
     })
 
     // socket.on('getMessage', (data: Message) => {

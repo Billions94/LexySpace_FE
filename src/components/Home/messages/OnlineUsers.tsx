@@ -8,7 +8,6 @@ import API from "../../../lib/API"
 interface OnlineUsersProps {
     onlineUsers: IUser[]
     currentUser: User
-    // setCurrentChat: Dispatch<SetStateAction<Rooms | null>>
     setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void
 }
 
