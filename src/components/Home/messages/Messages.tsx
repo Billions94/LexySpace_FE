@@ -65,7 +65,6 @@ const Messages = () => {
       })
       if (response.ok) {
         const data: User[] = await response.json()
-        console.log(' i am the data', data)
         setUsers(data)
       } else throw new Error('Could not get users from the server :(')
     } catch (error) {
@@ -82,7 +81,6 @@ const Messages = () => {
     const getConversation = async () => {
       try {
         const { data } = await API.get<Rooms[]>(`/rooms/${me}`)
-        console.log(data)
         setConversation(data)
       } catch (error) {
         console.log(error)
@@ -131,12 +129,10 @@ const Messages = () => {
     })
 
     socket.on('getUsers', (users: IUser[]) => {
-      console.log('were are online', users)
       setOnlineUsers(users)
     })
 
     socket.on('typing', () => {
-      console.log('user is typing')
       setIsTyping(true)
       setTimeout(() => {
         setIsTyping(false)
@@ -144,7 +140,7 @@ const Messages = () => {
     })
 
     socket.on('message', (newMessage) => {
-      console.log('a new message appeared!', newMessage)
+      console.log('a new message appeared!')
       setArrivalMessage(newMessage.message)
       setChatHistory((chatHistory) => [...chatHistory, newMessage.message])
     })
@@ -160,8 +156,6 @@ const Messages = () => {
 
   }, [])
 
-
-  console.log(arrivalMessage)
 
   useEffect(() => {
     console.log('currentChat.members', currentChat?.members)
@@ -180,7 +174,6 @@ const Messages = () => {
       if (response) {
         let data = await response.json()
         // data is an array with all the current connected users
-        console.log('this is data', data)
         setChatHistory(data)
       } else {
         console.log('error fetching the online users')
@@ -232,7 +225,6 @@ const Messages = () => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [chatHistory])
 
-  console.log(chatHistory)
 
   const fetchOnlineUsers = async () => {
     try {
@@ -251,7 +243,6 @@ const Messages = () => {
 
   // onlineUsers.filter(user => user.room === room).map((user, i) => console.log(user.socketId))
   const target = (e: any) => {
-    console.log(e.target.files[0])
     if (e.target && e.target.files[0]) {
       setMedia(e.target.files[0])
     }
@@ -267,15 +258,13 @@ const Messages = () => {
   const singleMsg = chatHistory.find(m => m.receiver === undefined)
   const actualRoom = conversation?.find(r => r._id === singleMsg?.roomId)
   const receiver = actualRoom?.members.find(m => m._id !== me)
-  // Check status of users
-
-  const notification = chatHistory && chatHistory.length > 0
+  // Check the current User typing
   const typer = chatHistory && chatHistory.find(m => m.sender !== user!._id)
 
 
 
   const trigger = () => {
-    socket.emit('typing', { room: id })
+    socket.emit('typing')
   }
 
 
@@ -344,8 +333,8 @@ const Messages = () => {
               <div className='text-muted px-3 mt-2'>
                 <span className='noMessages'>Start a new conversation :)</span>
               </div>
-            </div> :
-
+            </div> 
+            :
             <div className='messageBody'>
               <div className='customDmBody  pt-2'>
                 {chatHistory.map((message, i) => (

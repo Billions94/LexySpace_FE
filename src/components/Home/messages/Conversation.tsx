@@ -22,8 +22,6 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
 
     const dispatch = useDispatch()
     const member = room.members.find(members => members._id !== currentUser!._id)
-    console.log(member)
-
     const activeStatus = onlineUsers.some(u => u._id === member!._id)
 
     function multiTask(index: number, room: Rooms) {
@@ -67,11 +65,11 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
                         ))}
                     </div>
                 </div>
-                {/* {notification && chatHistory.find(m => m.sender === user.userName) &&
+                {chatHistory.some(m => m.sender === currentUser!._id) &&
                     <div className='ml-auto'>
                         <img src="https://img.icons8.com/ios-glyphs/50/ffffff/new.png" alt='' width='25px' />
                     </div>
-                } */}
+                }
             </div>
         </ListGroup.Item>
     )

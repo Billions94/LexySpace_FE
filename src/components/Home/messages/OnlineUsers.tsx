@@ -5,7 +5,7 @@ import { Image } from "react-bootstrap"
 import API from "../../../lib/API"
 
 interface OnlineUsersProps {
-    onlineUsers: IUser[] 
+    onlineUsers: IUser[]
     currentUser: User
     conversation: Rooms[]
     currentChat: Rooms | null
@@ -13,16 +13,14 @@ interface OnlineUsersProps {
 }
 
 export default function OnlineUsers({ onlineUsers, currentUser, currentChat, setCurrentChat, conversation }: OnlineUsersProps) {
-    const onlineFriend = onlineUsers.find(u => u._id !== currentUser._id)
 
-    console.log('i am the current user', currentUser)
-    
+
     const handleClick = async (friend: IUser) => {
         const check = currentChat?.members.includes(currentUser)
-        if(check === false) {
+        if (check === false) {
             // here we should check if there's already a conversation going with the selected guy
-            let conversationAlreadyOpened = conversation.find(c => c._id === friend._id)
-            if(conversationAlreadyOpened) {
+            const conversationAlreadyOpened = conversation?.map(m => m.members).flat(1).find(c => c._id === friend._id)
+            if (conversationAlreadyOpened) {
                 //we should here jump to the existing convo
                 try {
                     const { data } = await API.get<Rooms[]>(`/rooms/find/${currentUser._id}/${friend._id}`)
@@ -36,7 +34,7 @@ export default function OnlineUsers({ onlineUsers, currentUser, currentChat, set
                     console.log(error)
                 }
             } else {
-            newConversation(friend)
+                newConversation(friend)
             }
         } else {
             try {
@@ -72,18 +70,18 @@ export default function OnlineUsers({ onlineUsers, currentUser, currentChat, set
         <div id='onlineUserContainer'>
             <div className="mb-1">Online</div>
             <div className="d-flex">
-            {onlineUsers.filter(u => u.userName !== currentUser.userName).map(friend => (
-                <div className="mr-1" onClick={() => handleClick(friend)} style={{ cursor: 'pointer' }}>
-                    <div className="onlineIcon">
-                        <Image roundedCircle src={friend.image ? friend.image : defaultAvatar} alt='' width='37px' height='37px' />
+                {onlineUsers.filter(u => u.userName !== currentUser.userName).map(friend => (
+                    <div className="mr-1" onClick={() => handleClick(friend)} style={{ cursor: 'pointer' }}>
+                        <div className="onlineIcon">
+                            <Image roundedCircle src={friend.image ? friend.image : defaultAvatar} alt='' width='37px' height='37px' />
+                        </div>
+                        <div className='onlineBadge'>
+                            <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
+                                width={10} height={10} />
+                        </div>
+                        <div className='username'>{friend.userName}</div>
                     </div>
-                    <div className='onlineBadge'>
-                        <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
-                            width={10} height={10} />
-                    </div>
-                    <div className='username'>{friend.userName}</div>
-                </div>
-            ))}
+                ))}
             </div>
         </div>
     )
