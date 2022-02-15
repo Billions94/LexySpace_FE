@@ -135,7 +135,7 @@
 
 
   .listofDM {
-    // height: 450px;
+    height: 342px;
     overflow-y: scroll;
     // padding: 12px;
     background: transparent !important;
@@ -220,6 +220,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     padding: 11px;
+    
   }
 
   .dmHeader:hover {
@@ -455,6 +456,21 @@
         line-height: 20px;
         max-width: 237px;
       }
+    }
+  }
+
+  .onlineIconConvo {
+    position: relative;
+  }
+
+  .onlineBadgeConvo {
+    position: absolute;
+    top: 35px;
+
+    // right: 38px;
+    img {
+      border: 1px solid #24224a;
+      border-radius: 50%;
     }
   }
 }

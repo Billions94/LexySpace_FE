@@ -6,7 +6,7 @@ import { Image } from "react-bootstrap"
 import API from "../../../lib/API"
 
 interface OnlineUsersProps {
-    onlineUsers: IUser[]
+    onlineUsers: IUser[] 
     currentUser: User
     currentChat: Rooms | null
     setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void

@@ -3,17 +3,19 @@ import { useDispatch } from 'react-redux'
 import { User, Rooms, Message } from '../../../redux/interfaces'
 import { getUsersAction } from '../../../redux/actions'
 import { ListGroup } from 'react-bootstrap'
+import { IUser } from '../../../interfaces/IUser'
 
 interface RoomProps {
     index: number
     room: Rooms
     currentUser: User
+    onlineUsers: IUser[]
     chatHistory: Message[]
     currentChat: Rooms | null
     setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void
 }
 
-export default function Convo({ index, room, currentUser, chatHistory, currentChat, setCurrentChat }: RoomProps) {
+export default function Convo({ index, room, currentUser, chatHistory, onlineUsers, setCurrentChat }: RoomProps) {
 
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const selected = index === selectedIndex
@@ -22,9 +24,11 @@ export default function Convo({ index, room, currentUser, chatHistory, currentCh
     const member = room.members.find(members => members._id !== currentUser!._id)
     console.log(member)
 
+    const activeStatus = onlineUsers.some(u => u._id === member!._id)
+
     function multiTask(index: number, room: Rooms) {
         setSelectedIndex(index)
-        setCurrentChat(room) 
+        setCurrentChat(room)
     }
 
     useEffect(() => {
@@ -32,11 +36,21 @@ export default function Convo({ index, room, currentUser, chatHistory, currentCh
     }, [room])
 
     return (
-        <ListGroup.Item id='convo'  action active={selected}
+        <ListGroup.Item id='convo' action active={selected}
             onClick={() => multiTask(index, room)}>
             <div className="d-flex">
-                <img src={member!.image}
-                    className="roundpic" alt='' width={37} height={37} />
+                <>
+                    <div className='onlineIconConvo'>
+                        <img src={member!.image}
+                            className="roundpic" alt='' width={37} height={37} />
+                    </div>
+                    {activeStatus === true ?
+                        <div className='onlineBadgeConvo'>
+                            <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
+                                width={10} height={10} />
+                        </div> : null
+                    }
+                </>
                 <div className="ml-2">
                     <div className='dmUserName'>{member!.userName}</div>
                     <div className='textHolder'>

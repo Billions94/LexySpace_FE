@@ -1,7 +1,6 @@
 import { Container, Row, Col, Form, ListGroup } from 'react-bootstrap'
 import { useState, useEffect, FormEvent, useMemo, useCallback, createRef } from 'react'
 import { io } from 'socket.io-client'
-import IMessage from '../../../interfaces/IMessage'
 import { IUser } from '../../../interfaces/IUser'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getUsersAction } from '../../../redux/actions'
@@ -11,25 +10,16 @@ import useAuthGuard from "../../../lib/index"
 import "./styles.scss"
 import API from '../../../lib/API'
 import Convo from './Conversation'
-import { isConstructorDeclaration } from 'typescript'
 import OnlineUsers from './OnlineUsers'
 
 
 const ADDRESS = process.env.REACT_APP_GET_URL!
 
-// CHAIN OF EVENTS/OPERATIONS:
-// 1) CONNECT TO THE SERVER
-// 2) SET YOUR USERNAME
-// 3) BE NOTIFIED WHEN ANOTHER USER CONNECTS
-// 4) ...send messages!
 
 const Messages = () => {
 
   useAuthGuard()
 
-  const apiUrl = process.env.REACT_APP_GET_URL
-
-  const navigate = useNavigate()
 
   const { id } = useParams()
 
@@ -40,8 +30,6 @@ const Messages = () => {
   const me = user!._id
 
   const [username, setUsername] = useState<string | undefined>('')
-
-  const [room, setRoom] = useState<string>('')
 
   const [media, setMedia] = useState<string>('')
 
@@ -69,7 +57,7 @@ const Messages = () => {
   const getAllUsers = async () => {
     try {
       const token = localStorage.getItem('accessToken')
-      const response = await fetch(`${apiUrl}/users`, {
+      const response = await fetch(`${ADDRESS}/users`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       if (response.ok) {
@@ -269,9 +257,11 @@ const Messages = () => {
     inputBtn!.current!.click()
   }
 
+  // Getting the exact user to display their info on the message header
   const singleMsg = chatHistory.find(m => m.receiver === undefined)
   const actualRoom = conversation?.find(r => r._id === singleMsg?.roomId)
   const receiver = actualRoom?.members.find(m => m._id !== me)
+  // Check status of users
  
   const notification = chatHistory && chatHistory.length > 0
   const typer = chatHistory && chatHistory.find(m => m.sender === user!.userName)
@@ -318,6 +308,7 @@ const Messages = () => {
                     index={i} 
                     room={room} 
                     currentUser={user} 
+                    onlineUsers={onlineUsers}
                     currentChat={currentChat} 
                     chatHistory={chatHistory}
                     setCurrentChat={setCurrentChat}/>
