@@ -24,6 +24,8 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
     const member = room.members.find(members => members._id !== currentUser!._id)
     const activeStatus = onlineUsers.some(u => u._id === member!._id)
 
+    const notfication = chatHistory.length +1
+
     function multiTask(index: number, room: Rooms) {
         setSelectedIndex(index)
         setCurrentChat(room)
@@ -65,7 +67,7 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
                         ))}
                     </div>
                 </div>
-                {chatHistory.some(m => m.sender === currentUser!._id) &&
+                {notfication && chatHistory.some(m => m.sender === member!._id) &&
                     <div className='ml-auto'>
                         <img src="https://img.icons8.com/ios-glyphs/50/ffffff/new.png" alt='' width='25px' />
                     </div>
