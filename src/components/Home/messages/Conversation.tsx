@@ -15,10 +15,11 @@ export default function Convo({ room, currentUser, chatHistory, currentChat }: R
 
     const dispatch = useDispatch()
     const member = room.members.find(members => members._id !== currentUser!._id)
+    console.log(member)
 
     useEffect(() => {
         dispatch(getUsersAction())
-    }, [])
+    }, [room])
 
     return (
         <div id='convo'>

@@ -141,6 +141,7 @@ const Messages = () => {
     })
 
     socket.on('getUsers', (users: IUser[]) => {
+      console.log('were are online', users)
       setOnlineUsers(users)
     })
 
@@ -151,7 +152,7 @@ const Messages = () => {
     })
 
     socket.on('message', (newMessage) => {
-      console.log('a new message appeared!', newMessage.sender)
+      console.log('a new message appeared!', newMessage)
       setArrivalMessage(newMessage.message)
       setChatHistory((chatHistory) => [...chatHistory, newMessage.message])
     })
@@ -280,8 +281,8 @@ const Messages = () => {
     socket.emit('typing', { room: id })
   }
 
-  const multiTask = (room: Rooms, id: string | undefined) => {
-    navigate(`/messages/${id}`)
+  const multiTask = (room: Rooms) => {
+    // navigate(`/messages/${id}`)
     setCurrentChat(room)
   }
 
@@ -299,6 +300,7 @@ const Messages = () => {
           <OnlineUsers
             onlineUsers={onlineUsers}
             currentUser={user}
+            currentChat={currentChat}
             setCurrentChat={setCurrentChat} />
 
             <div className=''>
@@ -313,7 +315,7 @@ const Messages = () => {
           <div className="listofDM">
             <ListGroup variant={'flush'} className="mt-3 customList">
               {conversation && conversation.map((room, i) => (
-                <div onClick={() => multiTask(room, reciever?._id)}>
+                <div onClick={() => multiTask(room)}>
                   <Convo key={i} room={room} currentUser={user} currentChat={currentChat} chatHistory={chatHistory}/>
                 </div>
               ))}
