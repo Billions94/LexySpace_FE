@@ -269,7 +269,7 @@ const Messages = () => {
     inputBtn!.current!.click()
   }
 
-  const singleMsg = chatHistory.find(m => m.sender !== me)
+  const singleMsg = chatHistory.find(m => m.receiver === undefined)
   const actualRoom = conversation?.find(r => r._id === singleMsg?.roomId)
   const receiver = actualRoom?.members.find(m => m._id !== me)
  
