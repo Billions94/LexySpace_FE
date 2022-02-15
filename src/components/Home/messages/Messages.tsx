@@ -100,7 +100,6 @@ const Messages = () => {
     getConversation()
   }, [me])
 
-  console.log(currentChat)
 
   useEffect(() => {
     const getMessages = async () => {
@@ -123,7 +122,7 @@ const Messages = () => {
   useEffect(() => {
     dispatch(getUsersAction())
     setUsername(user!.userName)
-  }, [])
+  }, [currentChat])
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -270,8 +269,10 @@ const Messages = () => {
     inputBtn!.current!.click()
   }
 
-  const reciever = onlineUsers.find(user => user.socketId === id)
-  const index = onlineUsers.findIndex(u => u.userName === user.userName)
+  const singleMsg = chatHistory.find(m => m.sender !== me)
+  const actualRoom = conversation?.find(r => r._id === singleMsg?.roomId)
+  const receiver = actualRoom?.members.find(m => m._id !== me)
+ 
   const notification = chatHistory && chatHistory.length > 0
   const typer = chatHistory && chatHistory.find(m => m.sender === user!.userName)
  
@@ -281,10 +282,6 @@ const Messages = () => {
     socket.emit('typing', { room: id })
   }
 
-  const multiTask = (room: Rooms) => {
-    // navigate(`/messages/${id}`)
-    setCurrentChat(room)
-  }
 
   return (
     <Container fluid className='customRowDm p-0'>
@@ -312,38 +309,45 @@ const Messages = () => {
               </div>
             </div>
 
-          <div className="listofDM">
-            <ListGroup variant={'flush'} className="mt-3 customList">
+        
+            <ListGroup variant={'flush'} className="mt-3 listofDM">
               {conversation && conversation.map((room, i) => (
-                <div onClick={() => multiTask(room)}>
-                  <Convo key={i} room={room} currentUser={user} currentChat={currentChat} chatHistory={chatHistory}/>
-                </div>
+                <ListGroup.Item className='customList' >
+                  <Convo 
+                    key={i} 
+                    index={i} 
+                    room={room} 
+                    currentUser={user} 
+                    currentChat={currentChat} 
+                    chatHistory={chatHistory}
+                    setCurrentChat={setCurrentChat}/>
+                </ListGroup.Item>
               ))}
             </ListGroup>
-          </div>
+        
         </Col>
 
 
         <Col className="mr-auto customCol2" sm={7} md={6} lg={5}>
-          {!reciever ? null :
+          {!receiver ? null :
             <div className="dmHeader1 d-flex">
-              <img src={reciever!.image}
+              <img src={receiver!.image}
                 className="roundpic" alt='' width={37} height={37} />
               <div className="ml-2 dmUserName">
-                <span>{reciever!.userName}</span>
+                <span>{receiver!.userName}</span>
               </div>
             </div>
           }
 
-          {!chatHistory ?
+          {chatHistory.length === 0 ?
             <div className='d-flex beforeConvo mt-2'>
               <div className='text-muted px-3 mt-2'>
-                <span className='noMessages'>No Messages :(</span>
+                <span className='noMessages'>Start a new conversation :)</span>
               </div>
             </div> :
 
             <div className='messageBody'>
-              <div className='customDmBody mt-3'>
+              <div className='customDmBody  pt-2'>
                 {chatHistory.map((message, i) => (
                   <div ref={scrollRef} key={i} className="d-flex">
                     {

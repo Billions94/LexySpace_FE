@@ -54,10 +54,11 @@ export default function OnlineUsers({ onlineUsers, currentUser, currentChat, set
     return (
         <div id='onlineUserContainer'>
             <div className="mb-1">Online</div>
+            <div className="d-flex">
             {onlineUsers.filter(u => u.userName !== currentUser.userName).map(friend => (
-                <div onClick={() => handleClick(friend)} style={{ cursor: 'pointer' }}>
+                <div className="mr-1" onClick={() => handleClick(friend)} style={{ cursor: 'pointer' }}>
                     <div className="onlineIcon">
-                        <Image roundedCircle src={friend.image ? friend.image : defaultAvatar} alt='' width='37px' />
+                        <Image roundedCircle src={friend.image ? friend.image : defaultAvatar} alt='' width='37px' height='37px' />
                     </div>
                     <div className='onlineBadge'>
                         <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
@@ -66,6 +67,7 @@ export default function OnlineUsers({ onlineUsers, currentUser, currentChat, set
                     <div className='username'>{friend.userName}</div>
                 </div>
             ))}
+            </div>
         </div>
     )
 }
