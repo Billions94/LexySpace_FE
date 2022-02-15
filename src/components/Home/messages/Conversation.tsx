@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, Dispatch, SetStateAction } from 'react'
 import { useDispatch } from 'react-redux'
 import { User, Rooms, Message } from '../../../redux/interfaces'
 import { getUsersAction } from '../../../redux/actions'
@@ -8,6 +8,8 @@ import { IUser } from '../../../interfaces/IUser'
 interface RoomProps {
     index: number
     room: Rooms
+    selectedIndex: number | undefined
+    setSelectedIndex: Dispatch<SetStateAction<number | undefined>>
     currentUser: User
     onlineUsers: IUser[]
     chatHistory: Message[]
@@ -15,10 +17,8 @@ interface RoomProps {
     setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void
 }
 
-export default function Convo({ index, room, currentUser, chatHistory, onlineUsers, setCurrentChat }: RoomProps) {
+export default function Convo({ index, room, currentUser, chatHistory, onlineUsers, setCurrentChat, selectedIndex, setSelectedIndex }: RoomProps) {
 
-    const [selectedIndex, setSelectedIndex] = useState<number>(0)
-    const selected = index === selectedIndex
 
     const dispatch = useDispatch()
     const member = room.members.find(members => members._id !== currentUser!._id)
@@ -36,7 +36,7 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
     }, [room])
 
     return (
-        <ListGroup.Item id='convo' action active={selected}
+        <ListGroup.Item id='convo' action active={index === selectedIndex}
             onClick={() => multiTask(index, room)}>
             <div className="d-flex">
                 <>

@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { IUser } from "../../../interfaces/IUser"
 import { Rooms, User } from "../../../redux/interfaces"
 import { defaultAvatar } from "../../../redux/store"
@@ -8,11 +7,12 @@ import API from "../../../lib/API"
 interface OnlineUsersProps {
     onlineUsers: IUser[] 
     currentUser: User
+    conversation: Rooms[]
     currentChat: Rooms | null
     setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void
 }
 
-export default function OnlineUsers({ onlineUsers, currentUser, currentChat, setCurrentChat }: OnlineUsersProps) {
+export default function OnlineUsers({ onlineUsers, currentUser, currentChat, setCurrentChat, conversation }: OnlineUsersProps) {
     const onlineFriend = onlineUsers.find(u => u._id !== currentUser._id)
 
     console.log('i am the current user', currentUser)
@@ -20,7 +20,24 @@ export default function OnlineUsers({ onlineUsers, currentUser, currentChat, set
     const handleClick = async (friend: IUser) => {
         const check = currentChat?.members.includes(currentUser)
         if(check === false) {
+            // here we should check if there's already a conversation going with the selected guy
+            let conversationAlreadyOpened = conversation.find(c => c._id === friend._id)
+            if(conversationAlreadyOpened) {
+                //we should here jump to the existing convo
+                try {
+                    const { data } = await API.get<Rooms[]>(`/rooms/find/${currentUser._id}/${friend._id}`)
+                    if (data) {
+                        console.log(data)
+                        const someDT = data[0]
+                        console.log('handleClick', someDT)
+                        setCurrentChat(someDT)
+                    } else throw new Error('Could not get chat')
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
             newConversation(friend)
+            }
         } else {
             try {
                 const { data } = await API.get<Rooms[]>(`/rooms/find/${currentUser._id}/${friend._id}`)

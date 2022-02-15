@@ -1,8 +1,8 @@
-import { Container, Row, Col, Form, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Form, ListGroup, Image } from 'react-bootstrap'
 import { useState, useEffect, FormEvent, useMemo, useCallback, createRef } from 'react'
 import { io } from 'socket.io-client'
 import { IUser } from '../../../interfaces/IUser'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { getUsersAction } from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Message, ReduxState, Rooms, User } from '../../../redux/interfaces'
@@ -11,6 +11,7 @@ import "./styles.scss"
 import API from '../../../lib/API'
 import Convo from './Conversation'
 import OnlineUsers from './OnlineUsers'
+import { isTypingGif } from '../../../redux/store'
 
 
 const ADDRESS = process.env.REACT_APP_GET_URL!
@@ -34,7 +35,7 @@ const Messages = () => {
   const [media, setMedia] = useState<string>('')
 
   // const [input, setInput] = useState({ text: '' })
-  const [isTyping, setIsTyping] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
 
   const [onlineUsers, setOnlineUsers] = useState<IUser[]>([])
 
@@ -49,6 +50,8 @@ const Messages = () => {
   const [users, setUsers] = useState<User[] | null>(null)
 
   const [arrivalMessage, setArrivalMessage] = useState<any | null>(null)
+
+  const [selectedIndex, setSelectedIndex] = useState<number>()
 
   const scrollRef = createRef<HTMLDivElement>()
 
@@ -132,10 +135,12 @@ const Messages = () => {
       setOnlineUsers(users)
     })
 
-    socket.on('typing', (data: string) => {
-      console.log(data, 'user is typing')
-      setIsTyping(data)
-
+    socket.on('typing', () => {
+      console.log('user is typing')
+      setIsTyping(true)
+      setTimeout(() => {
+        setIsTyping(false)
+      }, 4000)
     })
 
     socket.on('message', (newMessage) => {
@@ -159,7 +164,8 @@ const Messages = () => {
   console.log(arrivalMessage)
 
   useEffect(() => {
-    arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+    console.log('currentChat.members', currentChat?.members)
+    arrivalMessage && currentChat?.members.includes(arrivalMessage.receiver) &&
       setChatHistory(prev => [...prev, arrivalMessage])
   }, [arrivalMessage, currentChat])
 
@@ -212,7 +218,7 @@ const Messages = () => {
     try {
       const { data } = await API.post(`/messages`, newMessage)
       if (data) {
-        setChatHistory((chatHistory) =>[...chatHistory, data])
+        setChatHistory((chatHistory) => [...chatHistory, data])
         setMessage('')
       } else throw new Error('Could not send message :(')
     } catch (error) {
@@ -262,10 +268,10 @@ const Messages = () => {
   const actualRoom = conversation?.find(r => r._id === singleMsg?.roomId)
   const receiver = actualRoom?.members.find(m => m._id !== me)
   // Check status of users
- 
+
   const notification = chatHistory && chatHistory.length > 0
-  const typer = chatHistory && chatHistory.find(m => m.sender === user!.userName)
- 
+  const typer = chatHistory && chatHistory.find(m => m.sender !== user!._id)
+
 
 
   const trigger = () => {
@@ -287,35 +293,38 @@ const Messages = () => {
           <OnlineUsers
             onlineUsers={onlineUsers}
             currentUser={user}
+            conversation={conversation}
             currentChat={currentChat}
             setCurrentChat={setCurrentChat} />
 
-            <div className=''>
-              <div className='conversations d-flex'>
+          <div className=''>
+            <div className='conversations d-flex'>
               <div>Conversations ( {conversation.length} )</div>
               <div className='ml-auto'>
                 <img src='https://assets.website-files.com/5d015870ec9646043c2f3127/5ebc2a49a428098290267716_ezgif.com-optimize%20(18).gif' alt='' width='25px' />
               </div>
-              </div>
             </div>
+          </div>
 
-        
-            <ListGroup variant={'flush'} className="mt-3 listofDM">
-              {conversation && conversation.map((room, i) => (
-                <ListGroup.Item className='customList' >
-                  <Convo 
-                    key={i} 
-                    index={i} 
-                    room={room} 
-                    currentUser={user} 
-                    onlineUsers={onlineUsers}
-                    currentChat={currentChat} 
-                    chatHistory={chatHistory}
-                    setCurrentChat={setCurrentChat}/>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-        
+
+          <ListGroup variant={'flush'} className="mt-3 listofDM">
+            {conversation && conversation.map((room, i) => (
+              <ListGroup.Item className='customList' >
+                <Convo
+                  key={i}
+                  selectedIndex={selectedIndex}
+                  setSelectedIndex={setSelectedIndex}
+                  index={i}
+                  room={room}
+                  currentUser={user}
+                  onlineUsers={onlineUsers}
+                  currentChat={currentChat}
+                  chatHistory={chatHistory}
+                  setCurrentChat={setCurrentChat} />
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+
         </Col>
 
 
@@ -368,7 +377,12 @@ const Messages = () => {
                 ))}
               </div>
 
-              {message && typer?.sender && <div className='mb-2 ml-2'>{typer?.sender} is typing....</div>}
+              {isTyping === true && 
+                <div className='mb-2 ml-2'>
+                  <Image roundedCircle src={typer?.image} alt='' width='30px' height='30px'/> 
+                  <Image src={isTypingGif} alt=''width='50px' height='30px' />
+                </div>
+              }
 
               <div className="textAreaDm">
                 <div id='textArea-container' className="panel-body">
