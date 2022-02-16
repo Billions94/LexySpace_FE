@@ -4,6 +4,7 @@ import { Button, Form, Image } from 'react-bootstrap'
 import { musicIcon } from '../../../redux/store'
 import SingleSong from './SingleSong'
 import './styles.scss'
+import { playIcon, pauseIcon } from '../../../redux/store'
 
 export default function MusicPlayer() {
     const [music, setMusic] = useState<any>(null)
@@ -33,11 +34,11 @@ export default function MusicPlayer() {
     return (
         <div id='musicPlayer'>
             <div className='miniMusicPlaxer'>
-            <Button onClick={() => toggle()}
-                className='musicPlayerBtn mr-2'>
-                <Image src={musicIcon} alt='' width='30px' />
-            </Button>
-            <div className='strong'>Mini Music Player</div>
+                <Button onClick={() => toggle()}
+                    className='musicPlayerBtn mr-2'>
+                    <Image src={musicIcon} alt='' width='30px' />
+                </Button>
+                <div className='strong'>Mini Music Player</div>
             </div>
             {expand === false ? null :
                 <>
@@ -50,7 +51,9 @@ export default function MusicPlayer() {
                     <>
                         <div className='mappedMusic'>
                             {music && music.slice(0, 10).map((song: any) => (
-                                <SingleSong song={song} />
+                                <div className='relative'>
+                                    <SingleSong song={song} />
+                                </div>
                             ))
                             }
                         </div>

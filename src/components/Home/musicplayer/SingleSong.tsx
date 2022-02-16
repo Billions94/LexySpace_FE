@@ -1,4 +1,4 @@
-import { useState, createRef } from 'react'
+import { useState, createRef, SetStateAction, Dispatch } from 'react'
 import { Image } from 'react-bootstrap'
 import { playIcon, pauseIcon } from '../../../redux/store'
 
@@ -29,7 +29,7 @@ export default function SingleSong({ song }: SingleSongProps) {
         <>
             <div onClick={() => togglePlay()}
                 className='musicInfo'>
-                <div className=''>
+                <div className='position-relative'>
                     <Image className='albumPicture' roundedCircle src={song?.album?.cover_medium} alt='' width='60px' height='60px' />
                 </div>
                 <div className='playStatus'>
