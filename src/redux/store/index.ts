@@ -11,6 +11,9 @@ export const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/ima
 export const defaultAvatar: string = 'https://cdn-icons-png.flaticon.com/512/3508/3508549.png'
 export const isTypingGif: string = 'https://thumbs.gfycat.com/WavyViciousIrishdraughthorse-max-1mb.gif'
 export const conversationGif: string = 'http://armandoverduzco.com/images/dm.gif'
+export const musicIcon: string = 'https://img.icons8.com/flat-round/64/ffffff/audio-wave.png'
+export const playIcon: string = 'https://img.icons8.com/ios/64/ffffff/play--v1.png'
+export const pauseIcon: string = 'https://img.icons8.com/ios/64/ffffff/pause--v1.png'
 
 
 const ghost = process.env.REACT_APP_SECRET_KEY!

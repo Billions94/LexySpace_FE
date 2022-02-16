@@ -17,6 +17,7 @@ import Search from "./Search"
 import { Element, scroller } from 'react-scroll'
 import { matchPath } from "react-router-dom"
 import { useLocation } from "react-router-dom"
+import MusicPlayer from "../musicplayer/MusicPlayer"
 // import Blog from "../views/Index"
 
 
@@ -89,7 +90,8 @@ const Home = () => {
     <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">
       <Row className="pt-0 mainContainer justify-content-center">
         <Col className='sidebar d-none d-xs-none d-sm-none d-md-flex' sm={4} md={4} lg={4}>
-          <Col>
+          <Col style={{ overflow: 'hidden'}}>
+            <MusicPlayer />
             <Search />
             <HotPosts />
             <div onClick={() => toggleHide()} className='d-flex'
