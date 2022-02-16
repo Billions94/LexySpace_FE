@@ -193,15 +193,14 @@ const Messages = () => {
   const handleMessageSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    setIsTyping(false)
-
-    const receiverID = currentChat?.members.find(m => m._id !== me)
+    const receiver = currentChat?.members.find(m => m._id !== me)
+    console.log(receiver?._id)
 
     const newMessage: Message = {
       roomId: currentChat?._id,
       text: message,
       sender: me,
-      receiver: receiverID?._id,
+      receiver: receiver?._id,
       image: user.image,
       media: media,
       createdAt: Date.now(),
