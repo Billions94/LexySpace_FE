@@ -14,6 +14,7 @@ export const conversationGif: string = 'http://armandoverduzco.com/images/dm.gif
 export const musicIcon: string = 'https://img.icons8.com/flat-round/64/ffffff/audio-wave.png'
 export const playIcon: string = 'https://img.icons8.com/ios/64/ffffff/play--v1.png'
 export const pauseIcon: string = 'https://img.icons8.com/ios/64/ffffff/pause--v1.png'
+export const loadingNew: string = 'https://i.imgur.com/Pnw2Rh9.gif'
 
 
 const ghost = process.env.REACT_APP_SECRET_KEY!

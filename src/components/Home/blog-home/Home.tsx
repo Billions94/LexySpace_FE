@@ -30,6 +30,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const [value, setValue] = useState<number>()
   const [isLoading, setIsLoading] = useState(true)
+  const [fetchLoading, setFetchLoading] = useState(false)
   const { hideMe, reroute, hideTask } = useSelector((state: ReduxState) => state.data)
   const { posts } = useSelector((state: ReduxState) => state)
   // console.log('user', user)
@@ -65,8 +66,10 @@ const Home = () => {
 
 
   useEffect(() => {
-    getData()
-    dispatch(getPosts())
+    if(fetchLoading === false) {
+      getData()
+      dispatch(getPosts())
+    }
     dispatch(getUsersAction())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reroute])
@@ -134,7 +137,7 @@ const Home = () => {
         <Col className="feed" sm={12} md={7} lg={7}>
           {reroute === false ?
             <Col className='mainfeed justify-content-center' md={11} lg={12}>
-              <PostContainer />
+              <PostContainer fetchLoading={fetchLoading} setFetchLoading={setFetchLoading} />
               <BlogList posts={posts} getData={getData} isLoading={isLoading} setIsLoading={setIsLoading}/>
             </Col> :
             <Col md={11} lg={12}>

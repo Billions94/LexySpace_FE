@@ -1,14 +1,20 @@
-import { createRef, useState } from "react"
+import { createRef, useState, Dispatch, SetStateAction } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { GET_BLOGS } from "../../../redux/actions"
 import { ReduxState } from "../../../redux/interfaces"
-import { Row, Badge } from "react-bootstrap"
+import { loadingNew } from "../../../redux/store"
+import { Row, Image } from "react-bootstrap"
 import Picker from 'emoji-picker-react'
 
 
+interface PostContainerProps {
+    fetchLoading: boolean
+    setFetchLoading: Dispatch<SetStateAction<boolean>>
+}
 
-const PostContainer = () => {
+
+const PostContainer = ({ fetchLoading, setFetchLoading }: PostContainerProps) => {
 
     const url = process.env.REACT_APP_GET_URL
     // const navigate = useNavigate()
@@ -20,6 +26,7 @@ const PostContainer = () => {
     const [show, setShow] = useState(false)
     const [emoji, setEmoji] = useState(false)
     const [showEmoji, setShowEmoji] = useState(false)
+   
 
     const toggleEmoji = () => {
         showEmoji === false ? setShowEmoji(true) : setShowEmoji(false)
@@ -55,6 +62,7 @@ const PostContainer = () => {
     const newPost = async () => {
         if (media) {
             try {
+                setFetchLoading(true)
                 const response = await fetch(`${url}/posts/${userName}`, {
                     method: "POST",
                     body: JSON.stringify(post),
@@ -73,6 +81,9 @@ const PostContainer = () => {
                         if (postImage.ok) {
                             setPost({ text: '' })
                             getPosts()
+                            setTimeout(() => {
+                                setFetchLoading(false)
+                            }, 1000)
                         }
                     } catch (error) {
                         console.log(error)
@@ -83,6 +94,7 @@ const PostContainer = () => {
             }
         } else {
             try {
+                setFetchLoading(true)
                 const response = await fetch(`${url}/posts/${userName}`, {
                     method: "POST",
                     body: JSON.stringify(post),
@@ -93,6 +105,9 @@ const PostContainer = () => {
                 if (response.ok) {
                     setPost({ text: '' })
                     getPosts()
+                    setTimeout(() => {
+                        setFetchLoading(false)
+                    }, 1000)
                 }
             } catch (error) {
                 console.log(error)
@@ -176,10 +191,10 @@ const PostContainer = () => {
                                 </div>
 
                                 {showEmoji === false ? null :
-                                <div style={{ zIndex: '10px'}}>
-                                    <Picker onEmojiClick={onEmojiClick}
-                                    pickerStyle={{ width: '100%' }} />
-                                </div>
+                                    <div style={{ zIndex: '10px' }}>
+                                        <Picker onEmojiClick={onEmojiClick}
+                                            pickerStyle={{ width: '100%' }} />
+                                    </div>
                                 }
                             </>
                             <div className="mar-top clearfix mt-2 ml-auto">
@@ -197,6 +212,11 @@ const PostContainer = () => {
                             </div>
                         </div>
                     </div>
+                    <>
+                        {fetchLoading === true &&
+                            <Image className="text-center" src={loadingNew} alt='loading new' width='40px' height='40px' />
+                        }
+                    </>
                 </div>
             </div>
 
