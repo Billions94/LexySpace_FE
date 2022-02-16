@@ -58,7 +58,7 @@ const allReducers = combineReducers({
 const persistedReducer = persistReducer(persistConfig, allReducers)
 
 // Store
-const store = createStore(allReducers, initialState, allCompose(applyMiddleware(thunk)))
+const store = createStore(persistedReducer, initialState, allCompose(applyMiddleware(thunk)))
 
 export default store 
 
