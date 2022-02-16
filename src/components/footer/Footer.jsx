@@ -11,10 +11,10 @@ const Footer = () => {
   return (
         <footer className="customFooter mb-1">
           <Container className="customFooter">
-            <Col xs={10}>
+            <Col className="p-0" xs={10}>
               <p className='textColor'>{`${new Date().getFullYear()} - © LexySpace | Developed by Ejiroghene.`}</p>
             </Col>
-            <Col className='d-flex textColor'>
+            <Col className='d-flex textColor p-0'>
             Contact me @
             <div className='ml-2'>
               <a href="mailto:e.a.egbedi@gmail.com">

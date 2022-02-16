@@ -7,13 +7,13 @@ import { Data } from "../../../interfaces/Data";
 const Weather = () => {
 
   const userlocation: string = 'düsseldorf'
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState<string>('')
   const [show, setShow] = useState(false)
   const [data, setData] = useState<Data | null>(null)
   const apiKey = process.env.REACT_APP_API_KEY
 
   const getWeatherInfo = async () => {
-    if(!input) {
+    if(input === '') {
       try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userlocation}&appid=${apiKey}`)
         if (response.ok) {

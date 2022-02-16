@@ -169,19 +169,16 @@
     .convoNfc {
       position: relative;
     }
-    .btnX {
+    .btnXX {
       border-radius: 50px;
       border: none;
       padding: 5px;
       width: 22px;
       height: 22px;
       background-color: #24224a;
-      /* box-shadow: 1px 1px 5px #d8d7d7 !important; */
-      position: absolute;
-      margin-left: -6px;
+      margin-left: 10px;
       margin-top: -9px;
-      /* border-color: #f91880; */
-      box-shadow: 0px 1px 5px #d8d7d7;
+      box-shadow: 0px 0px 2px #d8d7d7;
       color: #dadada !important;
       span {
         display: block;

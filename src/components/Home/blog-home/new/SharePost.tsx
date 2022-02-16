@@ -136,7 +136,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                 <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
                 <Card.Title>{post.sharedPost.text}</Card.Title>
                   { !post.sharedPost.media ? null : post.sharedPost.media && 
-                    post?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
+                    post?.sharedPost.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg|gif`) &&
                     <Card.Img variant="top" src={post.sharedPost.media} className="blog-cover" />
                   }
                   { !post.sharedPost.media ? null : post.sharedPost.media && 

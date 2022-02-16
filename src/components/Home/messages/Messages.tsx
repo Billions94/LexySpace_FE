@@ -299,7 +299,7 @@ const Messages = () => {
           <div style={{ borderBottom: '1px solid #24224a'}}>
             <div className='conversations d-flex'>
               <div className='convoNfc'>Conversations
-                <Button className='text-dark btnX'>
+                <Button className='text-dark btnXX'>
                   <span>
                     {conversation.length} 
                   </span>
