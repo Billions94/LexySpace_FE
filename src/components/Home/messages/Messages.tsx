@@ -157,8 +157,8 @@ const Messages = () => {
 
 
   useEffect(() => {
-    console.log('currentChat.members', currentChat?.members)
-    arrivalMessage && currentChat?.members.includes(arrivalMessage.receiver) &&
+    console.log('currentChat.members', currentChat)
+    arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
       setChatHistory(prev => [...prev, arrivalMessage])
   }, [arrivalMessage, currentChat])
 
@@ -273,6 +273,7 @@ const Messages = () => {
     }
     if (e.key === 'Enter') {
       handleMessageSubmit(e)
+      clearTimeout()
       setIsTyping(false)
     }
   }
@@ -386,14 +387,14 @@ const Messages = () => {
                     }
                   </div>
                 ))}
+              </div>
+
               {isTyping === true &&
                 <div className='mb-2 ml-2'>
                   <Image roundedCircle src={typer?.image} alt='' width='30px' height='30px' />
                   <Image src={isTypingGif} alt='' width='50px' height='30px' />
                 </div>
               }
-              </div>
-
 
               <div className="textAreaDm">
                 <div id='textArea-container' className="panel-body">
