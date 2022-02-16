@@ -67,11 +67,11 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
                         ))}
                     </div>
                 </div>
-                {notfication && chatHistory.some(m => m.sender === member!._id) &&
+                {/* {notfication && chatHistory.some(m => m.sender === member!._id) &&
                     <div className='ml-auto'>
                         <img src="https://img.icons8.com/ios-glyphs/50/ffffff/new.png" alt='' width='25px' />
                     </div>
-                }
+                } */}
             </div>
         </ListGroup.Item>
     )

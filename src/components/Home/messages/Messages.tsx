@@ -1,5 +1,5 @@
 import { Container, Row, Col, Form, ListGroup, Image } from 'react-bootstrap'
-import { useState, useEffect, FormEvent, useMemo, useCallback, createRef } from 'react'
+import { useState, useEffect, FormEvent, useMemo, useCallback, createRef, KeyboardEvent } from 'react'
 import { io } from 'socket.io-client'
 import { IUser } from '../../../interfaces/IUser'
 import { useParams } from 'react-router-dom'
@@ -136,7 +136,7 @@ const Messages = () => {
       setIsTyping(true)
       setTimeout(() => {
         setIsTyping(false)
-      }, 4000)
+      }, 3000)
     })
 
     socket.on('message', (newMessage) => {
@@ -268,6 +268,15 @@ const Messages = () => {
   }
 
 
+  const handleKeyboardEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+    if(e.key.match('[^~,][^~,]*')) {
+      trigger()
+    } 
+    if(e.key === 'Enter') {
+      handleMessageSubmit(e)
+    }
+  }
+
   return (
     <Container fluid className='customRowDm p-0'>
       <Row id='dmContainer' className='mx-auto p-0 customDmRow'>
@@ -391,7 +400,7 @@ const Messages = () => {
                         </svg>
                       </div> :
                       <button className="btn ml-auto btn-sm sendBtnDm"
-                        onClick={(e) => handleMessageSubmit(e)}>
+                          onClick={(e) => handleMessageSubmit(e)}>
                         <i className="fa fa-pencil fa-fw" /> send
                       </button>
                     }
@@ -399,7 +408,8 @@ const Messages = () => {
                   <Form.Control className="form-control dmText search"
                     placeholder="Message..."
                     value={message}
-                    onChange={(e) => { setMessage(e.target.value); trigger() }} />
+                    onKeyPress={handleKeyboardEvent}
+                    onChange={(e) => setMessage(e.target.value)}/>
                 </div>
               </div>
             </div>
