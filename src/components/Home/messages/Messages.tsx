@@ -193,6 +193,8 @@ const Messages = () => {
   const handleMessageSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
+    setIsTyping(false)
+
     const receiverID = currentChat?.members.find(m => m._id !== me)
 
     const newMessage: Message = {
@@ -268,13 +270,9 @@ const Messages = () => {
 
 
   const handleKeyboardEvent = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key.match('[^~,][^~,]*')) {
-      trigger()
-    }
+    trigger()
     if (e.key === 'Enter') {
       handleMessageSubmit(e)
-      clearTimeout()
-      setIsTyping(false)
     }
   }
 
