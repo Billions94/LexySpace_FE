@@ -2,7 +2,7 @@ import { Container, Row, Col, Form, ListGroup, Image, Button } from 'react-boots
 import { useState, useEffect, FormEvent, useMemo, useCallback, createRef, KeyboardEvent } from 'react'
 import { io } from 'socket.io-client'
 import { IUser } from '../../../interfaces/IUser'
-import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getUsersAction } from '../../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Message, ReduxState, Rooms, User } from '../../../redux/interfaces'
@@ -21,8 +21,7 @@ const Messages = () => {
 
   useAuthGuard()
 
-
-  const { id } = useParams()
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -336,10 +335,11 @@ const Messages = () => {
         <Col className="mr-auto customCol2" sm={7} md={6} lg={5}>
           {!receiver ? null :
             <div className="dmHeader1 d-flex">
-              <img src={receiver!.image}
+              <img src={receiver!.image} onClick={() => navigate(`/userProfile/${receiver._id}`)}
+                style={{ cursor: 'pointer' }}
                 className="roundpic" alt='' width={37} height={37} />
               <div className="ml-2 dmUserName">
-                <span>{receiver!.userName}</span>
+                <span style={{ cursor: 'default' }}>{receiver!.userName}</span>
               </div>
             </div>
           }
@@ -359,12 +359,16 @@ const Messages = () => {
                       user._id !== message.sender ?
                         <>
                           <div className='d-flex'>
-                            <img src={message.image}
+                            <img src={message.image} onClick={() => navigate(`/userProfile/${message.sender}`)}
+                              style={{ cursor: 'pointer' }}
                               className="roundpic" alt='' width={37} height={37} />
                             <div className="ml-2 dmUserName">
-                              <p className="dmBubble m-0">{message.text}
+                              <p style={{ cursor: 'default' }} className="dmBubble m-0">
+                                {message.text}
                               </p>
-                              <h1 className='h1'>{new Date(message.createdAt).toLocaleTimeString('en-US')}</h1>
+                              <h1 style={{ cursor: 'default' }} className='h1'>
+                                {new Date(message.createdAt).toLocaleTimeString('en-US')}
+                              </h1>
                             </div>
                           </div>
                         </>
@@ -372,22 +376,24 @@ const Messages = () => {
                         <div style={{ marginLeft: 'auto' }}>
                           <div className='d-flex'>
                             <div className="ml-2 dmUserName">
-                              <p className="dmBubble1 m-0">{message.text}</p>
-                              <h1 className='h2'>{new Date(message.createdAt).toLocaleTimeString('en-US')}</h1>
+                              <p style={{ cursor: 'default' }} className="dmBubble1 m-0">{message.text}</p>
+                              <h1 style={{ cursor: 'default' }} className='h2'>
+                                {new Date(message.createdAt).toLocaleTimeString('en-US')}
+                              </h1>
                             </div>
                           </div>
                         </div>
                     }
                   </div>
                 ))}
-              </div>
-
               {isTyping === true &&
                 <div className='mb-2 ml-2'>
                   <Image roundedCircle src={typer?.image} alt='' width='30px' height='30px' />
                   <Image src={isTypingGif} alt='' width='50px' height='30px' />
                 </div>
               }
+              </div>
+
 
               <div className="textAreaDm">
                 <div id='textArea-container' className="panel-body">
