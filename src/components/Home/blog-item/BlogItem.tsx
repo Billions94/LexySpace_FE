@@ -170,9 +170,9 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
                     </div>
                     <div onClick={() => setSmShow(true)} >
                       delete
+                    <DeleteModal id={_id} smShow={smShow} setSmShow={setSmShow} deleteBlogPost={deleteBlogPost} />
                     </div>
                   </div>
-                  <DeleteModal id={_id} smShow={smShow} setSmShow={setSmShow} deleteBlogPost={deleteBlogPost} />
                 </>
               }
             </Dropdown.Menu>
