@@ -10,6 +10,7 @@ import { Posts, ReduxState, User } from "../interfaces"
 export const defaultCover: string = 'https://s3.ap-southeast-1.amazonaws.com/images.asianage.com/images/aa-Cover-mj9i8cmdi35dsqiqgumar4cu74-20170925171720.Medi.jpeg'
 export const defaultAvatar: string = 'https://cdn-icons-png.flaticon.com/512/3508/3508549.png'
 export const isTypingGif: string = 'https://thumbs.gfycat.com/WavyViciousIrishdraughthorse-max-1mb.gif'
+export const conversationGif: string = 'http://armandoverduzco.com/images/dm.gif'
 
 
 const ghost = process.env.REACT_APP_SECRET_KEY!

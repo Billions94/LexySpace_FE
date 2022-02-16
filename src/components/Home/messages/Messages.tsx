@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form, ListGroup, Image } from 'react-bootstrap'
+import { Container, Row, Col, Form, ListGroup, Image, Button } from 'react-bootstrap'
 import { useState, useEffect, FormEvent, useMemo, useCallback, createRef, KeyboardEvent } from 'react'
 import { io } from 'socket.io-client'
 import { IUser } from '../../../interfaces/IUser'
@@ -11,7 +11,7 @@ import "./styles.scss"
 import API from '../../../lib/API'
 import Convo from './Conversation'
 import OnlineUsers from './OnlineUsers'
-import { isTypingGif } from '../../../redux/store'
+import { isTypingGif, conversationGif } from '../../../redux/store'
 
 
 const ADDRESS = process.env.REACT_APP_GET_URL!
@@ -269,11 +269,12 @@ const Messages = () => {
 
 
   const handleKeyboardEvent = (e: KeyboardEvent<HTMLInputElement>) => {
-    if(e.key.match('[^~,][^~,]*')) {
+    if (e.key.match('[^~,][^~,]*')) {
       trigger()
-    } 
-    if(e.key === 'Enter') {
+    }
+    if (e.key === 'Enter') {
       handleMessageSubmit(e)
+      setIsTyping(false)
     }
   }
 
@@ -295,17 +296,23 @@ const Messages = () => {
             currentChat={currentChat}
             setCurrentChat={setCurrentChat} />
 
-          <div className=''>
+          <div style={{ borderBottom: '1px solid #24224a'}}>
             <div className='conversations d-flex'>
-              <div>Conversations ( {conversation.length} )</div>
+              <div className='convoNfc'>Conversations
+                <Button className='text-dark btnX'>
+                  <span>
+                    {conversation.length} 
+                  </span>
+                </Button>
+              </div>
               <div className='ml-auto'>
-                <img src='https://assets.website-files.com/5d015870ec9646043c2f3127/5ebc2a49a428098290267716_ezgif.com-optimize%20(18).gif' alt='' width='25px' />
+                <img src={conversationGif} alt='' width='25px' />
               </div>
             </div>
           </div>
 
 
-          <ListGroup variant={'flush'} className="mt-3 listofDM">
+          <ListGroup variant={'flush'} className="listofDM">
             {conversation && conversation.map((room, i) => (
               <ListGroup.Item className='customList' >
                 <Convo
@@ -342,7 +349,7 @@ const Messages = () => {
               <div className='text-muted px-3 mt-2'>
                 <span className='noMessages'>Start a new conversation :)</span>
               </div>
-            </div> 
+            </div>
             :
             <div className='messageBody'>
               <div className='customDmBody  pt-2'>
@@ -375,10 +382,10 @@ const Messages = () => {
                 ))}
               </div>
 
-              {isTyping === true && 
+              {isTyping === true &&
                 <div className='mb-2 ml-2'>
-                  <Image roundedCircle src={typer?.image} alt='' width='30px' height='30px'/> 
-                  <Image src={isTypingGif} alt=''width='50px' height='30px' />
+                  <Image roundedCircle src={typer?.image} alt='' width='30px' height='30px' />
+                  <Image src={isTypingGif} alt='' width='50px' height='30px' />
                 </div>
               }
 
@@ -400,7 +407,7 @@ const Messages = () => {
                         </svg>
                       </div> :
                       <button className="btn ml-auto btn-sm sendBtnDm"
-                          onClick={(e) => handleMessageSubmit(e)}>
+                        onClick={(e) => handleMessageSubmit(e)}>
                         <i className="fa fa-pencil fa-fw" /> send
                       </button>
                     }
@@ -409,7 +416,7 @@ const Messages = () => {
                     placeholder="Message..."
                     value={message}
                     onKeyPress={handleKeyboardEvent}
-                    onChange={(e) => setMessage(e.target.value)}/>
+                    onChange={(e) => setMessage(e.target.value)} />
                 </div>
               </div>
             </div>
