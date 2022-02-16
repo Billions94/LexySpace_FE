@@ -93,9 +93,9 @@ const LogIn = () => {
         }
         <a href={`${url}/users/googleLogin`}>
           <div className="googleIcon justify-content-center my-2">
-              <Col xs={12} sm={12} md={12} lg={12} className="res">
+              <Col xs={12} sm={12} md={12} lg={12} className="res googleDiv">
                 <div>
-                  <img className='google' src="https://img.icons8.com/color/50/000000/google-logo.png" 
+                  <img className='' src="https://img.icons8.com/color/50/000000/google-logo.png" 
                     alt='' width='20' height='20'/>
                 </div>
                   <button type="button" className="btn googleBtn btn-lg">

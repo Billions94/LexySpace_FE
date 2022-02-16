@@ -40,6 +40,9 @@
     background: #020024;
     color: #e5e5e5;
     border: 1px solid #24224a;
+    a {
+      text-decoration: none;
+    }
   }
 
   .customMTNew {
@@ -96,21 +99,46 @@
     justify-content: space-around;
     position: relative;
   }
-  
-  .googleBtn{
+
+
+  .googleDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background: #020024;
     width: 100%;
     color: grey;
     border-radius: 30px;
     border: 1px solid #6e767d;
+    font-weight: bold;
+    box-shadow: 0px 0px 10px -4px #9f9d9da8;
+  }
+  
+  .googleBtn{
+    display: flex;
+    align-items: center;
+    background: transparent;
+    width: 100%;
+    color: grey;
     letter-spacing: 1px;
     font-size: 15px;
     font-weight: bold;
     height: 50px;
-    box-shadow: 0px 0px 10px -4px #9f9d9da8;
     p {
       margin: auto;
     }
+  }
+
+  .googleBtn:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+  }
+
+  .googleBtn:active {
+    box-shadow: none;
+    outline: none;
+    border: none;
   }
   
   .or {
@@ -136,7 +164,7 @@
     z-index: 1;
   } */
   
-  .googleBtn:hover {
+  .googleDiv:hover {
     background-color: #24224a;
   }
   
