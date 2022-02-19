@@ -91,7 +91,7 @@ const LogIn = () => {
             Email or password is incorrect!
           </Alert>
         }
-        <a href={`${url}/users/googleLogin`}>
+        {/* <a href={`${url}/users/googleLogin`}>
           <div className="googleIcon justify-content-center my-2">
               <Col xs={12} sm={12} md={12} lg={12} className="res googleDiv">
                 <div>
@@ -106,7 +106,7 @@ const LogIn = () => {
         </a>               
         <div className="mx-auto">
             <div className='text-center'>OR</div>
-        </div>        
+        </div>         */}
        <Formik
           validationSchema={schema}
           onSubmit={login}
@@ -123,7 +123,7 @@ const LogIn = () => {
             errors,
           }) => (
             <div className="register">
-              <h4 className="SignInHeading register1">LOG IN</h4>
+              <h4 className="SignInHeading register1 mt-4">LOG IN</h4>
               <Form noValidate className='register' onSubmit={handleSubmit}>
 
                 <Form.Group className='format'

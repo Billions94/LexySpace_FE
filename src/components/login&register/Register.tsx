@@ -62,7 +62,7 @@ const Register = () => {
     <div id='loginContainer'>
       <div className='text-center createAcc textColor'>Create your account now</div>
       <Col sm={6} md={4} className='customMT mx-auto'>
-        <a href={`${beUrl}/users/googleLogin`}>
+        {/* <a href={`${beUrl}/users/googleLogin`}>
           <div className="googleIcon justify-content-center my-2">
             <div>
               <img className='google' src="https://img.icons8.com/color/50/000000/google-logo.png"
@@ -77,7 +77,7 @@ const Register = () => {
         </a>
         <div className="mx-auto">
           <div className='text-center'>OR</div>
-        </div>
+        </div> */}
         <Formik
           validationSchema={schema}
           onSubmit={register}
@@ -97,7 +97,7 @@ const Register = () => {
             errors,
           }) => (
             <div className="register">
-              <h4 className="SignInHeading register1">SIGN UP</h4>
+              <h4 className="SignInHeading register1 mt-4">SIGN UP</h4>
               <Form noValidate className='register' onSubmit={handleSubmit}>
                 <Form.Group className='format'
                   controlId="formBasicUserName">
