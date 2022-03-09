@@ -160,7 +160,7 @@ const Blog = () => {
 
 
   const newPost = posts.find(p => p._id === id)
-  // console.log(posts.find(p => p._id === id))
+  
   console.log(newPost)
 
   useEffect(() => {
@@ -200,10 +200,6 @@ const Blog = () => {
               <Dropdown.Toggle
                 className="btn btn-dark dropdownbtn">
                 <div className="text-muted dots"><b><strong>•••</strong></b></div>
-                {/* <img alt=''
-                  className="lrdimg"
-                  width="17px"
-                  src="https://img.icons8.com/android/50/000000/more.png" /> */}
               </Dropdown.Toggle>
               <Dropdown.Menu
                 className='dropDownMenu'>

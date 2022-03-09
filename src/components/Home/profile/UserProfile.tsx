@@ -1,5 +1,5 @@
-import { useState, useEffect, createRef } from "react"
-import { Button, Row, Col, Spinner, Image } from "react-bootstrap"
+import { useState, useEffect } from "react"
+import { Button, Row, Col, Image } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import useAuthGuard from "../../../lib/index"
 import EditProfile from "./EditProfile"
@@ -12,7 +12,6 @@ import Recentposts from "./recentPost/RecentPosts"
 import Cover from "./Cover"
 import "./styles.scss"
 import Loader from "../loader/Loader"
-import Footer from "../../footer/Footer"
 
 
 const UserProfile = () => {

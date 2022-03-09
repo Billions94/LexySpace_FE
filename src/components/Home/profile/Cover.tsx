@@ -1,4 +1,4 @@
-import { createRef, useState, Dispatch, SetStateAction } from "react"
+import { createRef, useState } from "react"
 import { Button, Modal } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { SET_COVER } from "../../../redux/actions"

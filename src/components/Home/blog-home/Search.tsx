@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Button, Col, Form } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { followAction, getFollowersAction } from "../../../redux/actions"
+import { followAction } from "../../../redux/actions"
 
 
 
@@ -20,7 +20,7 @@ const Search = () => {
     const me = newUser._id
     const follower = { followerId: newUser._id }
 
-    function filter (query: string) {
+    function filter(query: string) {
         const filteredUser = users.filter(user => {
             return user!.firstName!.toLowerCase().includes(query.toLowerCase())
         })
@@ -28,7 +28,7 @@ const Search = () => {
     }
 
     const getUsers = async () => {
-        if(input) {
+        if (input) {
             try {
                 const { data } = await API.get<User[]>(`/users?name=${input}`)
                 if (data) {
@@ -94,7 +94,7 @@ const Search = () => {
                             className="customInput"
                             type="search"
                             value={input}
-                            onChange={(e) => {setInput(e.target.value);filter(e.target.value)}}
+                            onChange={(e) => { setInput(e.target.value); filter(e.target.value) }}
                             placeholder="Search LexySpace"
                         />
                     </Form.Group>

@@ -41,25 +41,25 @@ const Home = () => {
   }
 
   const getData = async () => {
-  try {
-    const response = await fetch(`${beUrl}/posts`)
-    if (response.ok) {
-      const { posts } = await response.json()
-      const newPost = posts.reverse()
-      console.log('here is the post', newPost)
-      dispatch({
-        type: GET_BLOGS,
-        payload: newPost
-      })
+    try {
+      const response = await fetch(`${beUrl}/posts`)
+      if (response.ok) {
+        const { posts } = await response.json()
+        const newPost = posts.reverse()
+        console.log('here is the post', newPost)
+        dispatch({
+          type: GET_BLOGS,
+          payload: newPost
+        })
+      }
+    } catch (error) {
+      console.log(error)
     }
-  } catch (error) {
-    console.log(error)
   }
-}
 
 
   useEffect(() => {
-    if(fetchLoading === false) {
+    if (fetchLoading === false) {
       getData()
       dispatch(getPosts())
     }
@@ -81,21 +81,21 @@ const Home = () => {
     <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">
       <Row className="pt-0 mainContainer justify-content-center">
         <Col className='sidebar d-none d-xs-none d-sm-none d-md-flex' sm={4} md={4} lg={4}>
-          <Col style={{ overflow: 'hidden'}}>
+          <Col style={{ overflow: 'hidden' }}>
             <MusicPlayer />
             <Search />
             <HotPosts />
             <div onClick={() => toggleHide()} className='d-flex'
               style={{ cursor: 'pointer' }} >
-                <div className="text-muted sidebarFont">Weather</div>
+              <div className="text-muted sidebarFont">Weather</div>
               <div className="ml-auto">
-              {hideMe === false ?
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
-                  width='27px' height='27px' />
-                :
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/closed-eye.png"
-                  width='27px' height='27px' />
-              }
+                {hideMe === false ?
+                  <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
+                    width='27px' height='27px' />
+                  :
+                  <img src="https://img.icons8.com/ios-filled/50/ffffff/closed-eye.png"
+                    width='27px' height='27px' />
+                }
               </div>
             </div>
             {hideMe === false ?
@@ -103,15 +103,15 @@ const Home = () => {
             }
             <div onClick={() => toggleHideTask()} className="d-flex"
               style={{ cursor: 'pointer' }}>
-                <div className="text-muted sidebarFont">NotePad</div>
+              <div className="text-muted sidebarFont">NotePad</div>
               <div className="ml-auto">
-              {hideTask === false ?
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
-                  width='27px' height='27px' />
-                :
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/closed-eye.png"
-                  width='27px' height='27px' />
-              }
+                {hideTask === false ?
+                  <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
+                    width='27px' height='27px' />
+                  :
+                  <img src="https://img.icons8.com/ios-filled/50/ffffff/closed-eye.png"
+                    width='27px' height='27px' />
+                }
               </div>
             </div>
             {hideTask === false ?
@@ -126,7 +126,7 @@ const Home = () => {
           {reroute === false ?
             <Col className='mainfeed justify-content-center' md={11} lg={12}>
               <PostContainer fetchLoading={fetchLoading} setFetchLoading={setFetchLoading} />
-              <BlogList posts={posts} getData={getData} isLoading={isLoading} setIsLoading={setIsLoading}/>
+              <BlogList posts={posts} getData={getData} isLoading={isLoading} setIsLoading={setIsLoading} />
             </Col> :
             <Col md={11} lg={12}>
               <Element name='postSectionInner'>
@@ -138,7 +138,7 @@ const Home = () => {
         <Col lg={1}></Col>
       </Row>
     </Container>
-  ) 
+  )
 
 }
 

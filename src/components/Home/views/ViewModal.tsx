@@ -10,8 +10,6 @@ interface ViewModalProps {
 }
 
 function ViewModal({ view, setView, cover, post }: ViewModalProps) {
-    // const [show, setShow] = useState(false);
-
     return (
         <>
             <Modal id='viewModal'

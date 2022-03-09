@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { ReduxState, Posts } from "../../../../redux/interfaces"
+import { Posts } from "../../../../redux/interfaces"
 import RecentItem from "./RecentItem"
 
 interface RecentPostsProps {

@@ -1,8 +1,7 @@
-import { Posts, ReduxState } from '../../../../redux/interfaces'
+import { Posts } from '../../../../redux/interfaces'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { reRouteAction, GET_BLOGS } from '../../../../redux/actions'
-import BlogItem from '../../blog-item/BlogItem'
 
 
 interface RecentItemProps {
@@ -13,7 +12,6 @@ const RecentItem = ({ post }: RecentItemProps) => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { reroute } = useSelector((state: ReduxState) => state.data)
   const route = (id: string | undefined) => {
     navigate(`/posts/${id}`)
     dispatch(reRouteAction(true))

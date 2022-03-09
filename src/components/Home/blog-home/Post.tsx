@@ -26,7 +26,7 @@ const PostContainer = ({ fetchLoading, setFetchLoading }: PostContainerProps) =>
     const [show, setShow] = useState(false)
     const [emoji, setEmoji] = useState(false)
     const [showEmoji, setShowEmoji] = useState(false)
-   
+
 
     const toggleEmoji = () => {
         showEmoji === false ? setShowEmoji(true) : setShowEmoji(false)
@@ -57,7 +57,7 @@ const PostContainer = ({ fetchLoading, setFetchLoading }: PostContainerProps) =>
 
     const onEmojiClick = (event: any, emojiObject: any) => {
         setChosenEmoji(emojiObject);
-    };
+    }
 
     const newPost = async () => {
         if (media) {

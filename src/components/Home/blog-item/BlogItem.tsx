@@ -1,17 +1,16 @@
-import { useState, Dispatch, SetStateAction } from "react"
-import { Card, Badge, Dropdown, Image, ListGroup } from "react-bootstrap"
+import { useState } from "react"
+import { Card, Badge, Dropdown, ListGroup } from "react-bootstrap"
 import BlogAuthor from "../blog-author/BlogAuthor"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { Comments, User } from "../../../redux/interfaces"
 import { ReduxState } from "../../../redux/interfaces"
-import "./styles.scss"
 import CommentModal from "../blog-home/new/CommentModal"
 import SharePost from "../blog-home/new/SharePost"
 import Edit from "../blog-home/new/EditPost"
 import { likeAction, reRouteAction } from "../../../redux/actions"
-import { postTimer } from "../../../lib"
 import DeleteModal from "./DeleteModal"
+import "./styles.scss"
 
 
 interface BlogItemProps {
@@ -141,8 +140,6 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
             <Dropdown.Toggle
               className="btn btn-dark dropdownbtn">
                 <div className="text-muted dots"><b><strong>•••</strong></b></div>
-              {/* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAABIklEQVRoge3WQUrEMBQG4L8lWMgmB3CdjR2wB+kJdD16p64dT6D3CGjdZO2+3RRmCMZNrXVs2ipIBvy/VcnL+8kjtBQgIiIiIiIiolOUHC9Ya7O2bW8BXAHY9MvPAHZKqUprvV8KjZHxZRBjzLlz7hHAZSDfCCHKoiheQweIlZF+PFhrs4VmACiccw/W2myqGDNjGKS/xrnmIaRpmu1UIWZGOipcr2gGACRJEtobLWM8yMXaAHy+fMeiZaRzu2a8/bLvzzLGg7z8ICC0N1rGeJC7td3e+12gFC1jGEQpVQEwK/qNlLKaKsTMGAbRWu+FEOVCiBFClHmeH6aKMTO+/aLUdX3Wdd1N/2nbAID3/gnAvZSyCh3gFDOIiIiIiIjoP3oHzGHME9QNRNcAAAAASUVORK5CYII=" 
-                className="lrdimg" width='17px' alt=''  /> */}
             </Dropdown.Toggle>
             <Dropdown.Menu className='dropdownmenu'>
     
@@ -198,31 +195,6 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
         {newPost!.sharedPost && newPost!.sharedPost!._id !== _id ?
           <div className='sharePostDiv'>
             <div className='sharePost pt-3'>
-              {/* <div className='authorinfo d-flex ' style={{ justifyContent: 'space-between' }}>
-                <div className="text-decoration-none" onClick={() => route(newPost!.sharedPost.user._id)} >
-                  <div id="authorDetails" className="d-flex">
-                    <Image
-                      style={{ width: "50px", height: "50px" }}
-                      className="blog-author authorDetails"
-                      src={user?.image}
-                      roundedCircle
-                    />
-                    <div style={{ marginLeft: "10px" }}>
-                      <h6 className="text-dark authorFirstName mb-0">
-                        {user?.firstName}
-                        { newPost!.sharedPost!.user! && newPost!.sharedPost!.user!.isVerified === true &&
-                          <span className=" mt-1 ml-1  d-flex-row align-items-center">
-                            <img alt='' className="mr-2" width="15"
-                              src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png" />
-                          </span>
-                        }
-                      </h6>
-                      <h6 className="text-muted authorUserName mb-1">@{user?.userName}</h6>
-                      <h6 className="text-muted postTime">● {postTimer(newPost!.sharedPost.createdAt)} ago</h6>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
 
               <div className="d-flex">
                 <BlogAuthor {...user} /> <div></div>
