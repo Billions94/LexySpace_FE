@@ -1,11 +1,12 @@
-import { Dropdown, Image } from "react-bootstrap"
+import { Dropdown, Form, Image } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { useState } from "react"
+import { useState, KeyboardEvent, createRef } from "react"
 import { Link } from "react-router-dom"
 import { postTimer } from "../../../lib"
 import { Comments, Posts, ReduxState, Replies } from "../../../redux/interfaces"
 import Reply from "./blog-reply/Reply"
 import { defaultAvatar } from "../../../redux/store"
+import Picker from 'emoji-picker-react'
 
 interface SingleCommentProps {
   id: string | undefined
@@ -19,6 +20,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
 
   const apiUrl = process.env.REACT_APP_GET_URL
   const [media, setMedia] = useState<string>('')
+  const [showEmoji, setShowEmoji] = useState(false)
   const { user } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 
@@ -113,6 +115,20 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
     }
   }
 
+  const inputBtn = createRef<HTMLInputElement>()
+
+  const openInputFile = () => {
+    inputBtn!.current!.click()
+  }
+
+  // Emojis 
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const onEmojiClick = (event: any, emojiObject: any) => {
+    setChosenEmoji(emojiObject);
+  };
+
+
   return (
     <div key={comment._id} className="mt-2">
       <div className="cardHeader">
@@ -190,22 +206,40 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
             <Link to={`/userProfile/${user._id}`}>
               <div className='mt-2'>
                 <Image roundedCircle src={user.image} alt=''
+                  className='d-block rounded-circle g-mt-3 g-mr-15'
                   width={37} height={37} />
               </div>
             </Link>
-            <div className="p-2 w-100">
-              <textarea className='form-control replyarea'
-                rows={1}
-                value={reply.text}
-                placeholder="Write a reply..."
-                onChange={(e) => setReply({ ...reply, text: e.target.value })} />
-              <div className="mt-2 d-flex">
-                {!reply.text ? null :
-                  <button className="btn btn-sm modal-btn ml-auto"
-                    onClick={() => replyComment(comment)}>
-                    <i className="fa fa-pencil fa-fw" /> Reply
-                  </button>
+
+            <div className="textAreaDm w-100">
+              <div id='textArea-container' className="panel-body">
+                <svg id='input-icon1' xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="#f91880" className="bi bi-emoji-smile ml-2" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                  <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                </svg>
+                {showEmoji === false ? null :
+                  <Picker onEmojiClick={onEmojiClick}
+                    pickerStyle={{ width: '100%' }} />
                 }
+                <div>
+                  {!reply.text ?
+                    <div>
+                      <input type="file" ref={inputBtn} className="d-none" onChange={target} />
+                      <svg id='input-icon' onClick={openInputFile} xmlns="http://www.w3.org/2000/svg" width="50px" height="18" fill="#f91880" className="bi bi-card-image btn btn-sm uploadicons" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z" />
+                      </svg>
+                    </div> :
+                    <button className="btn ml-auto btn-sm sendBtnDm"
+                      onClick={() => replyComment(comment)}>
+                      <i className="fa fa-pencil fa-fw" /> send
+                    </button>
+                  }
+                </div>
+                <Form.Control className="form-control dmText search"
+                  placeholder="Write a comment..."
+                  value={reply.text}
+                  onChange={(e) => setReply({ ...reply, text: e.target.value })} />
               </div>
             </div>
           </div>

@@ -350,3 +350,106 @@
 .replyspan:hover {
   background-color: silver !important;
 }
+
+.textAreaDm {
+  padding: 10px 0;
+}
+
+#input-container {
+  position: relative;
+  border-bottom: 1px solid #24224a;
+}
+
+#textArea-container {
+  position: relative;
+  cursor: pointer;
+
+  .search {
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+    padding: 0 50px;
+    transition: ease-in-out 0.3s;
+  }
+
+  .dmText {
+    border-radius: 20px;
+    border: 1px solid #24224a;
+    background: #020024;
+    color: #dadada;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    resize: both;
+    min-height: 40px;
+    line-height: 20px;
+  }
+
+  .sendBtnDm {
+    border: none;
+    background-color: transparent;
+    color: #f91880;
+    text-decoration: none;
+    position: absolute;
+    bottom: 1px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+    font-weight: bolder;
+    cursor: pointer !important;
+    z-index: 11;
+  }
+
+  .sendBtnDm:active {
+    box-shadow: none;
+    outline: none;
+    border: none;
+  }
+
+  .sendBtnDm:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+  }
+
+  .sendBtnDm:focus-visible {
+    box-shadow: none;
+    outline: none;
+    border: none;
+  }
+
+  #input-icon {
+    position: absolute;
+    bottom: 0px;
+    right: 7px;
+    width: 40px;
+    height: 40px;
+    font-weight: bolder;
+    cursor: pointer !important;
+    z-index: 11;
+  }
+  
+  #input-icon1 {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 22px;
+    height: 22px;
+    font-weight: bolder;
+    cursor: pointer !important;
+    z-index: 11;
+  }
+  
+  // #input-icon2 {
+  //   position: absolute;
+  //   bottom: 8px;
+  //   right: 7px;
+  //   width: 22px;
+  //   height: 22px;
+  //   font-weight: bolder;
+  //   cursor: pointer !important;
+  //   z-index: 11;
+  // }
+}
