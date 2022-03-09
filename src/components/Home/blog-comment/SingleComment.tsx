@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { postTimer } from "../../../lib"
 import { Comments, Posts, ReduxState, Replies } from "../../../redux/interfaces"
 import Reply from "./blog-reply/Reply"
+import { defaultAvatar } from "../../../redux/store"
 
 interface SingleCommentProps {
   id: string | undefined
@@ -17,7 +18,7 @@ interface SingleCommentProps {
 const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCommentProps) => {
 
   const apiUrl = process.env.REACT_APP_GET_URL
-  const dispatch = useDispatch()
+  const [media, setMedia] = useState<string>('')
   const { user } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 
@@ -32,24 +33,57 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
     show === false ? setShow(true) : setShow(false)
   }
 
+  const target = (e: any) => {
+    console.log(e.target.files[0])
+    if (e.target && e.target.files[0]) {
+      setMedia(e.target.files[0])
+    }
+  }
+
   const replyComment = async (c: Comments) => {
-    try {
-      const response = await fetch(`${apiUrl}/replies/${c._id}`, {
-        method: "POST",
-        body: JSON.stringify(reply),
-        headers: { "Content-Type": "application/json" },
-      })
-      if (response.ok) {
-        setReply({
-          text: "",
-          user: user!._id
+    if (media) {
+      try {
+        const response = await fetch(`${apiUrl}/replies/${c._id}`, {
+          method: "POST",
+          body: JSON.stringify(reply),
+          headers: { "Content-Type": "application/json" },
         })
-        setShow(false)
-        getReplies()
-        fetchComments()
+        if (response.ok) {
+          const replyData = await response.json()
+          console.log('this is the reply data', replyData)
+          try {
+            const formDt = new FormData()
+            formDt.append("media", media)
+            const addMedia = await fetch(`${apiUrl}/replies//upload`)
+          } catch (error) {
+            console.log(error)
+          }
+          setShow(false)
+          getReplies()
+          fetchComments()
+        }
+      } catch (error) {
+        console.log("ooops we encountered an error", error)
       }
-    } catch (error) {
-      console.log("ooops we encountered an error", error)
+    } else {
+      try {
+        const response = await fetch(`${apiUrl}/replies/${c._id}`, {
+          method: "POST",
+          body: JSON.stringify(reply),
+          headers: { "Content-Type": "application/json" },
+        })
+        if (response.ok) {
+          setReply({
+            text: "",
+            user: user!._id
+          })
+          setShow(false)
+          getReplies()
+          fetchComments()
+        }
+      } catch (error) {
+        console.log("ooops we encountered an error", error)
+      }
     }
   }
 
@@ -87,7 +121,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
             <div>
               <Image
                 className=" d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
-                src={comment.user.image}
+                src={comment.user.image ? comment.user.image : defaultAvatar}
                 alt="Image Description"
               />
             </div>
