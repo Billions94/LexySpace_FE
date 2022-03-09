@@ -130,9 +130,9 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
               </div>
               <div className="commentText">
                 <div>{comment.text}</div>  
-                <div>
+                <div className='mt-2'>
                   {!comment.media ? null : comment.media && comment.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
-                    <img src={comment.media} alt='' />
+                    <img className="img" src={comment.media} alt='' />
                   }
                   {!comment.media ? null : comment.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
                   <video src={comment.media} className="blog-video" controls autoPlay muted></video>
@@ -140,7 +140,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
                 </div>
               </div>
               <span onClick={() => toggle()}
-                className="replyspan">
+                className={!comment.media ? "replyspan" : 'replyspan1'}>
                 Reply
               </span>
             </div>

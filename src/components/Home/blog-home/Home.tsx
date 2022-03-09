@@ -6,7 +6,6 @@ import useAuthGuard from "../../../lib/index"
 import { useDispatch, useSelector } from "react-redux"
 import { getPosts, getUsersAction, GET_BLOGS, hideMeAction, hideTaskAction } from "../../../redux/actions"
 import HotPosts from "./HotPosts"
-import Loader from "../loader/Loader"
 import { ReduxState } from "../../../redux/interfaces"
 import "./styles.scss"
 import Blog from "../views"
@@ -14,8 +13,7 @@ import Footer from "../../footer/Footer"
 import PostContainer from "./Post"
 import TaskList from "./TaskList"
 import Search from "./Search"
-import { Element, scroller } from 'react-scroll'
-import { matchPath } from "react-router-dom"
+import { Element } from 'react-scroll'
 import { useLocation } from "react-router-dom"
 import MusicPlayer from "../musicplayer/MusicPlayer"
 // import Blog from "../views/Index"
@@ -26,15 +24,13 @@ const Home = () => {
   useAuthGuard()
 
   const beUrl = process.env.REACT_APP_GET_URL
-  const location = useLocation()
   const dispatch = useDispatch()
   const [value, setValue] = useState<number>()
   const [isLoading, setIsLoading] = useState(true)
   const [fetchLoading, setFetchLoading] = useState(false)
   const { hideMe, reroute, hideTask } = useSelector((state: ReduxState) => state.data)
   const { posts } = useSelector((state: ReduxState) => state)
-  // console.log('user', user)
-  // const [reroute, setReRoute] = useState(false)
+
 
   const toggleHide = () => {
     hideMe === false ? dispatch(hideMeAction(true)) : dispatch(hideMeAction(false))
@@ -55,9 +51,6 @@ const Home = () => {
         type: GET_BLOGS,
         payload: newPost
       })
-      // setTimeout(() => {
-      //     setIsLoading(false)
-      // }, 2000)
     }
   } catch (error) {
     console.log(error)
@@ -74,12 +67,8 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reroute])
 
-  // const isHome = location.pathname === "/home"
   useEffect(() => {
-    // console.log(isHome)
-
     window.addEventListener("scroll", (event) => {
-      // console.log(window.scrollY)
       setValue(window.scrollY)
     })
 
@@ -87,7 +76,6 @@ const Home = () => {
 
   }, [reroute])
 
-  console.log(hideMe)
 
   return posts && (
     <Container id='mainContainer' className="pt-0 ml-auto" fluid="sm">

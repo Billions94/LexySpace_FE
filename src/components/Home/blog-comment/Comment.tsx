@@ -1,14 +1,10 @@
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { Accordion, Card, Button, Image, Dropdown } from "react-bootstrap"
-import Reply from "./blog-reply/Reply"
-import { postTimer } from "../../../lib/index"
+import { useEffect } from "react"
 import Loader from "../loader/Loader"
-import { Posts, Comments, User, ReduxState } from "../../../redux/interfaces"
-import { useDispatch, useSelector } from "react-redux"
+import { Posts, Comments, User } from "../../../redux/interfaces"
+import { useDispatch } from "react-redux"
 import { getUsersAction } from "../../../redux/actions"
-import "./styles.scss"
 import SingleComment from "./SingleComment"
+import "./styles.scss"
 
 
 interface CommentsProps {
@@ -31,33 +27,18 @@ const Comment = ({ blog, id, comments, fetchComments }: CommentsProps) => {
 
   return comments ? (
     <>
-      {/* <Accordion className="" defaultActiveKey="0">
-        <Card className="accCard" >
-          <Card.Header className="cardHeader">
-            <Accordion.Toggle
-              className="text-dark shareComment"
-              as={Button}
-              variant="link"
-              eventKey="0">
-              <span>Show comments</span>
-            </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="0"> */}
-            <div>
-              {
-                comments.map((c) => (
-                  c.postId !== blog?._id ? null :
-                  <SingleComment 
-                  id={id}
-                  blog={blog}
-                  comment={c}
-                  comments={comments} 
-                  fetchComments={fetchComments}/>
-                ))}
-            </div>
-          {/* </Accordion.Collapse>
-        </Card>
-      </Accordion> */}
+      <div>
+        {
+          comments.map((c) => (
+            c.postId !== blog?._id ? null :
+              <SingleComment
+                id={id}
+                blog={blog}
+                comment={c}
+                comments={comments}
+                fetchComments={fetchComments} />
+          ))}
+      </div>
     </>
   ) : (<Loader />)
 }

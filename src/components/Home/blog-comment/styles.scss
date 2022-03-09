@@ -66,6 +66,10 @@
   img {
     width: 100%;
   }
+  .img {
+    max-height: 100px;
+    max-width: 100px;
+  }
 }
 
 .posted {
@@ -173,6 +177,7 @@
   margin-top: 10px;
   margin-left: -10px;
 }
+
 
 
 .delete {
@@ -322,7 +327,18 @@
 
 .replyspan {
   position: absolute;
-  margin-top: 100px;
+  margin-top: 110px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  padding: 2px 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.replyspan1 {
+  position: absolute;
+  margin-top: 210px;
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
