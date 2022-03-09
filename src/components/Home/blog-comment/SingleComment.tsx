@@ -52,17 +52,23 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
         })
         if (response.ok) {
           const replyData = await response.json()
+          const newReply = replyData.replies.pop()
           console.log('this is the reply data', replyData)
           try {
             const formDt = new FormData()
             formDt.append("media", media)
-            const addMedia = await fetch(`${apiUrl}/replies//upload`)
+            const addMedia = await fetch(`${apiUrl}/replies/${newReply}/upload`, {
+              method: "PUT",
+              body: formDt,
+            })
+            if(addMedia.ok) {
+              setShow(false)
+              getReplies()
+              fetchComments()
+            }
           } catch (error) {
             console.log(error)
           }
-          setShow(false)
-          getReplies()
-          fetchComments()
         }
       } catch (error) {
         console.log("ooops we encountered an error", error)

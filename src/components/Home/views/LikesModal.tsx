@@ -18,7 +18,7 @@ const LikesModal = ({ likeShow, setLikeShow, post }: LikesModalProps) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const beUrl = process.env.REACT_APP_GET_URL
-    const { following, followers } = useSelector((state: ReduxState['data']) => state)
+    const { following } = useSelector((state: ReduxState['data']) => state)
     const newUser = useSelector((state: ReduxState) => state.data.user)
     const me = newUser?._id
     const follower = { followerId: newUser?._id }
