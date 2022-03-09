@@ -130,9 +130,11 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
     <div className="panel mt-4">
       <div className="panel-body d-flex">
         <div>
-          <Image roundedCircle src={user.image} alt=''
-            className='d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15'
-            width={47} height={47} />
+          <Link to={`/userProfile/${user._id}`}>
+            <Image roundedCircle src={user.image} alt=''
+              className='d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15'
+              width={47} height={47} />
+          </Link>
         </div>
         <div className="textAreaDm w-100">
           <div id='textArea-container' className="panel-body">
@@ -141,9 +143,9 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
               <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
             </svg>
             {showEmoji === false ? null :
-                  <Picker onEmojiClick={onEmojiClick}
-                    pickerStyle={{ width: '100%' }} />
-                }
+              <Picker onEmojiClick={onEmojiClick}
+                pickerStyle={{ width: '100%' }} />
+            }
             <div>
               {!comments.text ?
                 <div>

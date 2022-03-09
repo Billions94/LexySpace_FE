@@ -1,6 +1,6 @@
 import { Dropdown, Form, Image } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
-import { useState, KeyboardEvent, createRef } from "react"
+import { useSelector } from "react-redux"
+import { useState, createRef } from "react"
 import { Link } from "react-router-dom"
 import { postTimer } from "../../../lib"
 import { Comments, Posts, ReduxState, Replies } from "../../../redux/interfaces"
