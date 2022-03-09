@@ -56,6 +56,7 @@ export interface Comments {
 export interface Replies {
     _id: string
     text: string
+    media?: string
     user: User
     commentId: string
     createdAt: Date

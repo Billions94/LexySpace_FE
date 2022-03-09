@@ -94,6 +94,14 @@ const SingleReply = ({ commentID, comment, reply, blog, getReplies }: SingleRepl
                 <div className="replyText mb-1">
                   {reply.text}
                 </div>
+                <div className='mt-2 media'>
+                  {!reply.media ? null : reply.media && reply.media.split('.').slice(-1).join().match(`heic|png|jpg|pdf|jpeg`) &&
+                    <img className="img" src={reply.media} alt='' />
+                  }
+                  {!reply.media ? null : reply.media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&  
+                  <video src={reply.media} className="blog-video" controls autoPlay muted></video>
+                  }
+                </div>
               </div>
             </div>
           ) : null}
