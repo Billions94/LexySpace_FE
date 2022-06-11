@@ -17,12 +17,6 @@ import LikesModal from "./LikesModal"
 import "./styles.scss"
 
 
-
-interface BlogProps {
-  setReRoute: Dispatch<SetStateAction<boolean>>
-}
-
-
 const Blog = () => {
 
   useAuthGuard()
@@ -34,6 +28,7 @@ const Blog = () => {
   const [author, setAuthor] = useState<User | null>(null)
   const [blog, setBlog] = useState<Posts | null>(null)
   const [share, setShare] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [display, setDisplay] = useState(false)
   const [timer, setTimer] = useState(false)
   const [view, setView] = useState(false)
@@ -41,6 +36,7 @@ const Blog = () => {
   const [likeShow, setLikeShow] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const handleDisplayShow = () => setTimeout(() => { setDisplay(true) }, 1000)
+  // eslint-disable-next-line no-lone-blocks
   const handleDisplayClose = () => { { setTimeout(() => { if (timer === true) { setDisplay(false); setTimer(false) } }, 1000) } }
 
   const url = process.env.REACT_APP_GET_URL
@@ -160,7 +156,7 @@ const Blog = () => {
 
 
   const newPost = posts.find(p => p._id === id)
-  
+
   console.log(newPost)
 
   useEffect(() => {
@@ -186,7 +182,7 @@ const Blog = () => {
           <div className="d-flex align-items-center">
             <Button className='nav-back' onClick={() => navigateHome()}>
               <img src="https://img.icons8.com/ios-filled/50/ffffff/long-arrow-left.png"
-                className="arrowBack" />
+                className="arrowBack" alt=''/>
             </Button>
             <div className="mt-2 ml-2">
               <h5 className="textColor">Posts</h5>
@@ -210,7 +206,7 @@ const Blog = () => {
                       <img alt=''
                         className="lrdimg"
                         width="17px"
-                        src="https://img.icons8.com/ios-filled/50/ffffff/circled-down.png"/>
+                        src="https://img.icons8.com/ios-filled/50/ffffff/circled-down.png" />
                     </div>
                     <div className="">
                       download pdf
@@ -314,8 +310,6 @@ const Blog = () => {
             <div className='d-flex justify-content-evenly'>
               <div className='likes'>
                 {blog && blog?.likes.slice(0, 2).map(user => (
-                  // <img className="likeImg" src={user?.image} alt='' width='20px'
-                  //   onClick={() => setLikeShow(true)} />
                   <SingleImage user={user} setLikeShow={setLikeShow} />
                 ))}
                 {/* {blog?.likes.length > 3 && <div className="text-muted">+</div>} */}
@@ -339,8 +333,10 @@ const Blog = () => {
               onClick={() => showNHidde()}
               className='position-relative'>
               <button className='candl comment'>
-                <img className="interactions" src="https://img.icons8.com/ios-filled/50/ffffff/comment-discussion.png"
-                  width='25px' />
+                <img
+                  className="interactions"
+                  src="https://img.icons8.com/ios-filled/50/ffffff/comment-discussion.png"
+                  width='25px' alt='' />
               </button>
               {commentLabel === false ? null :
                 <Badge pill variant="secondary"
@@ -356,8 +352,11 @@ const Blog = () => {
               {!blog?.likes.some(elem => elem._id === me) ?
                 <>
                   <button className='candl '>
-                    <img className="interactions" onClick={() => toggle(blog?._id)}
+                    <img
+                      className="interactions"
+                      onClick={() => toggle(blog?._id)}
                       src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
+                      alt=''
                       width='25px' />
                   </button>
                   {likeLabel === false ? null :
@@ -370,8 +369,11 @@ const Blog = () => {
                 :
                 <>
                   <button className='candl '>
-                    <img className="interactions" onClick={() => toggle(blog?._id)}
+                    <img
+                      className="interactions"
+                      onClick={() => toggle(blog?._id)}
                       src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
+                      alt=''
                       width='25px' />
                   </button>
                   {likeLabel === false ? null :
@@ -389,7 +391,7 @@ const Blog = () => {
               <button onClick={handleShare}
                 className='candl share'>
                 <img src="https://img.icons8.com/ios-filled/50/ffffff/right2.png"
-                  width='25px' />
+                  width='25px' alt='' />
               </button>
               {shareLabel === false ? null :
                 <Badge pill variant="secondary"
@@ -422,15 +424,15 @@ const Blog = () => {
 export default Blog
 
 interface SingleImageProps {
- user: User
- setLikeShow: Dispatch<SetStateAction<boolean>>
+  user: User
+  setLikeShow: Dispatch<SetStateAction<boolean>>
 }
 
 const SingleImage = ({ user, setLikeShow }: SingleImageProps) => {
-  return(
+  return (
     <div className="singleImage">
-    <img className="likeImg" src={user?.image} alt='' width='20px'
-      onClick={() => setLikeShow(true)} />
+      <img className="likeImg" src={user?.image} alt='' width='20px'
+        onClick={() => setLikeShow(true)} />
     </div>
   )
 }

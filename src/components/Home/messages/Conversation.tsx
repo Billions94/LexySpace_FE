@@ -24,7 +24,6 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
     const member = room.members.find(members => members._id !== currentUser!._id)
     const activeStatus = onlineUsers.some(u => u._id === member!._id)
 
-    const notfication = chatHistory.length +1
 
     function multiTask(index: number, room: Rooms) {
         setSelectedIndex(index)
@@ -33,6 +32,7 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
 
     useEffect(() => {
         dispatch(getUsersAction())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [room])
 
     return (
@@ -47,7 +47,7 @@ export default function Convo({ index, room, currentUser, chatHistory, onlineUse
                     {activeStatus === true ?
                         <div className='onlineBadgeConvo'>
                             <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
-                                width={10} height={10} />
+                                width={10} height={10} alt='' />
                         </div> : null
                     }
                 </>

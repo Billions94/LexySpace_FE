@@ -4,7 +4,7 @@ import { Button, Form, Image } from 'react-bootstrap'
 import { musicIcon } from '../../../redux/store'
 import SingleSong from './SingleSong'
 import './styles.scss'
-import { playIcon, pauseIcon } from '../../../redux/store'
+
 
 export default function MusicPlayer() {
     const [music, setMusic] = useState<any>(null)
@@ -25,6 +25,7 @@ export default function MusicPlayer() {
 
     useEffect(() => {
         fetchResultsArray()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
 
     function toggle() {

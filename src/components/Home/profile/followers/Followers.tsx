@@ -43,6 +43,7 @@ const Followers = () => {
   useEffect(()=> {
     dispatch(getFollowersAction(id))
     getUser()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, id])
 
 

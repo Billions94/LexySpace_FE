@@ -23,6 +23,7 @@ const allCompose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compo
 // Initial state of the store
 export const initialState: ReduxState = {
     data: {
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         user: <User>{},
         followers: [],
         cover: defaultCover,
@@ -34,6 +35,7 @@ export const initialState: ReduxState = {
         tasks: '',
         hideTask: false
     },
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     posts: <Posts[]>[]
 }
 

@@ -1,8 +1,6 @@
 import { Button } from "react-bootstrap"
 import { User, ReduxState } from "../../../../redux/interfaces"
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import { getFollowersAction, getUsersAction } from "../../../../redux/actions"
+import { useSelector } from "react-redux"
 
 interface FollowButtonProps {
   followers: User[]

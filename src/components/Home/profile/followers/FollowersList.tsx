@@ -1,12 +1,9 @@
-import { ListGroup } from "react-bootstrap"
 import { Avatar } from "@mui/material"
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FollowButton from "./FollowButton";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, Dispatch, SetStateAction } from "react";
 import { User, ReduxState } from "../../../../redux/interfaces";
-import { followAction } from "../../../../redux/actions";
-import { setFlagsFromString } from "v8";
 
 interface FollowersListProps {
   f: User
@@ -18,10 +15,7 @@ interface FollowersListProps {
 
 const FollowersList = ({ f, id, getUser, refresh, setRefresh }: FollowersListProps) => {
 
-  const navigate = useNavigate()
-
   const beUrl = process.env.REACT_APP_GET_URL
-  const dispatch = useDispatch()
   const { user, followers, following } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 

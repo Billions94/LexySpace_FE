@@ -46,6 +46,7 @@ const Messages = () => {
 
   const [conversation, setConversation] = useState<Rooms[]>([])
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [users, setUsers] = useState<User[] | null>(null)
 
   const [arrivalMessage, setArrivalMessage] = useState<any | null>(null)
@@ -110,6 +111,7 @@ const Messages = () => {
   useEffect(() => {
     dispatch(getUsersAction())
     setUsername(user!.userName)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChat])
 
   useEffect(() => {
@@ -153,6 +155,7 @@ const Messages = () => {
       socket.disconnect()
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -164,6 +167,7 @@ const Messages = () => {
 
   useEffect(() => {
     username && socket.emit('setUsername', { userId: me, userName: username, image: user!.image })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username])
 
 
@@ -180,12 +184,14 @@ const Messages = () => {
     } catch (error) {
       console.log(error)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChat])
 
   useEffect(() => {
     socket.on("loggedin", fetchPreviousMessages)
 
     return () => { socket.off("loggedin", fetchPreviousMessages) }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchPreviousMessages])
 
 
@@ -223,6 +229,7 @@ const Messages = () => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatHistory])
 
 
