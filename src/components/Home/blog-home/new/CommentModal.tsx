@@ -122,6 +122,7 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
 
   useEffect(() => {
     dispatch(getUsersAction())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

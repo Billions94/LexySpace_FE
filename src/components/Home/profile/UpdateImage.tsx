@@ -1,7 +1,7 @@
 import { Modal, Button } from "react-bootstrap"
-import { useState, Dispatch, SetStateAction, createRef, useEffect } from "react";
+import { useState, Dispatch, SetStateAction, createRef } from "react";
 import { useDispatch } from "react-redux";
-import { getPosts, getUsersAction } from "../../../redux/actions"
+import { getPosts } from "../../../redux/actions"
 import { ReduxState, User } from "../../../redux/interfaces"
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";

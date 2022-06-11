@@ -24,21 +24,12 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
     user: userId
   });
 
-  console.log(comments)
-  console.log('user', userId)
 
   const apiUrl = process.env.REACT_APP_GET_URL
-
   const [media, setMedia] = useState<string>('')
-  const [show, setShow] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showEmoji, setShowEmoji] = useState(false)
 
-  const toggleEmoji = () => {
-    showEmoji === false ? setShowEmoji(true) : setShowEmoji(false)
-  }
-
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
 
   const target = (e: any) => {
     console.log(e.target.files[0])
@@ -54,6 +45,7 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
   }
 
   // Emojis 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
   const onEmojiClick = (event: any, emojiObject: any) => {
@@ -117,6 +109,7 @@ const AddComment = ({ fetchComments, id }: AddCommentProps) => {
 
   useEffect(() => {
     dispatch(getUsersAction())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 

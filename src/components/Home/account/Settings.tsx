@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Row, Col, ListGroup, Card, Accordion, Button} from "react-bootstrap"
+import { Row, Col, ListGroup, Card, Accordion, Button } from "react-bootstrap"
 import { OverlayTrigger, Popover, Form, Container, Alert } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -10,11 +10,9 @@ import "./styles.scss";
 
 const Settings = () => {
 
-  const url = process.env.REACT_APP_GET_URL;
-  const feUrl = process.env.REACT_APP_FE_URL
   const navigate = useNavigate()
 
-  const  users  = useSelector((state: ReduxState) => state.data.user)
+  const users = useSelector((state: ReduxState) => state.data.user)
   const me = users._id
   const dispatch = useDispatch()
 
@@ -53,12 +51,12 @@ const Settings = () => {
   const changePassword = async () => {
     try {
       const { data } = await API.put('/users/me', { user })
-      if(data) {
+      if (data) {
         setUser({
           password: '',
           confirmPassword: ''
-          })
-        setAlert(true)        
+        })
+        setAlert(true)
       } else {
         throw new Error("Couldn't update password")
       }
@@ -68,7 +66,7 @@ const Settings = () => {
   }
 
   const checkPasswords = () => {
-    if(user.password === user.confirmPassword) {
+    if (user.password === user.confirmPassword) {
       changePassword()
       triggerError()
     } else {
@@ -76,18 +74,19 @@ const Settings = () => {
       setTimeout(() => {
         setMatch(false)
       }, 6000)
-    } 
+    }
   }
 
   const triggerError = () => {
-      setTimeout(() => {
-        setAlert(false)
-      }, 3000)
+    setTimeout(() => {
+      setAlert(false)
+    }, 3000)
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(getUsersAction())
-  },[])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <Row className="justify-content-center">
       <Col className='settingsCol' md={7}>
@@ -96,17 +95,17 @@ const Settings = () => {
             <ListGroup.Item><h4 className="customh3">Profile information</h4></ListGroup.Item>
             <ListGroup.Item>
               {/* <a href={`${feUrl}/userProfile/me`} className="a-links"> */}
-                <div onClick={()=> navigate(`/userProfile/${me}`)}
-                    className="d-flex a-links justify-content-between">
-                  <div>
-                    <h5>Name, location, bio</h5>
-                    <p className="text-muted">
-                      choose how your name and profile info will be displayed to
-                      others
-                    </p>
-                  </div>
-                  <div className='change'>Change</div>
+              <div onClick={() => navigate(`/userProfile/${me}`)}
+                className="d-flex a-links justify-content-between">
+                <div>
+                  <h5>Name, location, bio</h5>
+                  <p className="text-muted">
+                    choose how your name and profile info will be displayed to
+                    others
+                  </p>
                 </div>
+                <div className='change'>Change</div>
+              </div>
               {/* </a> */}
             </ListGroup.Item>
           </div>
@@ -116,16 +115,16 @@ const Settings = () => {
             </ListGroup.Item>
             <ListGroup.Item>
               {/* <a href={`${feUrl}/closeAccount`} className="a-links"> */}
-                <div onClick={()=> navigate(`/closeAccount`)}
-                    className="d-flex a-links justify-content-between">
-                  <div>
-                    <h5>Close and delete account</h5>
-                    <p className="text-muted">
-                      learn about your options and decide if you want to delete your account
-                    </p>
-                  </div>
-                  <div className='change'>Change</div>
+              <div onClick={() => navigate(`/closeAccount`)}
+                className="d-flex a-links justify-content-between">
+                <div>
+                  <h5>Close and delete account</h5>
+                  <p className="text-muted">
+                    learn about your options and decide if you want to delete your account
+                  </p>
                 </div>
+                <div className='change'>Change</div>
+              </div>
               {/* </a> */}
             </ListGroup.Item>
           </div>
@@ -134,131 +133,132 @@ const Settings = () => {
               <h4 className="customh3">Account access</h4>
             </ListGroup.Item>
             <ListGroup.Item className='py-0 px-1'>
-            <Accordion id="accordion">
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                  <div className="d-flex justify-content-between">
-                    <div>
-                      <h5 className="text-left">Email Addresses</h5>
-                      <p className="text-muted">
-                        add or remove email addresses on your account.
-                      </p>
-                    </div>
-                    <div className='change'>Change</div>
-                  </div>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <Container id='passwordContainer'>
-                    <div>
-               
-                    </div>
-                  <Form id='form'>
-                  <Form.Group controlId="blog-form" className="mt-3 formgroup">
-                      <Form.Label>Email address</Form.Label>
-                      <Form.Control
-                      size="lg"
-                      type="password"
-                      value={user.confirmPassword}
-                      onChange={(e) => setUser({...user, confirmPassword: e.target.value })}/>
-                  </Form.Group>
-                  <Button className="save-btn"
-                    onClick={() => checkPasswords()}>
-                    save
-                  </Button>
-                  </Form>
-                  </Container>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
+              <Accordion id="accordion">
+                <Card>
+                  <Card.Header>
+                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                      <div className="d-flex justify-content-between">
+                        <div>
+                          <h5 className="text-left">Email Addresses</h5>
+                          <p className="text-muted">
+                            add or remove email addresses on your account.
+                          </p>
+                        </div>
+                        <div className='change'>Change</div>
+                      </div>
+                    </Accordion.Toggle>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      <Container id='passwordContainer'>
+                        <div>
+
+                        </div>
+                        <Form id='form'>
+                          <Form.Group controlId="blog-form" className="mt-3 formgroup">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control
+                              size="lg"
+                              type="password"
+                              value={user.confirmPassword}
+                              onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} />
+                          </Form.Group>
+                          <Button className="save-btn"
+                            onClick={() => checkPasswords()}>
+                            save
+                          </Button>
+                        </Form>
+                      </Container>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
             </ListGroup.Item>
-            <ListGroup.Item className='signInSecurity'> 
-          <Accordion id="accordion">
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                  <div className="d-flex justify-content-between">
-                    <div>
-                      <h5 className="text-left">Password</h5>
-                      <p className="text-muted">
-                        Change Your Password
-                      </p>
-                    </div>
-                    <div className="change">Change</div>
-                  </div>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <Container id='passwordContainer'>
-                    {
-                      alert === true ?   
-                      <Alert className="alert" variant='success'>
-                        Password successfully changed!
-                      </Alert> : null
-                    }
-                    {
-                      match === true ?   
-                      <Alert className="alert" variant='warning'>
-                        Passwords do not match!
-                      </Alert> : null
-                    }
-                    <div className="text-muted">
-                    Create a new password that is at least 8 characters long.
-                    </div>
-                    <div>
-                    <img src="https://img.icons8.com/ios-glyphs/50/ffffff/privacy.png" width='20px'/>
-                      <OverlayTrigger
-                          trigger="click"
-                          placement='bottom' 
-                          overlay={
-                            <Popover id=''>
-                            <Popover.Title as="h3"></Popover.Title>
-                            <Popover.Content id='overlay'>
-                              <h5 className='customH5'>Choose a strong password to protect your account</h5>
-                              <span className='customSpan'>It <strong>should</strong> be a mix of letters, numbers and special characters</span>
-                              <br />
-                              <span className='customSpan'>It <strong>should</strong> be atleast 8 characters long</span>
-                              <br />
-                              <span className='customSpan'>It <strong>should not</strong> contain your name, phone number or email address</span>
-                            </Popover.Content>
-                          </Popover>}>
-                      <Button className='overlay-btn'>
-                        <span className="text-muted">What makes a strong password?</span>
-                      </Button>
-                    </OverlayTrigger>
-                    </div>
-                  <Form id='form'>
-                  <Form.Group controlId="blog-form" className="mt-3 formgroup">
-                      <Form.Label>Password</Form.Label>
-                      <Form.Control
-                      size="lg"
-                      type="password"
-                      value={user.password}
-                      onChange={(e) => setUser({...user, password: e.target.value })}/>
-                  </Form.Group>
-                  <Form.Group controlId="blog-form" className="mt-3 formgroup">
-                      <Form.Label>Confirm password</Form.Label>
-                      <Form.Control
-                      size="lg"
-                      type="password"
-                      value={user.confirmPassword}
-                      onChange={(e) => setUser({...user, confirmPassword: e.target.value })}/>
-                  </Form.Group>
-                  <Button  className="save-btn"
-                    onClick={() => checkPasswords()}>
-                    save
-                  </Button>
-                  </Form>
-                  </Container>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
-        </ListGroup.Item>
+            <ListGroup.Item className='signInSecurity'>
+              <Accordion id="accordion">
+                <Card>
+                  <Card.Header>
+                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                      <div className="d-flex justify-content-between">
+                        <div>
+                          <h5 className="text-left">Password</h5>
+                          <p className="text-muted">
+                            Change Your Password
+                          </p>
+                        </div>
+                        <div className="change">Change</div>
+                      </div>
+                    </Accordion.Toggle>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      <Container id='passwordContainer'>
+                        {
+                          alert === true ?
+                            <Alert className="alert" variant='success'>
+                              Password successfully changed!
+                            </Alert> : null
+                        }
+                        {
+                          match === true ?
+                            <Alert className="alert" variant='warning'>
+                              Passwords do not match!
+                            </Alert> : null
+                        }
+                        <div className="text-muted">
+                          Create a new password that is at least 8 characters long.
+                        </div>
+                        <div>
+                          <img src="https://img.icons8.com/ios-glyphs/50/ffffff/privacy.png"
+                            width='20px' alt='' />
+                          <OverlayTrigger
+                            trigger="click"
+                            placement='bottom'
+                            overlay={
+                              <Popover id=''>
+                                <Popover.Title as="h3"></Popover.Title>
+                                <Popover.Content id='overlay'>
+                                  <h5 className='customH5'>Choose a strong password to protect your account</h5>
+                                  <span className='customSpan'>It <strong>should</strong> be a mix of letters, numbers and special characters</span>
+                                  <br />
+                                  <span className='customSpan'>It <strong>should</strong> be atleast 8 characters long</span>
+                                  <br />
+                                  <span className='customSpan'>It <strong>should not</strong> contain your name, phone number or email address</span>
+                                </Popover.Content>
+                              </Popover>}>
+                            <Button className='overlay-btn'>
+                              <span className="text-muted">What makes a strong password?</span>
+                            </Button>
+                          </OverlayTrigger>
+                        </div>
+                        <Form id='form'>
+                          <Form.Group controlId="blog-form" className="mt-3 formgroup">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                              size="lg"
+                              type="password"
+                              value={user.password}
+                              onChange={(e) => setUser({ ...user, password: e.target.value })} />
+                          </Form.Group>
+                          <Form.Group controlId="blog-form" className="mt-3 formgroup">
+                            <Form.Label>Confirm password</Form.Label>
+                            <Form.Control
+                              size="lg"
+                              type="password"
+                              value={user.confirmPassword}
+                              onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} />
+                          </Form.Group>
+                          <Button className="save-btn"
+                            onClick={() => checkPasswords()}>
+                            save
+                          </Button>
+                        </Form>
+                      </Container>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
+            </ListGroup.Item>
           </div>
         </ListGroup>
       </Col>

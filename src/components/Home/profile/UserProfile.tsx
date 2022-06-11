@@ -10,8 +10,8 @@ import { defaultCover, defaultAvatar } from "../../../redux/store"
 import { ReduxState, User } from "../../../redux/interfaces"
 import Recentposts from "./recentPost/RecentPosts"
 import Cover from "./Cover"
-import "./styles.scss"
 import Loader from "../loader/Loader"
+import "./styles.scss"
 
 
 const UserProfile = () => {
@@ -101,6 +101,7 @@ const UserProfile = () => {
     dispatch(getPosts())
     dispatch(getFollowersAction(id))
     getUser()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   return user ? (

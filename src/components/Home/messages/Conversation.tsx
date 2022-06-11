@@ -17,8 +17,9 @@ interface RoomProps {
     setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void
 }
 
-export default function Convo({ index, room, currentUser, chatHistory, onlineUsers, setCurrentChat, selectedIndex, setSelectedIndex }: RoomProps) {
+export default function Convo(props: RoomProps) {
 
+    const { index, room, currentUser, chatHistory, onlineUsers, setCurrentChat, selectedIndex, setSelectedIndex } = props
 
     const dispatch = useDispatch()
     const member = room.members.find(members => members._id !== currentUser!._id)

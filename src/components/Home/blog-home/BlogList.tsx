@@ -1,8 +1,6 @@
 import { Row, Col, Spinner } from "react-bootstrap"
 import BlogItem from "../blog-item/BlogItem"
-import { useNavigate } from "react-router-dom"
 import { SetStateAction, useEffect, Dispatch } from "react"
-import { useDispatch } from "react-redux"
 import Loader from "../loader/Loader"
 import { Posts } from "../../../redux/interfaces"
 

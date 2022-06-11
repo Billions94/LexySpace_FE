@@ -1,21 +1,18 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import { Form, Col } from "react-bootstrap"
-import { format } from "date-fns";
 import "./styles.scss"
 import { Data } from "../../../interfaces/Data";
 
 const Weather = () => {
 
-  const userlocation: string = 'düsseldorf'
   const [input, setInput] = useState<string>('')
-  const [show, setShow] = useState(false)
   const [data, setData] = useState<Data | null>(null)
   const apiKey = process.env.REACT_APP_API_KEY
 
   const getWeatherInfo = async () => {
     if (input === '') {
       try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userlocation}&appid=${apiKey}`)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=berlin&appid=${apiKey}`)
         if (response.ok) {
           const data: Data = await response.json();
           setData(data)
@@ -41,10 +38,6 @@ const Weather = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input])
 
-  function multiTask(e: string) {
-    setInput(e)
-    setShow(true)
-  }
 
   return (
     <div className="mt-3 mb-5">
@@ -56,13 +49,12 @@ const Weather = () => {
                 className="customInput"
                 type="search"
                 value={input}
-                onChange={(e) => multiTask(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}
                 placeholder="Search city for weather info..."
               />
             </Form.Group>
           </Form>
         </Col>
-        {show === false ? null :
           <Col className="containerMod">
             {!input ? data &&
               <>
@@ -147,7 +139,6 @@ const Weather = () => {
               </>
             }
           </Col>
-        }
       </>
     </div>
   );

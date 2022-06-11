@@ -77,7 +77,7 @@ export default function OnlineUsers({ onlineUsers, currentUser, currentChat, set
                         </div>
                         <div className='onlineBadge'>
                             <img src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
-                                width={10} height={10} />
+                                width={10} height={10} alt='' />
                         </div>
                         <div className='username'>{friend.userName}</div>
                     </div>

@@ -16,7 +16,6 @@ const Search = () => {
     const [input, setInput] = useState('')
     const [users, setUsers] = useState<User[]>([])
     const newUser = useSelector((state: ReduxState) => state.data.user)
-    const { followers } = useSelector((state: ReduxState['data']) => state)
     const me = newUser._id
     const follower = { followerId: newUser._id }
 
@@ -83,6 +82,7 @@ const Search = () => {
 
     useEffect(() => {
         getUsers()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [input])
 
     return (

@@ -182,7 +182,7 @@ const Blog = () => {
           <div className="d-flex align-items-center">
             <Button className='nav-back' onClick={() => navigateHome()}>
               <img src="https://img.icons8.com/ios-filled/50/ffffff/long-arrow-left.png"
-                className="arrowBack" alt=''/>
+                className="arrowBack" alt='' />
             </Button>
             <div className="mt-2 ml-2">
               <h5 className="textColor">Posts</h5>

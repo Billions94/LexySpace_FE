@@ -54,17 +54,12 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
   const handleLikeLabelClose = () => setLikeLabel(false)
   const handleShareLabelClose = () => setShareLabel(false)
 
-
   let newPost = posts.find(p => p._id === _id)
-
-  // const newPost = posts.find(p => p.sharedPost._id)
-  // console.log('the new post', newPost)
 
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
-
   const handleShareShow = () => setShare(true)
-  const handleShareClose = () => setShare(false)
+
 
   const liker = { userId: newUser!._id }
 
@@ -139,17 +134,17 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
           <Dropdown className="dropdowntext ml-auto">
             <Dropdown.Toggle
               className="btn btn-dark dropdownbtn">
-                <div className="text-muted dots"><b><strong>•••</strong></b></div>
+              <div className="text-muted dots"><b><strong>•••</strong></b></div>
             </Dropdown.Toggle>
             <Dropdown.Menu className='dropdownmenu'>
-    
+
               <a href={`${apiUrl}/posts/${_id}/downloadPDF`}>
                 <div className="d-flex customLinks">
                   <div className="mr-3">
                     <img alt=''
                       className="lrdimg"
                       width="17px"
-                      src="https://img.icons8.com/ios-filled/50/ffffff/circled-down.png"/>
+                      src="https://img.icons8.com/ios-filled/50/ffffff/circled-down.png" />
                   </div>
                   <div >
                     download pdf
@@ -182,7 +177,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
               <h6>{text}</h6>
               <div>
                 {!media ? null : media && media.split('.').slice(-1).join().match(`heic|png|jpg|gif|pdf|jpeg`) &&
-                  <h6> <img src={media} className="blog-cover" /></h6>
+                  <h6> <img src={media} className="blog-cover" alt='' /></h6>
                 }
                 {!media ? null : media && media.split('.').slice(-1).join().match(`mp4|MPEG-4|mkv`) &&
                   <video src={media} className="blog-video" controls autoPlay muted></video>}
@@ -220,8 +215,8 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
             onMouseLeave={handleCommentLabelClose}
             className='postition-relative'>
             <button className='candl' onClick={handleShow}>
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/comment-discussion.png"
-                width='20px' />
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/comment-discussion.png"
+                width='20px' alt='' />
             </button>
             <button className="text-dark btnX"><span>{comments.length}</span></button>
             {commentLabel === false ? null :
@@ -239,9 +234,9 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
             {!likes.some(elem => elem._id === me) ?
               <>
                 <button className='candl'>
-                  <img className="interactions" 
+                  <img className="interactions"
                     src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
-                    width='20px' />
+                    width='20px' alt='' />
                 </button>
                 <button className="text-dark btnX"><span>{likes.length}</span></button>
                 {likeLabel === false ? null :
@@ -256,7 +251,7 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
                 <button className='candl'>
                   <img className="interactions"
                     src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
-                    width='20px' />
+                    width='20px' alt='' />
                 </button>
                 <button className="text-dark btnX"><span>{likes.length}</span></button>
                 {likeLabel === false ? null :
@@ -272,8 +267,8 @@ const BlogItem = ({ text, media, comments, user, _id, likes, createdAt, getData 
             onMouseLeave={handleShareLabelClose}
             className='postition-relative'>
             <button className="candl" onClick={handleShareShow}>
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/right2.png"
-                width='20px' />
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/right2.png"
+                width='20px' alt='' />
             </button>
             {shareLabel === false ? null :
               <Badge pill variant="secondary"

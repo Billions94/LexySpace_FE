@@ -12,6 +12,7 @@ import API from '../../../lib/API'
 import Convo from './Conversation'
 import OnlineUsers from './OnlineUsers'
 import { isTypingGif, conversationGif } from '../../../redux/store'
+import { MessageBody } from './MessageBody'
 
 
 const ADDRESS = process.env.REACT_APP_GET_URL!
@@ -111,7 +112,7 @@ const Messages = () => {
   useEffect(() => {
     dispatch(getUsersAction())
     setUsername(user!.userName)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChat])
 
   useEffect(() => {
@@ -155,7 +156,7 @@ const Messages = () => {
       socket.disconnect()
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -167,7 +168,7 @@ const Messages = () => {
 
   useEffect(() => {
     username && socket.emit('setUsername', { userId: me, userName: username, image: user!.image })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username])
 
 
@@ -184,14 +185,14 @@ const Messages = () => {
     } catch (error) {
       console.log(error)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChat])
 
   useEffect(() => {
     socket.on("loggedin", fetchPreviousMessages)
 
     return () => { socket.off("loggedin", fetchPreviousMessages) }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchPreviousMessages])
 
 
@@ -229,7 +230,7 @@ const Messages = () => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatHistory])
 
 
@@ -300,12 +301,12 @@ const Messages = () => {
             currentChat={currentChat}
             setCurrentChat={setCurrentChat} />
 
-          <div style={{ borderBottom: '1px solid #24224a'}}>
+          <div style={{ borderBottom: '1px solid #24224a' }}>
             <div className='conversations d-flex'>
               <div className='convoNfc'>Conversations
                 <Button className='text-dark btnXX'>
                   <span>
-                    {conversation.length} 
+                    {conversation.length}
                   </span>
                 </Button>
               </div>
@@ -360,35 +361,10 @@ const Messages = () => {
               <div className='customDmBody  pt-2'>
                 {chatHistory.map((message, i) => (
                   <div ref={scrollRef} key={i} className="d-flex">
-                    {
-                      user._id !== message.sender ?
-                        <>
-                          <div className='d-flex'>
-                            <img src={message.image} onClick={() => navigate(`/userProfile/${message.sender}`)}
-                              style={{ cursor: 'pointer' }}
-                              className="roundpic" alt='' width={37} height={37} />
-                            <div className="ml-2 dmUserName">
-                              <p style={{ cursor: 'default' }} className="dmBubble m-0">
-                                {message.text}
-                              </p>
-                              <h1 style={{ cursor: 'default' }} className='h1'>
-                                {new Date(message.createdAt).toLocaleTimeString('en-US')}
-                              </h1>
-                            </div>
-                          </div>
-                        </>
-                        :
-                        <div style={{ marginLeft: 'auto' }}>
-                          <div className='d-flex'>
-                            <div className="ml-2 dmUserName">
-                              <p style={{ cursor: 'default' }} className="dmBubble1 m-0">{message.text}</p>
-                              <h1 style={{ cursor: 'default' }} className='h2'>
-                                {new Date(message.createdAt).toLocaleTimeString('en-US')}
-                              </h1>
-                            </div>
-                          </div>
-                        </div>
-                    }
+                    <MessageBody
+                      user={user}
+                      message={message}
+                    />
                   </div>
                 ))}
               </div>

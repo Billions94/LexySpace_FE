@@ -1,7 +1,6 @@
-import { useState, Dispatch, SetStateAction, useRef, createRef, LegacyRef } from "react"
+import { useState, Dispatch, SetStateAction, createRef } from "react"
 import { Button, Modal, Form } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import { GET_BLOGS } from "../../../../redux/actions"
 import useAuthGuard from "../../../../lib/index"
 import { ReduxState } from "../../../../redux/interfaces"
@@ -18,9 +17,6 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
   useAuthGuard()
   
   const url = process.env.REACT_APP_GET_URL!
-  const token = process.env.TOKEN
-
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { user } = useSelector((state: ReduxState) => state.data)

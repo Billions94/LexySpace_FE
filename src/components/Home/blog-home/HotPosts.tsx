@@ -15,10 +15,9 @@ const HotPosts = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { posts } = useSelector((state: ReduxState) => state)
-    // const { isLoading } = useSelector((state: ReduxState['data']) => state)
     const [seeMore, setSeeMore] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const { posts } = useSelector((state: ReduxState) => state)
 
 
 
@@ -50,6 +49,7 @@ const HotPosts = () => {
     useEffect(() => {
         getData()
         dispatch(getPosts())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [length.length])
 
     const toggle = () => {
@@ -66,35 +66,35 @@ const HotPosts = () => {
             {isLoading === true ? <div className='loader'><Spinner className='spinner' animation="border" /> </div> :
                 <>
                     <div className="p-3 d-flex">
-                        <img src="https://img.icons8.com/ios-filled/50/ffffff/anonymous-mask.png" width='27px' height='27px' />
+                        <img
+                            src="https://img.icons8.com/ios-filled/50/ffffff/anonymous-mask.png"
+                            width='27px' height='27px' alt='' />
                         <h4 className="textColor ml-2"> Top Posts</h4>
                     </div>
                     <div className="mb-0">
                         {newPost &&
                             newPost.slice(0, 5).map((p, i) => (
-                                // <Link key={i}  className="text-decoration-none text-dark" to={`/home/${p._id}`}>
                                 <div key={i} onClick={() => doSomething(p._id)}
                                     className="hotpostList">
                                     <div className="d-flex index">
-                                        <div className="text-muted">
+                                        <span className="text-muted">
                                             {i + 1} .
-                                        </div>
-                                        <div className="text-muted">
+                                        </span>
+                                        <span className="text-muted">
                                             Top Posts
-                                        </div>
+                                        </span>
                                     </div>
                                     <div className="text">
                                         <p className="strong">{p.text}</p>
                                     </div>
                                     <div className="likes">
                                         {p.likes.length > 1 ?
-                                            <div className="text-muted">{p.likes.length} likes</div>
+                                            <span className="text-muted">{p.likes.length} likes</span>
                                             :
-                                            <div className="text-muted">{p.likes.length} like</div>
+                                            <span className="text-muted">{p.likes.length} like</span>
                                         }
                                     </div>
                                 </div>
-                                // </Link> 
                             ))
                         }
                         {seeMore === true ?
@@ -102,21 +102,21 @@ const HotPosts = () => {
                                 <div key={i} onClick={() => doSomething(p._id)}
                                     className="hotpostList">
                                     <div className="d-flex index">
-                                        <div className="text-muted">
+                                        <span className="text-muted">
                                             {i + 6} .
-                                        </div>
-                                        <div className="text-muted">
+                                        </span>
+                                        <span className="text-muted">
                                             Top Posts
-                                        </div>
+                                        </span>
                                     </div>
                                     <div className="text">
                                         <p className="strong">{p.text}</p>
                                     </div>
                                     <div className="likes">
                                         {p.likes.length > 1 ?
-                                            <div className="text-muted">{p.likes.length} likes</div>
+                                            <span className="text-muted">{p.likes.length} likes</span>
                                             :
-                                            <div className="text-muted">{p.likes.length} like</div>
+                                            <span className="text-muted">{p.likes.length} like</span>
                                         }
                                     </div>
                                 </div>
@@ -129,10 +129,14 @@ const HotPosts = () => {
                             <div >
                                 {seeMore === false ?
                                     <p className="text-left text-muted p-0"
-                                        onClick={() => toggle()}><b className='seeMore'>Show More</b></p>
+                                        onClick={() => toggle()}>
+                                        <b className='seeMore'>Show More</b>
+                                    </p>
                                     :
                                     <p className="text-left text-muted p-0"
-                                        onClick={() => toggle()}><b className='seeMore'>Show Less</b></p>
+                                        onClick={() => toggle()}>
+                                        <b className='seeMore'>Show Less</b>
+                                    </p>
                                 }
                             </div>
                         ) : null

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Comments, Posts, Replies } from "../../../../redux/interfaces";
 import SingleReply from "./SingleReply"
 

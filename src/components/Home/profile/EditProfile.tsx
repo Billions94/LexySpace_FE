@@ -1,8 +1,5 @@
 import { Modal, Form, Button } from "react-bootstrap"
-import { useSelector, useDispatch } from "react-redux"
-import { useState, Dispatch, SetStateAction, useEffect } from "react"
-import { getUsersAction } from "../../../redux/actions"
-import { ReduxState } from "../../../redux/interfaces"
+import { useState, Dispatch, SetStateAction } from "react"
 // import API from "../../login&register/Api.js"
 
 interface EditProfileProps {

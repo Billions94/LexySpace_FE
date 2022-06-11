@@ -53,6 +53,7 @@ const PostContainer = ({ fetchLoading, setFetchLoading }: PostContainerProps) =>
     }
 
     // Emojis 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [chosenEmoji, setChosenEmoji] = useState('');
 
     const onEmojiClick = (event: any, emojiObject: any) => {

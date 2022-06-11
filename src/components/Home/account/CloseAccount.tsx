@@ -9,11 +9,8 @@ import Loader from "../loader/Loader"
 
 const CloseAccount = () => {
 
-    const feUrl = process.env.REACT_APP_FE_URL
-    const beUrl = process.env.REACT_APP_GET_URL
 
     const navigate = useNavigate()
-
     const dispatch = useDispatch()
     const { user } = useSelector((state: ReduxState) => state.data)
     console.log(' i am the user', user)

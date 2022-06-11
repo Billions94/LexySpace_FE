@@ -20,6 +20,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
 
   const apiUrl = process.env.REACT_APP_GET_URL
   const [media, setMedia] = useState<string>('')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showEmoji, setShowEmoji] = useState(false)
   const { user } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
@@ -29,6 +30,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
     user: user!._id
   })
   const [show, setShow] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [replies, setReplies] = useState<Replies[]>()
 
   const toggle = () => {
@@ -128,6 +130,7 @@ const SingleComment = ({ id, blog, comment, comments, fetchComments }: SingleCom
   }
 
   // Emojis 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
   const onEmojiClick = (event: any, emojiObject: any) => {

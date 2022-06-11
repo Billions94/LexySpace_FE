@@ -7,15 +7,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { getPosts, getUsersAction, GET_BLOGS, hideMeAction, hideTaskAction } from "../../../redux/actions"
 import HotPosts from "./HotPosts"
 import { ReduxState } from "../../../redux/interfaces"
-import "./styles.scss"
 import Blog from "../views"
 import Footer from "../../footer/Footer"
 import PostContainer from "./Post"
 import TaskList from "./TaskList"
 import Search from "./Search"
 import { Element } from 'react-scroll'
-import { useLocation } from "react-router-dom"
 import MusicPlayer from "../musicplayer/MusicPlayer"
+import "./styles.scss"
 // import Blog from "../views/Index"
 
 
@@ -73,7 +72,7 @@ const Home = () => {
     })
 
     window.scrollTo({ top: value, behavior: "smooth" })
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reroute])
 
 
@@ -91,10 +90,10 @@ const Home = () => {
               <div className="ml-auto">
                 {hideMe === false ?
                   <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
-                    width='27px' height='27px' />
+                    width='27px' height='27px' alt='' />
                   :
                   <img src="https://img.icons8.com/ios-filled/50/ffffff/closed-eye.png"
-                    width='27px' height='27px' />
+                    width='27px' height='27px' alt='' />
                 }
               </div>
             </div>
@@ -107,10 +106,10 @@ const Home = () => {
               <div className="ml-auto">
                 {hideTask === false ?
                   <img src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
-                    width='27px' height='27px' />
+                    width='27px' height='27px' alt='' />
                   :
                   <img src="https://img.icons8.com/ios-filled/50/ffffff/closed-eye.png"
-                    width='27px' height='27px' />
+                    width='27px' height='27px' alt='' />
                 }
               </div>
             </div>
@@ -125,8 +124,16 @@ const Home = () => {
         <Col className="feed" sm={12} md={7} lg={7}>
           {reroute === false ?
             <Col className='mainfeed justify-content-center' md={11} lg={12}>
-              <PostContainer fetchLoading={fetchLoading} setFetchLoading={setFetchLoading} />
-              <BlogList posts={posts} getData={getData} isLoading={isLoading} setIsLoading={setIsLoading} />
+              <PostContainer
+                fetchLoading={fetchLoading}
+                setFetchLoading={setFetchLoading}
+              />
+              <BlogList
+                posts={posts}
+                getData={getData}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              />
             </Col> :
             <Col md={11} lg={12}>
               <Element name='postSectionInner'>

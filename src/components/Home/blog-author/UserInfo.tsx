@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
@@ -22,7 +22,6 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { user, followers } = useSelector((state: ReduxState) => state.data)
-  const { following } = useSelector((state: ReduxState) => state.data)
   const me = user!._id
 
   // props?.
@@ -70,6 +69,7 @@ const UserInfo = ({ show, handleShow, handleClose, setTimer, props }: UserInfoPr
 
   useEffect(() => {
     dispatch(getFollowersAction(props?._id))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show])
   
   return (

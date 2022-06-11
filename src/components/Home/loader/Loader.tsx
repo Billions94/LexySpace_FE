@@ -1,5 +1,4 @@
 import React from 'react'
-import Col from "react-bootstrap/Col"
 import Spinner from "react-bootstrap/Spinner"
 import "./styles.scss"
 

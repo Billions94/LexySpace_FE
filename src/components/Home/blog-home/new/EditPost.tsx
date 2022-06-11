@@ -1,5 +1,4 @@
 import { useState, createRef, Dispatch, SetStateAction } from "react"
-import { useNavigate } from "react-router-dom"
 import { Container, Form, Button, Modal } from "react-bootstrap"
 import useAuthGuard from "../../../../lib/index"
 import { useSelector, useDispatch } from "react-redux"
@@ -26,7 +25,7 @@ const Edit = ({ id, refresh, setRefresh }: EditProps) => {
   const [post, setPost] = useState({
     text: ""
   })
-  const navigate = useNavigate()
+
   const dispatch = useDispatch()
 
 
