@@ -3,21 +3,17 @@ import { useSelector } from "react-redux";
 import { useState, createRef } from "react";
 import { Link } from "react-router-dom";
 import { postTimer } from "../../../lib";
-import {
-  Comments,
-  Posts,
-  ReduxState,
-  Replies,
-} from "../../../redux/interfaces";
-import Reply from "./blog-reply/Reply";
-import { defaultAvatar } from "../../../redux/store";
+import { Post,Comment, ReduxState, Replies } from "../../../redux/interfaces";
+
 import Picker from "emoji-picker-react";
+import { defaultAvatar } from "../../../assets/icons";
+import Reply from "../../reply/Reply";
 
 interface SingleCommentProps {
   id: string | undefined;
-  blog: Posts;
-  comment: Comments;
-  comments: Comments[];
+  blog: Post;
+  comment: Comment;
+  comments: Comment[];
   fetchComments: () => Promise<void>;
 }
 
@@ -54,7 +50,7 @@ const SingleComment = ({
     }
   };
 
-  const replyComment = async (c: Comments) => {
+  const replyComment = async (c: Comment) => {
     if (media) {
       try {
         const response = await fetch(`${apiUrl}/replies/${c._id}`, {
@@ -123,7 +119,7 @@ const SingleComment = ({
     }
   };
 
-  const deleteComment = async (c: Comments) => {
+  const deleteComment = async (c: Comment) => {
     try {
       const response = await fetch(`${apiUrl}/posts/${id}/comments/${c._id}`, {
         method: "DELETE",
@@ -209,7 +205,7 @@ const SingleComment = ({
               {comment.user.firstName} {comment.user.lastName}
             </div>
             <div className="commentText">
-              <div>{comment.text}</div>
+              <div>{comment.content}</div>
               <div className="mt-2">
                 {!comment.media
                   ? null

@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { ReduxState } from "../../redux/interfaces";
 import useAuthGuard from "../../lib";
 import { getUsersAction } from "../../redux/actions";
-import Loader from "../Home/loader/Loader";
+import Loader from "../loader/Loader";
+
 
 const EditNewUser = () => {
   useAuthGuard();

@@ -8,21 +8,22 @@ import {
   Row,
 } from "react-bootstrap";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { Posts, Comments, User, ReduxState } from "../../../redux/interfaces";
+import { Post, Comment, User, ReduxState } from "../../../redux/interfaces";
 import { getPosts, likeAction, reRouteAction } from "../../../redux/actions";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import useAuthGuard, { postTimer } from "../../../lib/index";
 import { useSelector, useDispatch } from "react-redux";
-import { defaultAvatar } from "../../../redux/store";
-import Comment from "../blog-comment/Comment";
 import AddComment from "../blog-comment/AddComment";
 import Edit from "../blog-home/new/EditPost";
-import Loader from "../loader/Loader";
 import ShareModal from "./SharedModal";
-import ViewModal from "./ViewModal";
-import DeleteModal from "../blog-item/DeleteModal";
-import LikesModal from "./LikesModal";
+
 import "./styles.scss";
+import Loader from "../../loader/Loader";
+import DeleteModal from "../../post/crud/DeleteModal";
+import { defaultAvatar } from "../../../assets/icons";
+import ViewModal from "../../post/views/ViewModal";
+import LikesModal from "../../post/views/LikesModal";
+import CommentComponent from "../../comment/Comment";
 
 const Blog = () => {
   useAuthGuard();
@@ -30,9 +31,9 @@ const Blog = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [comments, setComments] = useState<Comments[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [author, setAuthor] = useState<User | null>(null);
-  const [blog, setBlog] = useState<Posts | null>(null);
+  const [blog, setBlog] = useState<Post | null>(null);
   const [share, setShare] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [display, setDisplay] = useState(false);
@@ -89,7 +90,7 @@ const Blog = () => {
     try {
       const response = await fetch(`${url}/posts/${id}`);
       if (response.ok) {
-        const data: Posts = await response.json();
+        const data: Post = await response.json();
         setBlog(data);
         console.log(
           "i am the data",
@@ -108,7 +109,7 @@ const Blog = () => {
     try {
       const response = await fetch(`${url}/comments`);
       if (response.ok) {
-        const data: Posts = await response.json();
+        const data: Post = await response.json();
 
         const reverseComments = data.comments.reverse();
 
@@ -251,10 +252,9 @@ const Blog = () => {
                       <div onClick={() => setOpen(true)}>delete</div>
                     </div>
                     <DeleteModal
-                      id={blog?._id}
+                      postId={blog?._id}
                       smShow={open}
                       setSmShow={setOpen}
-                      deleteBlogPost={deleteBlogPost}
                     />
                   </>
                 )}
@@ -536,12 +536,13 @@ const Blog = () => {
             <AddComment fetchComments={fetchComments} id={id} />
           )}
           <Col className="mt-5 p-0">
-            <Comment
+            <CommentComponent
               blog={blog}
               id={id}
               comments={comments}
               author={author}
               fetchComments={fetchComments}
+              setComments={setComments}
             />
           </Col>
         </Col>

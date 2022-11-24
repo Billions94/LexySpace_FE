@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { GET_BLOGS } from "../../../redux/actions";
 import { ReduxState } from "../../../redux/interfaces";
-import { loadingNew } from "../../../redux/store";
 import { Row, Image } from "react-bootstrap";
 import Picker from "emoji-picker-react";
+import { loadingNew } from "../../../assets/icons";
 
 interface PostContainerProps {
   fetchLoading: boolean;
