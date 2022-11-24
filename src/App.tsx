@@ -1,19 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import NavBar from './components/Navbar/NavBar'
-import LogIn from './components/login&register/LogIn'
-import Home from './components/Home/blog-home/Home'
-import Register from './components/login&register/Register'
-import BeforeLogin from './components/beforeLogin/BeforeLogin'
+import NavBar from './components/navbar/NavBar'
+import LogIn from './components/auth/LogIn'
+import Home from './components/home/Home'
+import Register from './components/auth/Register'
+import BeforeLogin from './components/welcomePage/WelcomePage'
 // import DM from "./components/Home/messages/DM"
-import Messages from "./components/Home/messages/Messages"
-import Blog from "./components/Home/views"
-import UserProfile from "./components/Home/profile/UserProfile"
-import Edit from "./components/Home/blog-home/new/EditPost"
-import Followers from "./components/Home/profile/followers/Followers"
-import CloseAccount from "./components/Home/account/CloseAccount"
-import Settings from "./components/Home/account/Settings"
+import Messages from "./components/messages/Messages"
+import Blog from "./components/post/views"
+import UserProfile from "./components/user/profile/UserProfile"
+import Edit from "./components/post/crud/EditPost"
+import Followers from "./components/user/followers/Followers"
+import CloseAccount from "./components/user/account/CloseAccount"
+import Settings from "./components/user/account/Settings"
 import Footer from "./components/footer/Footer"
-import EditNewUser from "./components/login&register/EditNewUser"
+import EditNewUser from "./components/auth/EditNewUser"
 import { useState } from "react"
 
 
