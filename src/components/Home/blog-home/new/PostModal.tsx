@@ -1,112 +1,38 @@
-import { Dispatch, SetStateAction, useEffect, useState, createRef } from "react"
-import { Modal, Form, Button } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
-import { getUsersAction } from "../../../redux/actions"
-import { ReduxState } from "../../../redux/interfaces"
+import { useState, Dispatch, SetStateAction, createRef } from "react";
+import { Button, Modal, Form } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { GET_BLOGS } from "../../../../redux/actions";
+import useAuthGuard from "../../../../lib/index";
+import { ReduxState } from "../../../../redux/interfaces";
+import "./styles.scss";
 
-interface CommentModalProps {
-  id: string;
+interface PostModalProps {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
-  handleClose: () => void;
 }
 
-export interface Comments {
-  text: string;
-  user: string | undefined;
-}
+const PostModal = ({ show, setShow }: PostModalProps) => {
+  useAuthGuard();
 
-const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
-  const apiUrl = process.env.REACT_APP_GET_URL;
-
+  const url = process.env.REACT_APP_GET_URL!;
   const dispatch = useDispatch();
-  const { user } = useSelector((state: ReduxState) => state.data);
-  const userId = user!._id;
 
-  const [comments, setComments] = useState<Comments>({
-    text: "",
-    user: userId,
-  });
+  const { user } = useSelector((state: ReduxState) => state.data);
+  const userName = user!.userName;
+
   const handleClose = () => setShow(false);
 
+  const [post, setPost] = useState({
+    text: "",
+  });
   const [media, setMedia] = useState<string>("");
-
-  const fetchComments = async () => {
-    try {
-      const response = await fetch(`${apiUrl}/comments`);
-      if (response.ok) {
-        const data = await response.json();
-
-        const reverseComments = data.comments.reverse();
-
-        setComments(reverseComments);
-      } else {
-        console.log("after ther fail of if block inside th else ");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const postComment = async () => {
-    if (media) {
-      try {
-        const response = await fetch(`${apiUrl}/comments/${id}`, {
-          method: "POST",
-          body: JSON.stringify(comments),
-          headers: { "Content-Type": "application/json" },
-        });
-        if (response.ok) {
-          const data = await response.json();
-          // const comments = data.data.comments[0]
-          // console.log(comments)
-          try {
-            const formDt = new FormData()
-            formDt.append('media', media)
-            const addMedia = await fetch(`${apiUrl}/comments/${data.data.comments[0]._id}/upload`, {
-              method: 'PATCH',
-              body: formDt
-            })
-            if (addMedia.ok) {
-              fetchComments();
-              setComments({
-                text: "",
-                user: userId,
-              });
-              setShow(false);
-            } else throw new Error("Comment could not be updated");
-          } catch (error) {
-            console.log(error);
-          }
-        }
-      } catch (error) {
-        console.error("oops with encountered an error ", error);
-      }
-    } else {
-      try {
-        const response = await fetch(`${apiUrl}/comments/${id}`, {
-          method: "POST",
-          body: JSON.stringify(comments),
-          headers: { "Content-Type": "application/json" },
-        });
-        if (response.ok) {
-          fetchComments();
-          setComments({
-            text: "",
-            user: userId,
-          });
-          setShow(false);
-        }
-      } catch (error) {
-        console.error("oops with encountered an error ", error);
-      }
-    }
-  };
+  // const [video, setVideo] = useState('')
 
   const target = (e: any) => {
     console.log(e.target.files[0]);
     if (e.target && e.target.files[0]) {
       setMedia(e.target.files[0]);
+      // setVideo(e.target.files[0])
     }
   };
 
@@ -116,10 +42,70 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
     inputBtn!.current!.click();
   };
 
-  useEffect(() => {
-    dispatch(getUsersAction());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const getPosts = async () => {
+    try {
+      const response = await fetch(`${url}/posts`);
+      if (response.ok) {
+        const { posts } = await response.json();
+        const newPost = posts.reverse();
+        dispatch({
+          type: GET_BLOGS,
+          payload: newPost,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const newPost = async () => {
+    if (media) {
+      try {
+        const response = await fetch(`${url}/posts/${userName}`, {
+          method: "POST",
+          body: JSON.stringify(post),
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          try {
+            const formDt = new FormData();
+            formDt.append("media", media);
+            let postImage = await fetch(`${url}/posts/${data._id}/upload`, {
+              method: "PATCH",
+              body: formDt,
+            });
+            if (postImage.ok) {
+              setShow(false);
+              setPost({ text: "" });
+              getPosts();
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const response = await fetch(`${url}/posts/${userName}`, {
+          method: "POST",
+          body: JSON.stringify(post),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          setShow(false);
+          setPost({ text: "" });
+          getPosts();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <>
@@ -131,13 +117,13 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
         animation={true}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Post a comment</Modal.Title>
+          <Modal.Title>start A Post</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex userInfoContainer">
             <div>
               <img
-                src={user?.image}
+                src={user!.image}
                 alt=""
                 className="roundpic"
                 width={47}
@@ -146,7 +132,7 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
             </div>
             <div className="ml-2 userInfo">
               <span>
-                {user?.firstName} {user?.lastName}
+                {user!.firstName} {user!.lastName}
                 {user!.isVerified === true && (
                   <span className=" mt-1 ml-1  d-flex-row align-items-center">
                     <img
@@ -166,10 +152,8 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
               as="textarea"
               className="textarea"
               rows={5}
-              value={comments.text}
-              onChange={(e) =>
-                setComments({ ...comments, text: e.target.value })
-              }
+              value={post.text}
+              onChange={(e) => setPost({ ...post, text: e.target.value })}
             />
           </Form.Group>
         </Modal.Body>
@@ -180,7 +164,7 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
                 type="file"
                 ref={inputBtn}
                 className="d-none"
-                onChange={target}
+                onChange={(e) => target(e)}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -195,12 +179,12 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
               </svg>
             </button>
           </div>
-          {!comments.text ? (
+          {!post.text ? (
             <Button
               variant="primary"
               disabled
               className="btn btn-md modal-btn"
-              onClick={() => postComment()}
+              onClick={() => newPost()}
             >
               post
             </Button>
@@ -208,7 +192,7 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
             <Button
               variant="primary"
               className="btn btn-md modal-btn"
-              onClick={() => postComment()}
+              onClick={() => newPost()}
             >
               post
             </Button>
@@ -219,4 +203,4 @@ const CommentModal = ({ id, show, setShow }: CommentModalProps) => {
   );
 };
 
-export default CommentModal;
+export default PostModal;
