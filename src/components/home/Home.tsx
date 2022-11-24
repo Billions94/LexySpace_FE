@@ -5,9 +5,6 @@ import Weather from "../post/Weather";
 import useAuthGuard from "../../lib/index";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getPosts,
-  getUsersAction,
-  GET_BLOGS,
   hideMeAction,
   hideTaskAction,
 } from "../../redux/actions";
@@ -22,6 +19,7 @@ import { Element } from "react-scroll";
 import MusicPlayer from "../musicplayer/MusicPlayer";
 import "./styles.scss";
 import API from "../../lib/API";
+import { getPosts } from "../../lib/requests/post";
 // import Blog from "../views/Index"
 
 const Home = () => {
@@ -50,7 +48,7 @@ const Home = () => {
 
   useEffect(() => {
     if (fetchLoading === false) {
-      dispatch(getPosts());
+      getPosts(dispatch);
     }
   }, [reroute]);
 
