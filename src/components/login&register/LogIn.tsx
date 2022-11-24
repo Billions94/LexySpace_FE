@@ -4,7 +4,8 @@ import { Form, Button, Col, Alert } from "react-bootstrap"
 import { useNavigate, Link } from "react-router-dom"
 import * as yup from "yup"
 import "./styles.scss"
-import Loader from "../Home/loader/Loader"
+import Loader from "../loader/Loader"
+
 
 
 const schema = yup.object({

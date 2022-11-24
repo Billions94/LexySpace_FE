@@ -1,10 +1,10 @@
 import { useState, createRef, Dispatch, SetStateAction } from "react";
 import { Modal, Button, Form, Card } from "react-bootstrap";
-import { ReduxState, Posts, User } from "../../../../redux/interfaces";
+import { ReduxState, Post, User } from "../../../../redux/interfaces";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import BlogAuthor from "../../blog-author/BlogAuthor";
 import { getPosts } from "../../../../redux/actions";
+import PostAuthor from "../../../post/author/PostAuthor";
 
 interface SharePostProps {
   id: string | undefined;
@@ -51,7 +51,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
           headers: { "Content-Type": "application" },
         });
         if (response.ok) {
-          const data: Posts = await response.json();
+          const data: Post = await response.json();
           const postId = data._id;
           try {
             const formDt = new FormData();
@@ -148,7 +148,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                 className="authorinfo d-flex "
                 style={{ justifyContent: "space-between" }}
               >
-                <BlogAuthor {...user} createdAt={createdAt} />
+                <PostAuthor {...user} createdAt={createdAt} />
               </div>
               <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
                 <Card.Title>{post.sharedPost.text}</Card.Title>

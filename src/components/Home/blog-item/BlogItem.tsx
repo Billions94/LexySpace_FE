@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { Card, Badge, Dropdown, ListGroup } from "react-bootstrap";
-import BlogAuthor from "../blog-author/BlogAuthor";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Comments, User } from "../../../redux/interfaces";
+import { Comment, User } from "../../../redux/interfaces";
 import { ReduxState } from "../../../redux/interfaces";
-import CommentModal from "../blog-home/new/CommentModal";
 import SharePost from "../blog-home/new/SharePost";
 import Edit from "../blog-home/new/EditPost";
 import { likeAction, reRouteAction } from "../../../redux/actions";
-import DeleteModal from "./DeleteModal";
 import "./styles.scss";
+import PostAuthor from "../../post/author/PostAuthor";
+import DeleteModal from "../../post/crud/DeleteModal";
+import CommentModal from "../../comment/new/CommentModal";
 
 interface BlogItemProps {
   text: string;
   // cover: string
   media: string;
-  comments: Comments[];
+  comments: Comment[];
   user: User;
   _id: string;
   likes: User[];
@@ -139,7 +139,7 @@ const BlogItem = ({
           className="authorinfo d-flex "
           style={{ justifyContent: "space-between" }}
         >
-          <BlogAuthor {...user} createdAt={createdAt} />
+          <PostAuthor {...user} createdAt={createdAt} />
           <Dropdown className="dropdowntext ml-auto">
             <Dropdown.Toggle className="btn btn-dark dropdownbtn">
               <div className="text-muted dots">
@@ -177,10 +177,9 @@ const BlogItem = ({
                     <div onClick={() => setSmShow(true)}>delete</div>
                   </div>
                   <DeleteModal
-                    id={_id}
+                    postId={_id}
                     smShow={smShow}
                     setSmShow={setSmShow}
-                    deleteBlogPost={deleteBlogPost}
                   />
                 </>
               )}
@@ -231,7 +230,7 @@ const BlogItem = ({
           <div className="sharePostDiv">
             <div className="sharePost pt-3">
               <div className="d-flex">
-                <BlogAuthor {...user} /> <div></div>
+                <PostAuthor {...user} /> <div></div>
               </div>
               <div onClick={() => route(_id)} className="blog-link">
                 <Card.Title>{newPost!.sharedPost.text}</Card.Title>
