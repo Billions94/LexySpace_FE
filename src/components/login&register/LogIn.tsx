@@ -36,7 +36,7 @@ const LogIn = () => {
 // Loggin in a registered user  
   const login = async (props: LoginFormikProps) => {
     try {
-      const response = await fetch(`${url}/users/login`, {
+      const response = await fetch(`${url}/sessions/create`, {
         method: 'POST',
         body: JSON.stringify(props),
         headers: { 'Content-Type': 'application/json'}
