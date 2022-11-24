@@ -15,7 +15,7 @@ const LogIn: FC = () => {
 
   async function login(props: FormikProps): Promise<void> {
     try {
-      const { data } = await API.post(`/session/create`, {
+      const { data } = await API.post(`/sessions/create`, {
         email: props.email,
         password: props.password,
       });
