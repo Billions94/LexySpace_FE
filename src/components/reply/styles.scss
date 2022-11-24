@@ -1,0 +1,50 @@
+#replyContainer {
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0px 0px 0px 67px;
+    width: 100%;
+    .replyContainer {
+        width: 100%;
+        position: relative;
+        .replyUserInfo {
+            display: flex;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 20px;
+        }
+        .replyText {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 18px;
+        }
+        .delete {
+            height: 30px;
+            width: 30px;
+        }
+        .delete:hover {
+            background-color: silver;
+        }
+        .postedReply {
+            display: flex;
+            align-items: center;
+            padding: 5px 5px;
+            border-bottom: 1px solid rgb(2,0,36) !important;
+        }
+    }
+    .reply2 {
+        border-radius: 20px;
+        border: 1px solid black;
+    }
+    .rply {
+        padding: 0 10px;
+        width: 100%;
+    }
+
+    .media {
+        .img {
+            max-width: 100px;
+            max-width: 100px;
+        }
+    }
+}
+
