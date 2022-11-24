@@ -163,7 +163,7 @@ const LogIn = () => {
                 </Form.Group>
 
                 <div className="loginBtn">
-                { values.password.length < 8  ?
+                { values.password.length <= 6  ?
                   <Button variant="primary" disabled className='disabled1' type="submit">
                     Log in
                   </Button> :
