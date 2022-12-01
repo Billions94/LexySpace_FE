@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Message, User } from "../../redux/interfaces";
 
@@ -25,8 +26,19 @@ export const MessageBody: React.FC<MessageBodyProps> = ({ user, message }) => {
               height={37}
             />
             <div className="ml-2 dmUserName">
-              <p style={{ cursor: "default" }} className="dmBubble m-0">
+              <p
+                style={{ cursor: "default" }}
+                className="dmBubble m-0 p-relative"
+              >
                 {message.text}
+
+                {message.media && (
+                  <Image
+                    className="p-absolute"
+                    src={message.media}
+                    alt="new message"
+                  />
+                )}
               </p>
               <h1 style={{ cursor: "default" }} className="h1">
                 {new Date(message.createdAt).toLocaleTimeString("en-US")}
@@ -40,6 +52,10 @@ export const MessageBody: React.FC<MessageBodyProps> = ({ user, message }) => {
             <div className="ml-2 dmUserName">
               <p style={{ cursor: "default" }} className="dmBubble1 m-0">
                 {message.text}
+
+                {message.media && (
+                  <Image src={message.media} alt="new message" />
+                )}
               </p>
               <h1 style={{ cursor: "default" }} className="h2">
                 {new Date(message.createdAt).toLocaleTimeString("en-US")}
@@ -51,3 +67,4 @@ export const MessageBody: React.FC<MessageBodyProps> = ({ user, message }) => {
     </>
   );
 };
+

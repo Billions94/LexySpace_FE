@@ -16,7 +16,7 @@ export interface ReduxState {
 
 export interface User {
   _id: string;
-  firstName?: string;
+  firstName: string;
   lastName: string;
   userName: string;
   email: string;

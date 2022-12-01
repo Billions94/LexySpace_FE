@@ -4,7 +4,7 @@
   "editor.formatOnType": true,
   "editor.fontLigatures": true,
   "editor.letterSpacing": 0.1,
-  "editor.fontSize": 12,
+  "editor.fontSize": 11.8,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "JetBrains Mono, Fira Code",
   "editor.codeActionsOnSave": {
@@ -15,7 +15,7 @@
     "comments": "#787878a3",
     "types": "#f8f8f8c4",
     // "keywords": "#ded2d288",
-    "strings": "#f2e1b7c8",
+    // "strings": "#f2e1b7c8",
     "[Gruvbox Dark Medium]": {
       "textMateRules": [
         {
@@ -37,8 +37,10 @@
   "editor.semanticTokenColorCustomizations": {
     "enabled": true,
     "rules": {
-      "functions": { "bold": true, "fontStyle": "italic bold" }
+      "function": { "bold": true, "fontStyle": "italic bold" },
+      "property": "#a5f8f0bf",
+      "variable": { "foreground": "#e2edf0df", "fontStyle": "italic" }
     }
   },
-  "material-icon-theme.folders.color": "#f2e1b7",
+  "material-icon-theme.folders.color": "#f2e1b7"
 }
