@@ -66,7 +66,6 @@ const PostContainer = ({
     inputBtn!.current!.click();
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenEmoji, setChosenEmoji] = useState("");
 
   const onEmojiClick = (event: any, emojiObject: any) => {

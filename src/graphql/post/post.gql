@@ -1,24 +1,49 @@
 query Posts {
   posts {
     author {
-      userName
-    }
-    comments {
-      content
-      media
-      postId
       id
-      author {
+      userName
+      bio
+      firstName
+      lastName
+      email
+      following {
         id
       }
+      followers {
+        id
+      }
+      refreshToken
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
+    }
+    comments {
+      id
+      content
     }
     content
+    createdAt
     id
-    media
     likes {
       id
+      userName
+      firstName
+      lastName
+      image
     }
-    createdAt
+    media
+    sharedPost {
+      author {
+        firstName
+      }
+      content
+      media
+      createdAt
+    }
   }
 }
 
@@ -27,7 +52,9 @@ query GetPostById($postId: String) {
     id
     content
     media
-    sharedPost
+    sharedPost {
+      id
+    }
     author {
       id
       firstName
@@ -66,6 +93,7 @@ query GetPostById($postId: String) {
       session
       isVerified
     }
+    createdAt
   }
 }
 
@@ -74,7 +102,9 @@ mutation AddPost($input: PostInput) {
     id
     content
     media
-    sharedPost
+    sharedPost {
+      id
+    }
     comments {
       id
       content

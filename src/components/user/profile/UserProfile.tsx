@@ -88,7 +88,6 @@ const UserProfile: FC = () => {
     dispatch(getPosts());
     dispatch(getFollowersAction(id));
     getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return user ? (

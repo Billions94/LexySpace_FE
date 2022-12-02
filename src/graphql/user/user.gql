@@ -10,8 +10,22 @@ query Users {
     cover
     session
     isVerified
+    createdAt
+    userName
     followers {
       id
+      firstName
+      lastName
+      userName
+      email
+      refreshToken
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
     }
     following {
       id
@@ -22,25 +36,92 @@ query Users {
 query User {
   user {
     id
-    activities {
-      media
-      content
-    }
-    bio
-    cover
-    email
-    userName
     firstName
     lastName
-    image
+    userName
+    email
+    bio
     location
+    image
+    cover
+    isVerified
+    createdAt
     followers {
+      id
+      firstName
+      lastName
       userName
+      email
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
     }
     following {
+      id
+      firstName
+      lastName
       userName
+      email
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
     }
+  }
+}
+
+query UserById($userId: String) {
+  userById(userId: $userId) {
+    id
+    firstName
+    lastName
+    userName
+    email
+    refreshToken
+    bio
+    location
+    image
+    cover
+    session
     isVerified
+    createdAt
+    followers {
+      id
+      firstName
+      lastName
+      userName
+      email
+      refreshToken
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
+    }
+    following {
+      id
+      firstName
+      lastName
+      userName
+      email
+      refreshToken
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
+    }
   }
 }
 
@@ -50,7 +131,6 @@ mutation Register($input: AuthUserInput) {
     refreshToken
   }
 }
-
 
 mutation Login($input: AuthUserInput) {
   login(input: $input) {

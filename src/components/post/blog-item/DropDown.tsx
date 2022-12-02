@@ -3,7 +3,7 @@ import PostAuthor from "../author/PostAuthor";
 import Edit from "../crud/EditPost";
 import DeleteModal from "../crud/DeleteModal";
 import { Dropdown } from "react-bootstrap";
-import { Post } from "../../../redux/interfaces";
+import { Post } from "../../../dto";
 
 interface Props {
   data: {
@@ -20,7 +20,7 @@ export const DropDown: React.FC<Props> = ({ data }: Props) => {
   const { post, reload, setReload, me, smShow, setSmShow } = data;
 
   const updatePostProps = {
-    postId: post._id,
+    postId: post.id,
     reload,
     setReload,
   };
@@ -30,7 +30,7 @@ export const DropDown: React.FC<Props> = ({ data }: Props) => {
       className="authorinfo d-flex "
       style={{ justifyContent: "space-between" }}
     >
-      <PostAuthor {...post.user} createdAt={post.createdAt} />
+      <PostAuthor {...post.author} />
       <Dropdown className="dropdowntext ml-auto">
         <Dropdown.Toggle className="btn btn-dark dropdownbtn">
           <div className="text-muted dots">
@@ -40,7 +40,7 @@ export const DropDown: React.FC<Props> = ({ data }: Props) => {
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownmenu">
-          {post.user!._id !== me ? null : (
+          {post.author!.id !== me ? null : (
             <>
               <Edit data={updatePostProps} />
               <div className="d-flex customLinks">
@@ -55,7 +55,7 @@ export const DropDown: React.FC<Props> = ({ data }: Props) => {
                 <div onClick={() => setSmShow(true)}>delete</div>
               </div>
               <DeleteModal
-                postId={post._id}
+                postId={post.id}
                 smShow={smShow}
                 setSmShow={setSmShow}
               />

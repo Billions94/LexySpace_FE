@@ -2,8 +2,8 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Post } from "../../../dto";
 import { reRouteAction } from "../../../redux/actions";
-import { Post } from "../../../redux/interfaces";
 import PostAuthor from "../author/PostAuthor";
 
 interface Props {
@@ -26,14 +26,14 @@ export const SharedPost: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <React.Fragment>
-      {newPost!.sharedPost && newPost!.sharedPost!._id !== post._id ? (
+      {newPost!.sharedPost && newPost!.sharedPost!.id !== post.id ? (
         <div className="sharePostDiv">
           <div className="sharePost pt-3">
             <div className="d-flex">
-              <PostAuthor {...post.user} /> <div></div>
+              <PostAuthor {...post.author} /> <div></div>
             </div>
-            <div onClick={() => route(post._id)} className="blog-link">
-              <Card.Title>{newPost!.sharedPost.text}</Card.Title>
+            <div onClick={() => route(post.id)} className="blog-link">
+              <Card.Title>{newPost!.sharedPost.content}</Card.Title>
               {!newPost?.sharedPost!
                 ? null
                 : newPost!.sharedPost.media &&

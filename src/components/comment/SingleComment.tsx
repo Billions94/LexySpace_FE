@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import { useState, createRef, Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import { postTimer } from "../../lib";
-import { Comment, Post, ReduxState, Replies } from "../../redux/interfaces";
+import { Comment, ReduxState, Replies } from "../../redux/interfaces";
 import Reply from "../reply/Reply";
 import Picker from "emoji-picker-react";
 import { deleteComment } from "../../lib/requests/comment";
 import { defaultAvatar } from "../../assets/icons";
+import { Post } from "../../dto";
 
 interface SingleCommentProps {
   id: string | undefined;
@@ -28,7 +29,7 @@ const SingleComment = ({
 }: SingleCommentProps) => {
   const apiUrl = process.env.REACT_APP_GET_URL;
   const [media, setMedia] = useState<string>("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [showEmoji, setShowEmoji] = useState(false);
   const { user } = useSelector((state: ReduxState) => state.data);
   const me = user!._id;
@@ -38,7 +39,6 @@ const SingleComment = ({
     user: user!._id,
   });
   const [show, setShow] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [replies, setReplies] = useState<Replies[]>();
 
   const toggle = () => {
@@ -146,7 +146,6 @@ const SingleComment = ({
   };
 
   // Emojis
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
   const onEmojiClick = (event: any, emojiObject: any) => {

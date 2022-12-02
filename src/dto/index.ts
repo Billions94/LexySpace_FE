@@ -13,6 +13,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
+  DateRegister: any;
+  DateTime: any;
 };
 
 export type AuthResponse = {
@@ -32,6 +35,7 @@ export type Comment = {
   __typename?: 'Comment';
   author?: Maybe<User>;
   content: Scalars['String'];
+  createdAt?: Maybe<Scalars['Date']>;
   id: Scalars['ID'];
   media?: Maybe<Scalars['String']>;
   postId: Scalars['String'];
@@ -141,11 +145,11 @@ export type Post = {
   author: User;
   comments?: Maybe<Array<Maybe<Comment>>>;
   content: Scalars['String'];
-  createdAt?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
   id: Scalars['ID'];
   likes?: Maybe<Array<Maybe<User>>>;
   media?: Maybe<Scalars['String']>;
-  sharedPost?: Maybe<Scalars['String']>;
+  sharedPost?: Maybe<Post>;
 };
 
 export type PostInput = {
@@ -163,6 +167,7 @@ export type Query = {
   posts: Array<Post>;
   replies: Array<Reply>;
   user: User;
+  userById: User;
   users: Array<User>;
 };
 
@@ -181,11 +186,17 @@ export type QueryGetReplyByIdArgs = {
   replyId?: InputMaybe<Scalars['String']>;
 };
 
+
+export type QueryUserByIdArgs = {
+  userId?: InputMaybe<Scalars['String']>;
+};
+
 export type Reply = {
   __typename?: 'Reply';
   author?: Maybe<User>;
   commentId: Scalars['String'];
   content: Scalars['String'];
+  createdAt?: Maybe<Scalars['Date']>;
   id: Scalars['ID'];
   media?: Maybe<Scalars['String']>;
 };
@@ -205,6 +216,7 @@ export type User = {
   activities?: Maybe<Array<Maybe<Post>>>;
   bio?: Maybe<Scalars['String']>;
   cover?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
   email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   followers?: Maybe<Array<Maybe<User>>>;
@@ -214,7 +226,7 @@ export type User = {
   isVerified?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   location?: Maybe<Scalars['String']>;
-  refreshToken: Scalars['String'];
+  refreshToken?: Maybe<Scalars['String']>;
   session?: Maybe<Scalars['String']>;
   userName: Scalars['String'];
 };
@@ -233,21 +245,21 @@ export type UserInput = {
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', content: string, id: string, media?: string | null, createdAt?: string | null, author: { __typename?: 'User', userName: string }, comments?: Array<{ __typename?: 'Comment', content: string, media?: string | null, postId: string, id: string, author?: { __typename?: 'User', id: string } | null } | null> | null, likes?: Array<{ __typename?: 'User', id: string } | null> | null }> };
+export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', content: string, createdAt?: any | null, id: string, media?: string | null, author: { __typename?: 'User', id: string, userName: string, bio?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, refreshToken?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, createdAt?: any | null, following?: Array<{ __typename?: 'User', id: string } | null> | null, followers?: Array<{ __typename?: 'User', id: string } | null> | null }, comments?: Array<{ __typename?: 'Comment', id: string, content: string } | null> | null, likes?: Array<{ __typename?: 'User', id: string, userName: string, firstName?: string | null, lastName?: string | null, image?: string | null } | null> | null, sharedPost?: { __typename?: 'Post', content: string, media?: string | null, createdAt?: any | null, author: { __typename?: 'User', firstName?: string | null } } | null }> };
 
 export type GetPostByIdQueryVariables = Exact<{
   postId?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename?: 'Post', id: string, content: string, media?: string | null, sharedPost?: string | null, author: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, refreshToken: string, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, userName: string }, comments?: Array<{ __typename?: 'Comment', id: string, content: string, media?: string | null, postId: string, replies?: Array<{ __typename?: 'Reply', id: string, content: string, media?: string | null, commentId: string } | null> | null } | null> | null, likes?: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null } | null> | null } };
+export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename?: 'Post', id: string, content: string, media?: string | null, createdAt?: any | null, sharedPost?: { __typename?: 'Post', id: string } | null, author: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, refreshToken?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, userName: string }, comments?: Array<{ __typename?: 'Comment', id: string, content: string, media?: string | null, postId: string, replies?: Array<{ __typename?: 'Reply', id: string, content: string, media?: string | null, commentId: string } | null> | null } | null> | null, likes?: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null } | null> | null } };
 
 export type AddPostMutationVariables = Exact<{
   input?: InputMaybe<PostInput>;
 }>;
 
 
-export type AddPostMutation = { __typename?: 'Mutation', addPost: { __typename?: 'Post', id: string, content: string, media?: string | null, sharedPost?: string | null, createdAt?: string | null, comments?: Array<{ __typename?: 'Comment', id: string, content: string, media?: string | null, postId: string, replies?: Array<{ __typename?: 'Reply', id: string, content: string, media?: string | null, commentId: string } | null> | null } | null> | null, likes?: Array<{ __typename?: 'User', id: string } | null> | null } };
+export type AddPostMutation = { __typename?: 'Mutation', addPost: { __typename?: 'Post', id: string, content: string, media?: string | null, createdAt?: any | null, sharedPost?: { __typename?: 'Post', id: string } | null, comments?: Array<{ __typename?: 'Comment', id: string, content: string, media?: string | null, postId: string, replies?: Array<{ __typename?: 'Reply', id: string, content: string, media?: string | null, commentId: string } | null> | null } | null> | null, likes?: Array<{ __typename?: 'User', id: string } | null> | null } };
 
 export type UpdatePostMutationVariables = Exact<{
   postId?: InputMaybe<Scalars['String']>;
@@ -267,12 +279,19 @@ export type DeletePostMutation = { __typename?: 'Mutation', deletePost: boolean 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, followers?: Array<{ __typename?: 'User', id: string } | null> | null, following?: Array<{ __typename?: 'User', id: string } | null> | null }> };
+export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, createdAt?: any | null, userName: string, followers?: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, userName: string, email?: string | null, refreshToken?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, createdAt?: any | null } | null> | null, following?: Array<{ __typename?: 'User', id: string } | null> | null }> };
 
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, bio?: string | null, cover?: string | null, email?: string | null, userName: string, firstName?: string | null, lastName?: string | null, image?: string | null, location?: string | null, isVerified?: boolean | null, activities?: Array<{ __typename?: 'Post', media?: string | null, content: string } | null> | null, followers?: Array<{ __typename?: 'User', userName: string } | null> | null, following?: Array<{ __typename?: 'User', userName: string } | null> | null } };
+export type UserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, userName: string, email?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, isVerified?: boolean | null, createdAt?: any | null, followers?: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, userName: string, email?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, createdAt?: any | null } | null> | null, following?: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, userName: string, email?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, createdAt?: any | null } | null> | null } };
+
+export type UserByIdQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UserByIdQuery = { __typename?: 'Query', userById: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, userName: string, email?: string | null, refreshToken?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, createdAt?: any | null, followers?: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, userName: string, email?: string | null, refreshToken?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, createdAt?: any | null } | null> | null, following?: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, userName: string, email?: string | null, refreshToken?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, createdAt?: any | null } | null> | null } };
 
 export type RegisterMutationVariables = Exact<{
   input?: InputMaybe<AuthUserInput>;
@@ -307,24 +326,49 @@ export const PostsDocument = gql`
     query Posts {
   posts {
     author {
-      userName
-    }
-    comments {
-      content
-      media
-      postId
       id
-      author {
+      userName
+      bio
+      firstName
+      lastName
+      email
+      following {
         id
       }
+      followers {
+        id
+      }
+      refreshToken
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
+    }
+    comments {
+      id
+      content
     }
     content
+    createdAt
     id
-    media
     likes {
       id
+      userName
+      firstName
+      lastName
+      image
     }
-    createdAt
+    media
+    sharedPost {
+      author {
+        firstName
+      }
+      content
+      media
+      createdAt
+    }
   }
 }
     `;
@@ -361,7 +405,9 @@ export const GetPostByIdDocument = gql`
     id
     content
     media
-    sharedPost
+    sharedPost {
+      id
+    }
     author {
       id
       firstName
@@ -400,6 +446,7 @@ export const GetPostByIdDocument = gql`
       session
       isVerified
     }
+    createdAt
   }
 }
     `;
@@ -437,7 +484,9 @@ export const AddPostDocument = gql`
     id
     content
     media
-    sharedPost
+    sharedPost {
+      id
+    }
     comments {
       id
       content
@@ -574,8 +623,22 @@ export const UsersDocument = gql`
     cover
     session
     isVerified
+    createdAt
+    userName
     followers {
       id
+      firstName
+      lastName
+      userName
+      email
+      refreshToken
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
     }
     following {
       id
@@ -614,25 +677,44 @@ export const UserDocument = gql`
     query User {
   user {
     id
-    activities {
-      media
-      content
-    }
-    bio
-    cover
-    email
-    userName
     firstName
     lastName
-    image
+    userName
+    email
+    bio
     location
+    image
+    cover
+    isVerified
+    createdAt
     followers {
+      id
+      firstName
+      lastName
       userName
+      email
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
     }
     following {
+      id
+      firstName
+      lastName
       userName
+      email
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
     }
-    isVerified
   }
 }
     `;
@@ -663,6 +745,83 @@ export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQ
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export const UserByIdDocument = gql`
+    query UserById($userId: String) {
+  userById(userId: $userId) {
+    id
+    firstName
+    lastName
+    userName
+    email
+    refreshToken
+    bio
+    location
+    image
+    cover
+    session
+    isVerified
+    createdAt
+    followers {
+      id
+      firstName
+      lastName
+      userName
+      email
+      refreshToken
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
+    }
+    following {
+      id
+      firstName
+      lastName
+      userName
+      email
+      refreshToken
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      createdAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserByIdQuery__
+ *
+ * To run a query within a React component, call `useUserByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserByIdQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useUserByIdQuery(baseOptions?: Apollo.QueryHookOptions<UserByIdQuery, UserByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserByIdQuery, UserByIdQueryVariables>(UserByIdDocument, options);
+      }
+export function useUserByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserByIdQuery, UserByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserByIdQuery, UserByIdQueryVariables>(UserByIdDocument, options);
+        }
+export type UserByIdQueryHookResult = ReturnType<typeof useUserByIdQuery>;
+export type UserByIdLazyQueryHookResult = ReturnType<typeof useUserByIdLazyQuery>;
+export type UserByIdQueryResult = Apollo.QueryResult<UserByIdQuery, UserByIdQueryVariables>;
 export const RegisterDocument = gql`
     mutation Register($input: AuthUserInput) {
   register(input: $input) {

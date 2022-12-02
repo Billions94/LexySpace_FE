@@ -1,35 +1,44 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_BLOGS, hideMeAction, hideTaskAction } from "../../redux/actions";
+import { ReduxState } from "../../redux/interfaces";
+import { Element } from "react-scroll";
 import BlogList from "../post/BlogList";
 import Weather from "../post/Weather";
 import useAuthGuard from "../../lib/index";
-import { useDispatch, useSelector } from "react-redux";
-import { hideMeAction, hideTaskAction } from "../../redux/actions";
 import HotPosts from "../post/HotPosts";
-import { ReduxState } from "../../redux/interfaces";
 import Blog from "../post/views";
 import Footer from "../footer/Footer";
 import PostContainer from "../post/Post";
 import TaskList from "../post/TaskList";
 import Search from "../post/Search";
-import { Element } from "react-scroll";
 import MusicPlayer from "../musicplayer/MusicPlayer";
-import { usePostsQuery } from "../../generated";
+import { usePostsQuery } from "../../dto";
 import "./styles.scss";
-
-// import Blog from "../views/Index"
 
 const Home = () => {
   useAuthGuard();
 
   const dispatch = useDispatch();
   const [value, setValue] = useState<number>();
-  const [isLoading, setIsLoading] = useState(true);
+
   const [fetchLoading, setFetchLoading] = useState(false);
   const { hideMe, reroute, hideTask } = useSelector(
     (state: ReduxState) => state.data
   );
+
   const { posts } = useSelector((state: ReduxState) => state);
+  const { data, loading } = usePostsQuery();
+
+  if (data) {
+    dispatch({
+      type: GET_BLOGS,
+      payload: data.posts,
+    });
+  }
+
+  console.log(posts)
 
   const toggleHide = () => {
     hideMe === false
@@ -127,11 +136,7 @@ const Home = () => {
                   fetchLoading={fetchLoading}
                   setFetchLoading={setFetchLoading}
                 />
-                <BlogList
-                  posts={posts}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                />
+                <BlogList posts={posts} isLoading={loading} />
               </Col>
             ) : (
               <Col md={11} lg={12}>

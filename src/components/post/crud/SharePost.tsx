@@ -1,11 +1,11 @@
 import { useState, createRef, Dispatch, SetStateAction } from "react";
 import { Modal, Button, Form, Card } from "react-bootstrap";
-import { ReduxState, Post, User } from "../../../redux/interfaces";
+import { ReduxState } from "../../../redux/interfaces";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import BlogAuthor from "../author/PostAuthor";
-import { getPosts } from "../../../redux/actions";
 import { sharePost } from "../../../lib/requests/post";
+import BlogAuthor from "../author/PostAuthor";
+import { User } from "../../../dto";
 
 interface SharePostProps {
   id: string | undefined;
@@ -23,7 +23,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
   const loggedInUser = useSelector((state: ReduxState) => state.data.user);
 
   const userName = loggedInUser!.userName;
-  const sharePostBody = posts.map((p) => p).find((p) => p._id === id);
+  const sharePostBody = posts.map((p) => p).find((p) => p.id === id);
 
   const [media, setMedia] = useState("");
   const [post, setPost] = useState({
@@ -111,8 +111,8 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
               >
                 <BlogAuthor {...user} createdAt={createdAt} />
               </div>
-              <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
-                <Card.Title>{post.sharedPost.text}</Card.Title>
+              <Link to={`/posts/${post.sharedPost.id}`} className="blog-link">
+                <Card.Title>{post.sharedPost.content}</Card.Title>
                 {!post.sharedPost.media
                   ? null
                   : post.sharedPost.media &&

@@ -1,6 +1,6 @@
-import { Modal, Button } from "react-bootstrap";
-import { useState, Dispatch, SetStateAction, FC } from "react";
-import { Post } from "../../../redux/interfaces";
+import { Modal } from "react-bootstrap";
+import { Dispatch, SetStateAction, FC } from "react";
+import { Post } from "../../../dto";
 
 interface Props {
   view: boolean;
@@ -23,9 +23,9 @@ const ViewModal: FC<Props> = ({ view, setView, cover, post }: Props) => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body className="d-flex justify-content-center">
           <img src={cover} alt="" className="img" />
-          {post.sharedPost && (
-            <img src={post.sharedPost.media} alt="" className="img" />
-          )}
+          {/* {post.sharedPost && post.sharedPost?.media && (
+            <img src={String(post.sharedPost.media)} alt="" className="img" />
+          )} */}
         </Modal.Body>
       </Modal>
     </>
