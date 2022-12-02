@@ -2,12 +2,12 @@ import React from "react";
 import { Button, Modal, Image } from "react-bootstrap";
 import { Socket } from "socket.io-client";
 import { defaultAvatar } from "../../assets/icons";
-import { IUser } from "../../interfaces/IUser";
+import { OnlineUser } from "../../interfaces/OnlineUser";
 import API from "../../lib/API";
 import { Rooms, User } from "../../redux/interfaces";
 
 interface Props {
-  onlineUsers: IUser[];
+  onlineUsers: OnlineUser[];
   currentUser: User;
   room: Rooms | null;
   setCurrentChat: any;
@@ -45,7 +45,7 @@ export const StartConversation: React.FC<Props> = ({
     }
   }
 
-  const newConversation = async (otherUser: IUser) => {
+  const newConversation = async (otherUser: OnlineUser) => {
     try {
       const { data } = await API.post("/rooms", {
         senderId: currentUser._id,
@@ -90,7 +90,7 @@ export const StartConversation: React.FC<Props> = ({
                   className="d-flex mb-3"
                   key={idx}
                   style={{ cursor: "pointer" }}
-                  onClick={() => newConversation(user as any as IUser)}
+                  onClick={() => newConversation(user as any as OnlineUser)}
                 >
                   <div>
                     <Image

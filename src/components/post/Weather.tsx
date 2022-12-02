@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Form, Col } from "react-bootstrap"
 import "./styles.scss"
-import { Data } from "../../interfaces/Data";
+import { Data } from "../../interfaces/WeatherData";
 
 const Weather = () => {
 
