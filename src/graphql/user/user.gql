@@ -1,0 +1,78 @@
+query Users {
+  users {
+    id
+    firstName
+    lastName
+    email
+    bio
+    location
+    image
+    cover
+    session
+    isVerified
+    followers {
+      id
+    }
+    following {
+      id
+    }
+  }
+}
+
+query User {
+  user {
+    id
+    activities {
+      media
+      content
+    }
+    bio
+    cover
+    email
+    userName
+    firstName
+    lastName
+    image
+    location
+    followers {
+      userName
+    }
+    following {
+      userName
+    }
+    isVerified
+  }
+}
+
+mutation Register($input: AuthUserInput) {
+  register(input: $input) {
+    accessToken
+    refreshToken
+  }
+}
+
+
+mutation Login($input: AuthUserInput) {
+  login(input: $input) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation UpdateUser($input: UserInput) {
+  updateUser(input: $input) {
+    bio
+    cover
+    email
+    userName
+    firstName
+    lastName
+    image
+    isVerified
+    location
+  }
+}
+
+mutation DeleteUser($userId: String) {
+  deleteUser(userId: $userId)
+}

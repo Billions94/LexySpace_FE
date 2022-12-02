@@ -1,22 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getPosts, GET_BLOGS, reRouteAction } from "../../redux/actions";
+import { reRouteAction } from "../../redux/actions";
 import { ReduxState } from "../../redux/interfaces";
 import Loader from "../loader/Loader";
 import "./styles.scss";
-import API from "../../lib/API";
 
 const HotPosts = () => {
-  const apiUrl = process.env.REACT_APP_GET_URL;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [seeMore, setSeeMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { posts } = useSelector((state: ReduxState) => state);
 
+  const { posts } = useSelector((state: ReduxState) => state);
   const newPost = posts
     .map((p) => p)
     .sort((a, b) => b.likes.length - a.likes.length);

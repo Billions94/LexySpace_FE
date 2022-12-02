@@ -5,7 +5,6 @@ export interface ReduxState {
     cover: string;
     following: boolean;
     hideMe: boolean;
-    likes: User[];
     reroute: boolean;
     isLoading: boolean;
     tasks: string;

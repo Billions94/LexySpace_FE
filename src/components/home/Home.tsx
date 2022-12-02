@@ -4,10 +4,7 @@ import BlogList from "../post/BlogList";
 import Weather from "../post/Weather";
 import useAuthGuard from "../../lib/index";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  hideMeAction,
-  hideTaskAction,
-} from "../../redux/actions";
+import { hideMeAction, hideTaskAction } from "../../redux/actions";
 import HotPosts from "../post/HotPosts";
 import { ReduxState } from "../../redux/interfaces";
 import Blog from "../post/views";
@@ -17,9 +14,9 @@ import TaskList from "../post/TaskList";
 import Search from "../post/Search";
 import { Element } from "react-scroll";
 import MusicPlayer from "../musicplayer/MusicPlayer";
+import { usePostsQuery } from "../../generated";
 import "./styles.scss";
-import API from "../../lib/API";
-import { getPosts } from "../../lib/requests/post";
+
 // import Blog from "../views/Index"
 
 const Home = () => {
@@ -45,12 +42,6 @@ const Home = () => {
       ? dispatch(hideTaskAction(true))
       : dispatch(hideTaskAction(false));
   };
-
-  useEffect(() => {
-    if (fetchLoading === false) {
-      getPosts(dispatch);
-    }
-  }, [reroute]);
 
   useEffect(() => {
     window.addEventListener("scroll", (event) => {

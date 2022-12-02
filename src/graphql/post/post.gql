@@ -1,0 +1,118 @@
+query Posts {
+  posts {
+    author {
+      userName
+    }
+    comments {
+      content
+      media
+      postId
+      id
+      author {
+        id
+      }
+    }
+    content
+    id
+    media
+    likes {
+      id
+    }
+    createdAt
+  }
+}
+
+query GetPostById($postId: String) {
+  getPostById(postId: $postId) {
+    id
+    content
+    media
+    sharedPost
+    author {
+      id
+      firstName
+      lastName
+      email
+      refreshToken
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+      userName
+    }
+    comments {
+      id
+      content
+      media
+      postId
+      replies {
+        id
+        content
+        media
+        commentId
+      }
+    }
+    likes {
+      id
+      firstName
+      lastName
+      email
+      bio
+      location
+      image
+      cover
+      session
+      isVerified
+    }
+  }
+}
+
+mutation AddPost($input: PostInput) {
+  addPost(input: $input) {
+    id
+    content
+    media
+    sharedPost
+    comments {
+      id
+      content
+      media
+      postId
+      replies {
+        id
+        content
+        media
+        commentId
+      }
+    }
+    likes {
+      id
+    }
+    createdAt
+  }
+}
+
+mutation UpdatePost($postId: String, $input: PostInput) {
+  updatePost(postId: $postId, input: $input) {
+    author {
+      id
+    }
+    comments {
+      content
+      id
+      media
+    }
+    content
+    id
+    media
+    likes {
+      id
+    }
+  }
+}
+
+mutation DeletePost($postId: String) {
+  deletePost(postId: $postId)
+}

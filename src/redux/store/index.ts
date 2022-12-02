@@ -22,7 +22,6 @@ export const initialState: ReduxState = {
     cover: cover ? cover : defaultCover,
     following: false,
     hideMe: false,
-    likes: [],
     reroute: false,
     isLoading: true,
     tasks: "",
@@ -59,6 +58,3 @@ const store = createStore(
 export default store;
 
 export const persistor = persistStore(store);
-
-
-
