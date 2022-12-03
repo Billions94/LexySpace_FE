@@ -1,15 +1,14 @@
-import { FC } from "react";
-import { Post } from "../../../redux/interfaces";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { reRouteAction, GET_BLOGS } from "../../../redux/actions";
+import { reRouteAction } from "../../../redux/actions";
+import { Post } from "../../../dto";
 
 interface Props {
   post: Post;
 }
 
-const RecentItem: FC<Props> = ({ post }: Props) => {
+const RecentItem: React.FC<Props> = ({ post }: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,11 +18,11 @@ const RecentItem: FC<Props> = ({ post }: Props) => {
   }
 
   return (
-    <div className="recentItem mb-3" onClick={() => route(post._id)}>
+    <div className="recentItem mb-3" onClick={() => route(post.id)}>
       <div className="">
         <div className="circleBorders">
           {!post.media ? (
-            <h6>{post.text}</h6>
+            <h6>{post.content}</h6>
           ) : (
             <div>
               {post.media &&

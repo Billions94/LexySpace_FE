@@ -29,29 +29,6 @@ const Settings = () => {
   const [alert, setAlert] = useState(false);
   const [match, setMatch] = useState(false);
 
-  // const changePassword = async () => {
-  //   try {
-  //     const token = localStorage.getItem('accessToken')
-
-  //     const response = await fetch(`${url}/users/me`, {
-  //       method: PATCH,
-  //       body: JSON.stringify({user}),
-  //       headers: { "Content-Type": "application/json",
-  //       Authorization: token }
-  //     })
-  //       if(response.ok) {
-  //         setUser({
-  //           password: '',
-  //           confirmPassword: ''
-  //         })
-  //         setAlert(true)
-  //       }
-
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   const changePassword = async () => {
     try {
       const { data } = await API.put("/users/me", { user });
@@ -89,7 +66,6 @@ const Settings = () => {
 
   useEffect(() => {
     dispatch(getUsersAction());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Row className="justify-content-center">

@@ -8,40 +8,73 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ReduxState } from "../../redux/interfaces";
-import { Row, Image } from "react-bootstrap";
+import { Row, Image, Form, Button, Col } from "react-bootstrap";
 import Picker from "emoji-picker-react";
-import { createPost } from "../../lib/requests/post";
 import { loadingNew } from "../../assets/icons";
+import { useAddPostMutation } from "../../dto";
+import { gql } from "@apollo/client";
+import { handleFileChange } from "../../lib";
+import upload from "../upload/upload";
 
 interface PostContainerProps {
   fetchLoading: boolean;
   setFetchLoading: Dispatch<SetStateAction<boolean>>;
 }
 
+const initialInputState = {
+  content: "",
+  media: "",
+};
+
 const PostContainer = ({
   fetchLoading,
   setFetchLoading,
 }: PostContainerProps) => {
-  const dispatch = useDispatch();
   const { user } = useSelector((state: ReduxState) => state.data);
-  const userName = user!.userName;
 
-  const [post, setPost] = useState({ text: "" });
-  const [media, setMedia] = useState<string>("");
+  const [input, setInput] = useState(initialInputState);
   const [show, setShow] = useState(false);
 
   const [emoji, setEmoji] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
 
-  const newPostData = {
-    userName,
-    post,
-    media,
-    setMedia,
-    setPost,
-    setFetchLoading,
-    dispatch,
-  };
+  const [addPost, { loading }] = useAddPostMutation({
+    update(cache, { data: addPost }) {
+      cache.modify({
+        fields: {
+          posts(existingPosts = []) {
+            const newPostRef = cache.writeFragment({
+              data: addPost?.addPost,
+              fragment: gql`
+                fragment NewPost on Post {
+                  author {
+                    id
+                  }
+                  comments {
+                    content
+                    media
+                    postId
+                    id
+                    author {
+                      id
+                    }
+                  }
+                  content
+                  id
+                  media
+                  likes {
+                    id
+                  }
+                  createdAt
+                }
+              `,
+            });
+            return [...existingPosts, newPostRef];
+          },
+        },
+      });
+    },
+  });
 
   const toggleEmoji = () => {
     showEmoji === false ? setShowEmoji(true) : setShowEmoji(false);
@@ -53,37 +86,71 @@ const PostContainer = ({
   const handleEmojiShow = () => setEmoji(true);
   const handleEmojiClose = () => setEmoji(false);
 
-  const target = (e: any) => {
-    console.log(e.target.files[0]);
-    if (e.target && e.target.files[0]) {
-      setMedia(e.target.files[0]);
-    }
-  };
-
   const inputBtn = createRef<HTMLInputElement>();
 
   const openInputFile = () => {
     inputBtn!.current!.click();
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenEmoji, setChosenEmoji] = useState("");
 
   const onEmojiClick = (event: any, emojiObject: any) => {
     setChosenEmoji(emojiObject);
   };
 
-  const handleKeyboardEvent = (
-    e: KeyboardEvent<HTMLInputElement>,
+  function updateInput(key: string, value: string) {
+    setInput({ ...input, [key]: value });
+  }
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | any>,
+    key: string
   ) => {
+    updateInput(key, e.target.value);
+  };
+
+  async function createPost(e: any) {
+    e.preventDefault();
+    try {
+      if (input.media.length > 0) {
+        const { url } = await upload(e);
+        if (url) {
+          input.media = url;
+          await addPost({ variables: { input: input } });
+
+          setInput(initialInputState);
+          setShow(false);
+
+          setTimeout(() => {
+            setFetchLoading && setFetchLoading(false);
+          }, 1000);
+        }
+      }
+
+      if (!input.media) {
+        await addPost({ variables: { input: input } });
+
+        setInput(initialInputState);
+        setShow(false);
+
+        setTimeout(() => {
+          setFetchLoading && setFetchLoading(false);
+        }, 1000);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleKeyboardEvent = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      createPost(newPostData);
+      createPost(e);
     }
   };
 
   return (
     <Row id="Row" className="justify-content-center mb-0">
-      <div className="col">
+      <Col className="col">
         <div className="postContainer">
           <div className="userImage">
             <Link to={`/userProfile/${user._id}`}>
@@ -96,19 +163,20 @@ const PostContainer = ({
               />
             </Link>
           </div>
-          <div className="p-2 w-100">
+          <Form className="p-2 w-100" onSubmit={(e) => createPost(e)}>
             <div className="textareaborder">
-              <textarea
+              <Form.Control
+                as={"textarea"}
                 className="form-control textarea"
                 rows={2}
                 placeholder="start typing to share your thoughts...."
-                value={post.text}
+                value={input.content}
                 onKeyPress={(e: any) => handleKeyboardEvent(e)}
-                onChange={(e) => setPost({ ...post, text: e.target.value })}
+                onChange={(e) => handleChange(e, "content")}
               />
             </div>
             <div className="d-flex sharebtn">
-              <>
+              <div>
                 <div className="relative">
                   <button
                     onMouseEnter={handleShow}
@@ -116,11 +184,12 @@ const PostContainer = ({
                     onClick={openInputFile}
                     className="btn btn-sm btnIcon"
                   >
-                    <input
+                    <Form.Control
                       type="file"
                       ref={inputBtn}
                       className="d-none"
-                      onChange={(e) => target(e)}
+                      name="file"
+                      onChange={(e) => handleFileChange(e, input, setInput)}
                     />
 
                     <svg
@@ -141,7 +210,7 @@ const PostContainer = ({
                     </div>
                   )}
                 </div>
-                <div className="relative">
+                {/* <div className="relative">
                   <button
                     onMouseEnter={handleEmojiShow}
                     onMouseLeave={handleEmojiClose}
@@ -165,7 +234,7 @@ const PostContainer = ({
                       <span className="badge text-muted">Emojis</span>
                     </div>
                   )}
-                </div>
+                </div> */}
 
                 {showEmoji === false ? null : (
                   <div style={{ zIndex: "10px" }}>
@@ -175,23 +244,20 @@ const PostContainer = ({
                     />
                   </div>
                 )}
-              </>
+              </div>
               <div className="mar-top clearfix mt-2 ml-auto">
-                {!post.text ? (
+                {!input.content ? (
                   <button disabled className="btn btn-md disabled1">
                     <i className="fa fa-pencil fa-fw" /> Post
                   </button>
                 ) : (
-                  <button
-                    className="btn btn-md modal-btn"
-                    onClick={() => createPost(newPostData)}
-                  >
+                  <button className="btn btn-md modal-btn" type="submit">
                     <i className="fa fa-pencil fa-fw" /> Post
                   </button>
                 )}
               </div>
             </div>
-          </div>
+          </Form>
           <>
             {fetchLoading === true && (
               <Image
@@ -204,7 +270,7 @@ const PostContainer = ({
             )}
           </>
         </div>
-      </div>
+      </Col>
     </Row>
   );
 };

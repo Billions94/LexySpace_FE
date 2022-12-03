@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { User, Rooms, Message } from "../../redux/interfaces";
 import { Dropdown, ListGroup } from "react-bootstrap";
-import { IUser } from "../../interfaces/IUser";
+import { OnlineUser } from "../../interfaces/OnlineUser";
 import { Socket } from "socket.io-client";
 import API from "../../lib/API";
 
@@ -11,7 +11,7 @@ interface RoomProps {
   selectedIndex: number | undefined;
   setSelectedIndex: Dispatch<SetStateAction<number | undefined>>;
   currentUser: User;
-  onlineUsers: IUser[];
+  onlineUsers: OnlineUser[];
   chatHistory: Message[];
   currentChat: Rooms | null;
   setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void;

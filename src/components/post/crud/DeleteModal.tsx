@@ -3,7 +3,8 @@ import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { reRouteAction } from "../../../redux/actions";
-import { deletePost } from "../../../lib/requests/post";
+import { PostsDocument, useDeletePostMutation } from "../../../dto";
+import Loader from "../../loader/Loader";
 
 interface DeleteModalProps {
   postId: string;
@@ -15,10 +16,18 @@ const DeleteModal = ({ postId, smShow, setSmShow }: DeleteModalProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function deleteAndReroute(postId: string, dispatch: any) {
-    deletePost(postId, dispatch);
+  const [deletePost, { loading }] = useDeletePostMutation({
+    refetchQueries: [{ query: PostsDocument }],
+  });
+
+  async function deleteAndReroute(postId: string, dispatch: any) {
+    await deletePost({ variables: { postId: postId } });
     dispatch(reRouteAction(false));
     navigate("/home");
+  }
+
+  if (loading) {
+    <Loader />;
   }
 
   return (
@@ -34,7 +43,7 @@ const DeleteModal = ({ postId, smShow, setSmShow }: DeleteModalProps) => {
       >
         <Modal.Body className="m-auto">
           <div>
-            <h5 className="textColor">Delete Post?</h5>
+            <h5 className="textColor text-center">Delete Post?</h5>
             <div className="text-muted">
               This can't be undone and it will be removed from your profile, the
               feed of any accounts that follow you.

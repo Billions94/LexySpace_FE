@@ -1,12 +1,13 @@
 import { Button, Modal } from "react-bootstrap";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
-import { Post, ReduxState } from "../../../redux/interfaces";
+import { ReduxState } from "../../../redux/interfaces";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { followAction, getUsersAction } from "../../../redux/actions";
 import { FollowUser } from "../../../lib/requests/interfaces/user.interface";
 import { follow } from "../../../lib/requests/user";
 import { getPosts } from "../../../lib/requests/post";
+import { Post } from "../../../dto";
 
 interface Props {
   likeShow: boolean;
@@ -59,8 +60,6 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }: Props) => {
     dispatch(getUsersAction());
   };
 
-  console.log("my following", newUser.following);
-
   useEffect(() => {
     console.log("memory leak detected");
     getPosts(dispatch);
@@ -81,13 +80,13 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }: Props) => {
           <div>Liked by</div>
         </Modal.Header>
         <Modal.Body>
-          {post?.likes.map((user, i) => (
+          {post.likes?.map((user, i) => (
             <div key={i} id="searchContainer" className="d-flex mt-2">
               <div
-                onClick={() => navigate(`/userProfile/${user?._id}`)}
+                onClick={() => navigate(`/userProfile/${user?.id}`)}
                 className="linkToProfile"
               >
-                <img className="profile-pic" src={user?.image} alt="" />
+                <img className="profile-pic" src={String(user?.image)} alt="" />
                 <div className="ml-2">
                   <h6 className="firstandlastname">
                     {user?.firstName} {user?.lastName}
@@ -107,14 +106,14 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }: Props) => {
                 </div>
               </div>
               <div className="ml-auto">
-                {user?._id !== me ? (
+                {user?.id !== me ? (
                   <div className="ml-auto">
-                    {user.followers.some(
+                    {user?.followers?.some(
                       (follower: any) => follower === newUser._id
                     ) ? (
                       <Button
                         onClick={() =>
-                          toggle(returnFollowerData(user?._id, followUserData))
+                          toggle(returnFollowerData(user?.id, followUserData))
                         }
                         size="sm"
                         variant="primary"
@@ -125,7 +124,9 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }: Props) => {
                     ) : (
                       <Button
                         onClick={() =>
-                          toggle(returnFollowerData(user?._id, followUserData))
+                          toggle(
+                            returnFollowerData(String(user?.id), followUserData)
+                          )
                         }
                         size="sm"
                         variant="primary"

@@ -1,12 +1,12 @@
 import { useState, FC } from "react";
 import { ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Post } from "../../../redux/interfaces";
 import { ReduxState } from "../../../redux/interfaces";
 import { DropDown } from "./DropDown";
 import { SharedPost } from "./SharedPost";
 import { InteractionButtons } from "./InteractionButtons";
 import { PostDetails } from "./PostDetails";
+import { Post } from "../../../dto";
 import "./styles.scss";
 
 interface Props {
@@ -21,7 +21,7 @@ const PostItem: FC<Props> = ({ post }: Props) => {
   const posts = useSelector((state: ReduxState) => state.posts);
   const newUser = useSelector((state: ReduxState) => state.data.user);
 
-  const newPost = posts.find((p) => p._id === post._id)!;
+  const newPost = posts.find((p) => p.id === post.id)!;
   const me = newUser!._id;
 
   const dropDownProps = {
@@ -47,7 +47,7 @@ const PostItem: FC<Props> = ({ post }: Props) => {
     <ListGroup>
       <ListGroup.Item
         style={{ border: "1px solid rgb(216, 215, 215)" }}
-        key={post._id}
+        key={post.id}
         className="blog-card"
       >
         <DropDown data={dropDownProps} />
