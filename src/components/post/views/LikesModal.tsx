@@ -60,8 +60,6 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }: Props) => {
     dispatch(getUsersAction());
   };
 
-  console.log("my following", newUser.following);
-
   useEffect(() => {
     console.log("memory leak detected");
     getPosts(dispatch);

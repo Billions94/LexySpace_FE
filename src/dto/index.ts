@@ -254,6 +254,13 @@ export type GetPostByIdQueryVariables = Exact<{
 
 export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename?: 'Post', id: string, content: string, media?: string | null, createdAt?: any | null, sharedPost?: { __typename?: 'Post', id: string } | null, author: { __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, refreshToken?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null, userName: string }, comments?: Array<{ __typename?: 'Comment', id: string, content: string, media?: string | null, postId: string, replies?: Array<{ __typename?: 'Reply', id: string, content: string, media?: string | null, commentId: string } | null> | null } | null> | null, likes?: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email?: string | null, bio?: string | null, location?: string | null, image?: string | null, cover?: string | null, session?: string | null, isVerified?: boolean | null } | null> | null } };
 
+export type AddPostLikeMutationVariables = Exact<{
+  postId?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type AddPostLikeMutation = { __typename?: 'Mutation', addPostLike: boolean };
+
 export type AddPostMutationVariables = Exact<{
   input?: InputMaybe<PostInput>;
 }>;
@@ -478,6 +485,37 @@ export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
 export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
 export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export const AddPostLikeDocument = gql`
+    mutation AddPostLike($postId: String) {
+  addPostLike(postId: $postId)
+}
+    `;
+export type AddPostLikeMutationFn = Apollo.MutationFunction<AddPostLikeMutation, AddPostLikeMutationVariables>;
+
+/**
+ * __useAddPostLikeMutation__
+ *
+ * To run a mutation, you first call `useAddPostLikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPostLikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPostLikeMutation, { data, loading, error }] = useAddPostLikeMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useAddPostLikeMutation(baseOptions?: Apollo.MutationHookOptions<AddPostLikeMutation, AddPostLikeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddPostLikeMutation, AddPostLikeMutationVariables>(AddPostLikeDocument, options);
+      }
+export type AddPostLikeMutationHookResult = ReturnType<typeof useAddPostLikeMutation>;
+export type AddPostLikeMutationResult = Apollo.MutationResult<AddPostLikeMutation>;
+export type AddPostLikeMutationOptions = Apollo.BaseMutationOptions<AddPostLikeMutation, AddPostLikeMutationVariables>;
 export const AddPostDocument = gql`
     mutation AddPost($input: PostInput) {
   addPost(input: $input) {

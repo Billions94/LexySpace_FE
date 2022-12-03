@@ -38,8 +38,6 @@ const Home = () => {
     });
   }
 
-  console.log(posts)
-
   const toggleHide = () => {
     hideMe === false
       ? dispatch(hideMeAction(true))

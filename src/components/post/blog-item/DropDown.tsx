@@ -23,6 +23,7 @@ export const DropDown: React.FC<Props> = ({ data }: Props) => {
     postId: post.id,
     reload,
     setReload,
+    media: String(post.media)
   };
 
   return (
