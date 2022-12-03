@@ -27,6 +27,9 @@ const apolloClient = new ApolloClient({
       Post: {
         fields: {
           author: {
+            read(author) {
+              return author || null;
+            },
             merge(existing, incoming, { mergeObjects }) {
               return mergeObjects(existing, incoming);
             },

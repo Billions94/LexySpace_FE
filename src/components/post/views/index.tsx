@@ -23,7 +23,13 @@ import ViewModal from "./ViewModal";
 import DeleteModal from "../crud/DeleteModal";
 import LikesModal from "./LikesModal";
 import API from "../../../lib/API";
-import { Post, useGetPostByIdQuery, User } from "../../../dto";
+import {
+  GetPostByIdDocument,
+  Post,
+  useAddPostLikeMutation,
+  useGetPostByIdQuery,
+  User,
+} from "../../../dto";
 import "./styles.scss";
 
 const Blog: FC = () => {
@@ -33,9 +39,6 @@ const Blog: FC = () => {
   const navigate = useNavigate();
 
   const [comments, setComments] = useState<Comment[]>([]);
-  const [author, setAuthor] = useState<User | null>(null);
-
-  const [blog, setBlog] = useState<Post>();
   const [share, setShare] = useState(false);
 
   const [display, setDisplay] = useState(false);
@@ -63,35 +66,37 @@ const Blog: FC = () => {
     }
   };
 
-  const url = process.env.REACT_APP_GET_URL;
   const dispatch = useDispatch();
   const { posts } = useSelector((state: ReduxState) => state);
-  const { user } = useSelector((state: ReduxState) => state.data);
+  const { user, reroute } = useSelector((state: ReduxState) => state.data);
   const me = user!._id;
   const liker = { userId: me };
-  // for interaction icons label
+
+  const newPost = posts.find((p) => p.id === id);
+  const post = posts.find((post) => post.id === id);
+
+  const [addPostLike] = useAddPostLikeMutation();
+
   const [show, setShow] = useState(false);
-  const [commentLabel, setCommentLabel] = useState(false);
-  const [likeLabel, setLikeLabel] = useState(false);
-  const [shareLabel, setShareLabel] = useState(false);
-  // for handle the reshare modal
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const handleShare = () => setShare(true);
 
+  const [commentLabel, setCommentLabel] = useState(false);
   const handleCommentLabelShow = () => setCommentLabel(true);
-  const handleLikeLabelShow = () => setLikeLabel(true);
-  const handleShareLabelShow = () => setShareLabel(true);
-
   const handleCommentLabelClose = () => setCommentLabel(false);
-  const handleLikeLabelClose = () => setLikeLabel(false);
+
+  const [shareLabel, setShareLabel] = useState(false);
+  const handleShare = () => setShare(true);
+  const handleShareLabelShow = () => setShareLabel(true);
   const handleShareLabelClose = () => setShareLabel(false);
+
+  const [likeLabel, setLikeLabel] = useState(false);
+  const handleLikeLabelShow = () => setLikeLabel(true);
+  const handleLikeLabelClose = () => setLikeLabel(false);
 
   const showNHidde = () => {
     show === false ? handleShow() : handleClose();
   };
-
-  const post = posts.find((post) => post.id === id);
 
   const fetchComments = async () => {
     try {
@@ -106,50 +111,17 @@ const Blog: FC = () => {
     }
   };
 
-  const deleteBlogPost = async (id: string | undefined) => {
+  const likePost = async (postId: string) => {
     try {
-      const { data } = await API.delete(`/posts/${id}`);
-      if (data) {
-        dispatch(getPosts());
-      }
-    } catch (error) {
-      console.log("ooops we encountered an error", error);
-    }
-  };
-
-  const toggle = (postId: string) => {
-    !post?.likes ? likePost(postId) : unLikePost(postId);
-  };
-
-  const likePost = (postId: string) => {
-    like(postId);
-    dispatch(likeAction());
-  };
-
-  const unLikePost = (postId: string) => {
-    like(postId);
-    dispatch(likeAction());
-  };
-
-  const like = async (postId: string) => {
-    try {
-      await API.patch(`/posts/${postId}/likes`, liker);
-
-      // fetchBlog();
+      await addPostLike({ variables: { postId: postId } });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const newPost = posts.find((p) => p.id === id);
-
-  useEffect(() => {
-    // fetchBlog();
-  }, [id, refresh]);
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
-  }, []);
+  }, [reroute, post?.likes?.length]);
 
   function navigateHome() {
     dispatch(reRouteAction(false));
@@ -160,6 +132,7 @@ const Blog: FC = () => {
     postId: String(post?.id),
     reload: refresh,
     setReload: setRefresh,
+    media: String(post?.media),
   };
 
   return post ? (
@@ -191,19 +164,6 @@ const Blog: FC = () => {
                 </div>
               </Dropdown.Toggle>
               <Dropdown.Menu className="dropDownMenu">
-                <a className="deleteBlog" href={`${url}/${id}/downloadPDF`}>
-                  <div className="d-flex customLinks">
-                    <div className="mr-3">
-                      <img
-                        alt=""
-                        className="lrdimg"
-                        width="17px"
-                        src="https://img.icons8.com/ios-filled/50/ffffff/circled-down.png"
-                      />
-                    </div>
-                    <div className="">download pdf</div>
-                  </div>
-                </a>
                 {post && post.author.id !== me ? null : (
                   <>
                     <Edit data={updatePostProps} />
@@ -260,11 +220,11 @@ const Blog: FC = () => {
                 </div>
                 <Link
                   className="text-decoration-none"
-                  to={`/userProfile/${author?.id}`}
+                  to={`/userProfile/${post.author?.id}`}
                 >
                   <div style={{ marginLeft: "10px" }}>
                     <h3 className="text-dark authorDetails">
-                      {post.author?.firstName} {author?.lastName}
+                      {post.author?.firstName} {post.author?.lastName}
                       {post.author?.isVerified === true && (
                         <span className=" mt-1 ml-1  d-flex-row align-items-center">
                           <img
@@ -393,7 +353,7 @@ const Blog: FC = () => {
                 </div>
               </div>
               <div className="comments ml-2">
-                {post && post!.comments!.length > 1 ? (
+                {post.comments!.length > 1 ? (
                   <span className="text-muted">
                     {post.comments?.length} comments
                   </span>
@@ -435,7 +395,7 @@ const Blog: FC = () => {
                   <button className="candl ">
                     <img
                       className="interactions"
-                      onClick={() => toggle(post.id)}
+                      onClick={() => likePost(post.id)}
                       src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
                       alt=""
                       width="25px"
@@ -456,7 +416,7 @@ const Blog: FC = () => {
                   <button className="candl ">
                     <img
                       className="interactions"
-                      onClick={() => toggle(post?.id)}
+                      onClick={() => likePost(post?.id)}
                       src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
                       alt=""
                       width="25px"
@@ -509,7 +469,7 @@ const Blog: FC = () => {
               blog={post}
               id={id}
               comments={comments}
-              author={author}
+              author={post.author}
               fetchComments={fetchComments}
               setComments={setComments}
             />

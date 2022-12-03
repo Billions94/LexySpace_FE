@@ -48,3 +48,37 @@ export const postTimer = (x: any) => {
   }
   return date;
 };
+
+export type Setter = React.Dispatch<
+  React.SetStateAction<{
+    content: string;
+    media: string;
+  }>
+>;
+
+export type CustomChangeEvent = React.ChangeEvent<HTMLInputElement | any>;
+
+export interface Input {
+  content: string;
+  media: string;
+}
+
+export type SetterBoolean = React.Dispatch<React.SetStateAction<boolean>>;
+
+
+export function handleFileChange(
+  changeEvent: any,
+  input: Input,
+  setInput: Setter
+): void {
+  const reader = new FileReader();
+
+  reader.onload = function (onLoadEvent) {
+    setInput({
+      ...input,
+      media: String(onLoadEvent.target?.result),
+    });
+  };
+
+  reader.readAsDataURL(changeEvent.target.files[0]);
+}

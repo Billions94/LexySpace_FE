@@ -97,6 +97,10 @@ query GetPostById($postId: String) {
   }
 }
 
+mutation AddPostLike($postId: String) {
+  addPostLike(postId: $postId)
+}
+
 mutation AddPost($input: PostInput) {
   addPost(input: $input) {
     id
