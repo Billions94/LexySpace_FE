@@ -1,5 +1,3 @@
-import { Post } from "../../dto";
-
 export interface ReduxState {
   data: {
     user: User;
@@ -7,6 +5,7 @@ export interface ReduxState {
     cover: string;
     following: boolean;
     hideMe: boolean;
+    likes: User[];
     reroute: boolean;
     isLoading: boolean;
     tasks: string;
@@ -28,18 +27,17 @@ export interface User {
   image: string;
   cover: string;
   isVerified: boolean;
-  activities: IPost[];
+  activities: Post[];
   updatedAt: Date;
   createdAt?: Date;
 }
 
-export interface IPost {
-  __typename?: string;
-  id: string;
-  content: string;
+export interface Post {
+  _id: string;
+  text: string;
   media: string;
-  sharedPost?: IPost;
-  author: User;
+  sharedPost: Post;
+  user: User;
   comments: Comment[];
   likes: User[];
   createdAt: Date;

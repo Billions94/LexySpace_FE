@@ -3,12 +3,12 @@ import { Row, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { postTimer } from "../../../lib/index";
 import UserInfo from "./UserInfo";
+import { User } from "../../../redux/interfaces";
 import { defaultAvatar } from "../../../assets/icons";
 import "./styles.scss";
-import { User } from "../../../dto";
 
-const PostAuthor: FC<User> = (user: User) => {
-  const { firstName, isVerified, image, createdAt, userName, id } = user;
+const PostAuthor: FC<User> = (props: User) => {
+  const { firstName, isVerified, image, createdAt, userName, _id } = props;
 
   const [timer, setTimer] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
@@ -26,7 +26,6 @@ const PostAuthor: FC<User> = (user: User) => {
       }, 500);
     }
   };
-  
 
   return (
     <Row
@@ -43,10 +42,10 @@ const PostAuthor: FC<User> = (user: User) => {
           handleShow={handleShow}
           handleClose={handleClose}
           setTimer={setTimer}
-          author={user}
+          props={props}
         />
 
-        <Link className="text-decoration-none" to={`/userProfile/${id}`}>
+        <Link className="text-decoration-none" to={`/userProfile/${_id}`}>
           <div id="authorDetails" className="d-flex">
             <Image
               style={{ width: "50px", height: "50px" }}

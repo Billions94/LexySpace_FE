@@ -21,15 +21,19 @@ interface AddCommentProps {
 
 const AddComment = ({ id, setComments }: AddCommentProps) => {
   const { user } = useSelector((state: ReduxState) => state.data);
+
   const userId = user?._id;
 
   const dispatch = useDispatch();
+
   const [comment, setComment] = useState({
     content: "",
     user: userId,
   });
 
+  const apiUrl = process.env.REACT_APP_GET_URL;
   const [media, setMedia] = useState<string>("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showEmoji, setShowEmoji] = useState(false);
 
   const target = (e: any) => {
@@ -46,6 +50,7 @@ const AddComment = ({ id, setComments }: AddCommentProps) => {
   };
 
   // Emojis
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
   const onEmojiClick = (event: any, emojiObject: any) => {
@@ -63,6 +68,7 @@ const AddComment = ({ id, setComments }: AddCommentProps) => {
 
   useEffect(() => {
     dispatch(getUsersAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleKeyboardEvent = (

@@ -12,6 +12,7 @@ import "./styles.scss";
 import API from "../../../lib/API";
 
 const Followers = () => {
+
   const { id } = useParams();
   const { followers } = useSelector((state: ReduxState) => state.data);
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Followers = () => {
   useEffect(() => {
     dispatch(getFollowersAction(id));
     getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, id]);
 
   return followers.length > 0 ? (

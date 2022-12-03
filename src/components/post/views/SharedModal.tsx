@@ -7,12 +7,11 @@ import {
   FC,
 } from "react";
 import { Modal, Button, Form, Card } from "react-bootstrap";
-import { ReduxState, IPost } from "../../../redux/interfaces";
+import { ReduxState, Post, User } from "../../../redux/interfaces";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import BlogAuthor from "../author/PostAuthor";
 import { getPosts, reRouteAction } from "../../../redux/actions";
-import { User } from "../../../dto";
-import PostAuthor from "../author/PostAuthor";
 
 interface Props {
   id: string | undefined;
@@ -35,7 +34,7 @@ const ShareModal: FC<Props> = ({
   const posts = useSelector((state: ReduxState) => state.posts);
   const loggedInUser = useSelector((state: ReduxState) => state.data.user);
   const userName = loggedInUser!.userName;
-  const sharePostBody = posts.find((p) => p.id === id);
+  const sharePostBody = posts.find((p) => p._id === id);
 
   const [post, setPost] = useState({
     text: "",
@@ -66,8 +65,8 @@ const ShareModal: FC<Props> = ({
           headers: { "Content-Type": "application" },
         });
         if (response.ok) {
-          const data: IPost = await response.json();
-          const postId = data.id;
+          const data: Post = await response.json();
+          const postId = data._id;
           try {
             const formDt = new FormData();
             formDt.append("media", media);
@@ -170,11 +169,11 @@ const ShareModal: FC<Props> = ({
                 className="authorinfo d-flex "
                 style={{ justifyContent: "space-between" }}
               >
-                <PostAuthor {...user} />
+                <BlogAuthor {...user} createdAt={createdAt} />
               </div>
-              <Link to={`/posts/`} className="blog-link">
-                <Card.Title>{}</Card.Title>
-                {/* {!post.sharedPost.media
+              <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
+                <Card.Title>{post.sharedPost.text}</Card.Title>
+                {!post.sharedPost.media
                   ? null
                   : post.sharedPost.media &&
                     post?.sharedPost.media
@@ -203,7 +202,7 @@ const ShareModal: FC<Props> = ({
                         autoPlay
                         muted
                       ></video>
-                    )} */}
+                    )}
                 <Card.Body className="mb-0"></Card.Body>
               </Link>
             </div>

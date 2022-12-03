@@ -1,78 +1,41 @@
 import { useState, Dispatch, SetStateAction, createRef } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import useAuthGuard, { handleFileChange } from "../../../lib/index";
+import { useSelector, useDispatch } from "react-redux";
+import useAuthGuard from "../../../lib/index";
 import { ReduxState } from "../../../redux/interfaces";
-import { useAddPostMutation } from "../../../dto";
-import { gql } from "@apollo/client";
+import { createPost } from "../../../lib/requests/post";
 import "./styles.scss";
-import upload from "../../upload/upload";
 
 interface PostModalProps {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
 }
 
-const initialInputState = {
-  content: "",
-  media: "",
-};
-
 const PostModal = ({ show, setShow }: PostModalProps) => {
   useAuthGuard();
 
+  const dispatch = useDispatch();
   const { user } = useSelector((state: ReduxState) => state.data);
+  const userName = user!.userName;
 
   const handleClose = () => setShow(false);
-  const [input, setInput] = useState(initialInputState);
+  const [post, setPost] = useState({ text: "" });
+  const [media, setMedia] = useState<string>("");
 
-  const [addPost, { loading }] = useAddPostMutation({
-    update(cache, { data: addPost }) {
-      cache.modify({
-        fields: {
-          posts(existingPosts = []) {
-            const newPostRef = cache.writeFragment({
-              data: addPost?.addPost,
-              fragment: gql`
-                fragment NewPost on Post {
-                  author {
-                    id
-                  }
-                  comments {
-                    content
-                    media
-                    postId
-                    id
-                    author {
-                      id
-                    }
-                  }
-                  content
-                  id
-                  media
-                  likes {
-                    id
-                  }
-                  createdAt
-                }
-              `,
-            });
-            return [...existingPosts, newPostRef];
-          },
-        },
-      });
-    },
-  });
+  const newPostData = {
+    userName,
+    post,
+    media,
+    setMedia,
+    setPost,
+    dispatch,
+    setShow,
+  };
 
-  function updateInput(key: string, value: string) {
-    setInput({ ...input, [key]: value });
-  }
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | any>,
-    key: string
-  ) => {
-    updateInput(key, e.target.value);
+  const target = (e: any) => {
+    if (e.target && e.target.files[0]) {
+      setMedia(e.target.files[0]);
+    }
   };
 
   const inputBtn = createRef<HTMLInputElement>();
@@ -80,31 +43,6 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
   const openInputFile = () => {
     inputBtn!.current!.click();
   };
-
-  async function createPost(e: any) {
-    e.preventDefault();
-    try {
-      if (input.media.length > 0) {
-        const { url } = await upload(e);
-        if (url) {
-          input.media = url;
-          await addPost({ variables: { input: input } });
-
-          setInput(initialInputState);
-          setShow(false);
-        }
-      }
-
-      if (!input.media) {
-        await addPost({ variables: { input: input } });
-
-        setInput(initialInputState);
-        setShow(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   return (
     <>
@@ -148,11 +86,11 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
           <Form.Group controlId="blog-content" className="form1 mt-3">
             <Form.Control
               placeholder="what's poppin?"
-              as="textarea" 
+              as="textarea"
               className="textarea"
               rows={5}
-              value={input.content}
-              onChange={(e) => handleChange(e, "content")}
+              value={post.text}
+              onChange={(e) => setPost({ ...post, text: e.target.value })}
             />
           </Form.Group>
         </Modal.Body>
@@ -163,7 +101,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
                 type="file"
                 ref={inputBtn}
                 className="d-none"
-                onChange={(e) => handleFileChange(e, input, setInput)}
+                onChange={(e) => target(e)}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -178,12 +116,12 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
               </svg>
             </button>
           </div>
-          {!input.content ? (
+          {!post.text ? (
             <Button
               variant="primary"
               disabled
               className="btn btn-md modal-btn"
-              onClick={(e) => createPost(e)}
+              onClick={() => createPost(newPostData)}
             >
               post
             </Button>
@@ -191,7 +129,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
             <Button
               variant="primary"
               className="btn btn-md modal-btn"
-              onClick={(e) => createPost(e)}
+              onClick={() => createPost(newPostData)}
             >
               post
             </Button>

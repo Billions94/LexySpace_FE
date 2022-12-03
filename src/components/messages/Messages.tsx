@@ -17,7 +17,7 @@ import {
   useCallback,
 } from "react";
 import { io } from "socket.io-client";
-import { OnlineUser } from "../../interfaces/OnlineUser";
+import { IUser } from "../../interfaces/IUser";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Message, ReduxState, Rooms } from "../../redux/interfaces";
@@ -28,9 +28,8 @@ import Convo, { DeleteConversations } from "./Conversation";
 import useAuthGuard from "../../lib/index";
 import API from "../../lib/API";
 import OnlineUsers from "./OnlineUsers";
-import { StartConversation } from "./StartConversation";
 import "./styles.scss";
-
+import { StartConversation } from "./StartConversation";
 
 const ioAddress = process.env.REACT_APP_IO_URL!;
 
@@ -47,7 +46,7 @@ const Messages = () => {
   const [media, setMedia] = useState<string>("");
   const [isTyping, setIsTyping] = useState(false);
 
-  const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
+  const [onlineUsers, setOnlineUsers] = useState<IUser[]>([]);
   const [message, setMessage] = useState("");
   const [currentChat, setCurrentChat] = useState<Rooms | null>(null);
 
@@ -58,7 +57,7 @@ const Messages = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>();
   const scrollRef = createRef<HTMLDivElement>();
 
-  const [openConvo, setOpenConvo] = useState(false);
+  const [openConvo, setOpenConvo] = useState(false)
 
   const socket = useMemo(() => {
     return io(ioAddress, { transports: ["websocket"] });
@@ -112,7 +111,7 @@ const Messages = () => {
       console.log("Connection established!");
     });
 
-    socket.on("getUsers", (users: OnlineUser[]) => {
+    socket.on("getUsers", (users: IUser[]) => {
       setOnlineUsers(users);
     });
 

@@ -1,9 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Post } from "../../../dto";
 import { reRouteAction } from "../../../redux/actions";
-
+import { Post } from "../../../redux/interfaces";
 
 interface Props {
   post: Post;
@@ -19,10 +18,10 @@ export const PostDetails = ({ post }: Props) => {
   };
 
   return (
-    <div onClick={() => doSomething(post.id)} className="blog-link">
+    <div onClick={() => doSomething(post._id)} className="blog-link">
       <div className="d-flex postBody">
         <div>
-          <h6>{post.content}</h6>
+          <h6>{post.text}</h6>
           <div>
             {!post.media
               ? null

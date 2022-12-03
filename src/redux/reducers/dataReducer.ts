@@ -40,6 +40,15 @@ const usersReducer = (state = initialState.data, action: AnyAction) => {
                 ...state,
                 hideTask: payload
             }
+        case TOGGLE_LIKE:
+            const isLiked = state.likes.some(elem => elem._id === state.user._id) 
+            return !isLiked ? {
+                ...state,
+                liked: [...state.likes, payload]
+            } : {
+                ...state,
+                liked: [...state.likes.filter(elem => elem._id !== state.user._id)]
+            }
         case TOGGLE_REROUTE:
             return {
                 ...state,

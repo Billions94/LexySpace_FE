@@ -1,4 +1,4 @@
-import { OnlineUser } from "../../interfaces/OnlineUser";
+import { IUser } from "../../interfaces/IUser";
 import { Rooms, User } from "../../redux/interfaces";
 import { defaultAvatar } from "../../assets/icons";
 import { Image } from "react-bootstrap";
@@ -6,7 +6,7 @@ import API from "../../lib/API";
 import { Socket } from "socket.io-client";
 
 interface OnlineUsersProps {
-  onlineUsers: OnlineUser[];
+  onlineUsers: IUser[];
   currentUser: User;
   conversation: Rooms[];
   currentChat: Rooms | null;
@@ -26,7 +26,7 @@ export default function OnlineUsers({
   socket,
   setOpenConvo,
 }: OnlineUsersProps) {
-  const handleClick = async (friend: OnlineUser) => {
+  const handleClick = async (friend: IUser) => {
     if (!currentChat?.members.includes(currentUser)) {
       // here we should check if there's already a conversation going with the selected guy
       const conversationAlreadyOpened = conversation
@@ -54,7 +54,7 @@ export default function OnlineUsers({
     }
   };
 
-  const newConversation = async (friend: OnlineUser) => {
+  const newConversation = async (friend: IUser) => {
     try {
       const { data } = await API.post("/rooms", {
         senderId: currentUser._id,
