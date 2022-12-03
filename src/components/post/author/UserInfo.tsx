@@ -3,14 +3,18 @@ import { Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { follow } from "../../../lib/requests/user";
-import { followAction, getFollowersAction } from "../../../redux/actions";
+import {
+  followAction,
+  getFollowersAction,
+  getPosts,
+} from "../../../redux/actions";
+import { User } from "../../../redux/interfaces";
 import { ReduxState } from "../../../redux/interfaces";
 import { defaultAvatar } from "../../../assets/icons";
-import { User } from "../../../dto";
 
 interface Props {
   show: boolean;
-  author: User;
+  props: User | null;
   handleShow: () => void;
   setTimer: Dispatch<SetStateAction<boolean>>;
   handleClose: () => void;
@@ -21,7 +25,7 @@ const UserInfo: FC<Props> = ({
   handleShow,
   handleClose,
   setTimer,
-  author,
+  props,
 }: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,10 +35,10 @@ const UserInfo: FC<Props> = ({
   const followUser = {
     userId: me,
     following: {
-      followingUserID: author!.id,
+      followingUserID: props!._id
     },
     dispatch,
-  };
+  }
 
   type FollowUser = typeof followUser;
 
@@ -52,7 +56,8 @@ const UserInfo: FC<Props> = ({
   };
 
   useEffect(() => {
-    dispatch(getFollowersAction(me));
+    dispatch(getFollowersAction(props?._id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -72,11 +77,11 @@ const UserInfo: FC<Props> = ({
             <div className="d-flex">
               <div
                 id="userDetails"
-                onClick={() => navigate(`/userProfile/${author?.id}`)}
+                onClick={() => navigate(`/userProfile/${props?._id}`)}
                 style={{ cursor: "pointer" }}
               >
                 <img
-                  src={author ? String(author!.image ): defaultAvatar}
+                  src={props?.image ? props?.image : defaultAvatar}
                   alt=""
                   className="roundpic"
                   width={47}
@@ -84,8 +89,8 @@ const UserInfo: FC<Props> = ({
                 />
                 <div className="">
                   <h5 className="userDetails mb-0">
-                    {author?.firstName} {author?.lastName}
-                    {author?.isVerified === true && (
+                    {props?.firstName} {props?.lastName}
+                    {props?.isVerified === true && (
                       <span className=" ml-1">
                         <img
                           alt=""
@@ -97,11 +102,11 @@ const UserInfo: FC<Props> = ({
                     )}
                   </h5>
                   <span className="userUserName text-muted">
-                    @{author?.userName}
+                    @{props?.userName}
                   </span>
                 </div>
               </div>
-              {author?.id !== me && (
+              {props?._id !== me && (
                 <div className="ml-auto">
                   {!followers.some((elem) => elem._id === me) ? (
                     <Button
@@ -125,27 +130,27 @@ const UserInfo: FC<Props> = ({
                 </div>
               )}
             </div>
-            <div>{author?.bio}</div>
+            <div>{props?.bio}</div>
             <div className="followers1">
-              {author!.followers!.length > 1 ? (
+              {props!.followers!.length > 1 ? (
                 <span
                   className="customLinks1"
-                  onClick={() => navigate(`/followers/${author?.id}`)}
+                  onClick={() => navigate(`/followers/${props?._id}`)}
                 >
-                  {author?.followers?.length} followers
+                  {props?.followers?.length} followers
                 </span>
               ) : null}
-              {author!.followers!.length === 1 ? (
+              {props!.followers!.length === 1 ? (
                 <span
                   className="customLinks1"
-                  onClick={() => navigate(`/followers/${author?.id}`)}
+                  onClick={() => navigate(`/followers/${props?._id}`)}
                 >
-                  {author?.followers?.length} follower
+                  {props?.followers?.length} follower
                 </span>
               ) : null}
-              {author?.followers!.length === 0 ? (
+              {props?.followers!.length === 0 ? (
                 <span className="customLinks1">
-                  {author?.followers?.length} follower
+                  {props?.followers?.length} follower
                 </span>
               ) : null}
             </div>

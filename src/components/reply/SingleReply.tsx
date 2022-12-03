@@ -1,10 +1,9 @@
 import { postTimer } from "../../lib/index";
-import { Comment, Replies, ReduxState } from "../../redux/interfaces";
+import { Comment, Post, Replies, ReduxState } from "../../redux/interfaces";
 import { Link } from "react-router-dom";
 import { Dropdown, Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import "./styles.scss";
-import { Post } from "../../dto";
 
 interface SingleReplyProps {
   commentID: string | undefined;
@@ -41,7 +40,7 @@ const SingleReply = ({
 
   return (
     <div className="replyContainer">
-      {comment.postId !== blog?.id ? null : (
+      {comment.postId !== blog?._id ? null : (
         <>
           {reply.commentId === commentID ? (
             <div className="d-flex">

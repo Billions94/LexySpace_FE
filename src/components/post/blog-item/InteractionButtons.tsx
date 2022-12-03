@@ -1,10 +1,10 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Post } from "../../../dto";
 import API from "../../../lib/API";
 import { getPosts } from "../../../lib/requests/post";
 import { likeAction } from "../../../redux/actions";
+import { Post } from "../../../redux/interfaces";
 import CommentModal from "../../comment/new/CommentModal";
 import SharePost from "../crud/SharePost";
 
@@ -41,7 +41,7 @@ export const InteractionButtons: React.FC<Props> = ({ data }: Props) => {
 
   const like = async () => {
     try {
-      await API.patch(`/posts/${post.id}/likes`, liker);
+      await API.patch(`/posts/${post._id}/likes`, liker);
 
       getPosts(dispatch);
     } catch (error) {
@@ -78,7 +78,7 @@ export const InteractionButtons: React.FC<Props> = ({ data }: Props) => {
           />
         </button>
         <button className="text-dark btnX">
-          <span>{post.comments?.length}</span>
+          <span>{post.comments.length}</span>
         </button>
         {commentLabel === false ? null : (
           <Badge pill variant="secondary" className="interactionBadge">
@@ -86,7 +86,7 @@ export const InteractionButtons: React.FC<Props> = ({ data }: Props) => {
           </Badge>
         )}
         <CommentModal
-          id={post.id}
+          id={post._id}
           show={show}
           setShow={setShow}
           handleClose={handleClose}
@@ -98,7 +98,7 @@ export const InteractionButtons: React.FC<Props> = ({ data }: Props) => {
         onClick={() => toggle()}
         className="postition-relative"
       >
-        {!post.likes!.some((elem) => elem?.id === me) ? (
+        {!post.likes.some((elem) => elem._id === me) ? (
           <>
             <button className="candl">
               <img
@@ -109,7 +109,7 @@ export const InteractionButtons: React.FC<Props> = ({ data }: Props) => {
               />
             </button>
             <button className="text-dark btnX">
-              <span>{post.likes!.length}</span>
+              <span>{post.likes.length}</span>
             </button>
             {likeLabel === false ? null : (
               <Badge pill variant="secondary" className="interactionBadge">
@@ -128,7 +128,7 @@ export const InteractionButtons: React.FC<Props> = ({ data }: Props) => {
               />
             </button>
             <button className="text-dark btnX">
-              <span>{post.likes!.length}</span>
+              <span>{post.likes.length}</span>
             </button>
             {likeLabel === false ? null : (
               <Badge pill variant="secondary" className="interactionBadge">
@@ -156,8 +156,8 @@ export const InteractionButtons: React.FC<Props> = ({ data }: Props) => {
           </Badge>
         )}
         <SharePost
-          id={post.id}
-          user={post.author}
+          id={post._id}
+          user={post.user}
           show={share}
           setShow={setShare}
           createdAt={post.createdAt}

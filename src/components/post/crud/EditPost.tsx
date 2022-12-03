@@ -1,40 +1,38 @@
 import { useState, createRef, Dispatch, SetStateAction, FC } from "react";
 import { Container, Form, Button, Modal } from "react-bootstrap";
-import useAuthGuard, { handleFileChange } from "../../../lib/index";
+import useAuthGuard from "../../../lib/index";
 import { useSelector, useDispatch } from "react-redux";
 import { ReduxState } from "../../../redux/interfaces";
 import { updatePost } from "../../../lib/requests/post";
 import "./styles.scss";
-import { useUpdatePostMutation } from "../../../dto";
-import upload from "../../upload/upload";
 
 interface Props {
   data: {
     postId: string;
     reload: boolean;
     setReload: Dispatch<SetStateAction<boolean>>;
-    media: string;
   };
 }
-
-const initialInputState = {
-  content: "",
-  media: "",
-};
 
 const Edit: FC<Props> = ({ data }: Props) => {
   useAuthGuard();
 
-  const { postId, media } = data;
+  const { postId, reload, setReload } = data;
 
-  const [input, setInput] = useState(initialInputState);
+  const dispatch = useDispatch();
   const [show, setShow] = useState<boolean>(false);
-
+  const [media, setMedia] = useState<string>("");
+  const [post, setPost] = useState({ text: "" });
   const { user } = useSelector((state: ReduxState) => state.data);
-  const [updatePost, { loading }] = useUpdatePostMutation();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const target = (e: any) => {
+    if (e.target && e.target.files[0]) {
+      setMedia(e.target.files[0]);
+    }
+  };
 
   const inputBtn = createRef<HTMLInputElement>();
 
@@ -42,42 +40,15 @@ const Edit: FC<Props> = ({ data }: Props) => {
     inputBtn!.current!.click();
   };
 
-
-  function updateInput(key: string, value: string) {
-    setInput({ ...input, [key]: value });
-  }
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | any>,
-    key: string
-  ) => {
-    updateInput(key, e.target.value);
-  };
-
-  const handleSubmit = async (event: any) => {
-    try {
-      if (input.media.length > 0) {
-        const { url } = await upload(event);
-
-        if (url) {
-          input.media = url;
-          await updatePost({ variables: { postId: postId, input: input } });
-
-          setInput(initialInputState);
-          setShow(false);
-        }
-      }
-
-      if (!input.media) {
-        input.media = media
-        await updatePost({ variables: { postId: postId, input: input } });
-        setInput(initialInputState);
-
-        setShow(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const updatePostData = {
+    post,
+    media,
+    setMedia,
+    postId,
+    setShow,
+    dispatch,
+    refresh: reload,
+    setRefresh: setReload,
   };
 
   return (
@@ -136,20 +107,19 @@ const Edit: FC<Props> = ({ data }: Props) => {
                 as="textarea"
                 className="textarea"
                 rows={5}
-                value={input.content}
-                onChange={(e) => handleChange(e, "content")}
+                value={post.text}
+                onChange={(e) => setPost({ ...post, text: e.target.value })}
               />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
             <div>
               <button onClick={openInputFile} className="btn btn-sm btnIcon">
-                <Form.Control
+                <input
                   type="file"
-                  name="file"
                   ref={inputBtn}
                   className="d-none"
-                  onChange={(e) => handleFileChange(e, input, setInput)}
+                  onChange={(e) => target(e)}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -164,11 +134,12 @@ const Edit: FC<Props> = ({ data }: Props) => {
                 </svg>
               </button>
             </div>
-            {!input.content ? (
+            {!post.text ? (
               <Button
                 variant="primary"
                 disabled
                 className="btn btn-md modal-btn"
+                onClick={() => updatePost(updatePostData)}
               >
                 update
               </Button>
@@ -176,7 +147,7 @@ const Edit: FC<Props> = ({ data }: Props) => {
               <Button
                 variant="primary"
                 className="btn btn-md modal-btn"
-                onClick={(e) => handleSubmit(e)}
+                onClick={() => updatePost(updatePostData)}
               >
                 update
               </Button>

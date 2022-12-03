@@ -25,8 +25,8 @@ const Recentposts: FC<Props> = ({ userId }: Props) => {
           <>
             {posts.map((post) => (
               <>
-                {userId === post.author.id ? (
-                  <RecentItem key={post.id} post={post} />
+                {userId === post.user._id ? (
+                  <RecentItem key={post._id} post={post} />
                 ) : null}
               </>
             ))}

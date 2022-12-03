@@ -5,9 +5,8 @@ import storage from "redux-persist/lib/storage/session";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import usersReducer from "../reducers/dataReducer";
 import postsReducer from "../reducers/postsReducer";
-import { ReduxState, User } from "../interfaces";
+import { Post, ReduxState, User } from "../interfaces";
 import { defaultCover } from "../../assets/icons";
-import { Post } from "../../dto";
 
 const ghost = process.env.REACT_APP_SECRET_KEY!;
 const allCompose =
@@ -17,16 +16,19 @@ const cover = localStorage.getItem("cover") as string;
 
 export const initialState: ReduxState = {
   data: {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     user: <User>{},
     followers: [],
     cover: cover ? cover : defaultCover,
     following: false,
     hideMe: false,
+    likes: [],
     reroute: false,
     isLoading: true,
     tasks: "",
     hideTask: false,
   },
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   posts: <Post[]>[],
 };
 
@@ -57,3 +59,6 @@ const store = createStore(
 export default store;
 
 export const persistor = persistStore(store);
+
+
+
