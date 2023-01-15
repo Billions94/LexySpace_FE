@@ -22,8 +22,8 @@ import ShareModal from "./SharedModal";
 import ViewModal from "./ViewModal";
 import DeleteModal from "../crud/DeleteModal";
 import LikesModal from "./LikesModal";
-import "./styles.scss";
 import API from "../../../lib/API";
+import "./styles.scss";
 
 const Blog: FC = () => {
   useAuthGuard();
