@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { Comment, Post, Replies } from "../../redux/interfaces";
 import SingleReply from "./SingleReply";
@@ -26,8 +27,7 @@ const Reply = ({ blog, comment, commentID }: ReplyProps) => {
   };
 
   useEffect(() => {
-    getReplies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (async () => getReplies())();
   }, [comment]);
 
   return (

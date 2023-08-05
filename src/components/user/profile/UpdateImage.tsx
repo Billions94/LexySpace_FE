@@ -1,4 +1,4 @@
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button } from 'react-bootstrap';
 import {
   useState,
   Dispatch,
@@ -6,29 +6,45 @@ import {
   createRef,
   useEffect,
   FC,
-} from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { ReduxState, User } from "../../../redux/interfaces";
-import API from "../../../lib/API";
-import { getPosts, getUsersAction } from "../../../redux/actions";
-
+} from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { ReduxState, User } from '../../../redux/interfaces';
+import API from '../../../lib/API';
+import {
+  getPosts,
+  getUsersAction,
+  saveUserAction,
+} from '../../../redux/actions';
+import React from 'react';
+import { AvatarStyle, NewUserAvatar } from '../../../dummy/NewUserAvatar';
+import { Avatar } from '@mui/material';
+import Loader from '../../loader/Loader';
 
 interface Props {
   xUser: User;
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   getUser: () => Promise<void>;
+  handlePic: () => void;
 }
 
-const UpdateImage: FC<Props> = ({ xUser, show, setShow, getUser }: Props) => {
+const UpdateImage: FC<Props> = ({
+  xUser,
+  show,
+  setShow,
+  getUser,
+  handlePic,
+}) => {
   const { id } = useParams();
-  const { user } = useSelector((state: ReduxState) => state.data);
-  const me = user!._id;
-
-  const [image, setImage] = useState<string>("");
   const dispatch = useDispatch();
+  const { user } = useSelector((state: ReduxState) => state.data);
+  const me = user?.id;
+
+  const [image, setImage] = useState<string>('');
+  const [update, setUpdate] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const target = (e: any) => {
     if (e.target && e.target.files[0]) {
@@ -39,23 +55,29 @@ const UpdateImage: FC<Props> = ({ xUser, show, setShow, getUser }: Props) => {
   const inputBtn = createRef<HTMLInputElement>();
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn?.current?.click();
   };
   const handleClose = () => setShow(false);
 
   const updateProfilePic = async () => {
+    setLoading(true);
     try {
       const formData = new FormData();
-      formData.append("image", image);
+      formData.append('image', image);
 
       const { data } = await API.patch(`/users/me/profilePic`, formData);
 
       if (data) {
         setShow(false);
-        dispatch(getPosts());
-        getUser();
-      } else {
-        throw new Error("Failed to update profile picture");
+        setUpdate(data?.image);
+        await getUser();
+
+        setTimeout(function () {
+          setLoading(false);
+        }, 2400);
+        setTimeout(function () {
+          setShow(false);
+        }, 2500);
       }
     } catch (error) {
       console.log(error);
@@ -64,7 +86,7 @@ const UpdateImage: FC<Props> = ({ xUser, show, setShow, getUser }: Props) => {
 
   useEffect(() => {
     dispatch(getUsersAction());
-  }, [show]);
+  }, [update]);
 
   return (
     <div>
@@ -88,13 +110,32 @@ const UpdateImage: FC<Props> = ({ xUser, show, setShow, getUser }: Props) => {
                 height="430px"
               />
             ) : (
-              <img
-                className="ProfilePicture"
-                src={user?.image}
-                alt="ProfilePicture"
-                width="430px"
-                height="430px"
-              />
+              <>
+                {!user?.image ? (
+                  <Avatar
+                    onClick={handlePic}
+                    sx={{
+                      width: 430,
+                      height: 430,
+                    }}
+                    children={
+                      <NewUserAvatar
+                        firstName={String(user?.firstName)}
+                        lastName={String(user?.lastName)}
+                        className={AvatarStyle.MODAL}
+                      />
+                    }
+                  />
+                ) : (
+                  <img
+                    className="ProfilePicture"
+                    src={user?.image}
+                    alt="ProfilePicture"
+                    width="430px"
+                    height="430px"
+                  />
+                )}
+              </>
             )}
           </div>
         </Modal.Body>
@@ -126,15 +167,24 @@ const UpdateImage: FC<Props> = ({ xUser, show, setShow, getUser }: Props) => {
             </div>
             {!image ? (
               <Button disabled variant="primary" className="modal-btn">
-                update
+                <p>update</p>
               </Button>
             ) : (
               <Button
-                onClick={() => updateProfilePic()}
+                onClick={updateProfilePic}
                 variant="primary"
                 className="modal-btn"
               >
-                update
+                {loading ? (
+                  <Loader
+                    color={'white'}
+                    marginTop={'0px'}
+                    width={'28px'}
+                    height={'28px'}
+                  />
+                ) : (
+                  <p>update</p>
+                )}
               </Button>
             )}
           </Modal.Footer>

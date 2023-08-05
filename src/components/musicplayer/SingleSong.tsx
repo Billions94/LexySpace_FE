@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, createRef } from "react";
 import { Image } from "react-bootstrap";
 import { playIcon, pauseIcon } from "../../assets/icons";

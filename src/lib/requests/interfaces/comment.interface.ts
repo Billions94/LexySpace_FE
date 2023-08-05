@@ -1,5 +1,5 @@
-import { SetStateAction } from "react";
-import { Comment } from "../../../redux/interfaces";
+import React, { SetStateAction } from 'react';
+import { Comment } from '../../../redux/interfaces';
 
 export interface CreateComment {
   media: string;
@@ -20,7 +20,7 @@ export interface CommentBody {
   user: string;
 }
 
-export interface UpdateComment extends Omit<CreateComment, "postId"> {
+export interface UpdateComment extends Omit<CreateComment, 'postId'> {
   commentId: string;
 }
 

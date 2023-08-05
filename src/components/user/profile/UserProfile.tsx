@@ -1,22 +1,30 @@
-import { useState, useEffect, FC } from "react";
-import { Button, Row, Col, Image } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
-import useAuthGuard from "../../../lib/index";
-import EditProfile from "./EditProfile";
-import UpdateImage from "./UpdateImage";
-import { useDispatch, useSelector } from "react-redux";
+import React, { FC, useEffect, useState } from 'react';
+import { Button, Col, Image, Row } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
+import useAuthGuard from '../../../lib/index';
+import EditProfile from './EditProfile';
+import UpdateImage from './UpdateImage';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   followAction,
   getFollowersAction,
+  getFollowersState,
   getPosts,
-} from "../../../redux/actions";
-import { defaultCover, defaultAvatar } from "../../../assets/icons";
-import { ReduxState, User } from "../../../redux/interfaces";
-import Recentposts from "../recentPost/RecentPosts";
-import Cover from "./Cover";
-import Loader from "../../loader/Loader";
-import API from "../../../lib/API";
-import "./styles.scss";
+  setCover,
+  setDynamicId,
+  updateFollowersState,
+} from '../../../redux/actions';
+import { defaultAvatar, defaultCover } from '../../../assets/icons';
+import { ReduxState, User } from '../../../redux/interfaces';
+import Recentposts from '../recentPost/RecentPosts';
+import Cover from './Cover';
+import Loader from '../../loader/Loader';
+import API from '../../../lib/API';
+import { Avatar } from '@mui/material';
+import { NewUserAvatar, AvatarStyle } from '../../../dummy/NewUserAvatar';
+import './styles.scss';
+import { Verified } from '../../../assets/svg/verified';
+import { getUser } from '../../../lib/requests/user';
 
 const UserProfile: FC = () => {
   useAuthGuard();
@@ -24,14 +32,15 @@ const UserProfile: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const posts = useSelector((state: ReduxState) => state.posts);
-  const stateUser = useSelector((state: ReduxState) => state.data.user);
-  const { following, cover, followers } = useSelector(
-    (state: ReduxState) => state.data
-  );
-  const me = stateUser?._id;
 
-  const follower = { followingUserID: me };
+  const {
+    following,
+    cover,
+    followers,
+    user: loggedInUser,
+  } = useSelector((state: ReduxState) => state.data);
+  const me = loggedInUser?.id;
+  const follower = { userToFollowId: id };
 
   const [show, setShow] = useState(false);
   const [pic, setPic] = useState(false);
@@ -44,52 +53,52 @@ const UserProfile: FC = () => {
   const follow = async () => {
     try {
       const { data } = await API.post(`/users/me/follow`, follower);
-
       if (data) {
-        getUser();
         dispatch(getFollowersAction(id));
-      } else {
-        throw new Error("Something went wrong :(");
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getUser = async () => {
-    try {
-      const { data } = await API.get(`/users/${id}`);
+  // const getUser = async () => {
+  //   try {
+  //     const { data } = await API.get(`/users/${id}`);
+  //     if (data) {
+  //       setUser(data);
+  //     }
+  //     return data;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-      if (data) {
-        setUser(data);
-      } else {
-        throw new Error("error fetching users");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const toggle = () => {
+    !following ? nowFollow() : unfollow();
   };
 
-  const toggle = (id: string | undefined) => {
-    following === false ? nowFollow(id) : unfollow(id);
-  };
-
-  const nowFollow = (id: string | undefined) => {
-    follow();
+  const nowFollow = async () => {
+    await follow();
     dispatch(followAction(true));
   };
-  const unfollow = (id: string | undefined) => {
-    follow();
+
+  const unfollow = async () => {
+    await follow();
     dispatch(followAction(false));
-    setLoading(true);
+    dispatch(getFollowersAction(id));
+    //setLoading(true);
   };
 
   useEffect(() => {
-    dispatch(getPosts());
-    dispatch(getFollowersAction(id));
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+    dispatch(setCover(loggedInUser.cover));
+  }, []);
+
+  useEffect(() => {
+    dispatch(setDynamicId(id));
+    getUser(String(id)).then(setUser);
+  }, [followers.length, id]);
+
+  console.log({ followers, following });
 
   return user ? (
     <>
@@ -104,7 +113,7 @@ const UserProfile: FC = () => {
             <Col sm={6} md={7} lg={7} className="coverDiv">
               {id !== me ? (
                 <>
-                  {user?.cover === undefined || null ? (
+                  {!user?.cover ? (
                     <img
                       className="cover mb-2"
                       src={defaultCover}
@@ -121,17 +130,39 @@ const UserProfile: FC = () => {
                   )}
                 </>
               ) : (
-                <img className="cover mb-2" src={cover} alt="" height="250px" />
+                // Cover container
+                <div>
+                  <img
+                    className="cover mb-2"
+                    src={cover ? cover : defaultCover}
+                    alt=""
+                    height="250px"
+                  />
+                </div>
               )}
             </Col>
 
-            <div className="coverModal">
-              {id !== me ? null : <Cover getUser={getUser} />}
-            </div>
+            {/*Cover Modal*/}
+            <div className="coverModal">{id !== me ? null : <Cover />}</div>
 
             <div id="jinx" className="d-flex px-4 col-lg-10">
               <div className="imgDiv ml5">
-                {
+                {!user.image ? (
+                  <Avatar
+                    onClick={handlePic}
+                    sx={{
+                      width: 130,
+                      height: 130,
+                    }}
+                    children={
+                      <NewUserAvatar
+                        firstName={String(user?.firstName)}
+                        lastName={String(user?.lastName)}
+                        className={AvatarStyle.PROFILE}
+                      />
+                    }
+                  />
+                ) : (
                   <Image
                     roundedCircle
                     id="profile-pic"
@@ -141,7 +172,7 @@ const UserProfile: FC = () => {
                     width="130"
                     height="130"
                   />
-                }
+                )}
 
                 <div>
                   <div className="nameHeader ">
@@ -149,23 +180,23 @@ const UserProfile: FC = () => {
                   </div>
                   <div className="">lives in {user.location}</div>
                   <div className="">{user.bio}</div>
-                  {user!.followers!.length > 1 ? (
+                  {user?.followers?.length > 1 ? (
                     <span
                       className=" customLinks1"
-                      onClick={() => navigate(`/followers/${user?._id}`)}
+                      onClick={() => navigate(`/followers/${user?.id}`)}
                     >
                       {user?.followers?.length} followers
                     </span>
                   ) : null}
-                  {user!.followers!.length === 1 ? (
+                  {user?.followers?.length === 1 ? (
                     <span
                       className=" customLinks1"
-                      onClick={() => navigate(`/followers/${user?._id}`)}
+                      onClick={() => navigate(`/followers/${user?.id}`)}
                     >
                       {user?.followers?.length} follower
                     </span>
                   ) : null}
-                  {user!.followers!.length === 0 ? (
+                  {user?.followers?.length === 0 ? (
                     <span className=" customLinks1">
                       {user?.followers?.length} follower
                     </span>
@@ -178,20 +209,15 @@ const UserProfile: FC = () => {
                 show={pic}
                 setShow={setPic}
                 getUser={getUser}
+                handlePic={handlePic}
               />
 
               <div className="text-left ml-auto justify-content-center">
                 <br />
                 <div className="d-flex justify-content-center mb-3">
-                  {user?.isVerified === true && (
+                  {user?.isVerified && (
                     <div className=" mt-1  d-flex-row align-items-center">
-                      <img
-                        alt=""
-                        className="mr-2"
-                        width="22px"
-                        src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"
-                      />
-                      {/* <b>verified</b> */}
+                      {Verified}
                     </div>
                   )}
                 </div>
@@ -202,14 +228,14 @@ const UserProfile: FC = () => {
                       variant="white"
                       className="nowfollowing text-white"
                     >
-                      edit Profile
+                      <p id="edit-profile1">edit Profile</p>
                     </Button>
                   )}
                   {id !== me && (
                     <p>
-                      {!followers.some((elem) => elem._id === me) ? (
+                      {!followers.some((user) => user.id === me) ? (
                         <Button
-                          onClick={() => toggle(id)}
+                          onClick={toggle}
                           variant="primary"
                           className="followbtn mt-2"
                         >
@@ -217,7 +243,7 @@ const UserProfile: FC = () => {
                         </Button>
                       ) : (
                         <Button
-                          onClick={() => toggle(id)}
+                          onClick={toggle}
                           variant="primary"
                           className="nowfollowing mt-2"
                         >
@@ -245,7 +271,7 @@ const UserProfile: FC = () => {
       </Col> */}
     </>
   ) : (
-    <div className="text-center">{loading === true && <Loader />}</div>
+    <div className="text-center">{loading && <Loader />}</div>
   );
 };
 

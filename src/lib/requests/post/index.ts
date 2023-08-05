@@ -1,22 +1,29 @@
-import API from "../../API";
-import { GET_BLOGS } from "../../../redux/actions";
+import API from '../../API';
+import { Actions } from '../../../redux/actions';
 import {
   CreateNewPost,
   SharePost,
   UpdatePost,
-} from "../interfaces/post.interface";
+} from '../interfaces/post.interface';
 
-export async function getPosts(dispatch: any) {
+export async function getPosts(dispatch: any, postId?: string) {
   try {
-    const { data } = await API.get(`/posts`);
-    if (data) {
-      const { posts } = data;
-      const newPost = posts.reverse();
-
-      dispatch({
-        type: GET_BLOGS,
-        payload: newPost,
-      });
+    if (postId) {
+      const { data } = await API.get(`/posts/${postId}`);
+      if (data) {
+        dispatch({
+          type: Actions.GET_POSTS,
+          payload: data.posts,
+        });
+      }
+    } else {
+      const { data } = await API.get(`/posts`);
+      if (data) {
+        dispatch({
+          type: Actions.GET_POSTS,
+          payload: data.posts,
+        });
+      }
     }
   } catch (error) {
     console.log(error);
@@ -24,38 +31,30 @@ export async function getPosts(dispatch: any) {
 }
 
 export async function createPost(args: CreateNewPost) {
-  const {
-    userName,
-    media,
-    setMedia,
-    post,
-    setPost,
-    setFetchLoading,
-    dispatch,
-    setShow,
-  } = args;
+  const { media, setMedia, post, setPost, setFetchLoading, dispatch, setShow } =
+    args;
 
   if (media) {
     try {
       setFetchLoading && setFetchLoading(true);
 
       const formData = new FormData();
-      formData.append("text", post.text);
-      formData.append("media", media);
+      formData.append('text', post.text);
+      formData.append('media', media);
 
-      const { data } = await API.post(`/posts/${userName}`, formData);
+      const { data } = await API.post(`/posts`, formData);
 
       if (setShow && data) {
-        setPost({ text: "" });
-        setMedia("");
-        getPosts(dispatch);
+        setPost({ text: '' });
+        setMedia('');
+        await getPosts(dispatch);
         setShow(false);
       }
 
       if (data) {
-        setPost({ text: "" });
-        setMedia("");
-        getPosts(dispatch);
+        setPost({ text: '' });
+        setMedia('');
+        await getPosts(dispatch);
 
         setTimeout(() => {
           setFetchLoading && setFetchLoading(false);
@@ -67,17 +66,17 @@ export async function createPost(args: CreateNewPost) {
   } else {
     try {
       setFetchLoading && setFetchLoading(true);
-      const { data } = await API.post(`/posts/${userName}`, post);
+      const { data } = await API.post(`/posts`, post);
 
       if (setShow && data) {
-        setPost({ text: "" });
-        getPosts(dispatch);
+        setPost({ text: '' });
+        await getPosts(dispatch);
         setShow(false);
       }
 
       if (data) {
-        setPost({ text: "" });
-        getPosts(dispatch);
+        setPost({ text: '' });
+        await getPosts(dispatch);
 
         setTimeout(() => {
           setFetchLoading && setFetchLoading(false);
@@ -104,16 +103,16 @@ export async function updatePost(args: UpdatePost) {
   if (media) {
     try {
       const formData = new FormData();
-      formData.append("text", post.text);
-      formData.append("media", media);
+      formData.append('text', post.text);
+      formData.append('media', media);
 
       const { data } = await API.patch(`/posts/${postId}`, formData);
 
       if (data) {
         setShow(false);
-        setMedia("");
-        refresh === false ? setRefresh(true) : setRefresh(false);
-        getPosts(dispatch);
+        setMedia('');
+        !refresh ? setRefresh(true) : setRefresh(false);
+        await getPosts(dispatch);
       }
     } catch (error) {
       console.log(error);
@@ -124,8 +123,8 @@ export async function updatePost(args: UpdatePost) {
 
       if (data) {
         setShow(false);
-        refresh === false ? setRefresh(true) : setRefresh(false);
-        getPosts(dispatch);
+        !refresh ? setRefresh(true) : setRefresh(false);
+        await getPosts(dispatch);
       }
     } catch (error) {
       console.log(error);
@@ -137,52 +136,52 @@ export async function deletePost(postId: string, dispatch: any) {
   try {
     const { data } = await API.delete(`/posts/${postId}`);
     if (data) {
-      getPosts(dispatch);
+      await getPosts(dispatch);
     }
   } catch (error) {
-    console.log("ooops we encountered an error", error);
+    console.log(error);
   }
 }
 
 export async function sharePost(args: SharePost) {
-  const { media, userName, post, setShow, navigate, dispatch, setMedia } = args;
+  const { media, post, setShow, navigate, dispatch, setMedia } = args;
 
   if (media) {
     try {
       const formData = new FormData();
-      formData.append("text", post.text);
-      formData.append("media", media);
+      formData.append('text', post.text);
+      formData.append('media', media);
+      formData.append('sharedPost', post?.sharedPost?.id);
 
-      const { data } = await API.post(`/posts/${userName}`, formData);
+      const { data } = await API.post(`/posts`, formData);
 
       if (data) {
         if (setShow) {
           setShow(false);
         }
 
-        setMedia("");
-        navigate("/home");
-        getPosts(dispatch);
-      } else {
-        throw new Error("Unable to share post");
+        setMedia('');
+        navigate('/home');
+        await getPosts(dispatch);
       }
     } catch (error) {
       console.log(error);
     }
   } else {
     try {
-      const { data } = await API.post(`/posts/${userName}`, post);
+      const { data } = await API.post(`/posts`, {
+        ...post,
+        sharedPost: post?.sharedPost?.id,
+      });
 
       if (data) {
         if (setShow) {
           setShow(false);
         }
 
-        setMedia("");
-        navigate("/home");
-        getPosts(dispatch);
-      } else {
-        throw new Error("Unable to share post");
+        setMedia('');
+        navigate('/home');
+        await getPosts(dispatch);
       }
     } catch (error) {
       console.log(error);

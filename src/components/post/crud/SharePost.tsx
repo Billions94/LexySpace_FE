@@ -1,11 +1,12 @@
-import { useState, createRef, Dispatch, SetStateAction } from "react";
-import { Modal, Button, Form, Card } from "react-bootstrap";
-import { ReduxState, Post, User } from "../../../redux/interfaces";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import BlogAuthor from "../author/PostAuthor";
-import { getPosts } from "../../../redux/actions";
-import { sharePost } from "../../../lib/requests/post";
+import { useState, createRef, Dispatch, SetStateAction } from 'react';
+import { Modal, Button, Form, Card } from 'react-bootstrap';
+import { ReduxState, Post, User } from '../../../redux/interfaces';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import BlogAuthor from '../author/PostAuthor';
+import { getPosts } from '../../../redux/actions';
+import { sharePost } from '../../../lib/requests/post';
+import React from 'react';
 
 interface SharePostProps {
   id: string | undefined;
@@ -19,16 +20,16 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const posts = useSelector((state: ReduxState) => state.posts);
+  const { posts } = useSelector((state: ReduxState) => state['data']);
   const loggedInUser = useSelector((state: ReduxState) => state.data.user);
 
-  const userName = loggedInUser!.userName;
-  const sharePostBody = posts.map((p) => p).find((p) => p._id === id);
+  const userName = loggedInUser?.username;
+  const sharePostBody = posts.map((p) => p).find((p) => p.id === id) as Post;
 
-  const [media, setMedia] = useState("");
+  const [media, setMedia] = useState('');
   const [post, setPost] = useState({
-    text: "",
-    sharedPost: sharePostBody!,
+    text: '',
+    sharedPost: sharePostBody,
   });
   const handleClose = () => setShow(false);
 
@@ -41,7 +42,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
   const inputBtn = createRef<HTMLInputElement>();
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn?.current?.click();
   };
 
   const sharePostData = {
@@ -70,7 +71,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
           <div className="d-flex userInfoContainer">
             <div>
               <img
-                src={loggedInUser!.image}
+                src={loggedInUser?.image}
                 alt=""
                 className="roundpic"
                 width={47}
@@ -79,8 +80,8 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
             </div>
             <div className="ml-2 userInfo">
               <span>
-                {loggedInUser!.firstName} {loggedInUser!.lastName}
-                {loggedInUser!.isVerified === true && (
+                {loggedInUser?.firstName} {loggedInUser?.lastName}
+                {loggedInUser?.isVerified && (
                   <span className=" mt-1 ml-1  d-flex-row align-items-center">
                     <img
                       alt=""
@@ -107,17 +108,17 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
             <div className="sharePost">
               <div
                 className="authorinfo d-flex "
-                style={{ justifyContent: "space-between" }}
+                style={{ justifyContent: 'space-between' }}
               >
                 <BlogAuthor {...user} createdAt={createdAt} />
               </div>
-              <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
+              <Link to={`/posts/${post.sharedPost.id}`} className="blog-link">
                 <Card.Title>{post.sharedPost.text}</Card.Title>
                 {!post.sharedPost.media
                   ? null
                   : post.sharedPost.media &&
                     post?.sharedPost.media
-                      .split(".")
+                      .split('.')
                       .slice(-1)
                       .join()
                       .match(`heic|png|jpg|pdf|jpeg|gif`) && (
@@ -131,7 +132,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                   ? null
                   : post.sharedPost.media &&
                     post?.sharedPost.media
-                      .split(".")
+                      .split('.')
                       .slice(-1)
                       .join()
                       .match(`mp4|MPEG-4|mkv`) && (

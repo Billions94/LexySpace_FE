@@ -13,7 +13,7 @@ export const MessageBody: React.FC<MessageBodyProps> = ({ user, message }) => {
 
   return (
     <>
-      {user._id !== message.sender ? (
+      {user.id !== message.sender ? (
         <>
           <div className="d-flex">
             <img

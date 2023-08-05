@@ -1,9 +1,10 @@
-import { postTimer } from "../../lib/index";
-import { Comment, Post, Replies, ReduxState } from "../../redux/interfaces";
-import { Link } from "react-router-dom";
-import { Dropdown, Image } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import "./styles.scss";
+import { dateFormatter } from '../../lib';
+import { Comment, Post, Replies, ReduxState } from '../../redux/interfaces';
+import { Link } from 'react-router-dom';
+import { Dropdown, Image } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import './styles.scss';
+import React from 'react';
 
 interface SingleReplyProps {
   commentID: string | undefined;
@@ -22,16 +23,16 @@ const SingleReply = ({
 }: SingleReplyProps) => {
   const url = process.env.REACT_APP_GET_URL;
   const { user } = useSelector((state: ReduxState) => state.data);
-  const me = user!._id;
+  const me = user?.id;
 
   const deleteReply = async (id: string) => {
     try {
       const response = await fetch(`${url}/replies/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       if (response.ok) {
-        console.log("Reply deleted");
-        getReplies();
+        console.log('Reply deleted');
+        await getReplies();
       }
     } catch (error) {
       console.log(error);
@@ -40,12 +41,12 @@ const SingleReply = ({
 
   return (
     <div className="replyContainer">
-      {comment.postId !== blog?._id ? null : (
+      {comment.postId !== blog?.id ? null : (
         <>
           {reply.commentId === commentID ? (
             <div className="d-flex">
               <div>
-                <Link to={`userProfile/${reply.user._id}`}>
+                <Link to={`userProfile/${reply.user.id}`}>
                   <Image
                     className="rounded-circle g-mt-3 g-mr-15"
                     width="37px"
@@ -59,17 +60,17 @@ const SingleReply = ({
                 <div
                   className="text-dark mb-1 timer postedReply"
                   style={{
-                    fontSize: "14px",
-                    borderBottom: "1px solid rgb(216, 215, 215)",
+                    fontSize: '14px',
+                    borderBottom: '1px solid rgb(216, 215, 215)',
                   }}
                 >
                   <div className="textColor">
-                    {" "}
-                    Posted: {postTimer(reply.createdAt)}{" "}
+                    {' '}
+                    Posted: {dateFormatter(reply.createdAt)}{' '}
                   </div>
                   <div className="ml-auto">
-                    {reply.user._id !== me ? null : (
-                      <Dropdown className="dropdowntext ml-auto">
+                    {reply.user?.id !== me ? null : (
+                      <Dropdown className="dropdowntext ml-auto" id={''}>
                         <Dropdown.Toggle className="btn btn-dark dropdownbtn">
                           <div className="text-muted dots">
                             <b>
@@ -84,9 +85,9 @@ const SingleReply = ({
                         <Dropdown.Menu
                           className="dropDownMenu"
                           style={{
-                            padding: "18px",
-                            borderRadius: "25px",
-                            border: "1px solid rgb(216, 215, 215)",
+                            padding: '18px',
+                            borderRadius: '25px',
+                            border: '1px solid rgb(216, 215, 215)',
                           }}
                         >
                           {/* <Edit /> */}
@@ -99,7 +100,7 @@ const SingleReply = ({
                                 src="https://img.icons8.com/fluency/50/000000/delete-sign.png"
                               />
                             </div>
-                            <div onClick={(e) => deleteReply(reply._id)}>
+                            <div onClick={(e) => deleteReply(reply.id)}>
                               delete
                             </div>
                           </div>
@@ -117,7 +118,7 @@ const SingleReply = ({
                     ? null
                     : reply.media &&
                       reply.media
-                        .split(".")
+                        .split('.')
                         .slice(-1)
                         .join()
                         .match(`heic|png|jpg|pdf|jpeg`) && (
@@ -126,7 +127,7 @@ const SingleReply = ({
                   {!reply.media
                     ? null
                     : reply.media
-                        .split(".")
+                        .split('.')
                         .slice(-1)
                         .join()
                         .match(`mp4|MPEG-4|mkv`) && (

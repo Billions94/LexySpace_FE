@@ -1,17 +1,19 @@
-import {
+import React, {
   createRef,
   useState,
   Dispatch,
   SetStateAction,
   KeyboardEvent,
-} from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { ReduxState } from "../../redux/interfaces";
-import { Row, Image } from "react-bootstrap";
-import Picker from "emoji-picker-react";
-import { createPost } from "../../lib/requests/post";
-import { loadingNew } from "../../assets/icons";
+} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { ReduxState } from '../../redux/interfaces';
+import { Row, Image } from 'react-bootstrap';
+import Picker from 'emoji-picker-react';
+import { createPost } from '../../lib/requests/post';
+import { defaultAvatar, loadingNew } from '../../assets/icons';
+import { Avatar } from '@mui/material';
+import { AvatarStyle, NewUserAvatar } from '../../dummy/NewUserAvatar';
 
 interface PostContainerProps {
   fetchLoading: boolean;
@@ -24,10 +26,10 @@ const PostContainer = ({
 }: PostContainerProps) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: ReduxState) => state.data);
-  const userName = user!.userName;
+  const userName = user?.username;
 
-  const [post, setPost] = useState({ text: "" });
-  const [media, setMedia] = useState<string>("");
+  const [post, setPost] = useState({ text: '' });
+  const [media, setMedia] = useState<string>('');
   const [show, setShow] = useState(false);
 
   const [emoji, setEmoji] = useState(false);
@@ -44,7 +46,7 @@ const PostContainer = ({
   };
 
   const toggleEmoji = () => {
-    showEmoji === false ? setShowEmoji(true) : setShowEmoji(false);
+    !showEmoji ? setShowEmoji(true) : setShowEmoji(false);
   };
 
   const handleShow = () => setShow(true);
@@ -54,7 +56,6 @@ const PostContainer = ({
   const handleEmojiClose = () => setEmoji(false);
 
   const target = (e: any) => {
-    console.log(e.target.files[0]);
     if (e.target && e.target.files[0]) {
       setMedia(e.target.files[0]);
     }
@@ -63,21 +64,19 @@ const PostContainer = ({
   const inputBtn = createRef<HTMLInputElement>();
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn?.current?.click();
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [chosenEmoji, setChosenEmoji] = useState("");
+  const [chosenEmoji, setChosenEmoji] = useState('');
 
   const onEmojiClick = (event: any, emojiObject: any) => {
     setChosenEmoji(emojiObject);
   };
 
-  const handleKeyboardEvent = (
-    e: KeyboardEvent<HTMLInputElement>,
-  ) => {
-    if (e.key === "Enter") {
-      createPost(newPostData);
+  const handleKeyboardEvent = async (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      await createPost(newPostData);
     }
   };
 
@@ -86,14 +85,31 @@ const PostContainer = ({
       <div className="col">
         <div className="postContainer">
           <div className="userImage">
-            <Link to={`/userProfile/${user._id}`}>
-              <img
-                src={user.image}
-                alt=""
-                className="img"
-                width="47"
-                height="47"
-              />
+            <Link to={`/userProfile/${user.id}`}>
+              {!user.image ? (
+                <Avatar
+                  sx={{
+                    width: 47,
+                    height: 47,
+                  }}
+                  children={
+                    <NewUserAvatar
+                      firstName={user.firstName}
+                      lastName={user.lastName}
+                      className={AvatarStyle.PROFILE}
+                    />
+                  }
+                />
+              ) : (
+                <Image
+                  roundedCircle
+                  className="img"
+                  src={user.image ? user.image : defaultAvatar}
+                  alt="ProfilePicture"
+                  width="47"
+                  height="47"
+                />
+              )}
             </Link>
           </div>
           <div className="p-2 w-100">
@@ -104,7 +120,9 @@ const PostContainer = ({
                 placeholder="start typing to share your thoughts...."
                 value={post.text}
                 onKeyPress={(e: any) => handleKeyboardEvent(e)}
-                onChange={(e) => setPost({ ...post, text: e.target.value })}
+                onChange={({ target: { value } }) =>
+                  setPost({ ...post, text: value })
+                }
               />
             </div>
             <div className="d-flex sharebtn">
@@ -120,7 +138,7 @@ const PostContainer = ({
                       type="file"
                       ref={inputBtn}
                       className="d-none"
-                      onChange={(e) => target(e)}
+                      onChange={target}
                     />
 
                     <svg
@@ -135,7 +153,7 @@ const PostContainer = ({
                       <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z" />
                     </svg>
                   </button>
-                  {show === false ? null : (
+                  {!show ? null : (
                     <div className="absolute">
                       <span className="badge text-muted">Media</span>
                     </div>
@@ -148,7 +166,7 @@ const PostContainer = ({
                     className="btn btn-sm btnIcon"
                   >
                     <svg
-                      onClick={() => toggleEmoji()}
+                      onClick={toggleEmoji}
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
@@ -160,18 +178,18 @@ const PostContainer = ({
                       <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
                     </svg>
                   </button>
-                  {emoji === false ? null : (
+                  {!emoji ? null : (
                     <div className="absolute">
                       <span className="badge text-muted">Emojis</span>
                     </div>
                   )}
                 </div>
 
-                {showEmoji === false ? null : (
-                  <div style={{ zIndex: "10px" }}>
+                {!showEmoji ? null : (
+                  <div style={{ zIndex: '10px' }}>
                     <Picker
                       onEmojiClick={onEmojiClick}
-                      pickerStyle={{ width: "100%" }}
+                      pickerStyle={{ width: '100%' }}
                     />
                   </div>
                 )}
@@ -193,7 +211,7 @@ const PostContainer = ({
             </div>
           </div>
           <>
-            {fetchLoading === true && (
+            {fetchLoading && (
               <Image
                 className="text-center"
                 src={loadingNew}

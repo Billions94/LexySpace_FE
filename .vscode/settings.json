@@ -4,7 +4,7 @@
   "editor.formatOnType": true,
   "editor.fontLigatures": true,
   "editor.letterSpacing": 0.1,
-  "editor.fontSize": 11.8,
+  "editor.fontSize": 12.3,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "JetBrains Mono, Fira Code",
   "editor.codeActionsOnSave": {

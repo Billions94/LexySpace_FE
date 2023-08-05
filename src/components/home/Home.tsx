@@ -1,26 +1,25 @@
-import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import BlogList from "../post/BlogList";
-import Weather from "../post/Weather";
-import useAuthGuard from "../../lib/index";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import BlogList from '../post/BlogList';
+import WeatherWidget from '../weather/WeatherWidget';
+import useAuthGuard from '../../lib/index';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  getUsersAction,
   hideMeAction,
-  hideTaskAction,
-} from "../../redux/actions";
-import HotPosts from "../post/HotPosts";
-import { ReduxState } from "../../redux/interfaces";
-import Blog from "../post/views";
-import Footer from "../footer/Footer";
-import PostContainer from "../post/Post";
-import TaskList from "../post/TaskList";
-import Search from "../post/Search";
-import { Element } from "react-scroll";
-import MusicPlayer from "../musicplayer/MusicPlayer";
-import "./styles.scss";
-import API from "../../lib/API";
-import { getPosts } from "../../lib/requests/post";
-// import Blog from "../views/Index"
+  hideNotesAction,
+} from '../../redux/actions';
+import HotPosts from '../post/HotPosts';
+import { ReduxState } from '../../redux/interfaces';
+import Blog from './views';
+import PostContainer from '../post/Post';
+import TaskList from '../post/TaskList';
+import Search from '../post/Search';
+import { Element } from 'react-scroll';
+import MusicPlayer from '../musicplayer/MusicPlayer';
+import './styles.scss';
+import { getPosts } from '../../lib/requests/post';
+import React from 'react';
 
 const Home = () => {
   useAuthGuard();
@@ -32,32 +31,31 @@ const Home = () => {
   const { hideMe, reroute, hideTask } = useSelector(
     (state: ReduxState) => state.data
   );
-  const { posts } = useSelector((state: ReduxState) => state);
+  const { posts } = useSelector((state: ReduxState) => state.data);
 
   const toggleHide = () => {
-    hideMe === false
-      ? dispatch(hideMeAction(true))
-      : dispatch(hideMeAction(false));
+    !hideMe ? dispatch(hideMeAction(true)) : dispatch(hideMeAction(false));
   };
 
   const toggleHideTask = () => {
-    hideTask === false
-      ? dispatch(hideTaskAction(true))
-      : dispatch(hideTaskAction(false));
+    !hideTask
+      ? dispatch(hideNotesAction(true))
+      : dispatch(hideNotesAction(false));
   };
 
   useEffect(() => {
-    if (fetchLoading === false) {
-      getPosts(dispatch);
+    if (!fetchLoading) {
+      (async () => await getPosts(dispatch))();
+      dispatch(getUsersAction());
     }
-  }, [reroute]);
+  }, [reroute, posts.length]);
 
   useEffect(() => {
-    window.addEventListener("scroll", (event) => {
+    window.addEventListener('scroll', () => {
       setValue(window.scrollY);
     });
 
-    window.scrollTo({ top: value, behavior: "smooth" });
+    window.scrollTo({ top: value, behavior: 'smooth' });
   }, [reroute]);
 
   return (
@@ -70,18 +68,18 @@ const Home = () => {
             md={4}
             lg={4}
           >
-            <Col style={{ overflow: "hidden" }}>
+            <Col style={{ overflow: 'hidden' }}>
               <MusicPlayer />
               <Search />
               <HotPosts />
               <div
-                onClick={() => toggleHide()}
+                onClick={toggleHide}
                 className="d-flex"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               >
                 <div className="text-muted sidebarFont">Weather</div>
                 <div className="ml-auto">
-                  {hideMe === false ? (
+                  {!hideMe ? (
                     <img
                       src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
                       width="27px"
@@ -98,15 +96,15 @@ const Home = () => {
                   )}
                 </div>
               </div>
-              {hideMe === false ? <Weather /> : null}
+              {!hideMe ? <WeatherWidget /> : null}
               <div
                 onClick={() => toggleHideTask()}
                 className="d-flex"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               >
                 <div className="text-muted sidebarFont">NotePad</div>
                 <div className="ml-auto">
-                  {hideTask === false ? (
+                  {!hideTask ? (
                     <img
                       src="https://img.icons8.com/ios-filled/50/ffffff/invisible.png"
                       width="27px"
@@ -123,14 +121,12 @@ const Home = () => {
                   )}
                 </div>
               </div>
-              {hideTask === false ? <TaskList /> : null}
-              <div className="sticky-top mt-5">
-                <Footer />
-              </div>
+              {!hideTask ? <TaskList /> : null}
+              <div className="sticky-top mt-5">{/*<Footer />*/}</div>
             </Col>
           </Col>
           <Col className="feed" sm={12} md={7} lg={7}>
-            {reroute === false ? (
+            {!reroute ? (
               <Col className="mainfeed justify-content-center" md={11} lg={12}>
                 <PostContainer
                   fetchLoading={fetchLoading}

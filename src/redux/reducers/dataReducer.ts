@@ -1,66 +1,107 @@
-import { AnyAction } from "redux";
-import { GET_USERS, GET_FOLLOWERS, TOGGLE_FOLLOW, TOGGLE_HIDE_ME, TOGGLE_LIKE, TOGGLE_REROUTE, TOGGLE_LOADER, SET_COVER, TOGGLE_HIDE_TASK, SAVE_TASKS } from "../actions";
-import { initialState } from "../store";
+import { AnyAction } from 'redux';
+import { Actions } from '../actions';
+import { initialState } from '../store';
+import { dynamicFilter } from './funcs/reducerHelpers';
 
-const usersReducer = (state = initialState.data, action: AnyAction) => {
-    const { type, payload } = action;
-    switch (type) {
-        case GET_USERS:
-            return {
-                ...state,
-                user: payload
-            }
-        case GET_FOLLOWERS:
-            return {
-                ...state,
-                followers: payload
-            }
-        case SET_COVER:
-            return {
-                ...state,
-                cover: payload
-            }
-        case TOGGLE_FOLLOW:
-            return {
-                ...state,
-                following: payload
-            }
-        case TOGGLE_HIDE_ME:
-            return {
-                ...state,
-                hideMe: payload
-            }
-        case SAVE_TASKS:  
-            return {
-                ...state,
-                tasks: payload
-            }
-        case TOGGLE_HIDE_TASK: 
-            return {
-                ...state,
-                hideTask: payload
-            }
-        case TOGGLE_LIKE:
-            const isLiked = state.likes.some(elem => elem._id === state.user._id) 
-            return !isLiked ? {
-                ...state,
-                liked: [...state.likes, payload]
-            } : {
-                ...state,
-                liked: [...state.likes.filter(elem => elem._id !== state.user._id)]
-            }
-        case TOGGLE_REROUTE:
-            return {
-                ...state,
-                reroute: payload
-            }
-        case TOGGLE_LOADER:
-            return {
-                ...state,
-                isLoading: payload
-            }            
-        default: return state
+const dataReducer = (state = initialState.data, action: AnyAction) => {
+  const { type, payload } = action;
+  switch (type) {
+    case Actions.SET_TOKENS:
+      return {
+        ...state,
+        tokens: payload,
+      };
+    case Actions.GET_POSTS:
+      return {
+        ...state,
+        posts: payload,
+      };
+    case Actions.GET_USERS:
+      return {
+        ...state,
+        user: payload,
+      };
+    case Actions.SAVE_USER:
+      return {
+        ...state,
+        user: payload,
+      };
+    case Actions.SET_COVER:
+      return {
+        ...state,
+        cover: payload,
+      };
+    case Actions.GET_COVER:
+      return state.cover;
+    case Actions.TOGGLE_FOLLOW:
+      return {
+        ...state,
+        following: payload,
+      };
+    case Actions.GET_FOLLOWERS:
+      return {
+        ...state,
+        followers: payload,
+      };
+    case Actions.GET_FOLLOWERS_STATE:
+      return state.followers;
+    case Actions.UPDATE_FOLLOWERS_STATE:
+      return {
+        ...state,
+        followers: dynamicFilter({ array: state.followers, payload }),
+      };
+    case Actions.TOGGLE_HIDE_ME:
+      return {
+        ...state,
+        hideMe: payload,
+      };
+    case Actions.SAVE_NOTES:
+      return {
+        ...state,
+        notes: [...state.notes, payload],
+      };
+    case Actions.DELETE_NOTE: {
+      const note = true;
+      return {
+        ...state,
+        notes: dynamicFilter({ array: state.notes, payload, note }),
+      };
     }
-}
+    case Actions.TOGGLE_HIDE_TASK:
+      return {
+        ...state,
+        hideTask: payload,
+      };
+    case Actions.TOGGLE_LIKE: {
+      const isLiked = state.likes.some((elem) => elem.id === state.user.id);
+      return !isLiked
+        ? {
+            ...state,
+            likes: [...state.likes, payload],
+          }
+        : {
+            ...state,
+            likes: [...dynamicFilter({ array: state.likes, state })],
+          };
+    }
+    case Actions.SET_DYNAMIC_ID:
+      return {
+        ...state,
+        dynamicId: payload,
+      };
+    case Actions.TOGGLE_REROUTE:
+      return {
+        ...state,
+        reroute: payload,
+      };
+    case Actions.TOGGLE_LOADER:
+      return {
+        ...state,
+        isLoading: payload,
+      };
+    default:
+      return state;
+  }
+};
 
-export default usersReducer
+export default dataReducer;

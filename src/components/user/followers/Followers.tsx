@@ -1,43 +1,37 @@
-import { useState, useEffect } from "react";
-import { Col, Container, ListGroup, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import Loader from "../../loader/Loader";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getFollowersAction } from "../../../redux/actions";
-import { ReduxState, User } from "../../../redux/interfaces";
-import { defaultAvatar, defaultCover } from "../../../assets/icons";
-import FollowersList from "./FollowersList";
-import "./styles.scss";
-import API from "../../../lib/API";
+import React from 'react';
+import { Col, Container, ListGroup, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import Loader from '../../loader/Loader';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getFollowersAction } from '../../../redux/actions';
+import { ReduxState, User } from '../../../redux/interfaces';
+import { defaultAvatar, defaultCover } from '../../../assets/icons';
+import FollowersList from './FollowersList';
+import API from '../../../lib/API';
+import './styles.scss';
 
-const Followers = () => {
-
+const Followers: React.FC = () => {
   const { id } = useParams();
   const { followers } = useSelector((state: ReduxState) => state.data);
   const dispatch = useDispatch();
-  const [user, setUser] = useState<User | null>(null);
-  const [refresh, setRefresh] = useState(false);
+  const [user, setUser] = React.useState<User | null>(null);
+  const [refresh, setRefresh] = React.useState(false);
 
   async function getUser() {
     try {
       const { data } = await API.get(`/users/${id}`);
       if (data) {
         setUser(data);
-      } else {
-        throw new Error("error fetching users");
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  console.log(refresh);
-
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(getFollowersAction(id));
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (async () => getUser())();
   }, [refresh, id]);
 
   return followers.length > 0 ? (
@@ -75,12 +69,11 @@ const Followers = () => {
           )}
           <ListGroup id="listGroup">
             {followers &&
-              followers.map((f) => (
-                <ListGroup.Item id="listGroup" key={f._id}>
+              followers.map((follower) => (
+                <ListGroup.Item id="listGroup" key={follower.id}>
                   <FollowersList
-                    f={f}
+                    f={follower}
                     id={id}
-                    getUser={getUser}
                     refresh={refresh}
                     setRefresh={setRefresh}
                   />

@@ -1,10 +1,11 @@
-import { Modal, Form, Button } from "react-bootstrap";
-import { useState, Dispatch, SetStateAction, ChangeEvent, FC } from "react";
-import API from "../../../lib/API";
-import { useSelector } from "react-redux";
-import { ReduxState } from "../../../redux/interfaces";
-
-
+import React from 'react';
+import { Modal, Form, Button } from 'react-bootstrap';
+import { Dispatch, SetStateAction, FC } from 'react';
+import API from '../../../lib/API';
+import { useSelector } from 'react-redux';
+import { ReduxState } from '../../../redux/interfaces';
+import './styles.scss';
+import { UseInput } from '../../hooks/useInput';
 interface Props {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
@@ -15,13 +16,15 @@ const EditProfile: FC<Props> = ({ show, setShow, getUser }: Props) => {
   const handleClose = () => setShow(false);
   const { user } = useSelector((state: ReduxState) => state.data);
 
-  const [input, setInput] = useState({
+  const savedState = {
     firstName: user.firstName,
     lastName: user.lastName,
-    userName: user.userName,
+    userName: user.username,
     bio: user.bio,
     location: user.location,
-  });
+  };
+
+  const { input, handleChange } = UseInput(savedState);
 
   async function edit() {
     try {
@@ -29,24 +32,11 @@ const EditProfile: FC<Props> = ({ show, setShow, getUser }: Props) => {
 
       if (data) {
         setShow(false);
-        getUser();
-      } else {
-        throw new Error("Failed to update profile");
+        await getUser();
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
-  function updateInput(key: string, value: string): void {
-    setInput({ ...input, [key]: value });
-  }
-
-  function handleChange(
-    e: ChangeEvent<HTMLInputElement> | any,
-    value: string
-  ): void {
-    updateInput(value, e.target.value);
   }
 
   return (
@@ -60,77 +50,42 @@ const EditProfile: FC<Props> = ({ show, setShow, getUser }: Props) => {
         onHide={handleClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title>edit Profile</Modal.Title>
+          <Modal.Title id="edit-profile">edit Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form id="form">
-            <Form.Group controlId="blog-form" className="mt-3">
-              <Form.Label className="text-muted">first Name</Form.Label>
-              <Form.Control
-                size="lg"
-                value={input.firstName}
-                onChange={(e) => handleChange(e, "firstName")}
-              />
-            </Form.Group>
-            <Form.Group controlId="blog-form" className="mt-3">
-              <Form.Label className="text-muted">last Name</Form.Label>
-              <Form.Control
-                size="lg"
-                value={input.lastName}
-                onChange={(e) => handleChange(e, "lastName")}
-              />
-            </Form.Group>
-            <Form.Group controlId="blog-form" className="mt-3">
-              <Form.Label className="text-muted">userName</Form.Label>
-              <Form.Control
-                size="lg"
-                value={input.userName}
-                onChange={(e) => handleChange(e, "userName")}
-              />
-            </Form.Group>
-            <Form.Group controlId="blog-form" className="mt-3">
-              <Form.Label className="text-muted">bio</Form.Label>
-              <Form.Control
-                size="lg"
-                as="textarea"
-                value={input.bio}
-                onChange={(e) => handleChange(e, "bio")}
-              />
-            </Form.Group>
-            <Form.Group controlId="blog-form" className="mt-3">
-              <Form.Label className="text-muted">location</Form.Label>
-              <Form.Control
-                size="lg"
-                value={input.location}
-                onChange={(e) => handleChange(e, "location")}
-              />
-            </Form.Group>
+            {Object.keys(input).map((key) => (
+              <Form.Group controlId="blog-form" className="mt-3">
+                <Form.Label className="label">{key.toLowerCase()}</Form.Label>
+                <Form.Control
+                  id="control"
+                  size="lg"
+                  className="text-white"
+                  name={key}
+                  value={(input as any)[key]}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            ))}
           </Form>
         </Modal.Body>
         <Modal.Footer>
           {!user.firstName &&
           !user.lastName &&
-          !user.userName &&
+          !user.username &&
           !user.bio &&
           !user.location ? (
-            <Button
-              size="lg"
-              disabled
-              className="modal-btn"
-              variant="primary"
-              style={{ fontSize: "15px" }}
-            >
-              update
+            <Button size="lg" disabled className="modal-btn" variant="primary">
+              <p>update</p>
             </Button>
           ) : (
             <Button
               size="lg"
               className="modal-btn"
               variant="primary"
-              style={{ fontSize: "15px" }}
-              onClick={() => edit()}
+              onClick={edit}
             >
-              update
+              <p>update</p>
             </Button>
           )}
         </Modal.Footer>

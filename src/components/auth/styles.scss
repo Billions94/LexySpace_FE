@@ -1,4 +1,5 @@
 #loginContainer{
+  margin-top: 300px;
   // background-image: url(https://pressbooks.ulib.csuohio.edu/bright-continent/wp-content/uploads/sites/21/2018/04/Four-heads-in-scale2-1024x717.jpg);
   // background-size: contain ;
   height: 72vh;
@@ -16,6 +17,7 @@
     font-size: 37px;
     line-height: 20px;
     color: #e5e5e5;
+    font-family: "JetBrains Mono NL", serif;
   }
 
   .signin {
@@ -35,7 +37,7 @@
   .customMT {
     margin-top: 50px;
     padding: 15px;
-    box-shadow: 0px 0px 20px #24224a;
+    box-shadow: 0 0 20px #24224a;
     border-radius: 20px;
     background: #020024;
     color: #e5e5e5;
@@ -45,8 +47,30 @@
     }
   }
 
-  .customMTNew {
-    
+  .login {
+    //font-family: 'Jetbrains Mono', serif;
+    border: none !important;
+    border-bottom: 1px solid deeppink !important;
+    border-radius: 0;
+    background-color: transparent !important;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+      -webkit-text-fill-color: #fff !important;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+
+    }
+  }
+
+  .FeedBack {
+    font-family: "JetBrains Mono NL", serif;
   }
   
   .register {
@@ -74,11 +98,11 @@
   .form-control:active {
     border: 1px solid #6e767d;
     color: #dadada;
-    background: #020024;
   }
 
   .format {
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    background: transparent;
   }
   
   .register1 {
@@ -171,6 +195,7 @@
   .loginBtn {
     display: flex;
     justify-content: space-between;
+    font-family: "JetBrains Mono NL", Serif;
   }
   
   .signUpContainer {
@@ -291,4 +316,20 @@
   border: none !important;
   outline: none !important;
   background-color: #f91880 !important;
+}
+
+#verifyAccountComponent {
+  .verified {
+    transition-delay: 1000s !important;
+    transition-duration: 5000s;
+    animation: 5000s ease-in-out;
+    color: white;
+  }
+
+  .verificationLoading {
+    transition-delay: 1000s !important;
+    transition-duration: 5000s;
+    animation: 5000s ease-in-out;
+    color: white;
+  }
 }
