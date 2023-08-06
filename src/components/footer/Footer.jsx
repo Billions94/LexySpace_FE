@@ -1,46 +1,55 @@
-import React from "react";
-import { Container, Col } from "react-bootstrap";
-import "./styles.scss";
-import { useLocation } from "react-router-dom"
-
+import React from 'react';
+import { Container, Col } from 'react-bootstrap';
+import './styles.scss';
+import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
-
-  const location = useLocation()
-
+  useLocation();
   return (
-        <footer className="customFooter mb-1">
-          <Container className="customFooter">
-            <Col className="p-0" xs={10}>
-              <p className='textColor'>{`${new Date().getFullYear()} - © LexySpace | Developed by Ejiroghene.`}</p>
-            </Col>
-            <Col className='d-flex textColor p-0'>
-            Contact me @
-            <div className='ml-2'>
-              <a href="mailto:e.a.egbedi@gmail.com">
-                <img src="https://img.icons8.com/color-glass/50/000000/gmail.png" width='25px'/>
-              </a> 
-            </div>
-            <div className='ml-2'>
-            <a href='https://www.linkedin.com/in/ejiroghene-alexander-egbedi-74a37b219/'>
-              <img src="https://img.icons8.com/color/50/000000/linkedin.png" width='25px'/>
+    <footer className="customFooter mb-1">
+      <Container className="customFooter">
+        <Col className="p-0" xs={10}>
+          <p className="textColor">{`${new Date().getFullYear()} - © LexySpace | Developed by Ejiroghene.`}</p>
+        </Col>
+        <Col className="d-flex textColor p-0">
+          Contact me @
+          <div className="ml-2">
+            <a href="mailto:e.a.egbedi@gmail.com">
+              <img
+                src="https://img.icons8.com/color-glass/50/000000/gmail.png"
+                width="25px"
+                alt=""
+              />
             </a>
-            </div>
-            <div className='ml-2'>
-            <a href='https://www.instagram.com/billions_e/'>
-              <img src="https://img.icons8.com/color/50/000000/instagram-new--v1.png" width='25px'/>
+          </div>
+          <div className="ml-2">
+            <a href="https://www.linkedin.com/in/ejiroghene-alexander-egbedi-74a37b219/">
+              <img
+                src="https://img.icons8.com/color/50/000000/linkedin.png"
+                width="25px"
+                alt=""
+              />
             </a>
-            </div>
-            </Col>
-          </Container>
-      </footer>
+          </div>
+          <div className="ml-2">
+            <a href="https://www.instagram.com/billions_e/">
+              <img
+                src="https://img.icons8.com/color/50/000000/instagram-new--v1.png"
+                width="25px"
+                alt=""
+              />
+            </a>
+          </div>
+        </Col>
+      </Container>
+    </footer>
   );
 };
 
 export default Footer;
 
-
-{/* <select className="customSel text-muted" id="languages" name="languages">
+{
+  /* <select className="customSel text-muted" id="languages" name="languages">
 <option>select Language</option>
 <option value="af">Afrikaans</option>
 <option value="sq">Albanian - shqip</option>
@@ -209,4 +218,5 @@ export default Footer;
 <option value="yi">Yiddish</option>
 <option value="yo">Yoruba - Èdè Yorùbá</option>
 <option value="zu">Zulu - isiZulu</option>
-</select> */}
+</select> */
+}

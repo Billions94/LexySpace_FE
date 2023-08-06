@@ -1,9 +1,10 @@
-import { OnlineUser } from "../../interfaces/OnlineUser";
-import { Rooms, User } from "../../redux/interfaces";
-import { defaultAvatar } from "../../assets/icons";
-import { Image } from "react-bootstrap";
-import API from "../../lib/API";
-import { Socket } from "socket.io-client";
+import { OnlineUser } from '../../interfaces/OnlineUser';
+import { Rooms, User } from '../../redux/interfaces';
+import { defaultAvatar } from '../../assets/icons';
+import { Image } from 'react-bootstrap';
+import API from '../../lib/API';
+import { Socket } from 'socket.io-client';
+import React from 'react';
 
 interface OnlineUsersProps {
   onlineUsers: OnlineUser[];
@@ -32,19 +33,19 @@ export default function OnlineUsers({
       const conversationAlreadyOpened = conversation
         ?.map((m) => m.members)
         .flat(1)
-        .find((c) => c._id === friend._id);
+        .find((c) => c.id === friend.id);
       if (conversationAlreadyOpened) {
         //we should here jump to the existing convo
         try {
           const { data } = await API.get<Rooms[]>(
-            `/rooms/find/${currentUser._id}/${friend._id}`
+            `/rooms/find/${currentUser.id}/${friend.id}`
           );
           if (data) {
             const someDT = data[0];
-            console.log("handleClick", someDT);
+            console.log('handleClick', someDT);
             setCurrentChat(someDT);
             setOpenConvo(true);
-          } else throw new Error("Could not get chat");
+          } else throw new Error('Could not get chat');
         } catch (error) {
           console.log(error);
         }
@@ -56,14 +57,14 @@ export default function OnlineUsers({
 
   const newConversation = async (friend: OnlineUser) => {
     try {
-      const { data } = await API.post("/rooms", {
-        senderId: currentUser._id,
-        receiverId: friend._id,
+      const { data } = await API.post('/rooms', {
+        senderId: currentUser.id,
+        receiverId: friend.id,
       });
       if (data) {
         const newDT: Rooms = data[0];
         setCurrentChat(newDT);
-        socket.emit("startConversation");
+        socket.emit('startConversation');
         setConversation((prev) => [...prev, data]);
       }
     } catch (error) {
@@ -76,13 +77,13 @@ export default function OnlineUsers({
       <div className="mb-1">Online</div>
       <div className="d-flex">
         {onlineUsers
-          .filter((user) => user.userName !== currentUser.userName)
+          .filter((user) => user.userName !== currentUser.username)
           .map((friend) => (
             <div
-              key={friend._id}
+              key={friend.id}
               className="mr-1"
               onClick={() => handleClick(friend)}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: 'pointer' }}
             >
               <div className="onlineIcon">
                 <Image

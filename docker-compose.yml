@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - 3000:3000
+      - 9229:9229 # debug port
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start
+    environment:
+      PORT: 3000
+    networks:
+      - common_network
+    restart: unless-stopped
+
+networks: 
+  common_network:
+

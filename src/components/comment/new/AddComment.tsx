@@ -1,57 +1,43 @@
-import {
-  createRef,
-  useEffect,
-  useState,
-  KeyboardEvent,
-  Dispatch,
-  SetStateAction,
-} from "react";
-import { Link } from "react-router-dom";
-import { Form, Image } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { getUsersAction } from "../../../redux/actions";
-import { Comment, ReduxState } from "../../../redux/interfaces";
-import Picker from "emoji-picker-react";
-import { createComment } from "../../../lib/requests/comment";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Form, Image } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUsersAction } from '../../../redux/actions';
+import { Comment, ReduxState } from '../../../redux/interfaces';
+import Picker from 'emoji-picker-react';
+import { createComment } from '../../../lib/requests/comment';
 
 interface AddCommentProps {
   id: string | undefined;
-  setComments: Dispatch<SetStateAction<Comment[]>>;
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
 }
 
-const AddComment = ({ id, setComments }: AddCommentProps) => {
+const AddComment: React.FC<AddCommentProps> = ({ id, setComments }) => {
   const { user } = useSelector((state: ReduxState) => state.data);
-
-  const userId = user?._id;
-
+  const userId = user?.id;
   const dispatch = useDispatch();
-
-  const [comment, setComment] = useState({
-    content: "",
+  const [comment, setComment] = React.useState({
+    content: '',
     user: userId,
   });
-
-  const apiUrl = process.env.REACT_APP_GET_URL;
-  const [media, setMedia] = useState<string>("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [showEmoji, setShowEmoji] = useState(false);
+  const [media, setMedia] = React.useState<string>('');
+  const [showEmoji, setShowEmoji] = React.useState(false);
 
   const target = (e: any) => {
-    console.log(e.target.files[0]);
     if (e.target && e.target.files[0]) {
       setMedia(e.target.files[0]);
     }
   };
 
-  const inputBtn = createRef<HTMLInputElement>();
+  const inputBtn = React.createRef<HTMLInputElement>();
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn?.current?.click();
   };
 
   // Emojis
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [chosenEmoji, setChosenEmoji] = React.useState(null);
 
   const onEmojiClick = (event: any, emojiObject: any) => {
     setChosenEmoji(emojiObject);
@@ -66,17 +52,16 @@ const AddComment = ({ id, setComments }: AddCommentProps) => {
     postId: String(id),
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(getUsersAction());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleKeyboardEvent = (
-    e: KeyboardEvent<HTMLInputElement>,
+  const handleKeyboardEvent = async (
+    e: React.KeyboardEvent<HTMLInputElement>,
     createCommentData: any
   ) => {
-    if (e.key === "Enter") {
-      createComment(createCommentData);
+    if (e.key === 'Enter') {
+      await createComment(createCommentData);
     }
   };
 
@@ -84,7 +69,7 @@ const AddComment = ({ id, setComments }: AddCommentProps) => {
     <div className="panel mt-4">
       <div className="panel-body d-flex">
         <div>
-          <Link to={`/userProfile/${user._id}`}>
+          <Link to={`/userProfile/${user.id}`}>
             <Image
               roundedCircle
               src={user.image}
@@ -109,10 +94,10 @@ const AddComment = ({ id, setComments }: AddCommentProps) => {
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
               <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
             </svg>
-            {showEmoji === false ? null : (
+            {!showEmoji ? null : (
               <Picker
                 onEmojiClick={onEmojiClick}
-                pickerStyle={{ width: "100%" }}
+                pickerStyle={{ width: '100%' }}
               />
             )}
             <div>
@@ -141,7 +126,7 @@ const AddComment = ({ id, setComments }: AddCommentProps) => {
               ) : (
                 <button
                   className="btn ml-auto btn-sm sendBtnDm"
-                  onClick={(e) => createComment(createCommentData)}
+                  onClick={() => createComment(createCommentData)}
                 >
                   <i className="fa fa-pencil fa-fw" /> send
                 </button>

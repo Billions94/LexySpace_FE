@@ -1,30 +1,27 @@
-import { FC, useState } from "react";
-import { Row, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { postTimer } from "../../../lib/index";
-import UserInfo from "./UserInfo";
-import { User } from "../../../redux/interfaces";
-import { defaultAvatar } from "../../../assets/icons";
-import "./styles.scss";
+import React from 'react';
+import { Row, Image } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { dateFormatter } from '../../../lib';
+import UserInfo from './UserInfo';
+import { User } from '../../../redux/interfaces';
+import { defaultAvatar } from '../../../assets/icons';
+import './styles.scss';
 
-const PostAuthor: FC<User> = (props: User) => {
-  const { firstName, isVerified, image, createdAt, userName, _id } = props;
-
-  const [timer, setTimer] = useState<boolean>(false);
-  const [show, setShow] = useState<boolean>(false);
+const PostAuthor: React.FC<User> = (props) => {
+  const { firstName, isVerified, image, createdAt, username, id } = props;
+  const [timer, setTimer] = React.useState<boolean>(false);
+  const [show, setShow] = React.useState<boolean>(false);
 
   const handleShow = () =>
     setTimeout(() => {
       setShow(true);
     }, 500);
   const handleClose = () => {
-    {
-      setTimeout(() => {
-        if (timer === true) {
-          setShow(false);
-        }
-      }, 500);
-    }
+    setTimeout(() => {
+      if (timer) {
+        setShow(false);
+      }
+    }, 500);
   };
 
   return (
@@ -45,18 +42,18 @@ const PostAuthor: FC<User> = (props: User) => {
           props={props}
         />
 
-        <Link className="text-decoration-none" to={`/userProfile/${_id}`}>
+        <Link className="text-decoration-none" to={`/userProfile/${id}`}>
           <div id="authorDetails" className="d-flex">
             <Image
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: '50px', height: '50px' }}
               className="blog-author authorDetails"
               src={image ? image : defaultAvatar}
               roundedCircle
             />
-            <div style={{ marginLeft: "10px" }}>
+            <div style={{ marginLeft: '10px' }}>
               <h6 className="text-dark authorFirstName mb-0">
                 {firstName}
-                {isVerified === true && (
+                {isVerified && (
                   <span className=" mt-1 ml-1  d-flex-row align-items-center">
                     <img
                       alt=""
@@ -67,9 +64,9 @@ const PostAuthor: FC<User> = (props: User) => {
                   </span>
                 )}
               </h6>
-              <h6 className="text-muted authorUserName mb-1">@{userName}</h6>
+              <h6 className="text-muted authorUserName mb-1">@{username}</h6>
               <h6 className="text-muted postTime">
-                ● {postTimer(createdAt)} ago
+                ● {dateFormatter(createdAt as Date)} ago
               </h6>
             </div>
           </div>

@@ -1,9 +1,9 @@
-import API from "../../API";
+import API from '../../API';
 import {
   CreateComment,
   DeleteComment,
   UpdateComment,
-} from "../interfaces/comment.interface";
+} from '../interfaces/comment.interface';
 
 export const createComment = async (args: CreateComment) => {
   const { media, comment, setComment, userId, postId, setComments } = args;
@@ -11,14 +11,14 @@ export const createComment = async (args: CreateComment) => {
   if (media) {
     try {
       const formData = new FormData();
-      formData.append("text", comment.content);
-      formData.append("media", media);
+      formData.append('text', comment.content);
+      formData.append('media', media);
 
       const { data } = await API.post(`/comments/${postId}`, formData);
       if (data) {
-        getComments(setComments);
+        await getComments(setComments);
         setComment({
-          content: "",
+          content: '',
           user: userId,
         });
       }
@@ -30,9 +30,9 @@ export const createComment = async (args: CreateComment) => {
       const { data } = await API.post(`/comments/${postId}`, comment);
 
       if (data) {
-        getComments(setComments);
+        await getComments(setComments);
         setComment({
-          content: "",
+          content: '',
           user: userId,
         });
       }
@@ -43,15 +43,13 @@ export const createComment = async (args: CreateComment) => {
 };
 
 export const getComments = async (
-  setComments: CreateComment["setComments"]
+  setComments: CreateComment['setComments']
 ) => {
   try {
     const { data } = await API.get(`/comments`);
     if (data) {
       const { comments } = data;
-      const commentsInDesc = comments.reverse();
-
-      setComments(commentsInDesc);
+      setComments(comments.reverse());
     }
   } catch (error) {
     console.log(error);
@@ -64,28 +62,22 @@ export const updateComment = async (args: UpdateComment) => {
   try {
     if (media) {
       const formData = new FormData();
-      formData.append("text", comment.content);
-      formData.append("media", media);
+      formData.append('text', comment.content);
+      formData.append('media', media);
 
-      const { data } = await API.patch(`/comments/${commentId}`, formData);
-
-      if (data) {
-        getComments(setComments);
-        setComment({
-          content: "",
-          user: userId,
-        });
-      }
+      await API.patch(`/comments/${commentId}`, formData);
+      await getComments(setComments);
+      setComment({
+        content: '',
+        user: userId,
+      });
     } else {
-      const { data } = await API.patch(`/comments/${commentId}`, comment);
-
-      if (data) {
-        getComments(setComments);
-        setComment({
-          content: "",
-          user: userId,
-        });
-      }
+      await API.patch(`/comments/${commentId}`, comment);
+      await getComments(setComments);
+      setComment({
+        content: '',
+        user: userId,
+      });
     }
   } catch (error) {
     console.log(error);
@@ -99,7 +91,7 @@ export const deleteComment = async (args: DeleteComment) => {
     const { data } = await API.delete(`/comments/${commentId}`);
 
     if (data) {
-      getComments(setComments);
+      await getComments(setComments);
     }
   } catch (error) {
     console.log(error);

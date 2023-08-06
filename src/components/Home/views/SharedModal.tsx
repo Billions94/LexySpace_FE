@@ -4,15 +4,17 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-} from "react";
-import { Modal, Button, Form, Card } from "react-bootstrap";
-import { ReduxState, Post, User } from "../../../redux/interfaces";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { getPosts, reRouteAction } from "../../../redux/actions";
-import PostAuthor from "../../post/author/PostAuthor";
+  FC,
+} from 'react';
+import { Modal, Button, Form, Card } from 'react-bootstrap';
+import { ReduxState, Post, User } from '../../../redux/interfaces';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import BlogAuthor from '../../post/author/PostAuthor';
+import { getPosts, reRouteAction } from '../../../redux/actions';
+import React from 'react';
 
-interface ShareModalProps {
+interface Props {
   id: string | undefined;
   user: User;
   show: boolean;
@@ -20,27 +22,21 @@ interface ShareModalProps {
   createdAt: Date | undefined;
 }
 
-const ShareModal = ({
-  id,
-  user,
-  show,
-  setShow,
-  createdAt,
-}: ShareModalProps) => {
+const ShareModal: FC<Props> = ({ id, user, show, setShow, createdAt }) => {
   const apiUrl = process.env.REACT_APP_GET_URL;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const posts = useSelector((state: ReduxState) => state.posts);
+  const { posts } = useSelector((state: ReduxState) => state['data']);
   const loggedInUser = useSelector((state: ReduxState) => state.data.user);
-  const userName = loggedInUser!.userName;
-  const sharePostBody = posts.find((p) => p._id === id);
+  const userName = loggedInUser?.username;
+  const sharePostBody = posts.find((p) => p.id === id);
 
   const [post, setPost] = useState({
-    text: "",
+    text: '',
     sharedPost: sharePostBody!,
   });
 
-  const [media, setMedia] = useState("");
+  const [media, setMedia] = useState('');
   const handleClose = () => setShow(false);
 
   const target = (e: any) => {
@@ -52,41 +48,41 @@ const ShareModal = ({
   const inputBtn = createRef<HTMLInputElement>();
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn?.current?.click();
   };
 
   const sharePost = async () => {
     if (media) {
       try {
         const response = await fetch(`${apiUrl}/posts/${userName}`, {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify(post),
-          headers: { "Content-Type": "application" },
+          headers: { 'Content-Type': 'application' },
         });
         if (response.ok) {
           const data: Post = await response.json();
-          const postId = data._id;
+          const postId = data.id;
           try {
             const formDt = new FormData();
-            formDt.append("media", media);
+            formDt.append('media', media);
             const uploadCover = await fetch(
               `${apiUrl}/posts/${postId}/upload`,
               {
-                method: "PATCH",
+                method: 'PATCH',
                 body: formDt,
               }
             );
             if (uploadCover.ok) {
               dispatch(reRouteAction(false));
               setShow(false);
-              navigate("/home");
+              navigate('/home');
               dispatch(getPosts());
-            } else throw new Error("File could not be uploaded");
+            } else throw new Error('File could not be uploaded');
           } catch (error) {
             console.log(error);
           }
         } else {
-          throw new Error("Unable to share post");
+          throw new Error('Unable to share post');
         }
       } catch (error) {
         console.log(error);
@@ -94,17 +90,19 @@ const ShareModal = ({
     } else {
       try {
         const response = await fetch(`${apiUrl}/posts/${userName}`, {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify(post),
-          headers: { "Content-Type": "application/json" },
+          headers: { 'Content-Type': 'application/json' },
         });
         if (response.ok) {
           setShow(false);
           dispatch(reRouteAction(false));
-          navigate("/home");
+          navigate('/home');
           dispatch(getPosts());
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -129,7 +127,7 @@ const ShareModal = ({
           <div className="d-flex userInfoContainer">
             <div>
               <img
-                src={loggedInUser!.image}
+                src={loggedInUser?.image}
                 alt=""
                 className="roundpic"
                 width={47}
@@ -138,8 +136,8 @@ const ShareModal = ({
             </div>
             <div className="ml-2 userInfo">
               <span>
-                {loggedInUser!.firstName} {loggedInUser!.lastName}
-                {loggedInUser!.isVerified === true && (
+                {loggedInUser?.firstName} {loggedInUser?.lastName}
+                {loggedInUser?.isVerified && (
                   <span className=" mt-1 ml-1  d-flex-row align-items-center">
                     <img
                       alt=""
@@ -166,17 +164,17 @@ const ShareModal = ({
             <div className="sharePost">
               <div
                 className="authorinfo d-flex "
-                style={{ justifyContent: "space-between" }}
+                style={{ justifyContent: 'space-between' }}
               >
-                <PostAuthor {...user} createdAt={createdAt} />
+                <BlogAuthor {...user} createdAt={createdAt} />
               </div>
-              <Link to={`/posts/${post.sharedPost._id}`} className="blog-link">
-                <Card.Title>{post.sharedPost.text}</Card.Title>
-                {!post.sharedPost.media
+              <Link to={`/posts/${post?.sharedPost?.id}`} className="blog-link">
+                <Card.Title>{post?.sharedPost?.text}</Card.Title>
+                {!post?.sharedPost?.media
                   ? null
                   : post.sharedPost.media &&
                     post?.sharedPost.media
-                      .split(".")
+                      .split('.')
                       .slice(-1)
                       .join()
                       .match(`heic|png|jpg|pdf|jpeg`) && (
@@ -186,11 +184,11 @@ const ShareModal = ({
                         className="blog-cover"
                       />
                     )}
-                {!post.sharedPost.media
+                {!post?.sharedPost?.media
                   ? null
                   : post.sharedPost.media &&
                     post?.sharedPost.media
-                      .split(".")
+                      .split('.')
                       .slice(-1)
                       .join()
                       .match(`mp4|MPEG-4|mkv`) && (

@@ -1,31 +1,29 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Spinner } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { getPosts, GET_BLOGS, reRouteAction } from "../../redux/actions";
-import { ReduxState } from "../../redux/interfaces";
-import Loader from "../loader/Loader";
-import "./styles.scss";
-import API from "../../lib/API";
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { reRouteAction } from '../../redux/actions';
+import { ReduxState } from '../../redux/interfaces';
+import Loader from '../loader/Loader';
+import React from 'react';
+import './styles.scss';
 
 const HotPosts = () => {
-  const apiUrl = process.env.REACT_APP_GET_URL;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [seeMore, setSeeMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { posts } = useSelector((state: ReduxState) => state);
+  const { posts } = useSelector((state: ReduxState) => state['data']);
 
   const newPost = posts
-    .map((p) => p)
+    ?.map((p) => p)
     .sort((a, b) => b.likes.length - a.likes.length);
 
   const toggle = () => {
-    seeMore === false ? setSeeMore(true) : setSeeMore(false);
+    !seeMore ? setSeeMore(true) : setSeeMore(false);
   };
 
-  const doSomething = (id: string | undefined) => {
+  const reRoute = (id: string | undefined) => {
     navigate(`/posts/${id}`);
     dispatch(reRouteAction(true));
   };
@@ -34,9 +32,9 @@ const HotPosts = () => {
     <Loader />
   ) : (
     <div id="hotposts" className="mb-4">
-      {isLoading === true ? (
+      {isLoading ? (
         <div className="loader">
-          <Spinner className="spinner" animation="border" />{" "}
+          <Spinner className="spinner" animation="border" />{' '}
         </div>
       ) : (
         <>
@@ -53,8 +51,8 @@ const HotPosts = () => {
             {newPost &&
               newPost.slice(0, 5).map((p, i) => (
                 <div
-                  key={i}
-                  onClick={() => doSomething(p._id)}
+                  key={i + p.id}
+                  onClick={() => reRoute(p.id)}
                   className="hotpostList"
                 >
                   <div className="d-flex index">
@@ -73,11 +71,11 @@ const HotPosts = () => {
                   </div>
                 </div>
               ))}
-            {seeMore === true
+            {seeMore
               ? newPost.slice(5, 10).map((p, i) => (
                   <div
-                    key={i}
-                    onClick={() => doSomething(p._id)}
+                    key={i + p.id}
+                    onClick={() => reRoute(p.id)}
                     className="hotpostList"
                   >
                     <div className="d-flex index">
@@ -103,20 +101,14 @@ const HotPosts = () => {
               : null}
           </div>
           <div className="seeMoreDiv">
-            {newPost!.length > 5 ? (
+            {newPost?.length > 5 ? (
               <div>
-                {seeMore === false ? (
-                  <p
-                    className="text-left text-muted p-0"
-                    onClick={() => toggle()}
-                  >
+                {!seeMore ? (
+                  <p className="text-left text-muted p-0" onClick={toggle}>
                     <b className="seeMore">Show More</b>
                   </p>
                 ) : (
-                  <p
-                    className="text-left text-muted p-0"
-                    onClick={() => toggle()}
-                  >
+                  <p className="text-left text-muted p-0" onClick={toggle}>
                     <b className="seeMore">Show Less</b>
                   </p>
                 )}

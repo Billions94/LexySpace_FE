@@ -6,7 +6,7 @@ import {
   ListGroup,
   Image,
   Button,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 import {
   useState,
   useEffect,
@@ -15,40 +15,43 @@ import {
   createRef,
   KeyboardEvent,
   useCallback,
-} from "react";
-import { io } from "socket.io-client";
-import { OnlineUser } from "../../interfaces/OnlineUser";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Message, ReduxState, Rooms } from "../../redux/interfaces";
-import { isTypingGif, conversationGif } from "../../assets/icons";
-import { MessageBody } from "./MessageBody";
-import { debounce } from "lodash";
-import Convo, { DeleteConversations } from "./Conversation";
-import useAuthGuard from "../../lib/index";
-import API from "../../lib/API";
-import OnlineUsers from "./OnlineUsers";
-import { StartConversation } from "./StartConversation";
-import "./styles.scss";
+} from 'react';
+import { io } from 'socket.io-client';
+import { OnlineUser } from '../../interfaces/OnlineUser';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Message, ReduxState, Rooms } from '../../redux/interfaces';
+import { isTypingGif, conversationGif } from '../../assets/icons';
+import { MessageBody } from './MessageBody';
+import { debounce } from 'lodash';
+import Convo, { DeleteConversations } from './Conversation';
+import useAuthGuard from '../../lib/index';
+import API from '../../lib/API';
+import OnlineUsers from './OnlineUsers';
+import { StartConversation } from './StartConversation';
+import './styles.scss';
+import React from 'react';
+import { setDynamicId } from '../../redux/actions';
 
-
-const ioAddress = process.env.REACT_APP_IO_URL!;
+const ioAddress = String(process.env.REACT_APP_IO_URL);
 
 const Messages = () => {
   useAuthGuard();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
   const { user } = useSelector((state: ReduxState) => state.data);
-  const me = user!._id;
+  const me = user?.id;
   const [notification, setNotification] = useState<boolean>(false);
 
-  const [username, setUsername] = useState<string>("");
-  const [media, setMedia] = useState<string>("");
+  const [username, setUsername] = useState<string>('');
+  const [media, setMedia] = useState<string>('');
   const [isTyping, setIsTyping] = useState(false);
 
   const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [currentChat, setCurrentChat] = useState<Rooms | null>(null);
 
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
@@ -61,7 +64,7 @@ const Messages = () => {
   const [openConvo, setOpenConvo] = useState(false);
 
   const socket = useMemo(() => {
-    return io(ioAddress, { transports: ["websocket"] });
+    return io(ioAddress, { transports: ['websocket'] });
   }, []);
 
   const handleIsTyping = useCallback(
@@ -81,7 +84,11 @@ const Messages = () => {
   };
 
   useEffect(() => {
-    getConversation();
+    dispatch(setDynamicId(id));
+  }, [id]);
+
+  useEffect(() => {
+    (async () => await getConversation())();
   }, [me, conversation.length]);
 
   useEffect(() => {
@@ -93,53 +100,53 @@ const Messages = () => {
           );
           if (data) {
             setChatHistory(data);
-          } else throw new Error("Could not get messages");
+          }
         } catch (error) {
           console.log(error);
         }
       }
     };
-    getMessages();
+    (async () => await getMessages())();
   }, [currentChat]);
 
   useEffect(() => {
     // dispatch(getUsersAction());
-    setUsername(user!.userName);
+    setUsername(user!.username);
   }, [currentChat]);
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Connection established!");
+    socket.on('connect', () => {
+      console.log('Connection established!');
     });
 
-    socket.on("getUsers", (users: OnlineUser[]) => {
+    socket.on('getUsers', (users: OnlineUser[]) => {
       setOnlineUsers(users);
     });
 
-    socket.on("startConversation", () => {
-      console.log("Conversation started!");
-      getConversation();
+    socket.on('startConversation', async () => {
+      console.log('Conversation started!');
+      await getConversation();
     });
 
-    socket.on("deleteConversation", () => {
-      console.log("Conversation deleted!");
-      getConversation();
+    socket.on('deleteConversation', async () => {
+      console.log('Conversation deleted!');
+      await getConversation();
     });
 
-    socket.on("typing", () => {
+    socket.on('typing', () => {
       setIsTyping(true);
       handleIsTyping(false);
     });
 
-    socket.on("message", (newMessage) => {
+    socket.on('message', (newMessage) => {
       setNotification(true);
       setArrivalMessage(newMessage.message);
       setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
     });
 
     return () => {
-      socket.on("disconnect", () => {
-        fetchOnlineUsers();
+      socket.on('disconnect', () => {
+        (async () => await fetchOnlineUsers())();
       });
       socket.disconnect();
     };
@@ -153,49 +160,49 @@ const Messages = () => {
 
   useEffect(() => {
     username &&
-      socket.emit("setUsername", {
+      socket.emit('setUsername', {
         userId: me,
         userName: username,
-        image: user!.image,
+        image: user.image,
       });
   }, [username]);
 
   const handleMessageSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const receiver = currentChat?.members.find((m) => m._id !== me);
+    const receiver = currentChat?.members.find((m) => m.id !== me);
 
     const newMessage: Message = {
       roomId: currentChat?._id,
       text: message,
       sender: me,
-      receiver: receiver?._id,
+      receiver: receiver?.id,
       image: user.image,
       media: media,
       createdAt: Date.now(),
     };
 
-    socket.emit("sendmessage", { message: newMessage });
+    socket.emit('sendmessage', { message: newMessage });
 
     try {
       const { data } = await API.post(`/messages`, newMessage);
       if (data) {
         setChatHistory((chatHistory) => [...chatHistory, data]);
-        setMessage("");
-      } else throw new Error("Could not send message :(");
+        setMessage('');
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchOnlineUsers();
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    (async () => await fetchOnlineUsers())();
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory]);
 
   const fetchOnlineUsers = async () => {
     try {
-      await API.get("/online-users");
+      await API.get('/online-users');
     } catch (error) {
       console.log(error);
     }
@@ -210,32 +217,32 @@ const Messages = () => {
   const inputBtn = createRef<HTMLInputElement>();
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn?.current?.click();
   };
 
   // Getting the exact user to display their info on the message header
   const singleMsg = chatHistory.find((m) => m.receiver === undefined);
   const actualRoom = conversation?.find((r) => r._id === singleMsg?.roomId);
-  const receiver = actualRoom?.members.find((m) => m._id !== me);
+  const receiver = actualRoom?.members.find((m) => m.id !== me);
   // Check the current User typing
-  const typer = chatHistory && chatHistory.find((m) => m.sender !== user!._id);
+  const typer = chatHistory && chatHistory.find((m) => m.sender !== user?.id);
 
-  const handleKeyboardEvent = (e: KeyboardEvent<HTMLInputElement>) => {
-    socket.emit("typing");
+  const handleKeyboardEvent = async (e: KeyboardEvent<HTMLInputElement>) => {
+    socket.emit('typing');
 
-    if (e.key === "Enter") {
-      handleMessageSubmit(e);
+    if (e.key === 'Enter') {
+      await handleMessageSubmit(e);
     }
   };
 
-  console.log("the current room ", { currentChat });
+  console.log('the current room ', { currentChat });
 
   return (
     <Container fluid className="customRowDm p-0">
       <Row id="dmContainer" className="mx-auto p-0 customDmRow">
         <Col className="customCol1 ml-auto" sm={5} md={3} lg={3}>
           <div className="d-flex customMess">
-            <h3 className="dmUserName mt-2 ml-2">{user.userName}</h3>
+            <h3 className="dmUserName mt-2 ml-2">{user.username}</h3>
           </div>
 
           <div id="input-container" className="panel-body"></div>
@@ -251,7 +258,7 @@ const Messages = () => {
             setOpenConvo={setOpenConvo}
           />
 
-          <div style={{ borderBottom: "1px solid #24224a" }}>
+          <div style={{ borderBottom: '1px solid #24224a' }}>
             <div className="conversations d-flex">
               <div className="convoNfc">
                 Conversations
@@ -265,10 +272,10 @@ const Messages = () => {
             </div>
           </div>
 
-          <ListGroup variant={"flush"} className="listofDM position-relative">
+          <ListGroup variant={'flush'} className="listofDM position-relative">
             {conversation &&
               conversation.map((room, i) => (
-                <ListGroup.Item key={i} className="customList">
+                <ListGroup.Item key={room._id} className="customList">
                   <Convo
                     selectedIndex={selectedIndex}
                     setSelectedIndex={setSelectedIndex}
@@ -284,10 +291,10 @@ const Messages = () => {
                   />
                   <div
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      left: "auto",
-                      zIndex: "100",
+                      display: 'flex',
+                      alignItems: 'center',
+                      left: 'auto',
+                      zIndex: '100',
                     }}
                   >
                     <DeleteConversations
@@ -306,16 +313,16 @@ const Messages = () => {
           {!receiver ? null : (
             <div className="dmHeader1 d-flex">
               <img
-                src={receiver!.image}
-                onClick={() => navigate(`/userProfile/${receiver._id}`)}
-                style={{ cursor: "pointer" }}
+                src={receiver?.image}
+                onClick={() => navigate(`/userProfile/${receiver.id}`)}
+                style={{ cursor: 'pointer' }}
                 className="roundpic"
                 alt=""
                 width={37}
                 height={37}
               />
               <div className="ml-2 dmUserName">
-                <span style={{ cursor: "default" }}>{receiver!.userName}</span>
+                <span style={{ cursor: 'default' }}>{receiver?.username}</span>
               </div>
             </div>
           )}
@@ -341,13 +348,13 @@ const Messages = () => {
             <div className="messageBody">
               <div className="customDmBody  pt-2">
                 {chatHistory.map((message, i) => (
-                  <div ref={scrollRef} key={i} className="d-flex">
+                  <div ref={scrollRef} key={message.image} className="d-flex">
                     <MessageBody user={user} message={message} />
                   </div>
                 ))}
               </div>
 
-              {isTyping === true && (
+              {isTyping && (
                 <div className="mb-2 ml-2">
                   <Image
                     roundedCircle

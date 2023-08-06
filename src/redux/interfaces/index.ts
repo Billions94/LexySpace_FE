@@ -8,17 +8,24 @@ export interface ReduxState {
     likes: User[];
     reroute: boolean;
     isLoading: boolean;
-    tasks: string;
+    notes: Note[];
     hideTask: boolean;
+    dynamicId: string;
+    posts: Post[];
+    tokens: Token | null;
   };
-  posts: Post[];
+}
+
+export interface Token {
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface User {
-  _id: string;
+  id: string;
   firstName: string;
   lastName: string;
-  userName: string;
+  username: string;
   email: string;
   followers: User[];
   following: User[];
@@ -32,8 +39,13 @@ export interface User {
   createdAt?: Date;
 }
 
+export interface Note {
+  content: string;
+  readonly createdAt: string;
+}
+
 export interface Post {
-  _id: string;
+  id: string;
   text: string;
   media: string;
   sharedPost: Post;
@@ -44,7 +56,7 @@ export interface Post {
 }
 
 export interface Comment {
-  _id: string;
+  id: string;
   content: string;
   media: string;
   user: User;
@@ -54,7 +66,7 @@ export interface Comment {
 }
 
 export interface Replies {
-  _id: string;
+  id: string;
   text: string;
   media?: string;
   user: User;
@@ -80,3 +92,10 @@ export interface Message {
 export interface Cover {
   coverId: string;
 }
+
+export interface RegisterResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export type LogInResponse = RegisterResponse;

@@ -1,9 +1,10 @@
-import { FC } from "react";
-import { Post } from "../../../redux/interfaces";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { FC } from 'react';
+import { Post } from '../../../redux/interfaces';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { reRouteAction, GET_BLOGS } from "../../../redux/actions";
+import { reRouteAction, Actions } from '../../../redux/actions';
+import React from 'react';
 
 interface Props {
   post: Post;
@@ -19,7 +20,7 @@ const RecentItem: FC<Props> = ({ post }: Props) => {
   }
 
   return (
-    <div className="recentItem mb-3" onClick={() => route(post._id)}>
+    <div className="recentItem mb-3" onClick={() => route(post.id)}>
       <div className="">
         <div className="circleBorders">
           {!post.media ? (
@@ -28,7 +29,7 @@ const RecentItem: FC<Props> = ({ post }: Props) => {
             <div>
               {post.media &&
                 post.media
-                  .split(".")
+                  .split('.')
                   .slice(-1)
                   .join()
                   .match(`heic|png|jpg|gif|pdf|jpeg`) && (
@@ -36,7 +37,7 @@ const RecentItem: FC<Props> = ({ post }: Props) => {
                 )}
               {post.media &&
                 post.media
-                  .split(".")
+                  .split('.')
                   .slice(-1)
                   .join()
                   .match(`mp4|MPEG-4|mkv`) && (

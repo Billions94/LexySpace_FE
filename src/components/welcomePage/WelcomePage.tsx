@@ -1,5 +1,6 @@
+import React from "react";
 import { Row, Col } from "react-bootstrap";
-import Footer from "../footer/Footer";
+
 import "./styles.scss"
 
 const BeforeLogin = () => {
@@ -16,7 +17,7 @@ const BeforeLogin = () => {
           <Col className='customCOL4' xs={3} sm={3} md={3}>
           </Col>  
       </Row>
-      <Footer />
+      {/*<Footer />*/}
     </div>
   );
 };

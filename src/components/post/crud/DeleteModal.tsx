@@ -1,9 +1,10 @@
-import { Button, Modal } from "react-bootstrap";
-import { Dispatch, SetStateAction } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { reRouteAction } from "../../../redux/actions";
-import { deletePost } from "../../../lib/requests/post";
+import React from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { reRouteAction } from '../../../redux/actions';
+import { deletePost } from '../../../lib/requests/post';
 
 interface DeleteModalProps {
   postId: string;
@@ -11,21 +12,25 @@ interface DeleteModalProps {
   setSmShow: Dispatch<SetStateAction<boolean>>;
 }
 
-const DeleteModal = ({ postId, smShow, setSmShow }: DeleteModalProps) => {
+const DeleteModal: React.FC<DeleteModalProps> = ({
+  postId,
+  smShow,
+  setSmShow,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function deleteAndReroute(postId: string, dispatch: any) {
-    deletePost(postId, dispatch);
+  async function deleteAndReroute(postId: string, dispatch: Dispatch<any>) {
+    await deletePost(postId, dispatch);
     dispatch(reRouteAction(false));
-    navigate("/home");
+    navigate('/home');
   }
 
   return (
     <div>
       <Modal
         id="deleteModal"
-        style={{ borderRadius: "20px" }}
+        style={{ borderRadius: '20px' }}
         size="sm"
         show={smShow}
         centered
