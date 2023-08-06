@@ -11,7 +11,7 @@ import {
 } from '../../redux/actions';
 import HotPosts from '../post/HotPosts';
 import { ReduxState } from '../../redux/interfaces';
-import Blog from './views';
+import Blog from './views/View';
 import PostContainer from '../post/Post';
 import TaskList from '../post/TaskList';
 import Search from '../post/Search';
