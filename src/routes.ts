@@ -11,7 +11,7 @@ import CloseAccount from './components/user/account/CloseAccount';
 import Settings from './components/user/account/Settings';
 import EditNewUser from './components/auth/EditNewUser';
 import { VerifyAccount } from './components/auth/VerifyAccount';
-//import Blog from './components/home/views';
+//import Blog from './components/home/views/View';
 // import DM from "./components/Home/messages/DM"
 
 export const AppRoutes: Array<[string, React.FC]> = [
