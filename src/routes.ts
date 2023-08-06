@@ -1,6 +1,6 @@
 import React from 'react';
 import LogIn from './components/auth/LogIn';
-import Home from './components/home/Home';
+import Home from './components/Home/Home';
 import Register from './components/auth/Register';
 import BeforeLogin from './components/welcomePage/WelcomePage';
 import Messages from './components/messages/Messages';
