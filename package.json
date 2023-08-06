@@ -1,6 +1,8 @@
 {
   "name": "capstone-fe-ts",
-  "version": "0.1.0",
+  "engines": {
+    "node": ">=0.10.3 <18"
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.1",
