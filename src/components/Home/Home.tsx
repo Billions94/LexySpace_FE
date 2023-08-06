@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import BlogList from '../post/BlogList';
-import Weather from '../post/Weather';
+import WeatherWidget from '../weather/WeatherWidget';
 import useAuthGuard from '../../lib/index';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getUsersAction,
   hideMeAction,
-  hideTaskAction,
+  hideNotesAction,
 } from '../../redux/actions';
 import HotPosts from '../post/HotPosts';
 import { ReduxState } from '../../redux/interfaces';
@@ -20,8 +20,6 @@ import MusicPlayer from '../musicplayer/MusicPlayer';
 import './styles.scss';
 import { getPosts } from '../../lib/requests/post';
 import React from 'react';
-//import Footer from "../footer/Footer";
-// import Blog from "../views/Index"
 
 const Home = () => {
   useAuthGuard();
@@ -33,7 +31,7 @@ const Home = () => {
   const { hideMe, reroute, hideTask } = useSelector(
     (state: ReduxState) => state.data
   );
-  const { posts } = useSelector((state: ReduxState) => state);
+  const { posts } = useSelector((state: ReduxState) => state.data);
 
   const toggleHide = () => {
     !hideMe ? dispatch(hideMeAction(true)) : dispatch(hideMeAction(false));
@@ -41,8 +39,8 @@ const Home = () => {
 
   const toggleHideTask = () => {
     !hideTask
-      ? dispatch(hideTaskAction(true))
-      : dispatch(hideTaskAction(false));
+      ? dispatch(hideNotesAction(true))
+      : dispatch(hideNotesAction(false));
   };
 
   useEffect(() => {
@@ -75,7 +73,7 @@ const Home = () => {
               <Search />
               <HotPosts />
               <div
-                onClick={() => toggleHide()}
+                onClick={toggleHide}
                 className="d-flex"
                 style={{ cursor: 'pointer' }}
               >
@@ -98,7 +96,7 @@ const Home = () => {
                   )}
                 </div>
               </div>
-              {!hideMe ? <Weather /> : null}
+              {!hideMe ? <WeatherWidget /> : null}
               <div
                 onClick={() => toggleHideTask()}
                 className="d-flex"
