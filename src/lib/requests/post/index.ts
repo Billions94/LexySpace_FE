@@ -5,25 +5,16 @@ import {
   SharePost,
   UpdatePost,
 } from '../interfaces/post.interface';
+import { Dispatch } from 'redux';
 
-export async function getPosts(dispatch: any, postId?: string) {
+export async function getPosts(dispatch: Dispatch, postId?: string) {
   try {
-    if (postId) {
-      const { data } = await API.get(`/posts/${postId}`);
-      if (data) {
-        dispatch({
-          type: Actions.GET_POSTS,
-          payload: data.posts,
-        });
-      }
-    } else {
-      const { data } = await API.get(`/posts`);
-      if (data) {
-        dispatch({
-          type: Actions.GET_POSTS,
-          payload: data.posts,
-        });
-      }
+    const { data } = await API.get(postId ? `/posts/${postId}` : '/posts');
+    if (data) {
+      dispatch({
+        type: Actions.GET_POSTS,
+        payload: data.posts,
+      });
     }
   } catch (error) {
     console.log(error);

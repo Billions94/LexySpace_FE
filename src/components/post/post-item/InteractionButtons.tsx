@@ -20,7 +20,7 @@ export const InteractionButtons: React.FC<Props> = ({
 }) => {
   const dispatch = useDispatch();
   const liker = { userId };
-  const { user: loggedInUser, likes } = useSelector(
+  const { user: loggedInUser } = useSelector(
     (state: ReduxState) => state['data']
   );
 
