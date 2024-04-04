@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Col } from 'react-bootstrap';
-import { Data } from '../../interfaces/WeatherData';
+import { Data } from '../../interfaces/Data';
 import '../post/styles.scss';
 
 const WeatherWidget = () => {
