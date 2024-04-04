@@ -1,42 +1,55 @@
-import { useState, useEffect, FC } from "react";
-import { Formik } from "formik";
-import { Form, Button, Col, Alert } from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
-import Loader from "../loader/Loader";
-import API from "../../lib/API";
-import { FormikProps } from "./types";
-import { loginSchema } from "./schema/login.schema";
-import "./styles.scss";
+import React from 'react';
+import { Form, Col, Alert, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import Loader from '../loader/Loader';
+import { apiUrl } from '../../lib/API';
+import { getFormAttributes } from '../../util/funcs';
+import { UseInput } from '../hooks/useInput';
+import { loginInput } from './inputs';
+import { loginForm } from './forms/loginForm';
+import axios from 'axios';
+import { getUsersAction, setTokenAction } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
-const LogIn: FC = () => {
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
+import './styles.scss';
+import { LogInResponse } from '../../redux/interfaces';
+import { FormControlSize, LoginInput } from './interfaces';
+
+const LogIn: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const { input, handleChange } = UseInput<LoginInput>(loginInput);
 
-  async function login(props: FormikProps): Promise<void> {
+  const loginData: LoginInput = {
+    email: input.email,
+    password: input.password,
+  };
+
+  async function login(e: any): Promise<void> {
+    e.preventDefault();
     try {
-      const { data } = await API.post(`/sessions/create`, {
-        email: props.email,
-        password: props.password,
-      });
+      const { data } = await axios.post<LogInResponse>(
+        `${apiUrl}/sessions`,
+        loginData
+      );
 
       if (data) {
         setLoading(true);
         const { accessToken, refreshToken } = data;
-
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
+        dispatch(setTokenAction({ accessToken, refreshToken }));
 
         setTimeout(() => {
           setLoading(false);
-          navigate("/home");
+          navigate('/home');
+          dispatch(getUsersAction);
         }, 1000);
-      } else {
-        setError(true);
-        triggerError();
       }
     } catch (error) {
       console.log(error);
+      setError(true);
+      triggerError();
     }
   }
 
@@ -46,7 +59,7 @@ const LogIn: FC = () => {
     }, 4000);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
@@ -57,104 +70,61 @@ const LogIn: FC = () => {
   ) : (
     <div id="loginContainer" className="col3">
       <div className="text-center createAcc textColor">Login to LexySpace</div>
-      <Col sm={6} md={4} className="customMT mx-auto">
-        {error === true && (
+      <Col sm={6} md={4} lg={5} className="customMT mx-auto">
+        {error && (
           <Alert className="alert text-center" variant="danger">
             Email or password is incorrect!
           </Alert>
         )}
-        {/* <a href={`${url}/users/googleLogin`}>
-          <div className="googleIcon justify-content-center my-2">
-              <Col xs={12} sm={12} md={12} lg={12} className="res googleDiv">
-                <div>
-                  <img className='' src="https://img.icons8.com/color/50/000000/google-logo.png" 
-                    alt='' width='20' height='20'/>
-                </div>
-                  <button type="button" className="btn googleBtn btn-lg">
-                  <p> CONTINUE WITH GOOGLE </p>
-                  </button>
-              </Col>
-          </div> 
-        </a>               
-        <div className="mx-auto">
-            <div className='text-center'>OR</div>
-        </div>         */}
-        <Formik
-          validationSchema={loginSchema}
-          onSubmit={login}
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-        >
-          {({ handleSubmit, handleChange, values, errors }) => (
-            <div className="register">
-              <h4 className="SignInHeading register1 mt-4">LOG IN</h4>
-              <Form noValidate className="register" onSubmit={handleSubmit}>
-                <Form.Group className="format" controlId="formBasicEmail">
-                  <Form.Control
-                    type="email"
-                    placeholder="Email"
-                    value={values.email}
-                    onChange={handleChange}
-                    name="email"
-                    className="SignUpFormControls register"
-                    size="lg"
-                    isInvalid={!!errors.email}
-                  />
-                  <Form.Control.Feedback className="FeedBack" type="invalid">
-                    {errors.email}
-                  </Form.Control.Feedback>
-                </Form.Group>
 
-                <Form.Group className="format" controlId="formBasicPassword">
-                  <Form.Control
-                    className="SignUpFormControls register"
-                    size="lg"
-                    type="password"
-                    name="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    placeholder="Password"
-                    isInvalid={!!errors.password}
-                  />
-                  <Form.Control.Feedback className="FeedBack" type="invalid">
-                    {errors.password}
-                  </Form.Control.Feedback>
-                </Form.Group>
+        <Form onSubmit={login}>
+          {getFormAttributes(input, loginForm).map((item) => (
+            <Form.Group
+              key={item.name}
+              className="format"
+              controlId="formBasicPassword"
+            >
+              <Form.Control
+                className={'login'}
+                size={FormControlSize.LG}
+                type={item.type}
+                name={item.name}
+                value={item.value}
+                placeholder={item.placeholder}
+                onChange={handleChange}
+                isInvalid={!!item.name}
+              />
+              <Form.Control.Feedback className="FeedBack" type="invalid">
+                {item.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+          ))}
 
-                <div className="loginBtn">
-                  {values.password.length < 5 ? (
-                    <Button
-                      variant="primary"
-                      disabled
-                      className="disabled1"
-                      type="submit"
-                    >
-                      Log in
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="primary"
-                      className="modal-btn"
-                      type="submit"
-                    >
-                      Log in
-                    </Button>
-                  )}
-                </div>
-                <Form.Text>
-                  Don't have an account?{" "}
-                  <Link className="signin" to="/register">
-                    <a href="#signin" className="signin">
-                      Sign Up
-                    </a>
-                  </Link>
-                </Form.Text>
-              </Form>
-            </div>
-          )}
-        </Formik>
+          <div className="loginBtn">
+            {input.password.length < 5 ? (
+              <Button
+                variant="primary"
+                disabled
+                className="disabled1"
+                type="submit"
+              >
+                Log in
+              </Button>
+            ) : (
+              <Button variant="primary" className="modal-btn" type="submit">
+                Log in
+              </Button>
+            )}
+          </div>
+          <Form.Text>
+            Don't have an account?{' '}
+            <Link className="signin" to="/register">
+              <a href="#signUp" className="signUp">
+                Sign Up
+              </a>
+            </Link>
+          </Form.Text>
+        </Form>
       </Col>
     </div>
   );

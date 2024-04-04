@@ -1,77 +1,55 @@
-import { useEffect, useState } from "react";
-import { Row, Col, ListGroup, Card, Accordion, Button } from "react-bootstrap";
+import { useEffect, useState } from 'react';
+import { Row, Col, ListGroup, Card, Accordion, Button } from 'react-bootstrap';
 import {
   OverlayTrigger,
   Popover,
   Form,
   Container,
   Alert,
-} from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getUsersAction } from "../../../redux/actions";
-import { ReduxState } from "../../../redux/interfaces";
-import API from "../../../lib/API";
-import "./styles.scss";
+} from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getUsersAction } from '../../../redux/actions';
+import { ReduxState } from '../../../redux/interfaces';
+import API from '../../../lib/API';
+import './styles.scss';
+import React from 'react';
 
 const Settings = () => {
   const navigate = useNavigate();
 
-  const users = useSelector((state: ReduxState) => state.data.user);
-  const me = users._id;
+  const users = useSelector((state: ReduxState['data']) => state['user']);
+  const me = users?.id;
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState({
-    password: "",
-    confirmPassword: "",
+  const [passwordState, setPasswordState] = useState({
+    oldPassword: '',
+    newPassword: '',
   });
 
   const [alert, setAlert] = useState(false);
   const [match, setMatch] = useState(false);
 
-  // const changePassword = async () => {
-  //   try {
-  //     const token = localStorage.getItem('accessToken')
-
-  //     const response = await fetch(`${url}/users/me`, {
-  //       method: PATCH,
-  //       body: JSON.stringify({user}),
-  //       headers: { "Content-Type": "application/json",
-  //       Authorization: token }
-  //     })
-  //       if(response.ok) {
-  //         setUser({
-  //           password: '',
-  //           confirmPassword: ''
-  //         })
-  //         setAlert(true)
-  //       }
-
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   const changePassword = async () => {
     try {
-      const { data } = await API.put("/users/me", { user });
+      const { data } = await API.patch('/users/me/resetPassword', {
+        user: passwordState,
+      });
       if (data) {
-        setUser({
-          password: "",
-          confirmPassword: "",
+        setPasswordState({
+          oldPassword: '',
+          newPassword: '',
         });
         setAlert(true);
-      } else {
-        throw new Error("Couldn't update password");
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const checkPasswords = () => {
-    if (user.password === user.confirmPassword) {
-      changePassword();
+  const checkPasswords = async () => {
+    if (passwordState.oldPassword === passwordState.newPassword) {
+      await changePassword();
       triggerError();
     } else {
       setMatch(true);
@@ -89,8 +67,8 @@ const Settings = () => {
 
   useEffect(() => {
     dispatch(getUsersAction());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <Row className="justify-content-center">
       <Col className="settingsCol" md={7}>
@@ -172,11 +150,11 @@ const Settings = () => {
                             <Form.Control
                               size="lg"
                               type="password"
-                              value={user.confirmPassword}
+                              value={passwordState.newPassword}
                               onChange={(e) =>
-                                setUser({
-                                  ...user,
-                                  confirmPassword: e.target.value,
+                                setPasswordState({
+                                  ...passwordState,
+                                  newPassword: e.target.value,
                                 })
                               }
                             />
@@ -211,12 +189,12 @@ const Settings = () => {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
                       <Container id="passwordContainer">
-                        {alert === true ? (
+                        {alert ? (
                           <Alert className="alert" variant="success">
                             Password successfully changed!
                           </Alert>
                         ) : null}
-                        {match === true ? (
+                        {match ? (
                           <Alert className="alert" variant="warning">
                             Passwords do not match!
                           </Alert>
@@ -276,9 +254,12 @@ const Settings = () => {
                             <Form.Control
                               size="lg"
                               type="password"
-                              value={user.password}
+                              value={passwordState.newPassword}
                               onChange={(e) =>
-                                setUser({ ...user, password: e.target.value })
+                                setPasswordState({
+                                  ...passwordState,
+                                  newPassword: e.target.value,
+                                })
                               }
                             />
                           </Form.Group>
@@ -290,19 +271,16 @@ const Settings = () => {
                             <Form.Control
                               size="lg"
                               type="password"
-                              value={user.confirmPassword}
+                              value={passwordState.newPassword}
                               onChange={(e) =>
-                                setUser({
-                                  ...user,
-                                  confirmPassword: e.target.value,
+                                setPasswordState({
+                                  ...passwordState,
+                                  newPassword: e.target.value,
                                 })
                               }
                             />
                           </Form.Group>
-                          <Button
-                            className="save-btn"
-                            onClick={() => checkPasswords()}
-                          >
+                          <Button className="save-btn" onClick={changePassword}>
                             save
                           </Button>
                         </Form>

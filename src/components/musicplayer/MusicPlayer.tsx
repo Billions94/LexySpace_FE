@@ -1,15 +1,16 @@
-import axios from "axios";
-import { useState, useEffect, createRef } from "react";
-import { Button, Form, Image } from "react-bootstrap";
-import { musicIcon, pauseIcon, playIcon } from "../../assets/icons";
-import "./styles.scss";
+import axios from 'axios';
+import React from 'react';
+import { useState, useEffect, createRef } from 'react';
+import { Button, Form, Image } from 'react-bootstrap';
+import { musicIcon, pauseIcon, playIcon } from '../../assets/icons';
+import './styles.scss';
 
 export default function MusicPlayer() {
   const [music, setMusic] = useState<any>(null);
   const [expand, setExpand] = useState(false);
 
-  const [isPlaying, setIsPlaying] = useState<any>("");
-  const [query, setQuery] = useState("");
+  const [isPlaying, setIsPlaying] = useState<any>('');
+  const [query, setQuery] = useState('');
 
   const [selectedSongIndex, setSelectedSongIndex] = useState<any>(0);
   const refs = createRef<HTMLAudioElement>();
@@ -35,14 +36,14 @@ export default function MusicPlayer() {
 
   function togglePlay(index: any) {
     if (isPlaying === index) {
-      setIsPlaying("");
-      refs.current!.pause();
+      setIsPlaying('');
+      refs?.current?.pause();
       return;
     }
 
     setIsPlaying(index);
     setSelectedSongIndex(index);
-    refs.current!.play();
+    refs?.current?.play();
     return;
   }
 
@@ -51,7 +52,7 @@ export default function MusicPlayer() {
   }, [query]);
 
   function toggle() {
-    expand === false ? setExpand(true) : setExpand(false);
+    !expand ? setExpand(true) : setExpand(false);
   }
 
   return (
@@ -62,7 +63,7 @@ export default function MusicPlayer() {
         </Button>
         <div className="strong">Mini Music Player</div>
       </div>
-      {expand === false ? null : (
+      {!expand ? null : (
         <>
           <Form.Control
             type="search"
@@ -114,7 +115,7 @@ export default function MusicPlayer() {
                     </div>
                   </div>
                 ))}
-              <audio ref={refs} src={music ? music[songIndex]?.preview : ""} />
+              <audio ref={refs} src={music ? music[songIndex]?.preview : ''} />
             </div>
           </>
         </>

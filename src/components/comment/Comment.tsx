@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { getUsersAction } from "../../redux/actions";
 import SingleComment from "./SingleComment";
 import "./styles.scss";
+import React from "react";
 
 interface CommentsProps {
   author: User | null;
@@ -25,16 +26,15 @@ const CommentComponent = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchComments();
     dispatch(getUsersAction());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (async () => fetchComments())();
   }, []);
 
   return comments ? (
     <>
       <div>
         {comments.map((c) =>
-          c.postId !== blog?._id ? null : (
+          c.postId !== blog?.id ? null : (
             <SingleComment
               id={id}
               blog={blog}

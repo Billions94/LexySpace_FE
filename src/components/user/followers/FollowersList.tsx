@@ -1,41 +1,39 @@
-import { Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
-import FollowButton from "./FollowButton";
-import { useSelector } from "react-redux";
-import { useEffect, Dispatch, SetStateAction } from "react";
-import { User, ReduxState } from "../../../redux/interfaces";
-import API from "../../../lib/API";
+import { Avatar } from '@mui/material';
+import { Link } from 'react-router-dom';
+import FollowButton from './FollowButton';
+import { useSelector } from 'react-redux';
+import { useEffect, Dispatch, SetStateAction } from 'react';
+import { User, ReduxState } from '../../../redux/interfaces';
+import API from '../../../lib/API';
+import React from 'react';
 
 interface FollowersListProps {
   f: User;
   id: string | undefined;
-  getUser: () => Promise<void>;
   refresh: boolean;
   setRefresh: Dispatch<SetStateAction<boolean>>;
 }
 
-const FollowersList = ({
+const FollowersList: React.FC<FollowersListProps> = ({
   f,
-  id,
-  getUser,
   refresh,
   setRefresh,
-}: FollowersListProps) => {
+}) => {
   const { user, followers, following } = useSelector(
     (state: ReduxState) => state.data
   );
-  const me = user!._id;
+  const me = user?.id;
 
   // const [following, setFollowing] = useState(false)
-  const follower = { followerId: user?._id };
+  const follower = { followerId: user?.id };
 
   const follow = async (userId: string) => {
     try {
       const { data } = await API.post(`/users/${userId}/follow`, follower);
       if (data) {
-        refresh === false ? setRefresh(true) : setRefresh(false);
+        !refresh ? setRefresh(true) : setRefresh(false);
       } else {
-        throw new Error("Something went wrong :(");
+        throw new Error('Something went wrong :(');
       }
     } catch (error) {
       console.log(error);
@@ -46,12 +44,12 @@ const FollowersList = ({
     !f.followers ? nowFollow(userId) : unfollow(userId);
   };
 
-  const nowFollow = (userId: string) => {
-    follow(userId);
+  const nowFollow = async (userId: string) => {
+    await follow(userId);
     // setFollowing(true)
   };
-  const unfollow = (userId: string) => {
-    follow(userId);
+  const unfollow = async (userId: string) => {
+    await follow(userId);
     // setFollowing(false)
   };
 
@@ -63,9 +61,9 @@ const FollowersList = ({
 
   return (
     <>
-      <div key={f._id} className="d-flex mb-2">
+      <div key={f.id} className="d-flex mb-2">
         <Link
-          to={`/userProfile/${f._id}`}
+          to={`/userProfile/${f.id}`}
           className="d-flex followersContainer customLinks1"
         >
           <div className="">
@@ -84,13 +82,13 @@ const FollowersList = ({
           </div>
         </Link>
 
-        {f._id !== me ? (
+        {f.id !== me ? (
           <FollowButton
             followers={followers}
             following={following}
             toggle={toggle}
             // setFollowing={setFollowing}
-            f={f}
+            follower={f}
           />
         ) : null}
       </div>

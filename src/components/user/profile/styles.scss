@@ -287,27 +287,84 @@
   background-color: #627484;
 }
 
+#edit-profile {
+  line-height: 15px !important;
+  font-family: "JetBrains Mono NL", serif !important;
+  font-weight: bold !important;
+}
+
+#edit-profile1 {
+  position: relative;
+  line-height: 15px !important;
+  font-family: "JetBrains Mono NL", serif !important;
+  font-weight: bold !important;
+  top: 6px;
+}
+
 #editModal {
+  width: 50%;
+
+  #form {
+    #control {
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7) !important;
+      border-radius: 0 !important;
+      display: block;
+      line-height: 15px;
+      font-family: "JetBrains Mono NL", serif;
+      font-weight: normal;
+      position: relative;
+      top: 5px;
+      padding: 0 10px;
+    }
+  }
+
+  .close {
+    color: #f91880 !important;
+    float: left !important;
+    font-size:2rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    text-shadow:none!important;
+    position: relative !important;
+    right: 5% !important;
+
+    &:hover {
+      opacity: 1;
+
+    }
+  }
+
   .modal-content {
-    height: 530px;
+    height: 680px;
     border-radius: 20px;
     background: #020024;
     border: 1px solid #24224a;
   }
-
 
   .modal-header {
     border-bottom: 1px solid #24224a;
     color: #dadada;
   }
 
+  .label {
+    color: white;
+    display: block;
+    line-height: 15px;
+    font-family: "JetBrains Mono NL", serif;
+    font-weight: normal;
+    position: relative;
+    top: 5px;
+    padding: 0 10px;
+  }
+
   .modal-body {
-    height: 400px;
     overflow: scroll;
+    padding: 20px 80px;
   }
 
   .modal-footer {
-    border-top: 1px solid #24224a;
+    border-top: none !important;
     color: #dadada;
   }
 
@@ -316,10 +373,21 @@
     border: none;
     color: white;
     background-color: #f91880;
+    p {
+      display: block;
+      line-height: 10px;
+      font-family: "JetBrains Mono NL", serif;
+      font-weight: normal;
+      position: relative;
+      top: 5px;
+    }
   }
 
   .modal-btn:hover {
-    background-color: #e41575;
+    background-color: #e41575 !important;
+    border-radius: 20px !important;
+    border: none !important;
+    color: white;
   }
 
   .modal-btn:focus {
@@ -342,12 +410,6 @@
 #updatePicModal {
   width: 1000px !important;
 
-  // .modal-dialog {
-  //   width: 100%;
-  //   height: 100%;
-  //   margin: 0;
-  //   padding: 0;
-  // }
   .modal-header {
     border-bottom: none;
   }
@@ -380,10 +442,21 @@
     border: none;
     color: white;
     background-color: #f91880;
+    p {
+      display: block;
+      line-height: 15px;
+      font-family: "JetBrains Mono NL", serif;
+      font-weight: bold;
+      position: relative;
+      top: 5px;
+    }
   }
 
   .modal-btn:hover {
-    background-color: #e41575;
+    background-color: #e41575 !important;
+    border-radius: 20px !important;
+    border: none !important;
+    color: white;
   }
 
   .modal-btn:focus {
@@ -454,6 +527,11 @@
     border-radius: 20px !important;
     background-color: #f91880 !important;
     border: 1px solid #f91880 !important;
+
+    &:hover {
+      border-radius: 20px!important;
+      background-color: antiquewhite!important;
+    }
   }
 
   .nowfollowing:active {
@@ -547,7 +625,6 @@
 }
 
 #coverModal {
-
   .modal-content {
     height: 630px;
     border-radius: 20px;
@@ -576,10 +653,21 @@
     border: none;
     color: white;
     background-color: #f91880;
+    p {
+      display: block;
+      line-height: 15px;
+      font-family: "JetBrains Mono NL", serif;
+      font-weight: bold;
+      position: relative;
+      top: 5px;
+    }
   }
 
   .modal-btn:hover {
-    background-color: #e41575;
+    background-color: #e41575 !important;
+    border-radius: 20px !important;
+    border: none !important;
+    color: white;
   }
 
   .modal-btn:focus {

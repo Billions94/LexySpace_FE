@@ -1,13 +1,13 @@
-import React from "react";
-import { Button, Modal, Image } from "react-bootstrap";
-import { Socket } from "socket.io-client";
-import { defaultAvatar } from "../../assets/icons";
-import { IUser } from "../../interfaces/IUser";
-import API from "../../lib/API";
-import { Rooms, User } from "../../redux/interfaces";
+import React from 'react';
+import { Button, Modal, Image } from 'react-bootstrap';
+import { Socket } from 'socket.io-client';
+import { defaultAvatar } from '../../assets/icons';
+import { OnlineUser } from '../../interfaces/OnlineUser';
+import API from '../../lib/API';
+import { Rooms, User } from '../../redux/interfaces';
 
 interface Props {
-  onlineUsers: IUser[];
+  onlineUsers: OnlineUser[];
   currentUser: User;
   room: Rooms | null;
   setCurrentChat: any;
@@ -35,7 +35,7 @@ export const StartConversation: React.FC<Props> = ({
 
   async function getUsers() {
     try {
-      const { data } = await API.get("/users");
+      const { data } = await API.get('/users');
       if (data) {
         console.log(data);
         setUsers(data);
@@ -45,17 +45,17 @@ export const StartConversation: React.FC<Props> = ({
     }
   }
 
-  const newConversation = async (otherUser: IUser) => {
+  const newConversation = async (otherUser: OnlineUser) => {
     try {
-      const { data } = await API.post("/rooms", {
-        senderId: currentUser._id,
-        receiverId: otherUser._id,
+      const { data } = await API.post('/rooms', {
+        senderId: currentUser.id,
+        receiverId: otherUser.id,
       });
       if (data) {
         const newDT: Rooms = data[0];
         setCurrentChat(newDT);
 
-        socket.emit("startConversation");
+        socket.emit('startConversation');
         setConversation((prev) => [...prev, data]);
 
         setShow(false);
@@ -74,23 +74,23 @@ export const StartConversation: React.FC<Props> = ({
         size="sm"
         centered
         onHide={() => setShow(false)}
-        style={{ borderRadius: "20px" }}
+        style={{ borderRadius: '20px' }}
         aria-labelledby="example-modal-sizes-title-sm"
       >
         <Modal.Header closeButton>
-          <span style={{ textAlign: "center" }}>New conversation</span>
+          <span style={{ textAlign: 'center' }}>New conversation</span>
         </Modal.Header>
         <Modal.Body>
           {show === true &&
             users &&
             users
-              .filter((user) => user.userName !== currentUser.userName)
+              .filter((user) => user.username !== currentUser.username)
               .map((user, idx) => (
                 <div
                   className="d-flex mb-3"
                   key={idx}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => newConversation(user as any as IUser)}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => newConversation(user as any as OnlineUser)}
                 >
                   <div>
                     <Image
@@ -103,10 +103,10 @@ export const StartConversation: React.FC<Props> = ({
                   </div>
 
                   <div className="ml-2 mt-2">
-                    <strong style={{ color: "#e8e8e8" }}>
-                      {user.userName}
+                    <strong style={{ color: '#e8e8e8' }}>
+                      {user.username}
                     </strong>
-                    <span>{""}</span>
+                    <span>{''}</span>
                   </div>
                 </div>
               ))}
@@ -115,7 +115,7 @@ export const StartConversation: React.FC<Props> = ({
       <div>
         {!show && (
           <Button size="sm" onClick={handleShow}>
-            <span>{show ? "Close" : "Start convo"}</span>
+            <span>{show ? 'Close' : 'Start convo'}</span>
           </Button>
         )}
       </div>

@@ -1,76 +1,84 @@
-import { Form, Col, Row, Button } from "react-bootstrap";
-import { createRef, useState, FormEvent, useEffect, FC } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { ReduxState } from "../../redux/interfaces";
-import useAuthGuard from "../../lib";
-import { getUsersAction } from "../../redux/actions";
-import Loader from "../loader/Loader";
-import API from "../../lib/API";
+import React from 'react';
+import { Form, Col, Row, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import useAuthGuard from '../../lib';
+import { getUsersAction, saveUserAction } from '../../redux/actions';
+import Loader from '../loader/Loader';
+import API from '../../lib/API';
+import { UseInput } from '../hooks/useInput';
+import { ReduxState } from '../../redux/interfaces';
+import { editNewUserForm } from './forms/editNewUserForm';
+import { getFormAttributes } from '../../util/funcs';
+import { NewUserInput, FormControlSize } from './interfaces';
+import { newUserInput } from './inputs';
 
-const EditNewUser: FC = () => {
+const EditNewUser: React.FC = () => {
   useAuthGuard();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const registeredUser = useSelector((state: ReduxState) => state.data["user"]);
+  const { input, handleChange, resetInput } =
+    UseInput<NewUserInput>(newUserInput);
 
-  const [newUser, setNewUser] = useState({
-    firstName: "",
-    lastName: "",
-    userName: registeredUser.userName,
-    bio: "",
-    location: "",
-  });
-
-  const [loading, setLoading] = useState<boolean>(false);
-  const [alert, setAlert] = useState<boolean>(false);
-
-  const [image, setImage] = useState<string>("");
-
-  useEffect(() => {
-    dispatch(getUsersAction());
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [alert, setAlert] = React.useState<boolean>(false);
+  const [image, setImage] = React.useState<string>('');
+  const { user } = useSelector((state: ReduxState) => state.data);
 
   const target = (e: any) => {
     e.preventDefault();
     if (e.target && e.target.files[0]) {
       setImage(e.target.files[0]);
       setAlert(true);
+
       setTimeout(() => {
         setAlert(false);
       }, 3000);
+
+      const fmDT = new FormData();
+      fmDT.append('image', e.target.files[0]);
+
+      API.patch('/users/me/profilePic', fmDT)
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
     }
   };
 
-  const inputBtn = createRef<HTMLInputElement>();
+  const inputBtn = React.createRef<HTMLInputElement>();
 
-  const openInputFile = (e: any) => {
-    inputBtn!.current!.click();
+  const openInputFile = () => {
+    inputBtn?.current?.click();
   };
 
-  async function sumbit(): Promise<void> {
-    if (image) {
+  async function saveUser(user: any): Promise<void> {
+    localStorage.setItem('user', user);
+    const userFromLocalStorage = localStorage.getItem('user');
+
+    dispatch(saveUserAction(userFromLocalStorage ? userFromLocalStorage : user));
+    localStorage.removeItem('user');
+  }
+
+  async function submit(e: any): Promise<void> {
+    e.preventDefault();
+    if (image.length > 0) {
       const formData = new FormData();
-      formData.append("firstName", newUser.firstName);
-      formData.append("lastName", newUser.lastName);
-      formData.append("userName", newUser.userName);
-      formData.append("bio", newUser.bio);
-      formData.append("location", newUser.location);
-      formData.append("image", image);
+      formData.append('firstName', input.firstName);
+      formData.append('lastName', input.lastName);
+      formData.append('bio', input.bio);
+      formData.append('location', input.location);
+      formData.append('image', image);
 
       try {
         const { data } = await API.patch(`/users/me`, formData);
+        await saveUser(data.user);
 
         if (data) {
+          resetInput();
           setLoading(true);
           setTimeout(() => {
             setLoading(false);
-            navigate("/home");
+            navigate('/home');
           }, 1000);
         }
       } catch (error) {
@@ -78,13 +86,14 @@ const EditNewUser: FC = () => {
       }
     } else {
       try {
-        const { data } = await API.patch(`/users/me`, newUser);
+        const { data } = await API.patch(`/users/me`, input);
 
         if (data) {
+          resetInput();
           setLoading(true);
           setTimeout(() => {
             setLoading(false);
-            navigate("/home");
+            navigate('/home');
           }, 1000);
         }
       } catch (error) {
@@ -93,18 +102,22 @@ const EditNewUser: FC = () => {
     }
   }
 
-  const handleSumbit = (e: FormEvent) => {
-    e.preventDefault();
-    sumbit();
-  };
+  React.useEffect(() => {
+    dispatch(getUsersAction());
+    setLoading(true);
 
-  return loading === true ? (
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+  return loading ? (
     <Loader />
   ) : (
     <Row id="newUserDiv" className="justify-content-center">
       <Col className="" md={6} lg={5}>
         <div className="welcome1 text-center mb-3">
-          Edit your User Profile{" "}
+          Edit your User Profile{' '}
           <img
             src="https://img.icons8.com/fluency/50/ffffff/user-male-circle.png"
             alt=""
@@ -112,9 +125,9 @@ const EditNewUser: FC = () => {
             width="48px"
           />
         </div>
-        {loading === false ? (
-          <Form noValidate className="newUserForm">
-            {alert === true ? (
+        {!loading ? (
+          <Form noValidate className="newUserForm" onSubmit={submit}>
+            {alert ? (
               <div className="text-center">
                 <img
                   src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif"
@@ -134,10 +147,14 @@ const EditNewUser: FC = () => {
                     type="file"
                     ref={inputBtn}
                     className="d-none"
-                    onChange={(e) => target(e)}
+                    onChange={target}
                   />
                   <img
-                    src="https://img.icons8.com/fluency/50/ffffff/user-male-circle.png"
+                    src={
+                      user?.image
+                        ? user.image
+                        : 'https://img.icons8.com/fluency/50/ffffff/user-male-circle.png'
+                    }
                     alt=""
                     height="38px"
                     width="38px"
@@ -146,75 +163,42 @@ const EditNewUser: FC = () => {
                 </button>
               </div>
             )}
-            <Form.Group controlId="blog-form" className="">
-              <Form.Label className="text-muted">first Name</Form.Label>
-              <Form.Control
-                size="lg"
-                className="newUserFormControl"
-                placeholder=""
-                value={newUser.firstName}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, firstName: e.target.value })
-                }
-              />
-            </Form.Group>
-            <Form.Group controlId="blog-form" className="">
-              <Form.Label className="text-muted">last Name</Form.Label>
-              <Form.Control
-                size="lg"
-                className="newUserFormControl"
-                placeholder=""
-                value={newUser.lastName}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, lastName: e.target.value })
-                }
-              />
-            </Form.Group>
-            <Form.Group controlId="blog-form" className="">
-              <Form.Label className="text-muted">bio</Form.Label>
-              <Form.Control
-                size="lg"
-                className="newUserFormControl"
-                as="textarea"
-                placeholder="A little detail about yourself..."
-                value={newUser.bio}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, bio: e.target.value })
-                }
-              />
-            </Form.Group>
-            <Form.Group controlId="blog-form" className="">
-              <Form.Label className="text-muted">location</Form.Label>
-              <Form.Control
-                size="lg"
-                className="newUserFormControl"
-                placeholder="Where are you located ?"
-                value={newUser.location}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, location: e.target.value })
-                }
-              />
-            </Form.Group>
+            {getFormAttributes(input, editNewUserForm).map((form) => (
+              <Form.Group controlId="blog-form" className="">
+                <Form.Label className="text-muted">
+                  {form.placeholder}
+                </Form.Label>
+                <Form.Control
+                  className="newUserFormControl"
+                  size={FormControlSize.LG}
+                  name={form.name}
+                  placeholder={form.placeholder}
+                  value={form.value}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            ))}
             <div className="d-flex">
               <></>
-              {!newUser.firstName &&
-              !newUser.lastName &&
-              !newUser.location &&
-              !newUser.bio ? (
+              {!input.firstName &&
+              !input.lastName &&
+              !input.location &&
+              !input.bio ? (
                 <Button
-                  variant="primary"
-                  onClick={(e) => handleSumbit(e)}
+                  variant="submit"
+                  type="button"
                   className="btn btn-md modal-btn disabled1"
+                  disabled
                 >
                   submit
                 </Button>
               ) : (
                 <Button
                   variant="primary"
-                  onClick={(e) => handleSumbit(e)}
+                  type="submit"
                   className="btn btn-md modal-btn"
                 >
-                  sumbit
+                  submit
                 </Button>
               )}
             </div>

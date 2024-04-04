@@ -1,50 +1,60 @@
-import { createRef, useState, FC } from "react";
-import API from "../../../lib/API";
-import { Button, Modal } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { SET_COVER } from "../../../redux/actions";
-import { ReduxState } from "../../../redux/interfaces";
-import edit from "../../../assets/edit.png"
+import React, { useState } from 'react';
+import API from '../../../lib/API';
+import { Button, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { Actions } from '../../../redux/actions';
+import { ReduxState } from '../../../redux/interfaces';
+import edit from '../../../assets/edit.png';
+import { ToastContainer, toast } from 'react-toastify';
+import { defaultCover } from '../../../assets/icons';
+import Loader from '../../loader/Loader';
 
+const Cover: React.FC = () => {
+  const SELECT_A_FILE = 'Please select a file';
 
-interface Props {
-  getUser: () => Promise<void>;
-}
-
-const Cover: FC<Props> = ({ getUser }: Props) => {
   const dispatch = useDispatch();
-  const profileCover = useSelector((state: ReduxState) => state.data.cover);
-  const [show, setShow] = useState<boolean>(false);
-  const [cover, setCover] = useState<string>("");
+  const { cover: dc } = useSelector((state: ReduxState) => state.data);
+  const [show, setShow] = React.useState<boolean>(false);
+  const [cover, setCover] = React.useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  function inputFile(e: any) {
-    if (e.target && e.target.files[0]) {
-      setCover(e.target.files[0]);
+  function handleFileInput({ target: { files } }: any) {
+    if (files) {
+      setCover(files[0]);
     }
   }
 
-  const inputBtn = createRef<HTMLInputElement>();
+  const inputBtn = React.createRef<HTMLInputElement>();
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn?.current?.click();
   };
 
   async function newCover() {
     try {
+      setLoading(true);
+      if (!cover) {
+        toast.error(SELECT_A_FILE);
+        return;
+      }
+
       const formData = new FormData();
-      formData.append("cover", cover);
+      formData.append('cover', cover);
 
       const { data } = await API.post(`/users/me/cover`, formData);
       if (data) {
         dispatch({
-          type: SET_COVER,
+          type: Actions.SET_COVER,
           payload: data.cover,
         });
-        setShow(false);
-        getUser();
+
+        setTimeout(function () {
+          setLoading(false);
+          setShow(false);
+        }, 1500);
       }
     } catch (error) {
       console.log(error);
@@ -58,23 +68,19 @@ const Cover: FC<Props> = ({ getUser }: Props) => {
         className="btn btn-sm coverUpdateBtn"
         onClick={handleShow}
       >
-        <img
-          src={edit}
-          className="img"
-          alt=""
-          width={27}
-        />
+        <img src={edit} className="img" alt="" width={27} />
       </Button>
 
       <Modal id="coverModal" size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Update cover</Modal.Title>
         </Modal.Header>
+        <ToastContainer />
         <Modal.Body>
           <div className="imgWrapper">
             <img
               className="profile-pic"
-              src={profileCover}
+              src={dc ? dc : defaultCover}
               alt="imag"
               width="430px"
               height="430px"
@@ -87,7 +93,7 @@ const Cover: FC<Props> = ({ getUser }: Props) => {
               type="file"
               ref={inputBtn}
               className="d-none"
-              onChange={(e) => inputFile(e)}
+              onChange={handleFileInput}
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -103,10 +109,19 @@ const Cover: FC<Props> = ({ getUser }: Props) => {
           </button>
           <Button
             variant="primary"
-            onClick={() => newCover()}
+            onClick={newCover}
             className="ml-auto modal-btn"
           >
-            Update
+            {loading ? (
+              <Loader
+                color={'white'}
+                marginTop={'0px'}
+                width={'28px'}
+                height={'28px'}
+              />
+            ) : (
+              <p>update</p>
+            )}
           </Button>
         </Modal.Footer>
       </Modal>

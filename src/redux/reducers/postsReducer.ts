@@ -1,15 +1,19 @@
-import { AnyAction } from "redux";
-import { GET_BLOGS } from "../actions";
-import { initialState } from "../store";
+import { AnyAction } from 'redux';
+import { Actions } from '../actions';
+import { initialState } from '../store';
 
-const postsReducer = (state = initialState.posts, action: AnyAction) => {
-    const { type, payload } = action;
-    switch(type) {
-        case GET_BLOGS: 
-        return  payload  
-        
-       default: return state
-    }
-}
+const postsReducer = (state = initialState.data, action: AnyAction) => {
+  const { type, payload } = action;
+  switch (type) {
+    case Actions.GET_POSTS:
+      return {
+        ...state,
+        posts: payload,
+      };
 
-export default postsReducer
+    default:
+      return state;
+  }
+};
+
+export default postsReducer;

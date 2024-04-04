@@ -1,9 +1,9 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { User, Rooms, Message } from "../../redux/interfaces";
-import { Dropdown, ListGroup } from "react-bootstrap";
-import { IUser } from "../../interfaces/IUser";
-import { Socket } from "socket.io-client";
-import API from "../../lib/API";
+import React, { Dispatch, SetStateAction } from 'react';
+import { User, Rooms, Message } from '../../redux/interfaces';
+import { Dropdown, ListGroup } from 'react-bootstrap';
+import { OnlineUser } from '../../interfaces/OnlineUser';
+import { Socket } from 'socket.io-client';
+import API from '../../lib/API';
 
 interface RoomProps {
   index: number;
@@ -11,7 +11,7 @@ interface RoomProps {
   selectedIndex: number | undefined;
   setSelectedIndex: Dispatch<SetStateAction<number | undefined>>;
   currentUser: User;
-  onlineUsers: IUser[];
+  onlineUsers: OnlineUser[];
   chatHistory: Message[];
   currentChat: Rooms | null;
   setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void;
@@ -33,10 +33,8 @@ export default function Convo(props: RoomProps) {
     setOpenConvo,
   } = props;
 
-  const member = room.members.find(
-    (members) => members._id !== currentUser!._id
-  );
-  const activeStatus = onlineUsers.some((u) => u._id === member!._id);
+  const member = room.members.find((members) => members.id !== currentUser?.id);
+  const activeStatus = onlineUsers.some((u) => u.id === member?.id);
 
   function multiTask(index: number, room: Rooms) {
     setSelectedIndex(index);
@@ -55,14 +53,14 @@ export default function Convo(props: RoomProps) {
         <React.Fragment>
           <div className="onlineIconConvo">
             <img
-              src={member!.image}
+              src={member?.image}
               className="roundpic"
               alt=""
               width={37}
               height={37}
             />
           </div>
-          {activeStatus === true ? (
+          {activeStatus ? (
             <div className="onlineBadgeConvo">
               <img
                 src="https://img.icons8.com/ios-filled/50/26e07f/new-moon.png"
@@ -74,11 +72,11 @@ export default function Convo(props: RoomProps) {
           ) : null}
         </React.Fragment>
         <div className="ml-2">
-          <div className="dmUserName">{member!.userName}</div>
+          <div className="dmUserName">{member?.username}</div>
           <div className="textHolder">
             {chatHistory.map((message, i) => (
               <React.Fragment key={i}>
-                {room!._id === message!.roomId && (
+                {room?._id === message?.roomId && (
                   <React.Fragment>
                     {i === chatHistory.length - 1 && (
                       <p key={i} className="text-light msgtext">
@@ -92,7 +90,7 @@ export default function Convo(props: RoomProps) {
           </div>
         </div>
         {notification &&
-          chatHistory.some((msg) => msg.sender === member!._id) && (
+          chatHistory.some((msg) => msg.sender === member?.id) && (
             <div className="ml-auto">
               <img
                 src="https://img.icons8.com/ios-glyphs/50/ffffff/new.png"
@@ -125,7 +123,7 @@ export const DeleteConversations: React.FC<ConvoProps> = ({
 
       const newConvo = conversation.filter((convo) => convo._id !== convoId);
       setConversation(newConvo);
-      socket.emit("deleteConversation");
+      socket.emit('deleteConversation');
     } catch (error) {
       console.error(error);
     }
@@ -135,7 +133,7 @@ export const DeleteConversations: React.FC<ConvoProps> = ({
     <React.Fragment>
       <Dropdown
         className="dropdowntext ml-auto"
-        style={{ top: "auto", zIndex: 100, bottom: "45px" }}
+        style={{ top: 'auto', zIndex: 100, bottom: '45px' }}
       >
         <Dropdown.Toggle className="btn btn-dark dropdownbtn">
           <div className="text-muted dots">

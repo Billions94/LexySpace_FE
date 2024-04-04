@@ -1,8 +1,8 @@
-import { Dispatch, SetStateAction } from "react";
-import { NavigateFunction } from "react-router-dom";
+import { Dispatch, SetStateAction } from 'react';
+import { NavigateFunction } from 'react-router-dom';
+import { Post } from '../../../redux/interfaces';
 
 export interface CreateNewPost {
-  userName: string;
   post: {
     text: string;
   };
@@ -33,4 +33,8 @@ export interface UpdatePost {
 
 export interface SharePost extends Omit<CreateNewPost, 'setPost'> {
   navigate: NavigateFunction;
+  post: {
+    text: string;
+    sharedPost: Post;
+  };
 }

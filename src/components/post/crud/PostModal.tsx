@@ -1,10 +1,11 @@
-import { useState, Dispatch, SetStateAction, createRef } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import useAuthGuard from "../../../lib/index";
-import { ReduxState } from "../../../redux/interfaces";
-import { createPost } from "../../../lib/requests/post";
-import "./styles.scss";
+import { useState, Dispatch, SetStateAction, createRef } from 'react';
+import { Button, Modal, Form } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import useAuthGuard from '../../../lib/index';
+import { ReduxState } from '../../../redux/interfaces';
+import { createPost } from '../../../lib/requests/post';
+import './styles.scss';
+import React from 'react';
 
 interface PostModalProps {
   show: boolean;
@@ -16,11 +17,11 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
 
   const dispatch = useDispatch();
   const { user } = useSelector((state: ReduxState) => state.data);
-  const userName = user!.userName;
+  const userName = user?.username;
 
   const handleClose = () => setShow(false);
-  const [post, setPost] = useState({ text: "" });
-  const [media, setMedia] = useState<string>("");
+  const [post, setPost] = useState({ text: '' });
+  const [media, setMedia] = useState<string>('');
 
   const newPostData = {
     userName,
@@ -38,10 +39,14 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
     }
   };
 
+  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+    setPost({ ...post, [target.name]: target });
+  }
+
   const inputBtn = createRef<HTMLInputElement>();
 
   const openInputFile = () => {
-    inputBtn!.current!.click();
+    inputBtn?.current?.click();
   };
 
   return (
@@ -60,7 +65,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
           <div className="d-flex userInfoContainer">
             <div>
               <img
-                src={user!.image}
+                src={user?.image}
                 alt=""
                 className="roundpic"
                 width={47}
@@ -69,8 +74,8 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
             </div>
             <div className="ml-2 userInfo">
               <span>
-                {user!.firstName} {user!.lastName}
-                {user!.isVerified === true && (
+                {user?.firstName} {user?.lastName}
+                {user?.isVerified && (
                   <span className=" mt-1 ml-1  d-flex-row align-items-center">
                     <img
                       alt=""
