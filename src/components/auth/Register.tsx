@@ -9,10 +9,10 @@ import { registerForm } from './forms/registerForm';
 import { UseInput } from '../hooks/useInput';
 import { RegisterResponse } from '../../redux/interfaces';
 import axios from 'axios';
-import './styles.scss';
 import { useDispatch } from 'react-redux';
 import { setTokenAction } from '../../redux/actions';
 import { RegisterInput } from './interfaces';
+import './styles.scss';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();

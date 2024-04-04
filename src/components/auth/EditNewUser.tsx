@@ -53,9 +53,9 @@ const EditNewUser: React.FC = () => {
 
   async function saveUser(user: any): Promise<void> {
     localStorage.setItem('user', user);
-    const localizedUser = localStorage.getItem('user');
+    const userFromLocalStorage = localStorage.getItem('user');
 
-    dispatch(saveUserAction(localizedUser ? localizedUser : user));
+    dispatch(saveUserAction(userFromLocalStorage ? userFromLocalStorage : user));
     localStorage.removeItem('user');
   }
 

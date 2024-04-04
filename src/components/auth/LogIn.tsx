@@ -31,7 +31,7 @@ const LogIn: React.FC = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post<LogInResponse>(
-        `${apiUrl}/sessions/create`,
+        `${apiUrl}/sessions`,
         loginData
       );
 

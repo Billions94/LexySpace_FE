@@ -19,10 +19,8 @@ interface SingleCommentProps {
 }
 
 const SingleComment: React.FC<SingleCommentProps> = ({
-  id,
   blog,
   comment,
-  comments,
   fetchComments,
   setComments,
 }) => {

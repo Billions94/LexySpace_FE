@@ -22,7 +22,6 @@ export const AppRoutes: Array<[string, React.FC]> = [
   ['/', BeforeLogin],
   ['messages', Messages],
   ['messages/:id', Messages],
-  //['blog', Blog],
   ['userProfile/:id', UserProfile],
   ['edit', Edit],
   ['followers/:id', Followers],

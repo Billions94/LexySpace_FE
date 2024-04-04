@@ -6,8 +6,6 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store, { localDispatcher, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { DevSupport } from '@react-buddy/ide-toolbox';
-import { ComponentPreviews, useInitial } from './dev';
 import { useTokens } from './util/funcs';
 import API from './lib/API';
 import { Actions } from './redux/actions';
@@ -16,12 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <DevSupport
-          ComponentPreviews={ComponentPreviews}
-          useInitialHook={useInitial}
-        >
-          <App />
-        </DevSupport>
+        <App />
       </PersistGate>
     </Provider>
   </React.StrictMode>,
@@ -43,7 +36,7 @@ API.interceptors.request.use(
       Authorization: accessToken,
       'Content-Type': 'application/json',
       'x-refresh': refreshToken,
-    };
+    } as any;
 
     return config;
   },
