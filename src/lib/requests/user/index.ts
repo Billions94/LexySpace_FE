@@ -9,7 +9,7 @@ export async function follow(args: FollowUser) {
   const { userId, dispatch, following } = args;
 
   try {
-    const { data } = await API.post(`/users/me/follow`, following);
+    const { data } = await API.post(`/users/current-user/follow`, following);
     if (data) {
       await getPosts(dispatch);
       dispatch(getFollowersAction(userId));

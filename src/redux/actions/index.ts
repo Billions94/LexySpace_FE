@@ -65,7 +65,7 @@ export const getUsersAction = (
   return async function (dispatch) {
     try {
       const { data } = await API.get<User>(
-        userId ? `/users/${userId}` : '/users/me',
+        userId ? `/users/${userId}` : '/users/current-user',
         {
           params: { filter: 'verified' },
         }
