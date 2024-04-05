@@ -12,11 +12,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ReduxState, User } from '../../../redux/interfaces';
 import API from '../../../lib/API';
-import {
-  getPosts,
-  getUsersAction,
-  saveUserAction,
-} from '../../../redux/actions';
+import { getUsersAction } from '../../../redux/actions';
 import React from 'react';
 import { AvatarStyle, NewUserAvatar } from '../../../dummy/NewUserAvatar';
 import { Avatar } from '@mui/material';
@@ -65,7 +61,10 @@ const UpdateImage: FC<Props> = ({
       const formData = new FormData();
       formData.append('image', image);
 
-      const { data } = await API.patch(`/users/me/profilePic`, formData);
+      const { data } = await API.patch(
+        `/users/current-user/profilePic`,
+        formData
+      );
 
       if (data) {
         setShow(false);

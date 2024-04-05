@@ -28,7 +28,7 @@ const EditProfile: FC<Props> = ({ show, setShow, getUser }: Props) => {
 
   async function edit() {
     try {
-      const { data } = await API.patch(`/users/me`, input);
+      const { data } = await API.patch(`/users/current-user`, input);
 
       if (data) {
         setShow(false);

@@ -8,11 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   followAction,
   getFollowersAction,
-  getFollowersState,
-  getPosts,
   setCover,
   setDynamicId,
-  updateFollowersState,
 } from '../../../redux/actions';
 import { defaultAvatar, defaultCover } from '../../../assets/icons';
 import { ReduxState, User } from '../../../redux/interfaces';
@@ -52,7 +49,7 @@ const UserProfile: FC = () => {
 
   const follow = async () => {
     try {
-      const { data } = await API.post(`/users/me/follow`, follower);
+      const { data } = await API.post(`/users/current-user/follow`, follower);
       if (data) {
         dispatch(getFollowersAction(id));
       }
