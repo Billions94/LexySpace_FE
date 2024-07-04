@@ -1,25 +1,25 @@
-import React from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
-import { Dispatch, SetStateAction, FC } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import API from '../../../lib/API';
-import { useSelector } from 'react-redux';
+import { getUsersAction } from '../../../redux/actions';
 import { ReduxState } from '../../../redux/interfaces';
-import './styles.scss';
 import { UseInput } from '../../hooks/useInput';
+import './styles.scss';
 interface Props {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
-  getUser: () => Promise<void>;
 }
 
-const EditProfile: FC<Props> = ({ show, setShow, getUser }: Props) => {
+const EditProfile: FC<Props> = ({ show, setShow }: Props) => {
+  const dispatch = useDispatch();
   const handleClose = () => setShow(false);
   const { user } = useSelector((state: ReduxState) => state.data);
 
   const savedState = {
     firstName: user.firstName,
     lastName: user.lastName,
-    userName: user.username,
+    userName: user.userName,
     bio: user.bio,
     location: user.location,
   };
@@ -28,11 +28,11 @@ const EditProfile: FC<Props> = ({ show, setShow, getUser }: Props) => {
 
   async function edit() {
     try {
-      const { data } = await API.patch(`/users/me`, input);
+      const { data } = await API.patch(`/users/current-user`, input);
 
       if (data) {
         setShow(false);
-        await getUser();
+        dispatch(getUsersAction());
       }
     } catch (error) {
       console.log(error);
@@ -55,7 +55,7 @@ const EditProfile: FC<Props> = ({ show, setShow, getUser }: Props) => {
         <Modal.Body>
           <Form id="form">
             {Object.keys(input).map((key) => (
-              <Form.Group controlId="blog-form" className="mt-3">
+              <Form.Group controlId="blog-form" key={key} className="mt-3">
                 <Form.Label className="label">{key.toLowerCase()}</Form.Label>
                 <Form.Control
                   id="control"
@@ -72,7 +72,7 @@ const EditProfile: FC<Props> = ({ show, setShow, getUser }: Props) => {
         <Modal.Footer>
           {!user.firstName &&
           !user.lastName &&
-          !user.username &&
+          !user.userName &&
           !user.bio &&
           !user.location ? (
             <Button size="lg" disabled className="modal-btn" variant="primary">

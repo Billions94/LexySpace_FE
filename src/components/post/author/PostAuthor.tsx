@@ -1,14 +1,14 @@
 import React from 'react';
-import { Row, Image } from 'react-bootstrap';
+import { Image, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { dateFormatter } from '../../../lib';
-import UserInfo from './UserInfo';
-import { User } from '../../../redux/interfaces';
 import { defaultAvatar } from '../../../assets/icons';
+import { dateFormatter } from '../../../lib';
+import { User } from '../../../redux/interfaces';
 import './styles.scss';
+import UserInfo from './UserInfo';
 
 const PostAuthor: React.FC<User> = (props) => {
-  const { firstName, isVerified, image, createdAt, username, id } = props;
+  const { firstName, isVerified, image, createdAt, userName } = props;
   const [timer, setTimer] = React.useState<boolean>(false);
   const [show, setShow] = React.useState<boolean>(false);
 
@@ -42,7 +42,7 @@ const PostAuthor: React.FC<User> = (props) => {
           props={props}
         />
 
-        <Link className="text-decoration-none" to={`/userProfile/${id}`}>
+        <Link className="text-decoration-none" to={`/userProfile/${userName}`}>
           <div id="authorDetails" className="d-flex">
             <Image
               style={{ width: '50px', height: '50px' }}
@@ -64,7 +64,7 @@ const PostAuthor: React.FC<User> = (props) => {
                   </span>
                 )}
               </h6>
-              <h6 className="text-muted authorUserName mb-1">@{username}</h6>
+              <h6 className="text-muted authorUserName mb-1">@{userName}</h6>
               <h6 className="text-muted postTime">
                 ● {dateFormatter(createdAt as Date)} ago
               </h6>

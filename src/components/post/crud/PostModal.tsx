@@ -1,11 +1,10 @@
-import { useState, Dispatch, SetStateAction, createRef } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { Dispatch, SetStateAction, createRef, useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import useAuthGuard from '../../../lib/index';
-import { ReduxState } from '../../../redux/interfaces';
 import { createPost } from '../../../lib/requests/post';
+import { ReduxState } from '../../../redux/interfaces';
 import './styles.scss';
-import React from 'react';
 
 interface PostModalProps {
   show: boolean;
@@ -17,7 +16,7 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
 
   const dispatch = useDispatch();
   const { user } = useSelector((state: ReduxState) => state.data);
-  const userName = user?.username;
+  const userName = user?.userName;
 
   const handleClose = () => setShow(false);
   const [post, setPost] = useState({ text: '' });
@@ -38,10 +37,6 @@ const PostModal = ({ show, setShow }: PostModalProps) => {
       setMedia(e.target.files[0]);
     }
   };
-
-  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
-    setPost({ ...post, [target.name]: target });
-  }
 
   const inputBtn = createRef<HTMLInputElement>();
 

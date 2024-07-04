@@ -1,7 +1,10 @@
-import React from 'react';
-import { NavbarProp } from '../interface/navbar';
-import { Dropdown } from 'react-bootstrap';
 import { Avatar } from '@mui/material';
+import React from 'react';
+import { Dropdown, Image } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { useReroute } from '../../../components/hooks/useReroute';
+import { NewUserAvatar } from '../../../dummy/NewUserAvatar';
+import { ReduxState, User } from '../../../redux/interfaces';
 import {
   appendIdToUrl,
   getNavbarIcons,
@@ -10,10 +13,7 @@ import {
   isWelcomePage,
   sx,
 } from '../funcs/funcs';
-import { useSelector } from 'react-redux';
-import { ReduxState, User } from '../../../redux/interfaces';
-import { NewUserAvatar } from '../../../dummy/NewUserAvatar';
-import { Image } from 'react-bootstrap';
+import { NavbarProp } from '../interface/navbar';
 import '../styles.scss';
 
 interface NavBarDropdownProps {
@@ -41,6 +41,7 @@ export const NavBarDropdown: React.FC<
     user,
   } = { ...props } as NavbarProp & NavBarDropdownProps;
 
+  const { route } = useReroute();
   const loggedInUser = useSelector((state: ReduxState) => state.data.user);
 
   const avatarStyle: { [key: string]: string } = {
@@ -119,10 +120,12 @@ export const NavBarDropdown: React.FC<
               onClick={() =>
                 key.name === 'logout'
                   ? key.logOut && key.logOut()
+                  : key.name === 'home'
+                  ? route()
                   : key.navigate &&
                     key.navigate(
                       isDynamicUserRoute(user as User)
-                        ? appendIdToUrl(key.url, loggedInUser.id)
+                        ? appendIdToUrl(key.url, loggedInUser.userName)
                         : String(key.url)
                     )
               }
@@ -133,6 +136,7 @@ export const NavBarDropdown: React.FC<
                     alt=""
                     className="lrdimg"
                     width="20px"
+                    height="20px"
                     src={key.src}
                     rounded={user && true}
                   />

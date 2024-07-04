@@ -1,13 +1,13 @@
-import { Icon, NavbarProp } from '../interface/navbar';
-import logo from '../../../assets/asset6.png';
-import message from '../../../assets/message.png';
-import userProfile from '../../../assets/user.png';
-import settings from '../../../assets/settings.png';
-import logOutIcon from '../../../assets/logOut.png';
-import home from '../../../assets/home.png';
 import { NavigateFunction } from 'react-router-dom';
-import { getDynamicIdFromRedux } from '../../../redux/store';
+import logo from '../../../assets/asset6.png';
+import home from '../../../assets/home.png';
+import logOutIcon from '../../../assets/logOut.png';
+import message from '../../../assets/message.png';
+import settings from '../../../assets/settings.png';
+import userProfile from '../../../assets/user.png';
 import { User } from '../../../redux/interfaces';
+import { getDynamicIdFromRedux } from '../../../redux/store';
+import { Icon, NavbarProp } from '../interface/navbar';
 
 const dropDownMenuStyles = {
   borderRadius: '20px',
@@ -419,11 +419,12 @@ export function isWelcomePage(path: string): boolean {
 }
 
 export function isDynamicUserRoute(loggedInUser: User): boolean {
-  if (getDynamicIdFromRedux() === undefined && loggedInUser.id) return true;
+  if (getDynamicIdFromRedux() === undefined && loggedInUser.userName)
+    return true;
 
   return (
     getDynamicIdFromRedux() !== undefined &&
-    getDynamicIdFromRedux() !== loggedInUser.id
+    getDynamicIdFromRedux() !== loggedInUser.userName
   );
 }
 
