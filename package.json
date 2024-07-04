@@ -1,7 +1,7 @@
 {
   "name": "capstone-fe-ts",
   "engines": {
-    "node": "20.x"
+    "node": ">=20"
   },
   "private": true,
   "dependencies": {
