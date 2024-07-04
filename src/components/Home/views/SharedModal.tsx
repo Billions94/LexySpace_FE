@@ -28,7 +28,7 @@ const ShareModal: FC<Props> = ({ id, user, show, setShow, createdAt }) => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state: ReduxState) => state['data']);
   const loggedInUser = useSelector((state: ReduxState) => state.data.user);
-  const userName = loggedInUser?.username;
+  const userName = loggedInUser?.userName;
   const sharePostBody = posts.find((p) => p.id === id);
 
   const [post, setPost] = useState({

@@ -44,7 +44,7 @@ const Cover: React.FC = () => {
       const formData = new FormData();
       formData.append('cover', cover);
 
-      const { data } = await API.post(`/users/me/cover`, formData);
+      const { data } = await API.post(`/users/current-user/cover`, formData);
       if (data) {
         dispatch({
           type: Actions.SET_COVER,

@@ -1,5 +1,4 @@
-import React from 'react';
-import { FC, useState } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '../../../redux/interfaces';
 import RecentItem from './RecentItem';
@@ -25,11 +24,9 @@ const Recentposts: FC<Props> = ({ userId }) => {
         {!showRecent ? null : (
           <>
             {posts.map((post) => (
-              <>
-                {userId === post.user.id ? (
-                  <RecentItem key={post.id} post={post} />
-                ) : null}
-              </>
+              <Fragment key={post.id}>
+                {userId === post.user.id ? <RecentItem post={post} /> : null}
+              </Fragment>
             ))}
           </>
         )}

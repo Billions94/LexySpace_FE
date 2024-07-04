@@ -8,12 +8,14 @@ interface BlogListProps {
   posts: Post[];
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  reRoute?: boolean;
 }
 
 const BlogList: React.FC<BlogListProps> = ({
   posts,
   isLoading,
   setIsLoading,
+  reRoute,
 }) => {
   useEffect(() => {
     setTimeout(() => {

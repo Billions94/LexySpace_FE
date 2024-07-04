@@ -1,19 +1,19 @@
+import { Avatar } from '@mui/material';
+import Picker from 'emoji-picker-react';
 import React, {
   createRef,
-  useState,
   Dispatch,
-  SetStateAction,
   KeyboardEvent,
+  SetStateAction,
+  useState,
 } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { Image, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ReduxState } from '../../redux/interfaces';
-import { Row, Image } from 'react-bootstrap';
-import Picker from 'emoji-picker-react';
-import { createPost } from '../../lib/requests/post';
 import { defaultAvatar, loadingNew } from '../../assets/icons';
-import { Avatar } from '@mui/material';
 import { AvatarStyle, NewUserAvatar } from '../../dummy/NewUserAvatar';
+import { createPost } from '../../lib/requests/post';
+import { ReduxState } from '../../redux/interfaces';
 
 interface PostContainerProps {
   fetchLoading: boolean;
@@ -26,7 +26,7 @@ const PostContainer = ({
 }: PostContainerProps) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: ReduxState) => state.data);
-  const userName = user?.username;
+  const userName = user?.userName;
 
   const [post, setPost] = useState({ text: '' });
   const [media, setMedia] = useState<string>('');

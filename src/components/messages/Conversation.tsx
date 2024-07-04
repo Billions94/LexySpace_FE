@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { User, Rooms, Message } from '../../redux/interfaces';
 import { Dropdown, ListGroup } from 'react-bootstrap';
-import { OnlineUser } from '../../interfaces/OnlineUser';
 import { Socket } from 'socket.io-client';
+import { OnlineUser } from '../../interfaces/OnlineUser';
 import API from '../../lib/API';
+import { Message, Rooms, User } from '../../redux/interfaces';
 
 interface RoomProps {
   index: number;
@@ -72,7 +72,7 @@ export default function Convo(props: RoomProps) {
           ) : null}
         </React.Fragment>
         <div className="ml-2">
-          <div className="dmUserName">{member?.username}</div>
+          <div className="dmUserName">{member?.userName}</div>
           <div className="textHolder">
             {chatHistory.map((message, i) => (
               <React.Fragment key={i}>

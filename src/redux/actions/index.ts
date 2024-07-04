@@ -106,14 +106,14 @@ export const getPostById = (
   return async function (dispatch) {
     try {
       const { data } = await API.get(`/posts/${id}`);
-      const { posts } = data;
+      const { post } = data;
 
       dispatch({
         type: Actions.GET_POST_BY_ID,
-        payload: posts,
+        payload: post,
       });
 
-      return posts;
+      return post;
     } catch (e) {
       console.log(e.message);
     }
