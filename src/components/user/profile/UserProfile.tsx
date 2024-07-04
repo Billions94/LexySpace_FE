@@ -1,30 +1,27 @@
+import { Avatar } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { Button, Col, Image, Row } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
-import useAuthGuard from '../../../lib/index';
-import EditProfile from './EditProfile';
-import UpdateImage from './UpdateImage';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { defaultAvatar, defaultCover } from '../../../assets/icons';
+import { Verified } from '../../../assets/svg/verified';
+import { AvatarStyle, NewUserAvatar } from '../../../dummy/NewUserAvatar';
+import API from '../../../lib/API';
+import useAuthGuard from '../../../lib/index';
+import { getUser } from '../../../lib/requests/user';
 import {
   followAction,
   getFollowersAction,
-  getFollowersState,
-  getPosts,
   setCover,
   setDynamicId,
-  updateFollowersState,
 } from '../../../redux/actions';
-import { defaultAvatar, defaultCover } from '../../../assets/icons';
 import { ReduxState, User } from '../../../redux/interfaces';
+import Loader from '../../loader/Loader';
 import Recentposts from '../recentPost/RecentPosts';
 import Cover from './Cover';
-import Loader from '../../loader/Loader';
-import API from '../../../lib/API';
-import { Avatar } from '@mui/material';
-import { NewUserAvatar, AvatarStyle } from '../../../dummy/NewUserAvatar';
+import EditProfile from './EditProfile';
 import './styles.scss';
-import { Verified } from '../../../assets/svg/verified';
-import { getUser } from '../../../lib/requests/user';
+import UpdateImage from './UpdateImage';
 
 const UserProfile: FC = () => {
   useAuthGuard();
