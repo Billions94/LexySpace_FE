@@ -1,17 +1,17 @@
+import Picker from 'emoji-picker-react';
 import React from 'react';
 import { Dropdown, Form, Image } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { defaultAvatar } from '../../assets/icons';
 import { dateFormatter } from '../../lib';
+import { deleteComment } from '../../lib/requests/comment';
 import { Comment, Post, ReduxState, Replies } from '../../redux/interfaces';
 import Reply from '../reply/Reply';
-import Picker from 'emoji-picker-react';
-import { deleteComment } from '../../lib/requests/comment';
-import { defaultAvatar } from '../../assets/icons';
 
 interface SingleCommentProps {
   id: string | undefined;
-  blog: Post;
+  post: Post;
   comment: Comment;
   comments: Comment[];
   fetchComments: () => Promise<void>;
@@ -19,7 +19,7 @@ interface SingleCommentProps {
 }
 
 const SingleComment: React.FC<SingleCommentProps> = ({
-  blog,
+  post,
   comment,
   fetchComments,
   setComments,
@@ -116,19 +116,6 @@ const SingleComment: React.FC<SingleCommentProps> = ({
       console.log(error);
     }
   };
-
-  // const deleteComment = async (c: Comments) => {
-  //   try {
-  //     const response = await fetch(`${apiUrl}/posts/${id}/comments/${c._id}`,
-  //       { method: "DELETE" }
-  //     )
-  //     if (response.ok) {
-  //       fetchComments()
-  //     }
-  //   } catch (error) {
-  //     console.log("oops we encountered an error", error)
-  //   }
-  // }
 
   const deletePostData = {
     commentId: comment.id,
@@ -231,7 +218,7 @@ const SingleComment: React.FC<SingleCommentProps> = ({
                       .match(`mp4|MPEG-4|mkv`) && (
                       <video
                         src={comment.media}
-                        className="blog-video"
+                        className="post-video"
                         controls
                         autoPlay
                         muted
@@ -248,7 +235,7 @@ const SingleComment: React.FC<SingleCommentProps> = ({
           </div>
         </div>
 
-        <Reply blog={blog} comment={comment} commentID={comment.id} />
+        <Reply post={post} comment={comment} commentID={comment.id} />
 
         {!show ? null : (
           <div className="reply">

@@ -4,7 +4,7 @@ import { Form, FormAttribute } from '../../components/auth/interfaces';
 export function getFormAttributes<T>(input: T, forms: Form[]): FormAttribute[] {
   const attributes: FormAttribute[] = [];
 
-  for (const [index, value] of Object.values(input).entries()) {
+  for (const [index, value] of Object.values(<any>input).entries()) {
     const attribute = {
       type: forms[index].type,
       name: forms[index].name,

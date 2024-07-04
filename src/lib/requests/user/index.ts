@@ -1,9 +1,9 @@
+import React from 'react';
 import { getFollowersAction } from '../../../redux/actions';
+import { User } from '../../../redux/interfaces';
 import API from '../../API';
 import { FollowUser } from '../interfaces/user.interface';
 import { getPosts } from '../post';
-import React from 'react';
-import { User } from '../../../redux/interfaces';
 
 export async function follow(args: FollowUser) {
   const { userId, dispatch, following } = args;
@@ -25,10 +25,8 @@ export const getUser = async (
 ) => {
   try {
     const { data } = await API.get(`/users/${id}`);
-    if (data) {
-      setUser && setUser(data);
-    }
-    console.log({ data });
+    if (data) setUser && setUser(data);
+
     return data;
   } catch (error) {
     console.log(error);

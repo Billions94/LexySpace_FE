@@ -1,80 +1,68 @@
-import { Modal, Button } from 'react-bootstrap';
-import {
-  useState,
+import { Avatar } from '@mui/material';
+import React, {
   Dispatch,
+  FC,
   SetStateAction,
   createRef,
-  useEffect,
-  FC,
+  useState,
 } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { Button, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { ReduxState, User } from '../../../redux/interfaces';
+import { AvatarStyle, NewUserAvatar } from '../../../dummy/NewUserAvatar';
 import API from '../../../lib/API';
 import { getUsersAction } from '../../../redux/actions';
-import React from 'react';
-import { AvatarStyle, NewUserAvatar } from '../../../dummy/NewUserAvatar';
-import { Avatar } from '@mui/material';
+import { ReduxState, User } from '../../../redux/interfaces';
 import Loader from '../../loader/Loader';
 
 interface Props {
   xUser: User;
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
-  getUser: () => Promise<void>;
   handlePic: () => void;
 }
 
-const UpdateImage: FC<Props> = ({
-  xUser,
-  show,
-  setShow,
-  getUser,
-  handlePic,
-}) => {
+const UpdateImage: FC<Props> = ({ xUser, show, setShow, handlePic }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state: ReduxState) => state.data);
-  const me = user?.id;
+  const me = user?.userName;
 
   const [image, setImage] = useState<string>('');
-  const [update, setUpdate] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const target = (e: any) => {
-    if (e.target && e.target.files[0]) {
-      setImage(e.target.files[0]);
-    }
-  };
+  const target = (e: any) =>
+    e.target && e.target.files && setImage(e.target.files[0]);
 
   const inputBtn = createRef<HTMLInputElement>();
-
-  const openInputFile = () => {
-    inputBtn?.current?.click();
-  };
+  const openInputFile = () => inputBtn?.current?.click();
   const handleClose = () => setShow(false);
 
   const updateProfilePic = async () => {
     setLoading(true);
+
     try {
       const formData = new FormData();
       formData.append('image', image);
 
       const { data } = await API.patch(
         `/users/current-user/profilePic`,
-        formData
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
 
-      if (data) {
+      if (data?.image) {
         setShow(false);
-        setUpdate(data?.image);
-        await getUser();
+        dispatch(getUsersAction());
 
-        setTimeout(function () {
+        setTimeout(() => {
           setLoading(false);
         }, 2400);
-        setTimeout(function () {
+        setTimeout(() => {
           setShow(false);
         }, 2500);
       }
@@ -82,10 +70,6 @@ const UpdateImage: FC<Props> = ({
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    dispatch(getUsersAction());
-  }, [update]);
 
   return (
     <div>

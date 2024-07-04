@@ -1,14 +1,14 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.scss';
-import App from './App';
 import { Provider } from 'react-redux';
-import store, { localDispatcher, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { useTokens } from './util/funcs';
+import App from './App';
+import './index.scss';
 import API from './lib/API';
 import { Actions } from './redux/actions';
+import store, { localDispatcher, persistor } from './redux/store';
+import { useTokens } from './util/funcs';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -34,7 +34,6 @@ API.interceptors.request.use(
 
     config.headers = {
       Authorization: accessToken,
-      'Content-Type': 'application/json',
       'x-refresh': refreshToken,
     } as any;
 

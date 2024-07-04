@@ -1,10 +1,10 @@
-import { OnlineUser } from '../../interfaces/OnlineUser';
-import { Rooms, User } from '../../redux/interfaces';
-import { defaultAvatar } from '../../assets/icons';
-import { Image } from 'react-bootstrap';
-import API from '../../lib/API';
-import { Socket } from 'socket.io-client';
 import React from 'react';
+import { Image } from 'react-bootstrap';
+import { Socket } from 'socket.io-client';
+import { defaultAvatar } from '../../assets/icons';
+import { OnlineUser } from '../../interfaces/OnlineUser';
+import API from '../../lib/API';
+import { Rooms, User } from '../../redux/interfaces';
 
 interface OnlineUsersProps {
   onlineUsers: OnlineUser[];
@@ -77,7 +77,7 @@ export default function OnlineUsers({
       <div className="mb-1">Online</div>
       <div className="d-flex">
         {onlineUsers
-          .filter((user) => user.userName !== currentUser.username)
+          .filter((user) => user.userName !== currentUser.userName)
           .map((friend) => (
             <div
               key={friend.id}

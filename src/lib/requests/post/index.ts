@@ -1,11 +1,11 @@
-import API from '../../API';
+import { Dispatch } from 'redux';
 import { Actions } from '../../../redux/actions';
+import API from '../../API';
 import {
   CreateNewPost,
   SharePost,
   UpdatePost,
 } from '../interfaces/post.interface';
-import { Dispatch } from 'redux';
 
 export async function getPosts(dispatch: Dispatch, postId?: string) {
   try {

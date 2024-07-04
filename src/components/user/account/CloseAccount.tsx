@@ -1,12 +1,12 @@
 import React from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import API from '../../../lib/API';
 import { getUsersAction } from '../../../redux/actions';
 import { ReduxState } from '../../../redux/interfaces';
 import Loader from '../../loader/Loader';
-import { ToastContainer, toast } from 'react-toastify';
 
 const CloseAccount = () => {
   const navigate = useNavigate();
@@ -14,24 +14,27 @@ const CloseAccount = () => {
   const { user } = useSelector((state: ReduxState) => state.data);
   const [text, setText] = React.useState('');
   const [radioValue, setRadioValue] = React.useState('');
+  const [check, setCheck] = React.useState(false);
   const radios = document.getElementsByName('radio');
-  const check = text.length > 0;
 
   function handleChange({ target }: React.ChangeEvent<HTMLTextAreaElement>) {
     setText(target.value);
   }
 
-  radios.forEach((btn: any) => {
+  radios.forEach((btn: any) =>
     btn.addEventListener('click', () => {
       if (btn.checked) {
+        setCheck(true);
         setRadioValue(btn.value);
       }
-    });
-  });
+
+      setCheck(false);
+    })
+  );
 
   const deleteUserProfile = async () => {
     try {
-      const { data } = await API.delete('/users/me', {
+      const { data } = await API.delete('/users/current-user', {
         data: check ? { reason: text } : { reason: radioValue },
       });
       if (data) {
@@ -46,6 +49,7 @@ const CloseAccount = () => {
           theme: 'light',
         });
 
+        dispatch(getUsersAction());
         sessionStorage.clear();
         setTimeout(() => {
           navigate('/');
@@ -55,10 +59,6 @@ const CloseAccount = () => {
       console.log(error);
     }
   };
-
-  React.useEffect(() => {
-    dispatch(getUsersAction());
-  }, []);
 
   return (
     <Row id="closeAccount" className="justify-content-center mt-5">

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Form, Col, Row, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import useAuthGuard from '../../lib';
-import { getUsersAction, saveUserAction } from '../../redux/actions';
-import Loader from '../loader/Loader';
 import API from '../../lib/API';
-import { UseInput } from '../hooks/useInput';
+import { getUsersAction, saveUserAction } from '../../redux/actions';
 import { ReduxState } from '../../redux/interfaces';
-import { editNewUserForm } from './forms/editNewUserForm';
 import { getFormAttributes } from '../../util/funcs';
-import { NewUserInput, FormControlSize } from './interfaces';
+import { UseInput } from '../hooks/useInput';
+import Loader from '../loader/Loader';
+import { editNewUserForm } from './forms/editNewUserForm';
 import { newUserInput } from './inputs';
+import { FormControlSize, NewUserInput } from './interfaces';
 
 const EditNewUser: React.FC = () => {
   useAuthGuard();
@@ -28,7 +28,7 @@ const EditNewUser: React.FC = () => {
 
   const target = (e: any) => {
     e.preventDefault();
-    if (e.target && e.target.files[0]) {
+    if (e.target.files) {
       setImage(e.target.files[0]);
       setAlert(true);
 
@@ -47,15 +47,13 @@ const EditNewUser: React.FC = () => {
 
   const inputBtn = React.createRef<HTMLInputElement>();
 
-  const openInputFile = () => {
-    inputBtn?.current?.click();
-  };
+  const openInputFile = () => inputBtn?.current?.click();
 
   async function saveUser(user: any): Promise<void> {
     localStorage.setItem('user', user);
     const userFromLocalStorage = localStorage.getItem('user');
 
-    dispatch(saveUserAction(userFromLocalStorage ? userFromLocalStorage : user));
+    dispatch(saveUserAction(userFromLocalStorage ?? user));
     localStorage.removeItem('user');
   }
 
@@ -164,7 +162,7 @@ const EditNewUser: React.FC = () => {
               </div>
             )}
             {getFormAttributes(input, editNewUserForm).map((form) => (
-              <Form.Group controlId="blog-form" className="">
+              <Form.Group key={form.name} controlId="blog-form" className="">
                 <Form.Label className="text-muted">
                   {form.placeholder}
                 </Form.Label>

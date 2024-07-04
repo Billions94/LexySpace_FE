@@ -1,25 +1,28 @@
-import { useEffect, useState } from 'react';
-import { Row, Col, ListGroup, Card, Accordion, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
 import {
+  Accordion,
+  Alert,
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  ListGroup,
   OverlayTrigger,
   Popover,
-  Form,
-  Container,
-  Alert,
+  Row,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import API from '../../../lib/API';
 import { getUsersAction } from '../../../redux/actions';
 import { ReduxState } from '../../../redux/interfaces';
-import API from '../../../lib/API';
 import './styles.scss';
-import React from 'react';
 
 const Settings = () => {
   const navigate = useNavigate();
 
-  const users = useSelector((state: ReduxState['data']) => state['user']);
-  const me = users?.id;
+  const user = useSelector((state: ReduxState) => state.data.user);
   const dispatch = useDispatch();
 
   const [passwordState, setPasswordState] = useState({
@@ -32,9 +35,10 @@ const Settings = () => {
 
   const changePassword = async () => {
     try {
-      const { data } = await API.patch('/users/me/resetPassword', {
+      const { data } = await API.patch('/users/current-user/resetPassword', {
         user: passwordState,
       });
+
       if (data) {
         setPasswordState({
           oldPassword: '',
@@ -80,7 +84,7 @@ const Settings = () => {
             <ListGroup.Item>
               {/* <a href={`${feUrl}/userProfile/me`} className="a-links"> */}
               <div
-                onClick={() => navigate(`/userProfile/${me}`)}
+                onClick={() => navigate(`/userProfile/${user?.userName}`)}
                 className="d-flex a-links justify-content-between"
               >
                 <div>

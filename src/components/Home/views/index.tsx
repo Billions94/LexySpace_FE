@@ -1,35 +1,33 @@
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
+  Badge,
+  Button,
+  Col,
   Container,
   Dropdown,
   Image,
-  Col,
-  Badge,
-  Button,
   Row,
 } from 'react-bootstrap';
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import { Post, Comment, User, ReduxState } from '../../../redux/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { defaultAvatar } from '../../../assets/icons';
+import useAuthGuard, { dateFormatter } from '../../../lib';
+import API from '../../../lib/API';
 import {
-  getPostById,
   likeAction,
   reRouteAction,
   setDynamicId,
 } from '../../../redux/actions';
-import { useNavigate, Link, useParams } from 'react-router-dom';
-import useAuthGuard, { dateFormatter } from '../../../lib';
-import { useSelector, useDispatch } from 'react-redux';
-import { defaultAvatar } from '../../../assets/icons';
+import { Comment, Post, ReduxState, User } from '../../../redux/interfaces';
 import CommentComponent from '../../comment/Comment';
 import AddComment from '../../comment/new/AddComment';
-import Edit from '../../post/crud/EditPost';
 import Loader from '../../loader/Loader';
-import ShareModal from './SharedModal';
-import ViewModal from './ViewModal';
 import DeleteModal from '../../post/crud/DeleteModal';
+import Edit from '../../post/crud/EditPost';
 import LikesModal from './LikesModal';
-import API from '../../../lib/API';
-import React from 'react';
+import ShareModal from './SharedModal';
 import './styles.scss';
+import ViewModal from './ViewModal';
 
 const Blog: React.FC = () => {
   useAuthGuard();
@@ -43,7 +41,7 @@ const Blog: React.FC = () => {
 
   const [comments, setComments] = useState<Comment[]>([]);
   const [author, setAuthor] = useState<User | null>(null);
-  const [blog, setBlog] = useState<Post | null>(null);
+  const [post, setPost] = useState<Post | null>(null);
   const [share, setShare] = useState(false);
 
   const [display, setDisplay] = useState(false);
@@ -70,7 +68,7 @@ const Blog: React.FC = () => {
   const url = process.env.REACT_APP_GET_URL;
   const dispatch = useDispatch();
   const { user, posts } = useSelector((state: ReduxState) => state.data);
-  const me = user?.id;
+  const me = user?.userName;
   const liker = { userId: me };
   // for interaction icons label
   const [show, setShow] = useState(false);
@@ -97,10 +95,7 @@ const Blog: React.FC = () => {
   const fetchBlog = async (postId: string) => {
     try {
       const { data } = await API.get(`/posts/${postId}`);
-      if (data) {
-        setBlog(data.posts as Post);
-        setAuthor(data.posts.user);
-      }
+      return data;
     } catch (error) {
       console.error(error);
     }
@@ -118,7 +113,7 @@ const Blog: React.FC = () => {
     }
   };
   const toggle = (postId: string) => {
-    !blog?.likes ? likePost(postId) : unLikePost(postId);
+    !post?.likes ? likePost(postId) : unLikePost(postId);
   };
 
   const likePost = async (postId: string) => {
@@ -142,32 +137,32 @@ const Blog: React.FC = () => {
 
   const newPost = posts.find((p) => p.id === id);
 
-  useEffect(() => {
-    (async () => fetchBlog(id as string))();
-    dispatch(getPostById(id));
-    dispatch(setDynamicId(id));
-  }, [id, refresh]);
-
-  useEffect(() => {
-    window.scrollTo({ top: window.scrollY, behavior: 'smooth' });
-  }, [id, reRouteAction]);
-
   function navigateHome() {
     dispatch(reRouteAction(false));
     navigate(-1);
   }
 
   const updatePostProps = {
-    postId: String(blog?.id),
+    postId: String(post?.id),
     reload: refresh,
     setReload: setRefresh,
   };
 
-  return !blog ? (
-    <Loader />
-  ) : (
+  useEffect(() => {
+    fetchBlog(id as string).then(({ post }) => {
+      setPost(post as Post);
+      setAuthor(post.user);
+    });
+    dispatch(setDynamicId(id));
+  }, [refresh, id]);
+
+  useEffect(() => {
+    window.scrollTo({ top: window.scrollY, behavior: 'smooth' });
+  }, [id, reRouteAction]);
+
+  return post ? (
     <Row id="indexDiv">
-      <Container key={blog?.id} className="blog-details-root">
+      <Container key={post.id} className="post-details-root">
         <Col md={12} className="blogContent mb-2">
           <div className="d-flex align-items-center">
             <Button className="nav-back" onClick={navigateHome}>
@@ -181,7 +176,7 @@ const Blog: React.FC = () => {
               <h5 className="textColor">Posts</h5>
             </div>
             <div className="text-muted timer ml-auto">
-              Posted : {dateFormatter(blog?.createdAt)} ago
+              Posted : {dateFormatter(post.createdAt)} ago
             </div>
           </div>
           <div className="d-flex blogPostTitle">
@@ -207,7 +202,7 @@ const Blog: React.FC = () => {
                     <div className="">download pdf</div>
                   </div>
                 </a>
-                {blog && blog.user?.id !== me ? null : (
+                {post && post.user?.userName !== me ? null : (
                   <>
                     <Edit data={updatePostProps} />
                     <div className="d-flex customLinks">
@@ -222,7 +217,7 @@ const Blog: React.FC = () => {
                       <div onClick={() => setOpen(true)}>delete</div>
                     </div>
                     <DeleteModal
-                      postId={blog?.id}
+                      postId={post.id}
                       smShow={open}
                       setSmShow={setOpen}
                     />
@@ -233,7 +228,7 @@ const Blog: React.FC = () => {
           </div>
 
           {
-            <div className="blog-details-author">
+            <div className="post-details-author">
               <div
                 onMouseEnter={handleDisplayShow}
                 onMouseLeave={() => {
@@ -242,20 +237,12 @@ const Blog: React.FC = () => {
                 }}
                 className="d-flex align-items-center"
               >
-                {/* <UserInfo
-                  show={display}
-                  handleShow={handleDisplayShow}
-                  handleClose={handleDisplayClose}
-                  setTimer={setTimer}
-                  props={author}
-                  /> */}
-
                 {/* Post Author */}
                 <div>
-                  <Link to={`/userProfile/${author?.id}`}>
+                  <Link to={`/userProfile/${author?.userName}`}>
                     <Image
                       style={{ width: '60px', height: '60px' }}
-                      className="blog-author authorDetails"
+                      className="post-author authorDetails"
                       src={author?.image ? author?.image : defaultAvatar}
                       roundedCircle
                     />
@@ -280,7 +267,7 @@ const Blog: React.FC = () => {
                       )}
                     </h3>
                     <h4 className="text-muted authorUserName">
-                      @{author?.username}
+                      @{author?.userName}
                     </h4>
                   </div>
                 </Link>
@@ -288,36 +275,36 @@ const Blog: React.FC = () => {
             </div>
           }
           <div style={{ paddingLeft: '10px' }}>
-            <h4 className="mt-3 blogText">{blog?.text}</h4>
+            <h4 className="mt-3 blogText">{post?.text}</h4>
           </div>
           <div className="mt-2 mb-4">
-            {!blog?.media
+            {!post?.media
               ? null
-              : blog?.media &&
-                blog?.media
+              : post?.media &&
+                post?.media
                   .split('.')
                   .slice(-1)
                   .join()
                   .match(`heic|png|jpg|gif|pdf|jpeg`) && (
                   <img
-                    className="blog-details-cover"
+                    className="post-details-cover"
                     alt=""
                     onClick={() => setView(true)}
-                    src={blog?.media}
+                    src={post?.media}
                     width="100%"
                   />
                 )}
-            {!blog?.media
+            {!post?.media
               ? null
-              : blog?.media &&
-                blog?.media
+              : post?.media &&
+                post?.media
                   .split('.')
                   .slice(-1)
                   .join()
                   .match(`mp4|MPEG-4|mkv`) && (
                   <video
-                    src={blog?.media}
-                    className="blog-cover"
+                    src={post?.media}
+                    className="post-cover"
                     controls
                     autoPlay
                     muted
@@ -337,7 +324,7 @@ const Blog: React.FC = () => {
                         .match(`heic|png|jpg|gif|pdf|jpeg`) && (
                         <img
                           onClick={() => setView(true)}
-                          className="blog-details-cover"
+                          className="post-details-cover"
                           alt=""
                           src={newPost?.sharedPost?.media}
                           width="100%"
@@ -353,7 +340,7 @@ const Blog: React.FC = () => {
                         .match(`mp4|MPEG-4|mkv`) && (
                         <video
                           src={newPost?.sharedPost?.media}
-                          className="blog-cover"
+                          className="post-cover"
                           controls
                           autoPlay
                           muted
@@ -368,13 +355,13 @@ const Blog: React.FC = () => {
             <ViewModal
               view={view}
               setView={setView}
-              cover={blog?.media}
-              post={blog}
+              cover={post?.media}
+              post={post}
             />
             <div className="d-flex justify-content-evenly">
               <div className="likes">
-                {blog?.likes?.length > 0 &&
-                  blog?.likes
+                {post?.likes?.length > 0 &&
+                  post?.likes
                     .slice(0, 2)
                     .map((user) => (
                       <SingleImage
@@ -383,32 +370,32 @@ const Blog: React.FC = () => {
                         setLikeShow={setLikeShow}
                       />
                     ))}
-                {/* {blog?.likes.length > 3 && <div className="text-muted">+</div>} */}
+                {/* {post?.likes.length > 3 && <div className="text-muted">+</div>} */}
                 <LikesModal
                   likeShow={likeShow}
                   setLikeShow={setLikeShow}
-                  post={blog}
+                  post={post}
                 />
                 <div>
-                  {blog.likes.length > 1 ? (
+                  {post?.likes?.length > 1 ? (
                     <span className="text-muted ml-1">
-                      {blog?.likes?.length ?? 0} likes
+                      {post?.likes?.length ?? 0} likes
                     </span>
                   ) : (
                     <span className="text-muted ml-1">
-                      {blog?.likes?.length ?? 0} like
+                      {post?.likes?.length ?? 0} like
                     </span>
                   )}
                 </div>
               </div>
               <div className="comments ml-2">
-                {blog?.comments?.length > 1 ? (
+                {post?.comments?.length > 1 ? (
                   <span className="text-muted">
-                    {blog?.comments?.length ?? 0} comments
+                    {post?.comments?.length ?? 0} comments
                   </span>
                 ) : (
                   <span className="text-muted">
-                    {blog?.comments?.length ?? 0} comment
+                    {post?.comments?.length ?? 0} comment
                   </span>
                 )}
               </div>
@@ -439,12 +426,12 @@ const Blog: React.FC = () => {
               onMouseLeave={handleLikeLabelClose}
               className="interactions position-relative"
             >
-              {!blog?.likes?.some((elem) => elem.id === me) ? (
+              {!post?.likes?.some((elem) => elem.id === me) ? (
                 <>
                   <button className="candl ">
                     <img
                       className="interactions"
-                      onClick={() => toggle(blog?.id)}
+                      onClick={() => toggle(post?.id)}
                       src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
                       alt=""
                       width="25px"
@@ -465,7 +452,7 @@ const Blog: React.FC = () => {
                   <button className="candl ">
                     <img
                       className="interactions"
-                      onClick={() => toggle(blog?.id)}
+                      onClick={() => toggle(post?.id)}
                       src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
                       alt=""
                       width="25px"
@@ -503,17 +490,17 @@ const Blog: React.FC = () => {
               )}
               <ShareModal
                 id={id}
-                user={blog?.user}
+                user={post?.user}
                 show={share}
                 setShow={setShare}
-                createdAt={blog?.createdAt}
+                createdAt={post?.createdAt}
               />
             </div>
           </div>
           {!show ? null : <AddComment setComments={setComments} id={id} />}
           <Col className="mt-5 p-0">
             <CommentComponent
-              blog={blog}
+              post={post}
               id={id}
               comments={comments}
               author={author}
@@ -524,6 +511,8 @@ const Blog: React.FC = () => {
         </Col>
       </Container>
     </Row>
+  ) : (
+    <Loader />
   );
 };
 
