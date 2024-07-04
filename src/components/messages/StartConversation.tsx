@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, Image } from 'react-bootstrap';
+import { Button, Image, Modal } from 'react-bootstrap';
 import { Socket } from 'socket.io-client';
 import { defaultAvatar } from '../../assets/icons';
 import { OnlineUser } from '../../interfaces/OnlineUser';
@@ -84,7 +84,7 @@ export const StartConversation: React.FC<Props> = ({
           {show === true &&
             users &&
             users
-              .filter((user) => user.username !== currentUser.username)
+              .filter((user) => user.userName !== currentUser.userName)
               .map((user, idx) => (
                 <div
                   className="d-flex mb-3"
@@ -104,7 +104,7 @@ export const StartConversation: React.FC<Props> = ({
 
                   <div className="ml-2 mt-2">
                     <strong style={{ color: '#e8e8e8' }}>
-                      {user.username}
+                      {user.userName}
                     </strong>
                     <span>{''}</span>
                   </div>

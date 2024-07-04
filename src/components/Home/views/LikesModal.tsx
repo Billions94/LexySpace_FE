@@ -1,13 +1,12 @@
+import React, { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { Dispatch, FC, SetStateAction, useEffect } from 'react';
-import { Post, ReduxState } from '../../../redux/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { followAction, getUsersAction } from '../../../redux/actions';
 import { FollowUser } from '../../../lib/requests/interfaces/user.interface';
-import { follow } from '../../../lib/requests/user';
 import { getPosts } from '../../../lib/requests/post';
-import React from 'react';
+import { follow } from '../../../lib/requests/user';
+import { followAction, getUsersAction } from '../../../redux/actions';
+import { Post, ReduxState } from '../../../redux/interfaces';
 
 interface Props {
   likeShow: boolean;
@@ -100,7 +99,7 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }) => {
                       </span>
                     )}
                   </h6>
-                  <h6 className="text-muted username">@{user?.username}</h6>
+                  <h6 className="text-muted username">@{user?.userName}</h6>
                   <h6 className="bio">{user?.bio}</h6>
                 </div>
               </div>

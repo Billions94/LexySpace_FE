@@ -1,13 +1,11 @@
-import { Dispatch, FC, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { defaultAvatar } from '../../../assets/icons';
 import { follow } from '../../../lib/requests/user';
 import { followAction, getFollowersAction } from '../../../redux/actions';
-import { User } from '../../../redux/interfaces';
-import { ReduxState } from '../../../redux/interfaces';
-import { defaultAvatar } from '../../../assets/icons';
-import React from 'react';
+import { ReduxState, User } from '../../../redux/interfaces';
 
 interface Props {
   show: boolean;
@@ -98,7 +96,7 @@ const UserInfo: FC<Props> = ({
                     )}
                   </h5>
                   <span className="userUserName text-muted">
-                    @{props?.username}
+                    @{props?.userName}
                   </span>
                 </div>
               </div>

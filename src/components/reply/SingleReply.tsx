@@ -10,7 +10,7 @@ interface SingleReplyProps {
   commentID: string | undefined;
   comment: Comment;
   reply: Replies;
-  blog: Post | undefined;
+  post: Post | undefined;
   getReplies: () => Promise<void>;
 }
 
@@ -18,7 +18,7 @@ const SingleReply = ({
   commentID,
   comment,
   reply,
-  blog,
+  post,
   getReplies,
 }: SingleReplyProps) => {
   const url = process.env.REACT_APP_GET_URL;
@@ -41,7 +41,7 @@ const SingleReply = ({
 
   return (
     <div className="replyContainer">
-      {comment.postId !== blog?.id ? null : (
+      {comment.postId !== post?.id ? null : (
         <>
           {reply.commentId === commentID ? (
             <div className="d-flex">
@@ -133,7 +133,7 @@ const SingleReply = ({
                         .match(`mp4|MPEG-4|mkv`) && (
                         <video
                           src={reply.media}
-                          className="blog-video"
+                          className="post-video"
                           controls
                           autoPlay
                           muted

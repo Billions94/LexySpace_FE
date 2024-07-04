@@ -4,25 +4,25 @@
   "editor.formatOnType": true,
   "editor.fontLigatures": true,
   "editor.letterSpacing": 0.1,
-  "editor.fontSize": 12.3,
+  "editor.fontSize": 14,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "JetBrains Mono, Fira Code",
   "editor.codeActionsOnSave": {
-    "source.fixAll.esbenp.prettier-vscode": true,
-    "source.fixAll.format": true
+    "source.fixAll.esbenp.prettier-vscode": "always",
+    "source.fixAll.format": "always"
   },
   "editor.tokenColorCustomizations": {
     "comments": "#787878a3",
-    "types": "#f8f8f8c4",
-    // "keywords": "#ded2d288",
-    // "strings": "#f2e1b7c8",
+    "types": "#78DCE8",
+    "keywords": "#FF6188",
+    //"strings": "#f2e1b7c8",
     "[Gruvbox Dark Medium]": {
       "textMateRules": [
         {
           "scope": "variable.parameter",
           "settings": {
             "fontStyle": "italic",
-            "foreground": "#f5f5f588"
+            "foreground": "#FFD866"
           }
         },
         {
@@ -37,10 +37,14 @@
   "editor.semanticTokenColorCustomizations": {
     "enabled": true,
     "rules": {
-      "function": { "bold": true, "fontStyle": "italic bold" },
-      "property": "#a5f8f0bf",
-      "variable": { "foreground": "#e2edf0df", "fontStyle": "italic" }
+      "function": { "bold": false },
+      "property": "#ffffff",
+      "variable": { "foreground": "#e2edf0" },
+      "namespace": "#FFD866"
+      //"class": "#FFD866",
+      //"type": "#FFD866"
     }
   },
-  "material-icon-theme.folders.color": "#f2e1b7"
+  "material-icon-theme.folders.color": "#f2e1b7",
+  "cSpell.words": ["Ejiroghene", "GSAP"]
 }

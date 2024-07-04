@@ -1,37 +1,36 @@
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  ListGroup,
-  Image,
-  Button,
-} from 'react-bootstrap';
-import {
-  useState,
-  useEffect,
-  FormEvent,
-  useMemo,
+import { debounce } from 'lodash';
+import React, {
   createRef,
+  FormEvent,
   KeyboardEvent,
   useCallback,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react';
-import { io } from 'socket.io-client';
-import { OnlineUser } from '../../interfaces/OnlineUser';
-import { useNavigate, useParams } from 'react-router-dom';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Image,
+  ListGroup,
+  Row,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Message, ReduxState, Rooms } from '../../redux/interfaces';
-import { isTypingGif, conversationGif } from '../../assets/icons';
-import { MessageBody } from './MessageBody';
-import { debounce } from 'lodash';
-import Convo, { DeleteConversations } from './Conversation';
-import useAuthGuard from '../../lib/index';
+import { useNavigate, useParams } from 'react-router-dom';
+import { io } from 'socket.io-client';
+import { conversationGif, isTypingGif } from '../../assets/icons';
+import { OnlineUser } from '../../interfaces/OnlineUser';
 import API from '../../lib/API';
+import useAuthGuard from '../../lib/index';
+import { setDynamicId } from '../../redux/actions';
+import { Message, ReduxState, Rooms } from '../../redux/interfaces';
+import Convo, { DeleteConversations } from './Conversation';
+import { MessageBody } from './MessageBody';
 import OnlineUsers from './OnlineUsers';
 import { StartConversation } from './StartConversation';
 import './styles.scss';
-import React from 'react';
-import { setDynamicId } from '../../redux/actions';
 
 const ioAddress = String(process.env.REACT_APP_IO_URL);
 
@@ -55,7 +54,9 @@ const Messages = () => {
   const [currentChat, setCurrentChat] = useState<Rooms | null>(null);
 
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
-  const [conversation, setConversation] = useState<Rooms[]>([]);
+  const [conversation, setConversation] = useState<Rooms[]>([
+    { _id: '', members: [] },
+  ]);
 
   const [arrivalMessage, setArrivalMessage] = useState<any | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>();
@@ -76,10 +77,25 @@ const Messages = () => {
 
   const getConversation = async () => {
     try {
-      const { data } = await API.get<Rooms[]>(`/rooms/${me}`);
-      setConversation(data);
+      const { data } = await API.get(`/rooms/${me}`);
+      return data;
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const getMessages = async () => {
+    if (currentChat?._id !== undefined) {
+      try {
+        const { data } = await API.get<Message[]>(
+          `/messages/${currentChat?._id}`
+        );
+        if (data) {
+          setChatHistory(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -88,30 +104,18 @@ const Messages = () => {
   }, [id]);
 
   useEffect(() => {
-    (async () => await getConversation())();
+    getConversation().then(({ conversations }) =>
+      setConversation(conversations)
+    );
   }, [me, conversation.length]);
 
   useEffect(() => {
-    const getMessages = async () => {
-      if (currentChat?._id !== undefined) {
-        try {
-          const { data } = await API.get<Message[]>(
-            `/messages/${currentChat?._id}`
-          );
-          if (data) {
-            setChatHistory(data);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
     (async () => await getMessages())();
   }, [currentChat]);
 
   useEffect(() => {
     // dispatch(getUsersAction());
-    setUsername(user!.username);
+    setUsername(user?.userName);
   }, [currentChat]);
 
   useEffect(() => {
@@ -221,7 +225,7 @@ const Messages = () => {
   };
 
   // Getting the exact user to display their info on the message header
-  const singleMsg = chatHistory.find((m) => m.receiver === undefined);
+  const singleMsg = chatHistory?.find((m) => m.receiver === undefined);
   const actualRoom = conversation?.find((r) => r._id === singleMsg?.roomId);
   const receiver = actualRoom?.members.find((m) => m.id !== me);
   // Check the current User typing
@@ -242,7 +246,7 @@ const Messages = () => {
       <Row id="dmContainer" className="mx-auto p-0 customDmRow">
         <Col className="customCol1 ml-auto" sm={5} md={3} lg={3}>
           <div className="d-flex customMess">
-            <h3 className="dmUserName mt-2 ml-2">{user.username}</h3>
+            <h3 className="dmUserName mt-2 ml-2">{user.userName}</h3>
           </div>
 
           <div id="input-container" className="panel-body"></div>
@@ -322,7 +326,7 @@ const Messages = () => {
                 height={37}
               />
               <div className="ml-2 dmUserName">
-                <span style={{ cursor: 'default' }}>{receiver?.username}</span>
+                <span style={{ cursor: 'default' }}>{receiver?.userName}</span>
               </div>
             </div>
           )}

@@ -1,12 +1,10 @@
-import { useState, createRef, Dispatch, SetStateAction } from 'react';
-import { Modal, Button, Form, Card } from 'react-bootstrap';
-import { ReduxState, Post, User } from '../../../redux/interfaces';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { createRef, Dispatch, SetStateAction, useState } from 'react';
+import { Button, Card, Form, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import BlogAuthor from '../author/PostAuthor';
-import { getPosts } from '../../../redux/actions';
 import { sharePost } from '../../../lib/requests/post';
-import React from 'react';
+import { Post, ReduxState, User } from '../../../redux/interfaces';
+import BlogAuthor from '../author/PostAuthor';
 
 interface SharePostProps {
   id: string | undefined;
@@ -23,7 +21,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
   const { posts } = useSelector((state: ReduxState) => state['data']);
   const loggedInUser = useSelector((state: ReduxState) => state.data.user);
 
-  const userName = loggedInUser?.username;
+  const userName = loggedInUser?.userName;
   const sharePostBody = posts.map((p) => p).find((p) => p.id === id) as Post;
 
   const [media, setMedia] = useState('');

@@ -1,22 +1,23 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button, Container, Navbar } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { reRouteAction } from '../../redux/actions';
-import { ReduxState } from '../../redux/interfaces';
 import API from '../../lib/API';
-import { getNavbarProps } from './funcs/funcs';
-import { NavBarDropdown } from './dropDown/NavBarDropdown';
+import { ReduxState } from '../../redux/interfaces';
+import { useReroute } from '../hooks/useReroute';
 import PostModal from '../post/crud/PostModal';
 import { NavbarSignUpButton } from './button/NavbarSignUpButton';
+import { NavBarDropdown } from './dropDown/NavBarDropdown';
+import { getNavbarProps } from './funcs/funcs';
 import './styles.scss';
 
 const NavBar: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
+  const { route } = useReroute();
+
   const handleShow = () => setShow(true);
   const { user } = useSelector((state: ReduxState) => state.data);
   const loggedInUserId = user?.id;
@@ -33,11 +34,6 @@ const NavBar: FC = () => {
     localStorage.removeItem('cover');
 
     navigate('/');
-  }
-
-  function route() {
-    dispatch(reRouteAction(false));
-    navigate('/home');
   }
 
   useEffect(() => {
