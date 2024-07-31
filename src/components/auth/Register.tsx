@@ -1,24 +1,24 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Form, Col, Button } from 'react-bootstrap';
-import Loader from '../loader/Loader';
-import { apiUrl } from '../../lib/API';
-import { getFormAttributes } from '../../util/funcs';
-import { registerInput } from './inputs';
-import { registerForm } from './forms/registerForm';
-import { UseInput } from '../hooks/useInput';
-import { RegisterResponse } from '../../redux/interfaces';
 import axios from 'axios';
+import React from 'react';
+import { Button, Col, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { apiUrl } from '../../lib/API';
 import { setTokenAction } from '../../redux/actions';
-import { RegisterInput } from './interfaces';
+import { RegisterResponse } from '../../redux/interfaces';
+import { getFormAttributes } from '../../util/funcs';
+import { useInput } from '../hooks/useInput';
+import Loader from '../loader/Loader';
+import { registerForm } from './forms/registerForm';
+import { registerInput } from './inputs';
+import { FormControlSize, RegisterInput } from './interfaces';
 import './styles.scss';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(true);
-  const { input, handleChange } = UseInput<RegisterInput>(registerInput);
+  const { input, handleChange } = useInput<RegisterInput>(registerInput);
 
   const registerData: RegisterInput = {
     userName: input.userName,
@@ -55,16 +55,21 @@ const Register: React.FC = () => {
   return loading ? (
     <Loader />
   ) : (
-    <div id="loginContainer">
+    <div id="loginContainer" className="col3">
+      <div className="text-center createAcc textColor">
+        Create your account now
+      </div>
       <Col sm={6} md={4} className="customMT mx-auto">
         <Form onSubmit={register}>
-          <div className="text-center createAcc textColor">
-            Create your account now
-          </div>
           {getFormAttributes(input, registerForm).map((item) => (
-            <Form.Group key={item.name}>
+            <Form.Group
+              key={item.name}
+              className="format"
+              controlId="formBasicPassword"
+            >
               <Form.Control
-                className="register m-1"
+                className={'login'}
+                size={FormControlSize.LG}
                 type={item.type}
                 name={item.name}
                 value={item.value}

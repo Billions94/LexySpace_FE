@@ -1,16 +1,9 @@
-import React from 'react';
-import {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-  createRef,
-} from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import React, { createRef, Dispatch, SetStateAction, useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsersAction } from '../../../redux/actions';
-import { ReduxState } from '../../../redux/interfaces';
-import { apiUrl } from '../../../lib/API';
+import { apiUrl } from '../../../../lib/API';
+import { ReduxState } from '../../../../redux/interfaces';
 
 interface Props {
   id: string;
@@ -113,14 +106,11 @@ const CommentModal: React.FC<Props> = ({ id, show, setShow }) => {
   };
 
   const inputBtn = createRef<HTMLInputElement>();
+  const openInputFile = () => inputBtn?.current?.click();
 
-  const openInputFile = () => {
-    inputBtn?.current?.click();
-  };
-
-  useEffect(() => {
-    dispatch(getUsersAction());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getUsersAction());
+  // }, []);
 
   return (
     <>
@@ -137,7 +127,7 @@ const CommentModal: React.FC<Props> = ({ id, show, setShow }) => {
         <Modal.Body>
           <div className="d-flex userInfoContainer">
             <div>
-              <img
+              <LazyLoadImage
                 src={user?.image}
                 alt=""
                 className="roundpic"

@@ -7,13 +7,15 @@ import React, {
   SetStateAction,
   useState,
 } from 'react';
-import { Image, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { defaultAvatar, loadingNew } from '../../assets/icons';
+import { defaultAvatar } from '../../assets/icons';
 import { AvatarStyle, NewUserAvatar } from '../../dummy/NewUserAvatar';
 import { createPost } from '../../lib/requests/post';
 import { ReduxState } from '../../redux/interfaces';
+import Loader from '../loader/Loader';
 
 interface PostContainerProps {
   fetchLoading: boolean;
@@ -55,24 +57,15 @@ const PostContainer = ({
   const handleEmojiShow = () => setEmoji(true);
   const handleEmojiClose = () => setEmoji(false);
 
-  const target = (e: any) => {
-    if (e.target && e.target.files[0]) {
-      setMedia(e.target.files[0]);
-    }
-  };
-
+  const target = (e: any) => e.target.files && setMedia(e.target.files[0]);
   const inputBtn = createRef<HTMLInputElement>();
-
-  const openInputFile = () => {
-    inputBtn?.current?.click();
-  };
+  const openInputFile = () => inputBtn?.current?.click();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenEmoji, setChosenEmoji] = useState('');
 
-  const onEmojiClick = (event: any, emojiObject: any) => {
+  const onEmojiClick = (event: any, emojiObject: any) =>
     setChosenEmoji(emojiObject);
-  };
 
   const handleKeyboardEvent = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -101,9 +94,8 @@ const PostContainer = ({
                   }
                 />
               ) : (
-                <Image
-                  roundedCircle
-                  className="img"
+                <LazyLoadImage
+                  className="img rounded-circle"
                   src={user.image ? user.image : defaultAvatar}
                   alt="ProfilePicture"
                   width="47"
@@ -212,12 +204,12 @@ const PostContainer = ({
           </div>
           <>
             {fetchLoading && (
-              <Image
-                className="text-center"
-                src={loadingNew}
-                alt="loading new"
-                width="40px"
-                height="40px"
+              <Loader
+                {...{
+                  position: 'absolute',
+                  top: '-240px',
+                  right: '10px',
+                }}
               />
             )}
           </>

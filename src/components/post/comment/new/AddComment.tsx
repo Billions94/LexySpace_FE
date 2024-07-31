@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Form, Image } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUsersAction } from '../../../redux/actions';
-import { Comment, ReduxState } from '../../../redux/interfaces';
 import Picker from 'emoji-picker-react';
-import { createComment } from '../../../lib/requests/comment';
+import React from 'react';
+import { Form, Image } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { createComment } from '../../../../lib/requests/comment';
+import { Comment, ReduxState } from '../../../../redux/interfaces';
+import { useComments } from '../../../hooks/useComments';
 
 interface AddCommentProps {
   id: string | undefined;
@@ -15,7 +15,8 @@ interface AddCommentProps {
 const AddComment: React.FC<AddCommentProps> = ({ id, setComments }) => {
   const { user } = useSelector((state: ReduxState) => state.data);
   const userId = user?.id;
-  const dispatch = useDispatch();
+
+  const { fetchComments } = useComments();
   const [comment, setComment] = React.useState({
     content: '',
     user: userId,
@@ -23,17 +24,9 @@ const AddComment: React.FC<AddCommentProps> = ({ id, setComments }) => {
   const [media, setMedia] = React.useState<string>('');
   const [showEmoji, setShowEmoji] = React.useState(false);
 
-  const target = (e: any) => {
-    if (e.target && e.target.files[0]) {
-      setMedia(e.target.files[0]);
-    }
-  };
-
+  const target = (e: any) => e.target.files && setMedia(e.target.files[0]);
   const inputBtn = React.createRef<HTMLInputElement>();
-
-  const openInputFile = () => {
-    inputBtn?.current?.click();
-  };
+  const openInputFile = () => inputBtn?.current?.click();
 
   // Emojis
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,16 +45,13 @@ const AddComment: React.FC<AddCommentProps> = ({ id, setComments }) => {
     postId: String(id),
   };
 
-  React.useEffect(() => {
-    dispatch(getUsersAction());
-  }, []);
-
   const handleKeyboardEvent = async (
     e: React.KeyboardEvent<HTMLInputElement>,
     createCommentData: any
   ) => {
     if (e.key === 'Enter') {
       await createComment(createCommentData);
+      await fetchComments();
     }
   };
 
@@ -126,7 +116,10 @@ const AddComment: React.FC<AddCommentProps> = ({ id, setComments }) => {
               ) : (
                 <button
                   className="btn ml-auto btn-sm sendBtnDm"
-                  onClick={() => createComment(createCommentData)}
+                  onClick={async () => {
+                    createComment(createCommentData);
+                    await fetchComments();
+                  }}
                 >
                   <i className="fa fa-pencil fa-fw" /> send
                 </button>

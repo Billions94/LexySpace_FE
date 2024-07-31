@@ -1,11 +1,14 @@
 import { Dispatch } from 'redux';
 import API from '../../lib/API';
-import { Note, Token, User } from '../interfaces';
+import { Note, Reply, Token, User } from '../interfaces';
 
 export enum Actions {
   SAVE_USER = 'SAVE_USER',
   GET_USERS = 'GET_USERS',
   GET_POSTS = 'GET_POSTS',
+  SET_POST_ID = 'SET_POST_ID',
+  SET_COMMENTS = 'SET_COMMENTS',
+  SET_Reply = 'SET_Reply',
   GET_POST_BY_ID = 'GET_POST_BY_ID',
   GET_FOLLOWERS = 'GET_FOLLOWERS',
   SET_COVER = 'SET_COVER',
@@ -25,8 +28,11 @@ export enum Actions {
   GET_TOKENS = 'GET_TOKENS',
 }
 
-export function setTokenAction(payload: Token): (dispatch: Dispatch) => void {
-  return function (dispatch) {
+export type Dispatcher<T> = (dispatch: Dispatch) => T;
+
+export const setTokenAction =
+  (payload: Token): Dispatcher<void> =>
+  async (dispatch) => {
     try {
       dispatch({
         type: Actions.SET_TOKENS,
@@ -36,18 +42,13 @@ export function setTokenAction(payload: Token): (dispatch: Dispatch) => void {
       console.log(e.message);
     }
   };
-}
 
-export function getTokensAction(): (dispatch: Dispatch) => void {
-  return function (dispatch) {
-    dispatch({ type: Actions.GET_TOKENS });
-  };
-}
+export const getTokensAction = (): Dispatcher<void> => (dispatch) =>
+  dispatch({ type: Actions.GET_TOKENS });
 
-export const saveUserAction = (
-  payload: User
-): ((dispatch: Dispatch) => void) => {
-  return async function (dispatch) {
+export const saveUserAction =
+  (payload: User): ((dispatch: Dispatch) => void) =>
+  async (dispatch) => {
     try {
       dispatch({
         type: Actions.SAVE_USER,
@@ -57,53 +58,55 @@ export const saveUserAction = (
       console.error(e);
     }
   };
-};
 
-export const getUsersAction = (
-  userId?: string
-): ((dispatch: Dispatch) => void) => {
-  return async function (dispatch) {
+export const getUsersAction =
+  (userName?: string): Dispatcher<void> =>
+  async (dispatch) => {
     try {
       const { data } = await API.get<User>(
-        userId ? `/users/${userId}` : '/users/current-user',
+        userName ? `/users/${userName}` : '/users/current-user',
         {
           params: { filter: 'verified' },
         }
       );
-      if (data) {
+      if (data)
         dispatch({
           type: Actions.GET_USERS,
           payload: data,
         });
-      }
     } catch (error) {
       console.log(error);
     }
   };
-};
 
-export const getPosts = (): ((dispatch: Dispatch) => void) => {
-  return async function (dispatch) {
-    try {
-      const { data } = await API.get(`/posts`);
-      if (data) {
-        const { posts } = data;
-        const newPost = posts.reverse();
-        dispatch({
-          type: Actions.GET_POSTS,
-          payload: newPost,
-        });
-      }
-    } catch (error) {
-      console.log(error);
+export const getPosts = (): Dispatcher<void> => async (dispatch) => {
+  dispatch({
+    type: Actions.TOGGLE_LOADER,
+    payload: true,
+  });
+
+  try {
+    const { data } = await API.get(`/posts`);
+    if (data) {
+      const { posts } = data;
+      const newPost = posts;
+      dispatch({
+        type: Actions.GET_POSTS,
+        payload: newPost,
+      });
+      dispatch({
+        type: Actions.TOGGLE_LOADER,
+        payload: false,
+      });
     }
-  };
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const getPostById = (
-  id: string | undefined
-): ((dispatch: Dispatch) => Promise<any>) => {
-  return async function (dispatch) {
+export const getPostById =
+  (id?: string): Dispatcher<any> =>
+  async (dispatch) => {
     try {
       const { data } = await API.get(`/posts/${id}`);
       const { post } = data;
@@ -118,14 +121,12 @@ export const getPostById = (
       console.log(e.message);
     }
   };
-};
 
-export const getFollowersAction = (
-  userId: string | undefined
-): ((dispatch: Dispatch) => void) => {
-  return async (dispatch) => {
+export const getFollowersAction =
+  (userName: string): Dispatcher<void> =>
+  async (dispatch) => {
     try {
-      const { data } = await API.get(`/users/${userId}/followers`);
+      const { data } = await API.get(`/users/${userName}/followers`);
       if (data) {
         dispatch({
           type: Actions.GET_FOLLOWERS,
@@ -136,55 +137,63 @@ export const getFollowersAction = (
       console.log(error);
     }
   };
-};
 
-export const updateFollowersState = (
-  payload: User | User[] | undefined
-): ((dispatch: Dispatch) => boolean) => {
-  return function (dispatch) {
+export const updateFollowersState =
+  (payload: User | User[] | undefined): Dispatcher<boolean> =>
+  (dispatch) => {
     dispatch({
       type: Actions.UPDATE_FOLLOWERS_STATE,
       payload,
     });
     return true;
   };
-};
 
-export const getFollowersState = (): ((dispatch: Dispatch) => void) => {
-  return function (dispatch) {
-    dispatch({
-      type: Actions.GET_FOLLOWERS_STATE,
-    });
-  };
-};
+export const getFollowersState = (): Dispatcher<void> => (dispatch) =>
+  dispatch({
+    type: Actions.GET_FOLLOWERS_STATE,
+  });
 
-export const setDynamicId = (
-  payload: string | undefined
-): ((dispatch: Dispatch) => void) => {
-  return function (dispatch) {
+export const setDynamicId =
+  (payload: string | undefined): Dispatcher<void> =>
+  (dispatch) =>
     dispatch({
       type: Actions.SET_DYNAMIC_ID,
       payload,
     });
-  };
-};
 
-export const setCover = (payload: string): ((dispatch: Dispatch) => void) => {
-  return function (dispatch) {
+export const setCommentsAction =
+  (payload: Comment[]): Dispatcher<void> =>
+  (dispatch) =>
+    dispatch({
+      type: Actions.SET_COMMENTS,
+      payload,
+    });
+
+export const setReplyAction =
+  (payload: Reply[]): Dispatcher<void> =>
+  (dispatch) =>
+    dispatch({
+      type: Actions.SET_Reply,
+      payload,
+    });
+
+export const setCover =
+  (payload: string): Dispatcher<void> =>
+  (dispatch) =>
     dispatch({
       type: Actions.SET_COVER,
       payload,
     });
-  };
-};
 
-export const getCover = (): ((dispatch: Dispatch) => void) => {
-  return function (dispatch) {
-    dispatch({
-      type: Actions.GET_COVER,
-    });
-  };
-};
+export const setPostIdAction =
+  (postId: string): Dispatcher<void> =>
+  (dispatch) =>
+    dispatch({ type: Actions.SET_POST_ID, payload: postId });
+
+export const getCover = (): Dispatcher<void> => (dispatch) =>
+  dispatch({
+    type: Actions.GET_COVER,
+  });
 
 export const followAction = (payload: boolean) => ({
   type: Actions.TOGGLE_FOLLOW,

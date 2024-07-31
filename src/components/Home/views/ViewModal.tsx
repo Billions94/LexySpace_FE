@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Post } from '../../../redux/interfaces';
 
 interface Props {
@@ -22,9 +23,9 @@ const ViewModal: React.FC<Props> = ({ view, setView, cover, post }) => {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body className="d-flex justify-content-center">
-          <img src={cover} alt="" className="img" />
+          <LazyLoadImage src={cover} alt="" className="img" />
           {post.sharedPost && (
-            <img src={post.sharedPost.media} alt="" className="img" />
+            <LazyLoadImage src={post.sharedPost.media} alt="" className="img" />
           )}
         </Modal.Body>
       </Modal>

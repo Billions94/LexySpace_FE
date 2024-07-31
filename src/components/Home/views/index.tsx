@@ -1,16 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import {
-  Badge,
-  Button,
-  Col,
-  Container,
-  Dropdown,
-  Image,
-  Row,
-} from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Container, Dropdown, Image, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { defaultAvatar } from '../../../assets/icons';
+import { useComments } from '../../../components/hooks/useComments';
+import { PostLayout } from '../../../components/post/views';
 import useAuthGuard, { dateFormatter } from '../../../lib';
 import API from '../../../lib/API';
 import {
@@ -18,16 +12,14 @@ import {
   reRouteAction,
   setDynamicId,
 } from '../../../redux/actions';
-import { Comment, Post, ReduxState, User } from '../../../redux/interfaces';
-import CommentComponent from '../../comment/Comment';
-import AddComment from '../../comment/new/AddComment';
+import { Post, ReduxState, User } from '../../../redux/interfaces';
 import Loader from '../../loader/Loader';
+import CommentComponent from '../../post/comment/Comment';
+import AddComment from '../../post/comment/new/AddComment';
 import DeleteModal from '../../post/crud/DeleteModal';
 import Edit from '../../post/crud/EditPost';
-import LikesModal from './LikesModal';
-import ShareModal from './SharedModal';
 import './styles.scss';
-import ViewModal from './ViewModal';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Blog: React.FC = () => {
   useAuthGuard();
@@ -39,10 +31,10 @@ const Blog: React.FC = () => {
     (state: ReduxState) => state['data']
   );
 
-  const [comments, setComments] = useState<Comment[]>([]);
   const [author, setAuthor] = useState<User | null>(null);
   const [post, setPost] = useState<Post | null>(null);
   const [share, setShare] = useState(false);
+  const { setComments, fetchComments } = useComments();
 
   const [display, setDisplay] = useState(false);
   const [timer, setTimer] = useState(false);
@@ -101,17 +93,6 @@ const Blog: React.FC = () => {
     }
   };
 
-  const fetchComments = async () => {
-    try {
-      const { data } = await API.get<Post>(`/comments`);
-      if (data) {
-        const latestComments = data?.comments?.reverse();
-        setComments(latestComments);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
   const toggle = (postId: string) => {
     !post?.likes ? likePost(postId) : unLikePost(postId);
   };
@@ -151,14 +132,15 @@ const Blog: React.FC = () => {
   useEffect(() => {
     fetchBlog(id as string).then(({ post }) => {
       setPost(post as Post);
-      setAuthor(post.user);
+      setAuthor(post?.user);
     });
     dispatch(setDynamicId(id));
+    fetchComments();
   }, [refresh, id]);
 
   useEffect(() => {
-    window.scrollTo({ top: window.scrollY, behavior: 'smooth' });
-  }, [id, reRouteAction]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
 
   return post ? (
     <Row id="indexDiv">
@@ -277,7 +259,7 @@ const Blog: React.FC = () => {
           <div style={{ paddingLeft: '10px' }}>
             <h4 className="mt-3 blogText">{post?.text}</h4>
           </div>
-          <div className="mt-2 mb-4">
+          <div className="mt-2 mb-4 post-detail-image-container">
             {!post?.media
               ? null
               : post?.media &&
@@ -286,8 +268,8 @@ const Blog: React.FC = () => {
                   .slice(-1)
                   .join()
                   .match(`heic|png|jpg|gif|pdf|jpeg`) && (
-                  <img
-                    className="post-details-cover"
+                  <LazyLoadImage
+                    className="post-detail-image"
                     alt=""
                     onClick={() => setView(true)}
                     src={post?.media}
@@ -310,203 +292,21 @@ const Blog: React.FC = () => {
                     muted
                   ></video>
                 )}
-            {newPost?.sharedPost && newPost?.sharedPost.id !== id ? (
-              <>
-                <div className="mt-3">{newPost?.sharedPost.text}</div>
-                <div className="mt-2">
-                  {!newPost?.sharedPost.media
-                    ? null
-                    : newPost?.sharedPost.media &&
-                      newPost?.sharedPost.media
-                        .split('.')
-                        .slice(-1)
-                        .join()
-                        .match(`heic|png|jpg|gif|pdf|jpeg`) && (
-                        <img
-                          onClick={() => setView(true)}
-                          className="post-details-cover"
-                          alt=""
-                          src={newPost?.sharedPost?.media}
-                          width="100%"
-                        />
-                      )}
-                  {!newPost?.sharedPost.media
-                    ? null
-                    : newPost?.sharedPost.media &&
-                      newPost?.sharedPost.media
-                        .split('.')
-                        .slice(-1)
-                        .join()
-                        .match(`mp4|MPEG-4|mkv`) && (
-                        <video
-                          src={newPost?.sharedPost?.media}
-                          className="post-cover"
-                          controls
-                          autoPlay
-                          muted
-                        ></video>
-                      )}
-                </div>
-              </>
-            ) : null}
           </div>
 
-          <div className="interactionContainer d-flex mt-2">
-            <ViewModal
-              view={view}
-              setView={setView}
-              cover={post?.media}
-              post={post}
-            />
-            <div className="d-flex justify-content-evenly">
-              <div className="likes">
-                {post?.likes?.length > 0 &&
-                  post?.likes
-                    .slice(0, 2)
-                    .map((user) => (
-                      <SingleImage
-                        key={user.id}
-                        user={user}
-                        setLikeShow={setLikeShow}
-                      />
-                    ))}
-                {/* {post?.likes.length > 3 && <div className="text-muted">+</div>} */}
-                <LikesModal
-                  likeShow={likeShow}
-                  setLikeShow={setLikeShow}
-                  post={post}
-                />
-                <div>
-                  {post?.likes?.length > 1 ? (
-                    <span className="text-muted ml-1">
-                      {post?.likes?.length ?? 0} likes
-                    </span>
-                  ) : (
-                    <span className="text-muted ml-1">
-                      {post?.likes?.length ?? 0} like
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="comments ml-2">
-                {post?.comments?.length > 1 ? (
-                  <span className="text-muted">
-                    {post?.comments?.length ?? 0} comments
-                  </span>
-                ) : (
-                  <span className="text-muted">
-                    {post?.comments?.length ?? 0} comment
-                  </span>
-                )}
-              </div>
-            </div>
-            <div
-              onMouseEnter={handleCommentLabelShow}
-              onMouseLeave={handleCommentLabelClose}
-              onClick={showAndHide}
-              className="position-relative"
-            >
-              <button className="candl comment">
-                <img
-                  className="interactions"
-                  src="https://img.icons8.com/ios-filled/50/ffffff/comment-discussion.png"
-                  width="25px"
-                  alt=""
-                />
-              </button>
-              {!commentLabel ? null : (
-                <Badge pill variant="secondary" className="interactionBadge">
-                  Comment
-                </Badge>
-              )}
-            </div>
+          <PostLayout
+            {...{
+              setLikeShow,
+              setView,
+              view,
+              post,
 
-            <div
-              onMouseEnter={handleLikeLabelShow}
-              onMouseLeave={handleLikeLabelClose}
-              className="interactions position-relative"
-            >
-              {!post?.likes?.some((elem) => elem.id === me) ? (
-                <>
-                  <button className="candl ">
-                    <img
-                      className="interactions"
-                      onClick={() => toggle(post?.id)}
-                      src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
-                      alt=""
-                      width="25px"
-                    />
-                  </button>
-                  {!likeLabel ? null : (
-                    <Badge
-                      pill
-                      variant="secondary"
-                      className="interactionBadge"
-                    >
-                      Like
-                    </Badge>
-                  )}
-                </>
-              ) : (
-                <>
-                  <button className="candl ">
-                    <img
-                      className="interactions"
-                      onClick={() => toggle(post?.id)}
-                      src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
-                      alt=""
-                      width="25px"
-                    />
-                  </button>
-                  {!likeLabel ? null : (
-                    <Badge
-                      pill
-                      variant="secondary"
-                      className="interactionBadge"
-                    >
-                      Like
-                    </Badge>
-                  )}
-                </>
-              )}
-            </div>
-
-            <div
-              onMouseEnter={handleShareLabelShow}
-              onMouseLeave={handleShareLabelClose}
-              className="interactions position-relative m-0"
-            >
-              <button onClick={handleShare} className="candl share">
-                <img
-                  src="https://img.icons8.com/ios-filled/50/ffffff/right2.png"
-                  width="25px"
-                  alt=""
-                />
-              </button>
-              {!shareLabel ? null : (
-                <Badge pill variant="secondary" className="interactionBadge">
-                  Share
-                </Badge>
-              )}
-              <ShareModal
-                id={id}
-                user={post?.user}
-                show={share}
-                setShow={setShare}
-                createdAt={post?.createdAt}
-              />
-            </div>
-          </div>
+              likeShow,
+            }}
+          />
           {!show ? null : <AddComment setComments={setComments} id={id} />}
           <Col className="mt-5 p-0">
-            <CommentComponent
-              post={post}
-              id={id}
-              comments={comments}
-              author={author}
-              fetchComments={fetchComments}
-              setComments={setComments}
-            />
+            <CommentComponent post={post} id={id} author={author} />
           </Col>
         </Col>
       </Container>
@@ -517,22 +317,3 @@ const Blog: React.FC = () => {
 };
 
 export default Blog;
-
-interface SingleImageProps {
-  user: User;
-  setLikeShow: Dispatch<SetStateAction<boolean>>;
-}
-
-const SingleImage: React.FC<SingleImageProps> = ({ user, setLikeShow }) => {
-  return (
-    <div className="singleImage">
-      <img
-        className="likeImg"
-        src={user?.image}
-        alt=""
-        width="20px"
-        onClick={() => setLikeShow(true)}
-      />
-    </div>
-  );
-};

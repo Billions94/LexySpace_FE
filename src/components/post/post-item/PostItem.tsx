@@ -1,27 +1,27 @@
-import { useState, FC } from 'react';
+import React, { FC, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { GET_STORE } from 'src/redux/store';
 import { Post } from '../../../redux/interfaces';
-import { ReduxState } from '../../../redux/interfaces';
 import { DropDown } from './DropDown';
-import { SharedPost } from './SharedPost';
 import { InteractionButtons } from './InteractionButtons';
-import { PostDetails } from './PostDetails';
+import { PostDetails } from './PostDetail';
+import { SharedPost } from './SharedPost';
 import './styles.scss';
-import React from 'react';
 
 interface Props {
-  post: Post;
   postId: string;
 }
 
-const PostItem: FC<Props> = ({ post }) => {
+const PostItem: FC<Props> = ({ postId }) => {
   const [smShow, setSmShow] = useState(false);
   const [reload, setReload] = useState(false);
 
-  const { posts } = useSelector((state: ReduxState) => state['data']);
-  const { user: newUser } = useSelector((state: ReduxState) => state['data']);
+  const {
+    data: { posts, user: newUser },
+  } = useSelector(GET_STORE);
 
+  const post = posts.find((p) => p.id === postId);
   const newPost = posts?.find((p) => p.id === post?.id);
   const me = newUser?.id;
 
@@ -48,13 +48,13 @@ const PostItem: FC<Props> = ({ post }) => {
     <ListGroup>
       <ListGroup.Item
         style={{ border: '1px solid rgb(216, 215, 215)' }}
-        key={post.id}
+        key={post?.id}
         className="blog-card"
       >
         <DropDown data={dropDownProps} />
         <PostDetails post={post} />
-        <SharedPost data={sharedPostProps} />
-        <InteractionButtons data={interactionButtonProps} />
+        <SharedPost {...{ ...sharedPostProps }} />
+        <InteractionButtons {...{ ...interactionButtonProps }} />
       </ListGroup.Item>
     </ListGroup>
   );

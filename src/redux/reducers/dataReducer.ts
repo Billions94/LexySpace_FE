@@ -21,6 +21,21 @@ const dataReducer = (state = initialState.data, action: AnyAction) => {
         ...state,
         user: payload,
       };
+    case Actions.SET_POST_ID:
+      return {
+        ...state,
+        postId: payload,
+      };
+    case Actions.SET_COMMENTS:
+      return {
+        ...state,
+        comments: payload,
+      };
+    case Actions.SET_Reply:
+      return {
+        ...state,
+        Reply: payload,
+      };
     case Actions.SAVE_USER:
       return {
         ...state,

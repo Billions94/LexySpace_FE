@@ -1,6 +1,5 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { Comment, Post, Replies } from '../../redux/interfaces';
+import React, { useEffect, useState } from 'react';
+import { Comment, Post, Reply } from '../../../redux/interfaces';
 import SingleReply from './SingleReply';
 
 interface ReplyProps {
@@ -9,15 +8,15 @@ interface ReplyProps {
   commentID?: string;
 }
 
-const Reply = ({ post, comment, commentID }: ReplyProps) => {
+const ReplyComponent = ({ post, comment, commentID }: ReplyProps) => {
   const url = process.env.REACT_APP_GET_URL;
-  const [replies, setReplies] = useState<Replies[]>();
+  const [replies, setReplies] = useState<Reply[]>();
 
   const getReplies = async () => {
     try {
       const response = await fetch(`${url}/replies`);
       if (response.ok) {
-        const data: Replies[] = await response.json();
+        const data: Reply[] = await response.json();
         console.log('reply info', data);
         setReplies(data);
       }
@@ -38,21 +37,20 @@ const Reply = ({ post, comment, commentID }: ReplyProps) => {
           className="d-flex"
           style={{ fontSize: '10px', marginTop: '5px' }}
         >
-          {replies &&
-            replies.map((reply, i) => (
-              <SingleReply
-                key={i}
-                commentID={commentID}
-                reply={reply}
-                comment={comment}
-                post={post}
-                getReplies={getReplies}
-              />
-            ))}
+          {replies?.map((reply, i) => (
+            <SingleReply
+              key={i}
+              commentID={commentID}
+              reply={reply}
+              comment={comment}
+              post={post}
+              getReplies={getReplies}
+            />
+          ))}
         </div>
       }
     </>
   );
 };
 
-export default Reply;
+export default ReplyComponent;

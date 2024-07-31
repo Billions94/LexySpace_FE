@@ -1,17 +1,23 @@
-import { useState, createRef, Dispatch, SetStateAction, FC } from 'react';
-import { Container, Form, Button, Modal } from 'react-bootstrap';
-import useAuthGuard from '../../../lib/index';
-import { useSelector, useDispatch } from 'react-redux';
-import { ReduxState } from '../../../redux/interfaces';
-import { updatePost } from '../../../lib/requests/post';
-import './styles.scss';
-import React from 'react';
+import React, {
+  createRef,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useState,
+} from 'react';
+import { Button, Container, Form, Modal } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useDispatch, useSelector } from 'react-redux';
 import { InputSVG } from '../../../assets/svg/inputSVG';
 import { Verified } from '../../../assets/svg/verified';
+import useAuthGuard from '../../../lib/index';
+import { updatePost } from '../../../lib/requests/post';
+import { ReduxState } from '../../../redux/interfaces';
+import './styles.scss';
 
 interface Props {
   data: {
-    postId: string;
+    postId?: string;
     reload: boolean;
     setReload: Dispatch<SetStateAction<boolean>>;
   };
@@ -37,7 +43,7 @@ const Edit: FC<Props> = ({ data: { postId, reload, setReload } }) => {
     post,
     media,
     setMedia,
-    postId,
+    postId: postId as string,
     setShow,
     dispatch,
     refresh: reload,
@@ -82,7 +88,12 @@ const Edit: FC<Props> = ({ data: { postId, reload, setReload } }) => {
           <Modal.Body>
             <div className="d-flex userInfoContainer">
               <div>
-                <img src={user?.image} alt="" className="roundpic" width={47} />
+                <LazyLoadImage
+                  src={user?.image}
+                  alt=""
+                  className="roundpic"
+                  width={47}
+                />
               </div>
               <div className="ml-2 userInfo">
                 <span>

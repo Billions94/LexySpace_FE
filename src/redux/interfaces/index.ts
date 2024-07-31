@@ -12,7 +12,11 @@ export interface ReduxState {
     hideTask: boolean;
     dynamicId: string;
     posts: Post[];
+    postId: string;
+    comments: Comment[];
+    Reply: Reply[];
     tokens: Token | null;
+    scrollPosition: number;
   };
 }
 
@@ -61,11 +65,11 @@ export interface Comment {
   media: string;
   user: User;
   postId: string;
-  replies: Replies[];
+  Reply: Reply[];
   createdAt: Date;
 }
 
-export interface Replies {
+export interface Reply {
   id: string;
   text: string;
   media?: string;

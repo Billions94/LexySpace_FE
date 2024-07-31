@@ -1,26 +1,26 @@
-import React from 'react';
-import { Form, Col, Alert, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import Loader from '../loader/Loader';
-import { apiUrl } from '../../lib/API';
-import { getFormAttributes } from '../../util/funcs';
-import { UseInput } from '../hooks/useInput';
-import { loginInput } from './inputs';
-import { loginForm } from './forms/loginForm';
 import axios from 'axios';
-import { getUsersAction, setTokenAction } from '../../redux/actions';
+import React from 'react';
+import { Alert, Button, Col, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { apiUrl } from '../../lib/API';
+import { getUsersAction, setTokenAction } from '../../redux/actions';
+import { getFormAttributes } from '../../util/funcs';
+import { useInput } from '../hooks/useInput';
+import Loader from '../loader/Loader';
+import { loginForm } from './forms/loginForm';
+import { loginInput } from './inputs';
 
-import './styles.scss';
 import { LogInResponse } from '../../redux/interfaces';
 import { FormControlSize, LoginInput } from './interfaces';
+import './styles.scss';
 
 const LogIn: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
-  const { input, handleChange } = UseInput<LoginInput>(loginInput);
+  const { input, handleChange } = useInput<LoginInput>(loginInput);
 
   const loginData: LoginInput = {
     email: input.email,
@@ -70,7 +70,7 @@ const LogIn: React.FC = () => {
   ) : (
     <div id="loginContainer" className="col3">
       <div className="text-center createAcc textColor">Login to LexySpace</div>
-      <Col sm={6} md={4} lg={5} className="customMT mx-auto">
+      <Col sm={6} md={4} className="customMT mx-auto">
         {error && (
           <Alert className="alert text-center" variant="danger">
             Email or password is incorrect!

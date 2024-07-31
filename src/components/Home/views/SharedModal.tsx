@@ -1,18 +1,18 @@
-import {
-  useState,
+import React, {
   createRef,
   Dispatch,
+  FC,
   SetStateAction,
   useEffect,
-  FC,
+  useState,
 } from 'react';
-import { Modal, Button, Form, Card } from 'react-bootstrap';
-import { ReduxState, Post, User } from '../../../redux/interfaces';
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Card, Form, Modal } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import BlogAuthor from '../../post/author/PostAuthor';
 import { getPosts, reRouteAction } from '../../../redux/actions';
-import React from 'react';
+import { Post, ReduxState, User } from '../../../redux/interfaces';
+import BlogAuthor from '../../post/author/PostAuthor';
 
 interface Props {
   id: string | undefined;
@@ -126,7 +126,7 @@ const ShareModal: FC<Props> = ({ id, user, show, setShow, createdAt }) => {
         <Modal.Body>
           <div className="d-flex userInfoContainer">
             <div>
-              <img
+              <LazyLoadImage
                 src={loggedInUser?.image}
                 alt=""
                 className="roundpic"

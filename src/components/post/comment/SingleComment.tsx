@@ -1,20 +1,24 @@
 import Picker from 'emoji-picker-react';
 import React from 'react';
 import { Dropdown, Form, Image } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { defaultAvatar } from '../../assets/icons';
-import { dateFormatter } from '../../lib';
-import { deleteComment } from '../../lib/requests/comment';
-import { Comment, Post, ReduxState, Replies } from '../../redux/interfaces';
-import Reply from '../reply/Reply';
+import { defaultAvatar } from '../../../assets/icons';
+import { dateFormatter } from '../../../lib';
+import { deleteComment } from '../../../lib/requests/comment';
+import { Comment, Post, ReduxState, Reply } from '../../../redux/interfaces';
+import { useInput } from '../../hooks/useInput';
+import ReplyComponent from '../../post/reply/Reply';
+import { replyInput } from './inputs';
+import { ReplyInput } from './interface';
 
 interface SingleCommentProps {
   id: string | undefined;
   post: Post;
   comment: Comment;
   comments: Comment[];
-  fetchComments: () => Promise<void>;
+  fetchComments: () => Promise<Comment[]>;
   setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
 }
 
@@ -30,49 +34,46 @@ const SingleComment: React.FC<SingleCommentProps> = ({
   const { user } = useSelector((state: ReduxState) => state.data);
   const me = user?.id;
 
-  const [reply, setReply] = React.useState({
-    text: '',
-    user: me,
-  });
+  const {
+    input: reply,
+    handleChange,
+    setInput,
+  } = useInput<ReplyInput>(replyInput);
+
   const [show, setShow] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [replies, setReplies] = React.useState<Replies[]>();
+  const [Reply, setReply] = React.useState<Reply[]>();
 
   const toggle = () => {
     !show ? setShow(true) : setShow(false);
   };
 
   const target = (e: any) => {
-    if (e.target && e.target.files[0]) {
-      setMedia(e.target.files[0]);
-    }
+    if (e.target.files) setMedia(e.target.files[0]);
   };
 
   const replyComment = async (c: Comment) => {
     if (media) {
       try {
-        const response = await fetch(`${apiUrl}/replies/${c.id}`, {
+        const response = await fetch(`${apiUrl}/Reply/${c.id}`, {
           method: 'POST',
           body: JSON.stringify(reply),
           headers: { 'Content-Type': 'application/json' },
         });
         if (response.ok) {
           const replyData = await response.json();
-          const newReply = replyData.replies.pop();
+          const newReply = replyData.Reply.pop();
 
           try {
             const formDt = new FormData();
             formDt.append('media', media);
-            const addMedia = await fetch(
-              `${apiUrl}/replies/${newReply}/upload`,
-              {
-                method: 'PATCH',
-                body: formDt,
-              }
-            );
+            const addMedia = await fetch(`${apiUrl}/Reply/${newReply}/upload`, {
+              method: 'PATCH',
+              body: formDt,
+            });
             if (addMedia.ok) {
               setShow(false);
-              await getReplies();
+              await getReply();
               await fetchComments();
             }
           } catch (error) {
@@ -84,18 +85,18 @@ const SingleComment: React.FC<SingleCommentProps> = ({
       }
     } else {
       try {
-        const response = await fetch(`${apiUrl}/replies/${c.id}`, {
+        const response = await fetch(`${apiUrl}/Reply/${c.id}`, {
           method: 'POST',
           body: JSON.stringify(reply),
           headers: { 'Content-Type': 'application/json' },
         });
         if (response.ok) {
-          setReply({
+          setInput({
             text: '',
-            user: user?.id,
+            userId: user?.id,
           });
           setShow(false);
-          await getReplies();
+          await getReply();
           await fetchComments();
         }
       } catch (error) {
@@ -104,13 +105,13 @@ const SingleComment: React.FC<SingleCommentProps> = ({
     }
   };
 
-  const getReplies = async () => {
+  const getReply = async () => {
     try {
-      const response = await fetch(`${apiUrl}/replies`);
+      const response = await fetch(`${apiUrl}/Reply`);
       if (response.ok) {
-        const data: Replies[] = await response.json();
+        const data: Reply[] = await response.json();
         console.log('reply info', data);
-        setReplies(data);
+        setReply(data);
       }
     } catch (error) {
       console.log(error);
@@ -123,29 +124,27 @@ const SingleComment: React.FC<SingleCommentProps> = ({
   };
 
   const inputBtn = React.createRef<HTMLInputElement>();
-
-  const openInputFile = () => {
-    inputBtn?.current?.click();
-  };
+  const openInputFile = () => inputBtn?.current?.click();
 
   // Emojis
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [chosenEmoji, setChosenEmoji] = React.useState(null);
 
-  const onEmojiClick = (event: any, emojiObject: any) => {
+  const onEmojiClick = (event: any, emojiObject: any) =>
     setChosenEmoji(emojiObject);
-  };
 
   return (
     <div key={comment.id} className="mt-2">
       <div className="cardHeader">
         <div className="d-flex">
-          <Link to={`/userProfile/${comment.user.id}`}>
+          <Link to={`/userProfile/${comment.user.userName}`}>
             <div>
-              <Image
-                className=" d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
+              <LazyLoadImage
+                className="d-block g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
                 src={comment.user.image ? comment.user.image : defaultAvatar}
                 alt="Image Description"
+                width={50}
+                height={50}
               />
             </div>
           </Link>
@@ -162,10 +161,6 @@ const SingleComment: React.FC<SingleCommentProps> = ({
                         <strong>•••</strong>
                       </b>
                     </div>
-                    {/* <img alt=''
-                      className="lrdimg"
-                      width="15px"
-                      src="https://img.icons8.com/android/50/000000/more.png" /> */}
                   </Dropdown.Toggle>
                   <Dropdown.Menu
                     className="dropDownMenu"
@@ -235,7 +230,7 @@ const SingleComment: React.FC<SingleCommentProps> = ({
           </div>
         </div>
 
-        <Reply post={post} comment={comment} commentID={comment.id} />
+        <ReplyComponent post={post} comment={comment} commentID={comment.id} />
 
         {!show ? null : (
           <div className="reply">
@@ -307,8 +302,9 @@ const SingleComment: React.FC<SingleCommentProps> = ({
                 <Form.Control
                   className="form-control dmText search"
                   placeholder="Write a comment..."
+                  name="text"
                   value={reply.text}
-                  onChange={(e) => setReply({ ...reply, text: e.target.value })}
+                  onChange={handleChange}
                 />
               </div>
             </div>

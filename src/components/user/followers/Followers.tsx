@@ -1,14 +1,13 @@
 import React from 'react';
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import Loader from '../../loader/Loader';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { defaultAvatar, defaultCover } from '../../../assets/icons';
+import API from '../../../lib/API';
 import { getFollowersAction } from '../../../redux/actions';
 import { ReduxState, User } from '../../../redux/interfaces';
-import { defaultAvatar, defaultCover } from '../../../assets/icons';
+import Loader from '../../loader/Loader';
 import FollowersList from './FollowersList';
-import API from '../../../lib/API';
 import './styles.scss';
 
 const Followers: React.FC = () => {
@@ -30,7 +29,7 @@ const Followers: React.FC = () => {
   }
 
   React.useEffect(() => {
-    dispatch(getFollowersAction(id));
+    if (id) dispatch(getFollowersAction(id));
     (async () => getUser())();
   }, [refresh, id]);
 

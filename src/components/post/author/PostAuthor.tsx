@@ -2,58 +2,41 @@ import React from 'react';
 import { Image, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { defaultAvatar } from '../../../assets/icons';
+import { useHoverState } from '../../../components/hooks/useHoverState';
 import { dateFormatter } from '../../../lib';
 import { User } from '../../../redux/interfaces';
 import './styles.scss';
 import UserInfo from './UserInfo';
 
-const PostAuthor: React.FC<User> = (props) => {
-  const { firstName, isVerified, image, createdAt, userName } = props;
-  const [timer, setTimer] = React.useState<boolean>(false);
-  const [show, setShow] = React.useState<boolean>(false);
+type UserProps = User;
 
-  const handleShow = () =>
-    setTimeout(() => {
-      setShow(true);
-    }, 500);
-  const handleClose = () => {
-    setTimeout(() => {
-      if (timer) {
-        setShow(false);
-      }
-    }, 500);
-  };
+const PostAuthor: React.FC<UserProps> = (userProps) => {
+  const { show, handleShow } = useHoverState();
 
   return (
     <Row
       id="blogAuthorContainer"
-      onMouseEnter={handleShow}
-      onMouseLeave={() => {
-        handleClose();
-        setTimer(true);
-      }}
+      onMouseEnter={() => handleShow(true)}
+      onMouseLeave={() => handleShow(false)}
     >
       <div className="d-flex align-items-center">
-        <UserInfo
-          show={show}
-          handleShow={handleShow}
-          handleClose={handleClose}
-          setTimer={setTimer}
-          props={props}
-        />
+        <UserInfo show={show} userFromProps={userProps} />
 
-        <Link className="text-decoration-none" to={`/userProfile/${userName}`}>
+        <Link
+          className="text-decoration-none"
+          to={`/userProfile/${userProps.userName}`}
+        >
           <div id="authorDetails" className="d-flex">
             <Image
               style={{ width: '50px', height: '50px' }}
               className="blog-author authorDetails"
-              src={image ? image : defaultAvatar}
+              src={userProps.image ? userProps.image : defaultAvatar}
               roundedCircle
             />
             <div style={{ marginLeft: '10px' }}>
               <h6 className="text-dark authorFirstName mb-0">
-                {firstName}
-                {isVerified && (
+                {userProps.firstName}
+                {userProps.isVerified && (
                   <span className=" mt-1 ml-1  d-flex-row align-items-center">
                     <img
                       alt=""
@@ -64,9 +47,11 @@ const PostAuthor: React.FC<User> = (props) => {
                   </span>
                 )}
               </h6>
-              <h6 className="text-muted authorUserName mb-1">@{userName}</h6>
+              <h6 className="text-muted authorUserName mb-1">
+                @{userProps.userName}
+              </h6>
               <h6 className="text-muted postTime">
-                ● {dateFormatter(createdAt as Date)} ago
+                ● {dateFormatter(userProps.createdAt as Date)} ago
               </h6>
             </div>
           </div>

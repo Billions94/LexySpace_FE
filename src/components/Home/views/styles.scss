@@ -4,7 +4,6 @@
   margin-bottom: 50px;
   object-fit: cover;
   object-position: 0% 0%;
-  // margin-top: 50px;
 
   .interactionBadge {
     position: absolute;
@@ -20,10 +19,9 @@
     cursor: pointer;
     border: 2px solid #24224a;
     border-radius: 20px;
-    padding: 7px 7px ;
+    padding: 7px 7px;
     display: flex;
     align-items: center;
-    // box-shadow: 1px 1px 5px #d8d7d7;
   }
 
   .comments:hover {
@@ -35,7 +33,6 @@
     border: 2px solid #24224a;
     border-radius: 20px;
     padding: 7px 7px;
-    // box-shadow: 1px 1px 5px #d8d7d7;
     display: flex;
     align-items: center;
     position: relative;
@@ -74,13 +71,10 @@
   }
 
   .candl {
-    // position: relative;
     border-radius: 50px;
     border: none;
     background-color: transparent;
     box-shadow: 0px 0px 5px #d8d7d7;
-    // height: 40px;
-    // width: 40px;
   }
 
   .candl:hover {
@@ -125,7 +119,6 @@
     color: #dadada !important;
   }
 
-
   .authorUserName {
     font-size: 14px;
     font-weight: 400;
@@ -140,7 +133,6 @@
   .dropDownMenu {
     padding: 18px !important;
     border-radius: 25px !important;
-    // border: 1px solid #d8d7d7 !important;
     position: absolute !important;
     inset: 0px auto auto 0px !important;
     margin: 0px !important;
@@ -193,14 +185,13 @@
   }
 
   .postDte {
-    // position: absolute;
     margin-top: 107px;
     margin-left: 247px;
     border-radius: 20px;
     border: 1px solid rgb(216, 215, 215);
     padding: 10px;
     background-color: white;
-    height: 188px
+    height: 188px;
   }
 
   .mode:active {
@@ -211,7 +202,6 @@
     margin-left: -1047px;
     margin-top: -280px;
   }
-
 
   .deleteBlog {
     background-color: transparent;
@@ -248,30 +238,20 @@
   }
 
   .blogContent {
-    // border-radius: 20px;
     border: none;
-    // box-shadow: 1px 1px 5px #d8d7d7;
     padding: 0px 15px;
     background-color: transparent;
     color: black;
     text-decoration: none;
   }
 
-  // .blogPostTitle {
-  //   border-bottom: 1px solid rgb(216, 215, 215);
-  //   margin-bottom: 10px;
-  // }
-
   .lrdimg {
     margin-left: -5px !important;
   }
 
   .jumbotron-banner {
-    // background-image: url("../../../../../assets/asset1.png");
     background-position: top;
     background-repeat: no-repeat;
-
-    /* width: 567px; */
   }
 
   .dropdownbtn {
@@ -284,15 +264,14 @@
     background-color: transparent;
     border-radius: 50px;
     border: none;
-  
   }
-  
+
   .dropdownbtn:focus {
     outline: none !important;
     box-shadow: none !important;
     background-color: transparent !important;
   }
-  
+
   .dropdownbtn:hover {
     outline: none;
     box-shadow: none;
@@ -338,7 +317,7 @@
     border-bottom: none;
     background-color: transparent !important;
     .close {
-      margin-left: 780px
+      margin-left: 780px;
     }
   }
 
@@ -361,6 +340,24 @@
     object-fit: contain;
     max-height: 520px;
   }
+}
+
+.post-detail-image {
+  height: 516px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.post-detail-image-list {
+  height: 516px;
+  width: 516px;
+  object-fit: cover;
+}
+
+.post-detail-image-container {
+  border: 1px solid #242249;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 #likesModal {
@@ -386,11 +383,6 @@
     width: 532px;
     height: 532px;
     max-height: 600px !important;
-    // box-shadow: -15px 15px 5px #505050;
-  }
-
-  .modal-body {
-    // padding: 32px;
   }
 
   .modalbtn {
@@ -491,45 +483,45 @@
       background-color: white;
       box-shadow: 5px 5px 1px black;
     }
-  
+
     .followbtn:hover {
       border-radius: 20px;
       color: black;
       background-color: #dadada;
     }
-  
+
     .followbtn:active {
       outline: none;
       box-shadow: 5px 5px 1px black;
     }
-  
+
     .followbtn:focus {
       outline: none;
       box-shadow: 5px 5px 1px black;
     }
-  
+
     .followbtn:focus-visible {
       outline: none;
       box-shadow: none;
     }
-  
+
     .nowfollowing {
       border-radius: 20px !important;
       background-color: #f91880 !important;
       border: 1px solid #f91880 !important;
-      box-shadow: 5px 5px 1px black !important
+      box-shadow: 5px 5px 1px black !important;
     }
-  
+
     .nowfollowing:active {
       outline: none;
       box-shadow: 5px 5px 1px black;
     }
-  
+
     .nowfollowing:focus {
       outline: none;
       box-shadow: 5px 5px 1px black;
     }
-  
+
     .nowfollowing:focus-visible {
       outline: none;
       box-shadow: none;
@@ -545,5 +537,5 @@
 
 .singleImage {
   position: relative;
-  padding-left: 15px ;
+  padding-left: 15px;
 }

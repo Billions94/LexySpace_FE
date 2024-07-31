@@ -3,22 +3,17 @@ import { Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { reRouteAction } from '../../../redux/actions';
-import { Post } from '../../../redux/interfaces';
+import { Post, User } from '../../../redux/interfaces';
 import PostAuthor from '../author/PostAuthor';
 
 interface Props {
-  data: {
-    newPost: Post;
-    post: Post;
-  };
+  newPost: Post;
+  post?: Post;
 }
 
-export const SharedPost: React.FC<Props> = ({ data }: Props) => {
+export const SharedPost: React.FC<Props> = ({ newPost, post }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { newPost, post } = data;
-  console.log({ newPost });
 
   const route = (postId: string) => {
     navigate(`/posts/${postId}`);
@@ -27,13 +22,13 @@ export const SharedPost: React.FC<Props> = ({ data }: Props) => {
 
   return (
     <React.Fragment>
-      {newPost?.sharedPost && newPost?.sharedPost?.id !== post.id ? (
+      {newPost?.sharedPost && newPost?.sharedPost?.id !== post?.id ? (
         <div className="sharePostDiv">
           <div className="sharePost pt-3">
             <div className="d-flex">
-              <PostAuthor {...post.user} /> <div></div>
+              <PostAuthor {...(post?.user as User)} /> <div></div>
             </div>
-            <div onClick={() => route(post.id)} className="blog-link">
+            <div onClick={() => route(String(post?.id))} className="blog-link">
               <Card.Title>{newPost?.sharedPost.text}</Card.Title>
               {!newPost?.sharedPost
                 ? null

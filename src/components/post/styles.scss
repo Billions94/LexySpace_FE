@@ -22,15 +22,15 @@
   outline: 1px solid #f91880;
   background: #24224a;
   color: #dadada;
-  border-color: rgb(216, 215, 215)
+  border-color: rgb(216, 215, 215);
 }
 .customInput:active {
   box-shadow: none;
   outline: none;
-  border-color: rgb(216, 215, 215)
+  border-color: rgb(216, 215, 215);
 }
 
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
 
 :root {
   --gradient: linear-gradient(135deg, #f5f5f5 10%, #f5f5f5 100%);
@@ -57,7 +57,7 @@
 .body {
   margin: 0;
   width: 100%;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: #343d4b;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -92,7 +92,7 @@
   position: relative;
   height: 100%;
   border-radius: 25px;
-  background-image: url("https://images.unsplash.com/photo-1559963110-71b394e7494d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80");
+  background-image: url('https://images.unsplash.com/photo-1559963110-71b394e7494d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80');
   width: 200px;
   -webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
@@ -189,7 +189,7 @@
   border-radius: 10px;
 }
 
-.today-info>div:not(:last-child) {
+.today-info > div:not(:last-child) {
   margin: 0 0 10px 0;
 }
 
@@ -212,10 +212,10 @@
   -webkit-box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  background: "";
+  background: '';
 }
 
-.week-list>li {
+.week-list > li {
   float: left;
   padding: 15px;
   cursor: pointer;
@@ -225,7 +225,7 @@
   border-radius: 10px;
 }
 
-.week-list>li:hover {
+.week-list > li:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
@@ -235,26 +235,26 @@
   box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
 }
 
-.week-list>li.active {
+.week-list > li.active {
   background: #fff;
   color: #222831;
   border-radius: 10px;
 }
 
-.week-list>li .day-name {
+.week-list > li .day-name {
   display: block;
   margin: 10px 0 0 0;
   text-align: center;
 }
 
-.week-list>li .day-icon {
+.week-list > li .day-icon {
   display: block;
   height: 30px;
   width: auto;
   margin: 0 auto;
 }
 
-.week-list>li .day-temp {
+.week-list > li .day-temp {
   display: block;
   text-align: center;
   margin: 10px 0 0 0;
@@ -273,7 +273,7 @@
   border: none;
   border-radius: 25px;
   padding: 10px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-image: var(--gradient);
   color: #ffffff;
   font-weight: 700;
@@ -296,7 +296,7 @@
   border: none;
   border-radius: 25px;
   padding: 2px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-image: var(--gradient);
   color: #ffffff;
   font-weight: 700;
@@ -319,7 +319,7 @@
   border: none;
   border-radius: 25px;
   padding: 2px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-image: var(--gradient);
   color: #ffffff;
   font-weight: 700;
@@ -365,8 +365,8 @@
       // margin-top: 100px;
       color: #f91880;
       z-index: 11;
-      padding: 10px
-  }
+      padding: 10px;
+    }
   }
 
   .hotpostList {
@@ -405,7 +405,7 @@
   .badge {
     display: inline-block;
     padding: 0.35em 0.65em;
-    font-size: .75em;
+    font-size: 0.75em;
     font-weight: 700;
     line-height: 1;
     color: #fff;
@@ -468,6 +468,7 @@
   .textarea {
     border: none;
     resize: none;
+    background: transparent;
   }
 
   .textarea:focus {
@@ -483,7 +484,7 @@
     padding: 15px 0px;
     border-left: 2px solid #24224a !important;
     border-right: 2px solid #24224a !important;
-    
+
     // box-shadow: 20px 1px 5px #d8d7d7;
     .feedBorders {
       border-top: 1px solid rgb(216, 215, 215) !important;
@@ -506,7 +507,7 @@
     // }
 
     .disabled1 {
-      background-color: rgb(192, 192, 192) ;
+      background-color: rgb(192, 192, 192);
       border-radius: 20px;
     }
 
@@ -525,11 +526,11 @@
       border: 1px solid #f91880;
       box-shadow: -5px 5px 1px black;
     }
-  
+
     .modal-btn:hover {
       background-color: #e41575;
     }
-  
+
     .modal-btn:focus {
       box-shadow: none;
     }
@@ -566,10 +567,9 @@
     .btnIcon {
       border-radius: 50px;
     }
-  
+
     .btnIcon:hover {
       background: #24224a;
-     
     }
   }
 }
@@ -591,7 +591,7 @@
   .loader {
     display: flex;
     justify-content: center;
-    color: #f91880
+    color: #f91880;
   }
 
   .blog-card {
@@ -615,13 +615,13 @@
       outline: 1px solid #f91880;
       box-shadow: none;
       color: #dadada;
-      border-color: rgb(216, 215, 215)
+      border-color: rgb(216, 215, 215);
     }
 
     &.taskList:active {
       outline: none;
       box-shadow: none;
-      border-color: rgb(216, 215, 215)
+      border-color: rgb(216, 215, 215);
     }
   }
 

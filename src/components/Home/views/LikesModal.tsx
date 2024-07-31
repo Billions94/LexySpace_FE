@@ -1,5 +1,6 @@
 import React, { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FollowUser } from '../../../lib/requests/interfaces/user.interface';
@@ -61,7 +62,6 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }) => {
 
   useEffect(() => {
     (async () => await getPosts(dispatch))();
-    dispatch(getUsersAction());
   }, [following]);
 
   return (
@@ -84,7 +84,11 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }) => {
                 onClick={() => navigate(`/userProfile/${user?.id}`)}
                 className="linkToProfile"
               >
-                <img className="profile-pic" src={user?.image} alt="" />
+                <LazyLoadImage
+                  className="profile-pic"
+                  src={user?.image}
+                  alt=""
+                />
                 <div className="ml-2">
                   <h6 className="firstandlastname">
                     {user?.firstName} {user?.lastName}

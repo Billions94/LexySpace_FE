@@ -20,6 +20,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
 const refreshAccessToken = async () => {
   const { data } = await API.post('users/refreshToken', {
     currentRefreshToken: useTokens().refreshToken,

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { retrieveAccessToken } from '../redux/store';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setTokenAction } from '../redux/actions';
+import { retrieveAccessToken } from '../redux/store';
 
 export default function useAuthGuard() {
   const dispatch = useDispatch();
@@ -15,7 +15,9 @@ export default function useAuthGuard() {
     if (!tokens) {
       navigate('/login');
     } else if (params.get('accessToken')) {
-      dispatch(setTokenAction(tokens));
+      if (typeof tokens === 'string')
+        dispatch(setTokenAction({ accessToken: tokens, refreshToken: '' }));
+      else dispatch(setTokenAction(tokens));
       navigate('/home');
     }
   }, []);

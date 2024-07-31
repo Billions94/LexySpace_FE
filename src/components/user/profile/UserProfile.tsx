@@ -45,14 +45,14 @@ const UserProfile: FC = () => {
   const handlePic = () => setPic(true);
 
   const me = loggedInUser?.userName;
-  const getCurrentUser = me === id ? loggedInUser : user;
-  const follower = { userToFollow: getCurrentUser?.userName };
+  const currentUser = me === id ? loggedInUser : user;
+  const follower = { userToFollow: currentUser?.userName };
 
   const follow = async () => {
     try {
       const { data } = await API.post(`/users/current-user/follow`, follower);
       if (data) {
-        dispatch(getFollowersAction(id));
+        if (id) dispatch(getFollowersAction(id));
       }
     } catch (error) {
       console.log(error);
@@ -73,7 +73,7 @@ const UserProfile: FC = () => {
     dispatch(followAction(false));
   };
 
-  console.log({ getCurrentUser });
+  console.log({ currentUser });
 
   useEffect(() => {
     dispatch(setCover(loggedInUser.cover));
@@ -97,7 +97,7 @@ const UserProfile: FC = () => {
             <Col sm={6} md={7} lg={7} className="coverDiv">
               {id !== me ? (
                 <>
-                  {!getCurrentUser?.cover ? (
+                  {!currentUser?.cover ? (
                     <img
                       className="cover mb-2"
                       src={defaultCover}
@@ -107,7 +107,7 @@ const UserProfile: FC = () => {
                   ) : (
                     <img
                       className="cover mb-2"
-                      src={getCurrentUser?.cover}
+                      src={currentUser?.cover}
                       alt=""
                       height="250px"
                     />
@@ -131,7 +131,7 @@ const UserProfile: FC = () => {
 
             <div id="jinx" className="d-flex px-4 col-lg-10">
               <div className="imgDiv ml5">
-                {!getCurrentUser?.image ? (
+                {!currentUser?.image ? (
                   <Avatar
                     onClick={handlePic}
                     sx={{
@@ -140,8 +140,8 @@ const UserProfile: FC = () => {
                     }}
                     children={
                       <NewUserAvatar
-                        firstName={String(getCurrentUser?.firstName)}
-                        lastName={String(getCurrentUser?.lastName)}
+                        firstName={String(currentUser?.firstName)}
+                        lastName={String(currentUser?.lastName)}
                         className={AvatarStyle.PROFILE}
                       />
                     }
@@ -152,9 +152,7 @@ const UserProfile: FC = () => {
                     id="profile-pic"
                     onClick={handlePic}
                     src={
-                      getCurrentUser?.image
-                        ? getCurrentUser?.image
-                        : defaultAvatar
+                      currentUser?.image ? currentUser?.image : defaultAvatar
                     }
                     alt="ProfilePicture"
                     width="130"
@@ -164,31 +162,29 @@ const UserProfile: FC = () => {
 
                 <div>
                   <div className="nameHeader ">
-                    {getCurrentUser?.firstName} {getCurrentUser?.lastName}
+                    {currentUser?.firstName} {currentUser?.lastName}
                   </div>
-                  <div className="">lives in {getCurrentUser?.location}</div>
-                  <div className="">{getCurrentUser?.bio}</div>
-                  {(getCurrentUser?.followers.length as number) > 1 ? (
+                  <div className="">lives in {currentUser?.location}</div>
+                  <div className="">{currentUser?.bio}</div>
+                  {(currentUser?.followers.length as number) > 1 ? (
                     <span
                       className=" customLinks1"
-                      onClick={() =>
-                        navigate(`/followers/${getCurrentUser?.id}`)
-                      }
+                      onClick={() => navigate(`/followers/${currentUser?.id}`)}
                     >
-                      {getCurrentUser?.followers?.length} followers
+                      {currentUser?.followers?.length} followers
                     </span>
                   ) : null}
-                  {getCurrentUser?.followers?.length === 1 ? (
+                  {currentUser?.followers?.length === 1 ? (
                     <span
                       className=" customLinks1"
                       onClick={() => navigate(`/followers/${user?.id}`)}
                     >
-                      {getCurrentUser?.followers?.length} follower
+                      {currentUser?.followers?.length} follower
                     </span>
                   ) : null}
-                  {getCurrentUser?.followers?.length === 0 ? (
+                  {currentUser?.followers?.length === 0 ? (
                     <span className=" customLinks1">
-                      {getCurrentUser?.followers?.length} follower
+                      {currentUser?.followers?.length} follower
                     </span>
                   ) : null}
                 </div>
@@ -204,7 +200,7 @@ const UserProfile: FC = () => {
               <div className="text-left ml-auto justify-content-center">
                 <br />
                 <div className="d-flex justify-content-center mb-3">
-                  {getCurrentUser?.isVerified && (
+                  {currentUser?.isVerified && (
                     <div className=" mt-1  d-flex-row align-items-center">
                       {Verified}
                     </div>
@@ -222,7 +218,7 @@ const UserProfile: FC = () => {
                   )}
                   {id !== me && (
                     <p>
-                      {!getCurrentUser?.followers.some(
+                      {!currentUser?.followers.some(
                         (user) => user.userName === me
                       ) ? (
                         <Button

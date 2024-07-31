@@ -5,18 +5,19 @@ import API from '../../../lib/API';
 import { getPosts } from '../../../lib/requests/post';
 import { likeAction } from '../../../redux/actions';
 import { Post, ReduxState } from '../../../redux/interfaces';
-import CommentModal from '../../comment/new/CommentModal';
+import CommentModal from '../comment/new/CommentModal';
 import SharePost from '../crud/SharePost';
 
 interface Props {
-  data: {
-    me: string;
-    post: Post;
-  };
+  me: string;
+  post?: Post;
+  className?: string;
 }
 
 export const InteractionButtons: React.FC<Props> = ({
-  data: { me: userId, post },
+  me: userId,
+  post,
+  className,
 }) => {
   const dispatch = useDispatch();
   const liker = { userId };
@@ -45,7 +46,7 @@ export const InteractionButtons: React.FC<Props> = ({
 
   const like = async () => {
     try {
-      await API.patch(`/posts/${post.id}/likes`, liker);
+      await API.patch(`/posts/${post?.id}/likes`, liker);
       await getPosts(dispatch);
     } catch (error) {
       console.log(error);
@@ -63,11 +64,17 @@ export const InteractionButtons: React.FC<Props> = ({
   };
 
   const toggle = () => {
-    !post.likes ? likePost() : unLikePost();
+    !post?.likes ? likePost() : unLikePost();
   };
 
   return (
-    <div className="d-flex justify-content-around mt-1 mb-0">
+    <div
+      className={
+        className
+          ? `d-flex justify-content-around mt-1 mb-0 ml-auto`
+          : `d-flex justify-content-around mt-1 mb-0`
+      }
+    >
       <div
         onMouseEnter={handleCommentLabelShow}
         onMouseLeave={handleCommentLabelClose}
@@ -81,7 +88,7 @@ export const InteractionButtons: React.FC<Props> = ({
           />
         </button>
         <button className="text-dark btnX">
-          <span>{post.comments.length}</span>
+          <span>{post?.comments.length}</span>
         </button>
         {!commentLabel ? null : (
           <Badge pill variant="secondary" className="interactionBadge">
@@ -89,7 +96,7 @@ export const InteractionButtons: React.FC<Props> = ({
           </Badge>
         )}
         <CommentModal
-          id={post.id}
+          id={String(post?.id)}
           show={show}
           setShow={setShow}
           handleClose={handleClose}
@@ -101,9 +108,9 @@ export const InteractionButtons: React.FC<Props> = ({
         onClick={toggle}
         className="postition-relative"
       >
-        {!post.likes.some((elem) => elem.id === userId) ? (
+        {!post?.likes.some((elem) => elem.id === userId) ? (
           <>
-            <button className="candl">
+            <button className={className ? `candl ml-3` : `candl`}>
               <img
                 className="interactions"
                 src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
@@ -112,7 +119,7 @@ export const InteractionButtons: React.FC<Props> = ({
               />
             </button>
             <button className="text-dark btnX">
-              <span>{post.likes.length}</span>
+              <span>{post?.likes.length}</span>
             </button>
             {!likeLabel ? null : (
               <Badge pill variant="secondary" className="interactionBadge">
@@ -122,7 +129,7 @@ export const InteractionButtons: React.FC<Props> = ({
           </>
         ) : (
           <>
-            <button className="candl">
+            <button className={className ? `candl ml-3` : `candl`}>
               <img
                 className="interactions"
                 src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
@@ -131,7 +138,7 @@ export const InteractionButtons: React.FC<Props> = ({
               />
             </button>
             <button className="text-dark btnX">
-              <span>{post.likes.length}</span>
+              <span>{post?.likes.length}</span>
             </button>
             {!likeLabel ? null : (
               <Badge pill variant="secondary" className="interactionBadge">
@@ -146,7 +153,10 @@ export const InteractionButtons: React.FC<Props> = ({
         onMouseLeave={handleShareLabelClose}
         className="postition-relative"
       >
-        <button className="candl" onClick={handleShareShow}>
+        <button
+          className={className ? `candl ml-3` : `candl`}
+          onClick={handleShareShow}
+        >
           <img
             src="https://img.icons8.com/ios-filled/50/ffffff/right2.png"
             width="20px"
@@ -159,11 +169,11 @@ export const InteractionButtons: React.FC<Props> = ({
           </Badge>
         )}
         <SharePost
-          id={post.id}
-          user={post.user}
+          id={post?.id}
+          user={post?.user}
           show={share}
           setShow={setShare}
-          createdAt={post.createdAt}
+          createdAt={post?.createdAt}
         />
       </div>
     </div>

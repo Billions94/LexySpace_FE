@@ -1,4 +1,4 @@
-#loginContainer{
+#loginContainer {
   margin-top: 300px;
   // background-image: url(https://pressbooks.ulib.csuohio.edu/bright-continent/wp-content/uploads/sites/21/2018/04/Four-heads-in-scale2-1024x717.jpg);
   // background-size: contain ;
@@ -17,7 +17,7 @@
     font-size: 37px;
     line-height: 20px;
     color: #e5e5e5;
-    font-family: "JetBrains Mono NL", serif;
+    font-family: 'JetBrains Mono NL', serif;
   }
 
   .signin {
@@ -48,7 +48,6 @@
   }
 
   .login {
-    //font-family: 'Jetbrains Mono', serif;
     border: none !important;
     border-bottom: 1px solid deeppink !important;
     border-radius: 0;
@@ -65,14 +64,13 @@
     &:focus {
       outline: none;
       box-shadow: none;
-
     }
   }
 
   .FeedBack {
-    font-family: "JetBrains Mono NL", serif;
+    font-family: 'JetBrains Mono NL', serif;
   }
-  
+
   .register {
     font-weight: 400;
     font-size: 14px;
@@ -104,26 +102,25 @@
     margin-top: 2rem;
     background: transparent;
   }
-  
+
   .register1 {
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
   }
-  
+
   .google {
     position: absolute;
     z-index: 1;
     margin-top: 14px;
-    margin-left: 40px; 
+    margin-left: 40px;
   }
-  
+
   .googleIcon {
     display: flex;
     justify-content: space-around;
     position: relative;
   }
-
 
   .googleDiv {
     display: flex;
@@ -137,8 +134,8 @@
     font-weight: bold;
     box-shadow: 0px 0px 10px -4px #9f9d9da8;
   }
-  
-  .googleBtn{
+
+  .googleBtn {
     display: flex;
     align-items: center;
     background: transparent;
@@ -164,7 +161,7 @@
     outline: none;
     border: none;
   }
-  
+
   .or {
     /* content: "";
     position: absolute; 
@@ -176,7 +173,7 @@
     color: black;
     z-index: 3;
   }
-  
+
   /* .or::before {
     content: "OR";
     position: absolute; 
@@ -187,41 +184,39 @@
     margin-left: -35px;
     z-index: 1;
   } */
-  
+
   .googleDiv:hover {
     background-color: #24224a;
   }
-  
+
   .loginBtn {
     display: flex;
     justify-content: space-between;
-    font-family: "JetBrains Mono NL", Serif;
+    font-family: 'JetBrains Mono NL', Serif;
   }
-  
+
   .signUpContainer {
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Geb.svg/1200px-Geb.svg.png) !important;
-    background-size: contain ;
+    background-size: contain;
     height: 72vh;
   }
-  
-  
-  
+
   // .col3 {
   //   background-image: url(https://pressbooks.ulib.csuohio.edu/bright-continent/wp-content/uploads/sites/21/2018/04/Four-heads-in-scale2-1024x717.jpg);
   //   background-size: contain ;
   //   height: 72vh;
   // }
-  
+
   .customForm {
     height: 75vh;
   }
-  
+
   .customBtn {
     border-radius: 20px;
     background-color: transparent;
     border: 1px solid black;
   }
-  
+
   .customBtn:hover {
     background-color: blanchedalmond;
     border: 1px solid black;
@@ -266,7 +261,6 @@
   }
 
   .btnIcon {
-    
   }
 
   .btnIcon:focus {
@@ -280,8 +274,8 @@
 }
 
 .disabled1 {
-  background-color: rgb(192, 192, 192)  !important;
-  border: 1px solid rgb(192, 192, 192) !important;;
+  background-color: rgb(192, 192, 192) !important;
+  border: 1px solid rgb(192, 192, 192) !important;
   border-radius: 20px;
 }
 

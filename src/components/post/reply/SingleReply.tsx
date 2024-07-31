@@ -1,15 +1,15 @@
-import { dateFormatter } from '../../lib';
-import { Comment, Post, Replies, ReduxState } from '../../redux/interfaces';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { Dropdown, Image } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { dateFormatter } from '../../../lib';
+import { Comment, Post, ReduxState, Reply } from '../../../redux/interfaces';
 import './styles.scss';
-import React from 'react';
 
 interface SingleReplyProps {
   commentID: string | undefined;
   comment: Comment;
-  reply: Replies;
+  reply: Reply;
   post: Post | undefined;
   getReplies: () => Promise<void>;
 }
@@ -27,13 +27,10 @@ const SingleReply = ({
 
   const deleteReply = async (id: string) => {
     try {
-      const response = await fetch(`${url}/replies/${id}`, {
+      const response = await fetch(`${url}/Reply/${id}`, {
         method: 'DELETE',
       });
-      if (response.ok) {
-        console.log('Reply deleted');
-        await getReplies();
-      }
+      if (response.ok) await getReplies();
     } catch (error) {
       console.log(error);
     }
@@ -100,7 +97,7 @@ const SingleReply = ({
                                 src="https://img.icons8.com/fluency/50/000000/delete-sign.png"
                               />
                             </div>
-                            <div onClick={(e) => deleteReply(reply.id)}>
+                            <div onClick={() => deleteReply(reply.id)}>
                               delete
                             </div>
                           </div>
@@ -116,21 +113,14 @@ const SingleReply = ({
                 <div className="mt-2 media">
                   {!reply.media
                     ? null
-                    : reply.media &&
-                      reply.media
-                        .split('.')
-                        .slice(-1)
-                        .join()
-                        .match(`heic|png|jpg|pdf|jpeg`) && (
-                        <img className="img" src={reply.media} alt="" />
-                      )}
+                    : /heic|png|jpg|pdf|jpeg/.exec(
+                        reply?.media.split('.').slice(-1).join()
+                      ) && <img className="img" src={reply.media} alt="" />}
                   {!reply.media
                     ? null
-                    : reply.media
-                        .split('.')
-                        .slice(-1)
-                        .join()
-                        .match(`mp4|MPEG-4|mkv`) && (
+                    : /mp4|MPEG-4|mkv/.exec(
+                        reply.media.split('.').slice(-1).join()
+                      ) && (
                         <video
                           src={reply.media}
                           className="post-video"

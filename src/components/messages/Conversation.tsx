@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Dropdown, ListGroup } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Socket } from 'socket.io-client';
 import { OnlineUser } from '../../interfaces/OnlineUser';
 import API from '../../lib/API';
@@ -52,7 +53,7 @@ export default function Convo(props: RoomProps) {
       <div className="d-flex">
         <React.Fragment>
           <div className="onlineIconConvo">
-            <img
+            <LazyLoadImage
               src={member?.image}
               className="roundpic"
               alt=""

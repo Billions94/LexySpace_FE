@@ -3,7 +3,7 @@ import { Button, Container, Navbar } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import API from '../../lib/API';
-import { ReduxState } from '../../redux/interfaces';
+import { GET_STORE } from '../../redux/store';
 import { useReroute } from '../hooks/useReroute';
 import PostModal from '../post/crud/PostModal';
 import { NavbarSignUpButton } from './button/NavbarSignUpButton';
@@ -18,8 +18,10 @@ const NavBar: FC = () => {
   const [show, setShow] = useState(false);
   const { route } = useReroute();
 
+  const {
+    data: { user },
+  } = useSelector(GET_STORE);
   const handleShow = () => setShow(true);
-  const { user } = useSelector((state: ReduxState) => state.data);
   const loggedInUserId = user?.id;
 
   /**

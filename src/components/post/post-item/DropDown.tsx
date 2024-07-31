@@ -1,15 +1,15 @@
 import React, { SetStateAction } from 'react';
-import PostAuthor from '../author/PostAuthor';
-import Edit from '../crud/EditPost';
-import DeleteModal from '../crud/DeleteModal';
 import { Dropdown } from 'react-bootstrap';
-import { Post, ReduxState } from '../../../redux/interfaces';
 import { useSelector } from 'react-redux';
+import { Post, ReduxState, User } from '../../../redux/interfaces';
+import PostAuthor from '../author/PostAuthor';
+import DeleteModal from '../crud/DeleteModal';
+import Edit from '../crud/EditPost';
 
 interface Props {
   data: {
     me: string;
-    post: Post;
+    post?: Post;
     reload: boolean;
     setReload: React.Dispatch<SetStateAction<boolean>>;
     smShow: boolean;
@@ -22,7 +22,7 @@ export const DropDown: React.FC<Props> = ({ data }) => {
   const loggedInUser = useSelector((state: ReduxState) => state.data.user);
 
   const updatePostProps = {
-    postId: post.id,
+    postId: post?.id,
     reload,
     setReload,
   };
@@ -32,8 +32,8 @@ export const DropDown: React.FC<Props> = ({ data }) => {
       className="authorinfo d-flex "
       style={{ justifyContent: 'space-between' }}
     >
-      <PostAuthor {...post.user} createdAt={post.createdAt} />
-      <Dropdown className="dropdowntext ml-auto" id={post.id}>
+      <PostAuthor {...(post?.user as User)} createdAt={post?.createdAt} />
+      <Dropdown className="dropdowntext ml-auto" id={post?.id}>
         <Dropdown.Toggle className="btn btn-dark dropdownbtn">
           <div className="text-muted dots">
             <b>
@@ -42,7 +42,7 @@ export const DropDown: React.FC<Props> = ({ data }) => {
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownmenu">
-          {post.user?.id !== loggedInUser.id ? null : (
+          {post?.user?.id !== loggedInUser.id ? null : (
             <>
               <Edit data={updatePostProps} />
               <div className="d-flex customLinks">
@@ -63,7 +63,7 @@ export const DropDown: React.FC<Props> = ({ data }) => {
               />
             </>
           )}
-          {post.user?.id !== loggedInUser.id && (
+          {post?.user?.id !== loggedInUser.id && (
             <>
               <div
                 className="d-flex customLinks"

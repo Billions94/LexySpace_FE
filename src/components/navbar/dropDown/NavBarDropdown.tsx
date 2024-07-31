@@ -4,7 +4,8 @@ import { Dropdown, Image } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useReroute } from '../../../components/hooks/useReroute';
 import { NewUserAvatar } from '../../../dummy/NewUserAvatar';
-import { ReduxState, User } from '../../../redux/interfaces';
+import { User } from '../../../redux/interfaces';
+import { GET_STORE } from '../../../redux/store';
 import {
   appendIdToUrl,
   getNavbarIcons,
@@ -42,7 +43,7 @@ export const NavBarDropdown: React.FC<
   } = { ...props } as NavbarProp & NavBarDropdownProps;
 
   const { route } = useReroute();
-  const loggedInUser = useSelector((state: ReduxState) => state.data.user);
+  const loggedInUser = useSelector(GET_STORE).data.user;
 
   const avatarStyle: { [key: string]: string } = {
     top: sx(String(avatar?.sx.src), flag).top,

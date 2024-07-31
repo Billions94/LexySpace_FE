@@ -1,10 +1,11 @@
 import React from 'react';
-import { User, ReduxState } from '../../redux/interfaces';
-import API from '../../lib/API';
 import { Button, Col, Form } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import API from '../../lib/API';
 import { followAction } from '../../redux/actions';
+import { ReduxState, User } from '../../redux/interfaces';
 
 const Search = () => {
   const navigate = useNavigate();
@@ -88,7 +89,11 @@ const Search = () => {
                 onClick={() => navigate(`/userProfile/${user.id}`)}
                 className="linkToProfile"
               >
-                <img className="profile-pic" src={user.image} alt="" />
+                <LazyLoadImage
+                  className="profile-pic"
+                  src={user.image}
+                  alt=""
+                />
                 <div className="ml-2">
                   <h6 className="firstandlastname">
                     {user.firstName} {user.lastName}

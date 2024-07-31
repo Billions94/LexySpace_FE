@@ -7,7 +7,7 @@ import API from '../../lib/API';
 import { getUsersAction, saveUserAction } from '../../redux/actions';
 import { ReduxState } from '../../redux/interfaces';
 import { getFormAttributes } from '../../util/funcs';
-import { UseInput } from '../hooks/useInput';
+import { useInput } from '../hooks/useInput';
 import Loader from '../loader/Loader';
 import { editNewUserForm } from './forms/editNewUserForm';
 import { newUserInput } from './inputs';
@@ -19,7 +19,7 @@ const EditNewUser: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { input, handleChange, resetInput } =
-    UseInput<NewUserInput>(newUserInput);
+    useInput<NewUserInput>(newUserInput);
 
   const [loading, setLoading] = React.useState<boolean>(false);
   const [alert, setAlert] = React.useState<boolean>(false);
@@ -39,9 +39,7 @@ const EditNewUser: React.FC = () => {
       const fmDT = new FormData();
       fmDT.append('image', e.target.files[0]);
 
-      API.patch('/users/me/profilePic', fmDT)
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+      API.patch('/users/me/profilePic', fmDT).catch((err) => console.log(err));
     }
   };
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import API from '../../../lib/API';
 import { getUsersAction } from '../../../redux/actions';
 import { ReduxState } from '../../../redux/interfaces';
-import { UseInput } from '../../hooks/useInput';
+import { useInput } from '../../hooks/useInput';
 import './styles.scss';
 interface Props {
   show: boolean;
@@ -24,7 +24,7 @@ const EditProfile: FC<Props> = ({ show, setShow }: Props) => {
     location: user.location,
   };
 
-  const { input, handleChange } = UseInput(savedState);
+  const { input, handleChange } = useInput(savedState);
 
   async function edit() {
     try {

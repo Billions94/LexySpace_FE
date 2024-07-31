@@ -13,7 +13,16 @@ interface Props {
   textAlign?: string;
   color?: string;
   animation?: Animation;
+  position?: React.CSSProperties['position'];
+  right?: number | string;
+  top?: number | string;
 }
+
+/*
+    position: absolute;
+    top: -240px;
+    right: 10px;
+*/
 
 export enum Animation {
   BORDER = 'border',
@@ -31,11 +40,17 @@ const Loader: React.FC<Props> = ({
   textAlign = 'center',
   color = '#f91880',
   animation = Animation.BORDER,
+  top,
+  right,
+  position,
 }) => {
   const containerStyle = {
     display,
     justifyContent,
     zIndex,
+    top,
+    right,
+    position,
   } as React.CSSProperties;
 
   const spinnerStyle = {

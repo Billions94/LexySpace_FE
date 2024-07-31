@@ -1,11 +1,17 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage/session';
+import {
+  AnyAction,
+  applyMiddleware,
+  combineReducers,
+  compose,
+  createStore,
+} from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
-import dataReducer from '../reducers/dataReducer';
-import { ReduxState, User } from '../interfaces';
+import storage from 'redux-persist/lib/storage/session';
+import thunk from 'redux-thunk';
 import { defaultCover } from '../../assets/icons';
+import { ReduxState, User } from '../interfaces';
+import dataReducer from '../reducers/dataReducer';
 
 const allCompose =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -24,7 +30,11 @@ export const initialState: ReduxState = {
     notes: [],
     hideTask: false,
     posts: [],
+    postId: '',
+    comments: [],
+    Reply: [],
     tokens: null,
+    scrollPosition: 0,
   },
 };
 
@@ -48,7 +58,7 @@ const allReducers = combineReducers({
 const persistedReducer = persistReducer(persistConfig, allReducers);
 
 // Redux Store
-const store = createStore(
+const store = createStore<ReduxState, AnyAction, unknown, unknown>(
   persistedReducer,
   initialState,
   allCompose(applyMiddleware(thunk))
@@ -66,3 +76,5 @@ export const localDispatcher = (payload: any, type: string): (() => void) => {
     });
   };
 };
+
+export const GET_STORE = (state: ReduxState) => state;

@@ -8,10 +8,10 @@ import BlogAuthor from '../author/PostAuthor';
 
 interface SharePostProps {
   id: string | undefined;
-  user: User;
+  user?: User;
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
@@ -108,7 +108,7 @@ const SharePost = ({ id, user, show, setShow, createdAt }: SharePostProps) => {
                 className="authorinfo d-flex "
                 style={{ justifyContent: 'space-between' }}
               >
-                <BlogAuthor {...user} createdAt={createdAt} />
+                <BlogAuthor {...(user as User)} createdAt={createdAt} />
               </div>
               <Link to={`/posts/${post.sharedPost.id}`} className="blog-link">
                 <Card.Title>{post.sharedPost.text}</Card.Title>
