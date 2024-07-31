@@ -208,38 +208,35 @@ const Blog: React.FC = () => {
           <div style={{ paddingLeft: '10px' }}>
             <h4 className="mt-3 blogText">{post?.text}</h4>
           </div>
-          <div className="mt-2 mb-4 post-detail-image-container">
-            {!post?.media
-              ? null
-              : post?.media
+          {post?.media && (
+            <div className="mt-2 mb-4 post-detail-image-container">
+              {!post.media ? null : post.media
                   .split('.')
                   .slice(-1)
                   .join()
-                  .match(`heic|png|jpg|gif|pdf|jpeg`) && (
-                  <LazyLoadImage
-                    className="post-detail-image"
-                    alt=""
-                    onClick={() => setView(true)}
-                    src={post?.media}
-                    width="100%"
-                  />
-                )}
-            {!post?.media
-              ? null
-              : post?.media
+                  .match(`heic|png|jpg|gif|pdf|jpeg`) ? (
+                <LazyLoadImage
+                  className="post-detail-image"
+                  alt=""
+                  onClick={() => setView(true)}
+                  src={post.media}
+                  width="100%"
+                />
+              ) : post.media
                   .split('.')
                   .slice(-1)
                   .join()
-                  .match(`mp4|MPEG-4|mkv|mov`) && (
-                  <video
-                    src={post?.media}
-                    className="post-cover"
-                    controls
-                    autoPlay
-                    height={450}
-                  ></video>
-                )}
-          </div>
+                  .match(`mp4|MPEG-4|mkv|mov`) ? (
+                <video
+                  src={post.media}
+                  className="post-cover"
+                  controls
+                  autoPlay
+                  height={450}
+                ></video>
+              ) : null}
+            </div>
+          )}
 
           <PostLayout
             {...{
