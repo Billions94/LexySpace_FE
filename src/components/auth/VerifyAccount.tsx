@@ -1,13 +1,16 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTokens } from 'src/util/funcs';
 import Loader, { Animation } from '../loader/Loader';
 import './styles.scss';
 
 export const VerifyAccount: React.FC = function () {
   const navigate = useNavigate();
   const token = useParams().token;
-  const accessToken = localStorage.getItem('accessToken');
+  const cacheToken = useTokens().accessToken;
+  const accessToken =
+    cacheToken === '' ? localStorage.getItem('accessToken') : cacheToken;
 
   const [verified, setVerified] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -24,11 +27,9 @@ export const VerifyAccount: React.FC = function () {
         setTimeout(function () {
           setLoadingVerifyStep(false);
           setShow(true);
-        }, 3000);
 
-        setTimeout(function () {
           navigate('/editNewUser');
-        }, 5000);
+        }, 3000);
       }
     }
   }, [token, accessToken]);

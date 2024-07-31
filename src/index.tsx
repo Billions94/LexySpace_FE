@@ -34,7 +34,7 @@ API.interceptors.request.use(
     const { accessToken, refreshToken } = useTokens();
 
     config.headers = {
-      Authorization: accessToken,
+      Authorization: 'Bearer ' + accessToken,
       'x-refresh': refreshToken,
     } as any;
 

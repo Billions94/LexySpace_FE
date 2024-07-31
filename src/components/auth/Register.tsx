@@ -37,6 +37,8 @@ const Register: React.FC = () => {
     if (data) {
       setLoading(true);
       const { accessToken, refreshToken } = data;
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
       dispatch(setTokenAction({ accessToken, refreshToken }));
 
       setTimeout(() => {

@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import useAuthGuard from '../../lib';
 import API from '../../lib/API';
 import { getUsersAction, saveUserAction } from '../../redux/actions';
 import { ReduxState } from '../../redux/interfaces';
@@ -14,8 +13,6 @@ import { newUserInput } from './inputs';
 import { FormControlSize, NewUserInput } from './interfaces';
 
 const EditNewUser: React.FC = () => {
-  useAuthGuard();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { input, handleChange, resetInput } =
@@ -39,7 +36,9 @@ const EditNewUser: React.FC = () => {
       const fmDT = new FormData();
       fmDT.append('image', e.target.files[0]);
 
-      API.patch('/users/me/profilePic', fmDT).catch((err) => console.log(err));
+      API.patch('/users/current-user/profilePic', fmDT).catch((err) =>
+        console.log(err)
+      );
     }
   };
 
@@ -66,7 +65,7 @@ const EditNewUser: React.FC = () => {
       formData.append('image', image);
 
       try {
-        const { data } = await API.patch(`/users/me`, formData);
+        const { data } = await API.patch(`/users/current-user`, formData);
         await saveUser(data.user);
 
         if (data) {
@@ -82,7 +81,7 @@ const EditNewUser: React.FC = () => {
       }
     } else {
       try {
-        const { data } = await API.patch(`/users/me`, input);
+        const { data } = await API.patch(`/users/current-user`, input);
 
         if (data) {
           resetInput();
@@ -165,7 +164,7 @@ const EditNewUser: React.FC = () => {
                   {form.placeholder}
                 </Form.Label>
                 <Form.Control
-                  className="newUserFormControl"
+                  className="login"
                   size={FormControlSize.LG}
                   name={form.name}
                   placeholder={form.placeholder}

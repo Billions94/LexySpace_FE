@@ -41,11 +41,13 @@ const UserProfile: FC = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
 
+  console.log({ user });
+
   const handleShow = () => setShow(true);
   const handlePic = () => setPic(true);
 
   const me = loggedInUser?.userName;
-  const currentUser = me === id ? loggedInUser : user;
+  const currentUser = user;
   const follower = { userToFollow: currentUser?.userName };
 
   const follow = async () => {
@@ -72,8 +74,6 @@ const UserProfile: FC = () => {
     await follow();
     dispatch(followAction(false));
   };
-
-  console.log({ currentUser });
 
   useEffect(() => {
     dispatch(setCover(loggedInUser.cover));

@@ -27,8 +27,8 @@ export function setTokens(accessToken: string, refreshToken: string) {
 export function useTokens(): Token {
   return (
     retrieveAccessToken() || {
-      accessToken: '',
-      refreshToken: '',
+      accessToken: localStorage.getItem('accessToken') ?? '',
+      refreshToken: localStorage.getItem('refreshToken') ?? '',
     }
   );
 }
