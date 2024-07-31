@@ -17,7 +17,6 @@ const ReplyComponent = ({ post, comment, commentID }: ReplyProps) => {
       const response = await fetch(`${url}/replies`);
       if (response.ok) {
         const data: Reply[] = await response.json();
-        console.log('reply info', data);
         setReplies(data);
       }
     } catch (error) {

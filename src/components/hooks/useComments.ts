@@ -25,7 +25,5 @@ export function useComments() {
     fetchComments();
   }, []);
 
-  console.log(comments);
-
   return { comments, setComments, fetchComments } as const;
 }

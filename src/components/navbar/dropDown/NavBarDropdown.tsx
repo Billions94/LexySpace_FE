@@ -1,13 +1,12 @@
 import { Avatar } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Dropdown, Image } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getUser } from 'src/lib/requests/user';
 import { setUserAction } from 'src/redux/actions';
 import { useReroute } from '../../../components/hooks/useReroute';
 import { NewUserAvatar } from '../../../dummy/NewUserAvatar';
 import { User } from '../../../redux/interfaces';
-import { GET_STORE } from '../../../redux/store';
 import {
   appendIdToUrl,
   getNavbarIcons,
@@ -46,7 +45,6 @@ export const NavBarDropdown: React.FC<
 
   const dispatch = useDispatch();
   const { route } = useReroute();
-  const loggedInUser = useSelector(GET_STORE).data.user;
 
   const avatarStyle: { [key: string]: string } = {
     top: sx(String(avatar?.sx.src), flag).top,
@@ -67,14 +65,14 @@ export const NavBarDropdown: React.FC<
       <Dropdown style={style} id={'n'}>
         {flag ? (
           <Dropdown.Toggle className="btn btn-dark navToggle">
-            {user?.image === null ? (
+            {!user?.image ? (
               <Avatar
                 className="d-block"
                 alt="photo not found"
                 children={
                   <NewUserAvatar
-                    firstName={String(user?.firstName)}
-                    lastName={String(user?.lastName)}
+                    firstName={user?.firstName as string}
+                    lastName={user?.lastName as string}
                   />
                 }
                 style={avatarStyle}
@@ -95,14 +93,14 @@ export const NavBarDropdown: React.FC<
               style={{ position: 'relative' }}
               className="btn btn-dark navToggle"
             >
-              {user?.image === null ? (
+              {!user?.image ? (
                 <Avatar
                   className="d-block"
                   alt="photo not found"
                   children={
                     <NewUserAvatar
-                      firstName={String(user?.firstName)}
-                      lastName={String(user?.lastName)}
+                      firstName={user?.firstName as string}
+                      lastName={user?.lastName as string}
                     />
                   }
                   style={avatarStyle}
@@ -135,7 +133,7 @@ export const NavBarDropdown: React.FC<
                   : key.navigate &&
                     key.navigate(
                       isDynamicUserRoute(user as User)
-                        ? appendIdToUrl(key.url, loggedInUser.userName)
+                        ? appendIdToUrl(key.url, user?.userName as string)
                         : String(key.url)
                     )
               }

@@ -36,8 +36,6 @@ export function useTokens(): Token {
 export function getHoverState(elementId: string, state: boolean) {
   const node = document.getElementById(elementId);
 
-  console.log(node, state);
-
   if (node)
     if (state) node.style.display = 'block';
     else node.style.display = 'none';

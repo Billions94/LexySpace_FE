@@ -78,7 +78,10 @@ const PostContainer = ({
       <div className="col">
         <div className="postContainer">
           <div className="userImage">
-            <Link to={`/userProfile/${user.id}`}>
+            <Link
+              style={{ textDecoration: 'none' }}
+              to={`/userProfile/${user.id}`}
+            >
               {!user.image ? (
                 <Avatar
                   sx={{

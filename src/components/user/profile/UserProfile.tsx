@@ -41,8 +41,6 @@ const UserProfile: FC = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
 
-  console.log({ user });
-
   const handleShow = () => setShow(true);
   const handlePic = () => setPic(true);
 

@@ -239,8 +239,6 @@ const Messages = () => {
     }
   };
 
-  console.log('the current room ', { currentChat });
-
   return (
     <Container fluid className="customRowDm p-0">
       <Row id="dmContainer" className="mx-auto p-0 customDmRow">
