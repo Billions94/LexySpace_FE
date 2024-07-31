@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, reRouteAction } from '../../redux/actions';
+import { getPostsAction, reRouteAction } from '../../redux/actions';
 import { GET_STORE } from '../../redux/store';
 import PostItem from './post-item/PostItem';
 
@@ -12,7 +12,7 @@ const PostList: React.FC = () => {
   } = useSelector(GET_STORE);
 
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getPostsAction());
     reRouteAction(false);
   }, []);
 

@@ -57,6 +57,7 @@ export interface Post {
   comments: Comment[];
   likes: User[];
   createdAt: Date;
+  updatedAt?: Date;
 }
 
 export interface Comment {

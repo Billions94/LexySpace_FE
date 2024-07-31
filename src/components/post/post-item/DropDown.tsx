@@ -2,6 +2,7 @@ import React, { SetStateAction } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Post, ReduxState, User } from '../../../redux/interfaces';
+import { getIsUpdated } from '../../../util/funcs';
 import PostAuthor from '../author/PostAuthor';
 import DeleteModal from '../crud/DeleteModal';
 import Edit from '../crud/EditPost';
@@ -27,12 +28,20 @@ export const DropDown: React.FC<Props> = ({ data }) => {
     setReload,
   };
 
+  const isUpdated = getIsUpdated(post as Post);
+
   return (
     <div
       className="authorinfo d-flex "
       style={{ justifyContent: 'space-between' }}
     >
-      <PostAuthor {...(post?.user as User)} createdAt={post?.createdAt} />
+      <PostAuthor
+        {...{
+          ...(post?.user as User),
+          createdAt: isUpdated ? post?.updatedAt : post?.createdAt,
+          isUpdated,
+        }}
+      />
       <Dropdown className="dropdowntext ml-auto" id={post?.id}>
         <Dropdown.Toggle className="btn btn-dark dropdownbtn">
           <div className="text-muted dots">

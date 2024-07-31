@@ -8,7 +8,7 @@ import { User } from '../../../redux/interfaces';
 import './styles.scss';
 import UserInfo from './UserInfo';
 
-type UserProps = User;
+type UserProps = User & { isUpdated?: boolean };
 
 const PostAuthor: React.FC<UserProps> = (userProps) => {
   const { show, handleShow } = useHoverState();
@@ -51,7 +51,8 @@ const PostAuthor: React.FC<UserProps> = (userProps) => {
                 @{userProps.userName}
               </h6>
               <h6 className="text-muted postTime">
-                ● {dateFormatter(userProps.createdAt as Date)} ago
+                ● {userProps.isUpdated && 'edited'}{' '}
+                {dateFormatter(userProps.createdAt as Date)} ago
               </h6>
             </div>
           </div>

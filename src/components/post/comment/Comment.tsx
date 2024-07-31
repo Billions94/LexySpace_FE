@@ -21,7 +21,7 @@ const CommentComponent = ({ post, id }: CommentsProps) => {
           <SingleComment
             key={c.id}
             id={id}
-            post={post}
+            post={post as Post}
             comment={c}
             comments={comments}
             fetchComments={fetchComments}

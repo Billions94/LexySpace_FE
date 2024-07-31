@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import API from '../../../lib/API';
 import { getPosts } from '../../../lib/requests/post';
 import { likeAction } from '../../../redux/actions';
-import { Post, ReduxState } from '../../../redux/interfaces';
+import { Post } from '../../../redux/interfaces';
+import { GET_STORE } from '../../../redux/store';
 import CommentModal from '../comment/new/CommentModal';
 import SharePost from '../crud/SharePost';
 
@@ -21,9 +22,7 @@ export const InteractionButtons: React.FC<Props> = ({
 }) => {
   const dispatch = useDispatch();
   const liker = { userId };
-  const { user: loggedInUser } = useSelector(
-    (state: ReduxState) => state['data']
-  );
+  const { user: loggedInUser } = useSelector(GET_STORE).data;
 
   const [commentLabel, setCommentLabel] = React.useState(false);
   const [likeLabel, setLikeLabel] = React.useState(false);

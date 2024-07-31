@@ -10,7 +10,7 @@ import { Button, Card, Form, Modal } from 'react-bootstrap';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getPosts, reRouteAction } from '../../../redux/actions';
+import { getPostsAction, reRouteAction } from '../../../redux/actions';
 import { Post, ReduxState, User } from '../../../redux/interfaces';
 import BlogAuthor from '../../post/author/PostAuthor';
 
@@ -76,7 +76,7 @@ const ShareModal: FC<Props> = ({ id, user, show, setShow, createdAt }) => {
               dispatch(reRouteAction(false));
               setShow(false);
               navigate('/home');
-              dispatch(getPosts());
+              dispatch(getPostsAction());
             } else throw new Error('File could not be uploaded');
           } catch (error) {
             console.log(error);
@@ -98,7 +98,7 @@ const ShareModal: FC<Props> = ({ id, user, show, setShow, createdAt }) => {
           setShow(false);
           dispatch(reRouteAction(false));
           navigate('/home');
-          dispatch(getPosts());
+          dispatch(getPostsAction());
         }
       } catch (error) {
         console.log(error);
@@ -107,7 +107,7 @@ const ShareModal: FC<Props> = ({ id, user, show, setShow, createdAt }) => {
   };
 
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getPostsAction());
   }, []);
 
   return (

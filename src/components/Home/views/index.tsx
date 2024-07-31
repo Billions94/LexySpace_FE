@@ -4,15 +4,13 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { defaultAvatar } from '../../../assets/icons';
+
+import { getIsUpdated } from 'src/util/funcs';
 import { useComments } from '../../../components/hooks/useComments';
 import { PostLayout } from '../../../components/post/views';
 import useAuthGuard, { dateFormatter } from '../../../lib';
 import API from '../../../lib/API';
-import {
-  likeAction,
-  reRouteAction,
-  setDynamicId,
-} from '../../../redux/actions';
+import { reRouteAction, setDynamicId } from '../../../redux/actions';
 import { Post, ReduxState, User } from '../../../redux/interfaces';
 import Loader from '../../loader/Loader';
 import CommentComponent from '../../post/comment/Comment';
@@ -26,14 +24,8 @@ const Blog: React.FC = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const { user: loggedInUser } = useSelector(
-    (state: ReduxState) => state['data']
-  );
-
   const [author, setAuthor] = useState<User | null>(null);
   const [post, setPost] = useState<Post | null>(null);
-  const [share, setShare] = useState(false);
   const { setComments, fetchComments } = useComments();
 
   const [display, setDisplay] = useState(false);
@@ -59,30 +51,10 @@ const Blog: React.FC = () => {
 
   const url = process.env.REACT_APP_GET_URL;
   const dispatch = useDispatch();
-  const { user, posts } = useSelector((state: ReduxState) => state.data);
+  const { user } = useSelector((state: ReduxState) => state.data);
   const me = user?.userName;
-  const liker = { userId: me };
   // for interaction icons label
   const [show, setShow] = useState(false);
-  const [commentLabel, setCommentLabel] = useState(false);
-  const [likeLabel, setLikeLabel] = useState(false);
-  const [shareLabel, setShareLabel] = useState(false);
-  // for handle the reshaped modal
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-  const handleShare = () => setShare(true);
-
-  const handleCommentLabelShow = () => setCommentLabel(true);
-  const handleLikeLabelShow = () => setLikeLabel(true);
-  const handleShareLabelShow = () => setShareLabel(true);
-
-  const handleCommentLabelClose = () => setCommentLabel(false);
-  const handleLikeLabelClose = () => setLikeLabel(false);
-  const handleShareLabelClose = () => setShareLabel(false);
-
-  const showAndHide = () => {
-    !show ? handleShow() : handleClose();
-  };
 
   const fetchBlog = async (postId: string) => {
     try {
@@ -92,31 +64,6 @@ const Blog: React.FC = () => {
       console.error(error);
     }
   };
-
-  const toggle = (postId: string) => {
-    !post?.likes ? likePost(postId) : unLikePost(postId);
-  };
-
-  const likePost = async (postId: string) => {
-    await like(postId);
-    dispatch(likeAction(loggedInUser));
-  };
-
-  const unLikePost = async (postId: string) => {
-    await like(postId);
-    dispatch(likeAction(loggedInUser));
-  };
-
-  const like = async (postId: string) => {
-    try {
-      await API.patch(`/posts/${postId}/likes`, liker);
-      await fetchBlog(postId);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const newPost = posts.find((p) => p.id === id);
 
   function navigateHome() {
     dispatch(reRouteAction(false));
@@ -134,6 +81,7 @@ const Blog: React.FC = () => {
       setPost(post as Post);
       setAuthor(post?.user);
     });
+
     dispatch(setDynamicId(id));
     fetchComments();
   }, [refresh, id]);
@@ -158,7 +106,8 @@ const Blog: React.FC = () => {
               <h5 className="textColor">Posts</h5>
             </div>
             <div className="text-muted timer ml-auto">
-              Posted : {dateFormatter(post.createdAt)} ago
+              ● {getIsUpdated(post) ? 'edited' : 'posted'} :{' '}
+              {dateFormatter(post.createdAt)} ago
             </div>
           </div>
           <div className="d-flex blogPostTitle">

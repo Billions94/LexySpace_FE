@@ -1,5 +1,5 @@
 import { Form, FormAttribute } from '../../components/auth/interfaces';
-import { Token } from '../../redux/interfaces';
+import { Post, Token } from '../../redux/interfaces';
 import { retrieveAccessToken } from '../../redux/store';
 
 export function getFormAttributes<T>(input: T, forms: Form[]): FormAttribute[] {
@@ -41,4 +41,9 @@ export function getHoverState(elementId: string, state: boolean) {
   if (node)
     if (state) node.style.display = 'block';
     else node.style.display = 'none';
+}
+
+export function getIsUpdated(post: Post) {
+  const isUpdated = (post?.createdAt as any) < (post?.updatedAt as any);
+  return isUpdated;
 }

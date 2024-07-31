@@ -1,12 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import LikesModal from '../../../components/Home/views/LikesModal';
 import ViewModal from '../../../components/Home/views/ViewModal';
 import { Post } from '../../../redux/interfaces';
 import { GET_STORE } from '../../../redux/store';
-import { CommentLength } from '../comment/CommentLength';
-import { LikeImage } from '../likes/LikeImage';
-import { LikeLength } from '../likes/LikeLength';
 import { InteractionButtons } from '../post-item/InteractionButtons';
 import { SharedPost } from '../post-item/SharedPost';
 
@@ -43,22 +39,7 @@ export const PostLayout: React.FC<
           cover={post?.media}
           post={post}
         />
-        <div className="d-flex justify-content-evenly">
-          <div className="likes">
-            <LikeImage {...{ post, setLikeShow }} />
-            <LikesModal
-              likeShow={likeShow}
-              setLikeShow={setLikeShow}
-              post={post}
-            />
-
-            <LikeLength {...{ post }} />
-          </div>
-
-          <div className="comments ml-2">
-            <CommentLength {...{ post }} />
-          </div>
-        </div>
+        <div className="d-flex justify-content-evenly"></div>
 
         <InteractionButtons {...{ me: user.id, post, className: 'spacing' }} />
       </div>

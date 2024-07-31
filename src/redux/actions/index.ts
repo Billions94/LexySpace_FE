@@ -94,7 +94,7 @@ export const setUserAction =
     }
   };
 
-export const getPosts = (): Dispatcher<void> => async (dispatch) => {
+export const getPostsAction = (): Dispatcher<void> => async (dispatch) => {
   dispatch({
     type: Actions.TOGGLE_LOADER,
     payload: true,
