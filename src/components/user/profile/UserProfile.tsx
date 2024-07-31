@@ -47,7 +47,7 @@ const UserProfile: FC = () => {
   const handlePic = () => setPic(true);
 
   const me = loggedInUser?.userName;
-  const currentUser = user;
+  const currentUser = me === id ? loggedInUser : user;
   const follower = { userToFollow: currentUser?.userName };
 
   const follow = async () => {

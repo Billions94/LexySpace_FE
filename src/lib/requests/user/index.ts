@@ -24,7 +24,7 @@ export const getUser = async (
   setUser?: React.Dispatch<React.SetStateAction<User | null>>
 ) => {
   try {
-    const { data } = await API.get(`/users/${id}`);
+    const { data } = await API.get(`/users/${id ? id : 'current-user'}`);
     if (data) setUser && setUser(data);
 
     return data;

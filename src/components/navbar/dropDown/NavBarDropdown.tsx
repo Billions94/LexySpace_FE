@@ -1,7 +1,9 @@
 import { Avatar } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dropdown, Image } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from 'src/lib/requests/user';
+import { setUserAction } from 'src/redux/actions';
 import { useReroute } from '../../../components/hooks/useReroute';
 import { NewUserAvatar } from '../../../dummy/NewUserAvatar';
 import { User } from '../../../redux/interfaces';
@@ -42,6 +44,7 @@ export const NavBarDropdown: React.FC<
     user,
   } = { ...props } as NavbarProp & NavBarDropdownProps;
 
+  const dispatch = useDispatch();
   const { route } = useReroute();
   const loggedInUser = useSelector(GET_STORE).data.user;
 
@@ -52,6 +55,12 @@ export const NavBarDropdown: React.FC<
     width: '' + sx(String(avatar?.sx.src), flag).width,
     position: sx(String(avatar?.sx.src), flag).position,
   };
+
+  useEffect(() => {
+    getUser().then((user) => {
+      dispatch(setUserAction(user));
+    });
+  }, []);
 
   return isWelcomePage(path) ? null : (
     <div className={className}>

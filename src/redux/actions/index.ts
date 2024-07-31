@@ -5,6 +5,7 @@ import { Note, Reply, Token, User } from '../interfaces';
 export enum Actions {
   SAVE_USER = 'SAVE_USER',
   GET_USERS = 'GET_USERS',
+  SET_USER = 'SET_USER',
   GET_POSTS = 'GET_POSTS',
   SET_POST_ID = 'SET_POST_ID',
   SET_COMMENTS = 'SET_COMMENTS',
@@ -73,6 +74,20 @@ export const getUsersAction =
         dispatch({
           type: Actions.GET_USERS,
           payload: data,
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const setUserAction =
+  (payload: User): Dispatcher<void> =>
+  async (dispatch) => {
+    try {
+      if (payload)
+        dispatch({
+          type: Actions.GET_USERS,
+          payload,
         });
     } catch (error) {
       console.log(error);

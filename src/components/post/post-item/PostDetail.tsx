@@ -27,8 +27,7 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
           <React.Fragment>
             {!post?.media
               ? null
-              : post.media &&
-                post.media
+              : post.media
                   .split('.')
                   .slice(-1)
                   .join()
@@ -44,18 +43,16 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
                 )}
             {!post?.media
               ? null
-              : post?.media &&
-                post?.media
+              : post?.media
                   .split('.')
                   .slice(-1)
                   .join()
-                  .match(`mp4|MPEG-4|mkv`) && (
+                  .match(`mp4|MPEG-4|mkv|mov`) && (
                   <video
                     src={post?.media}
                     className="blog-video"
                     controls
                     autoPlay
-                    muted
                   ></video>
                 )}
           </React.Fragment>

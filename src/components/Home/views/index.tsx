@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Dropdown, Image, Row } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { defaultAvatar } from '../../../assets/icons';
@@ -19,7 +20,6 @@ import AddComment from '../../post/comment/new/AddComment';
 import DeleteModal from '../../post/crud/DeleteModal';
 import Edit from '../../post/crud/EditPost';
 import './styles.scss';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Blog: React.FC = () => {
   useAuthGuard();
@@ -262,8 +262,7 @@ const Blog: React.FC = () => {
           <div className="mt-2 mb-4 post-detail-image-container">
             {!post?.media
               ? null
-              : post?.media &&
-                post?.media
+              : post?.media
                   .split('.')
                   .slice(-1)
                   .join()
@@ -278,18 +277,17 @@ const Blog: React.FC = () => {
                 )}
             {!post?.media
               ? null
-              : post?.media &&
-                post?.media
+              : post?.media
                   .split('.')
                   .slice(-1)
                   .join()
-                  .match(`mp4|MPEG-4|mkv`) && (
+                  .match(`mp4|MPEG-4|mkv|mov`) && (
                   <video
                     src={post?.media}
                     className="post-cover"
                     controls
                     autoPlay
-                    muted
+                    height={450}
                   ></video>
                 )}
           </div>
