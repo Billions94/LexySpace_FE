@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Button, Container, Navbar } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getUsersAction } from 'src/redux/actions';
 import API from '../../lib/API';
 import { GET_STORE } from '../../redux/store';
 import { useReroute } from '../hooks/useReroute';
@@ -13,6 +14,7 @@ import './styles.scss';
 
 const NavBar: FC = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
@@ -46,6 +48,7 @@ const NavBar: FC = () => {
     ) {
       return;
     }
+    dispatch(getUsersAction());
   }, [show, loggedInUserId]);
 
   return (
