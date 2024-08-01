@@ -1,10 +1,4 @@
-import React, {
-  createRef,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useState,
-} from 'react';
+import { createRef, Dispatch, FC, SetStateAction, useState } from 'react';
 import { Button, Container, Form, Modal } from 'react-bootstrap';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';

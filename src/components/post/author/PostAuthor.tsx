@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { defaultAvatar } from '../../../assets/icons';
 import { useHoverState } from '../../../components/hooks/useHoverState';
 import { dateFormatter } from '../../../lib';
-import { User } from '../../../redux/interfaces';
+import { Post, User } from '../../../redux/interfaces';
 import './styles.scss';
 import UserInfo from './UserInfo';
 
-type UserProps = User & { isUpdated?: boolean };
+type UserProps = User & { isUpdated?: boolean; sharedPost?: Post };
 
 const PostAuthor: React.FC<UserProps> = (userProps) => {
   const { show, handleShow } = useHoverState();
@@ -51,7 +51,10 @@ const PostAuthor: React.FC<UserProps> = (userProps) => {
                 @{userProps.userName}
               </h6>
               <h6 className="text-muted postTime">
-                ● {userProps.isUpdated && 'edited'}{' '}
+                ●{' '}
+                {userProps.sharedPost
+                  ? 're-shared'
+                  : userProps.isUpdated && 'edited'}{' '}
                 {dateFormatter(userProps.createdAt as Date)} ago
               </h6>
             </div>

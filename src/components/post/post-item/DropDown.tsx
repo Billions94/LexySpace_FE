@@ -40,6 +40,7 @@ export const DropDown: React.FC<Props> = ({ data }) => {
           ...(post?.user as User),
           createdAt: isUpdated ? post?.updatedAt : post?.createdAt,
           isUpdated,
+          sharedPost: post?.sharedPost,
         }}
       />
       <Dropdown className="dropdowntext ml-auto" id={post?.id}>

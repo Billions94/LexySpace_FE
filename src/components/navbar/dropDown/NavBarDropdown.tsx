@@ -69,14 +69,13 @@ export const NavBarDropdown: React.FC<
               <Avatar
                 className="d-block"
                 alt="photo not found"
-                children={
-                  <NewUserAvatar
-                    firstName={user?.firstName as string}
-                    lastName={user?.lastName as string}
-                  />
-                }
                 style={avatarStyle}
-              />
+              >
+                <NewUserAvatar
+                  firstName={user?.firstName as string}
+                  lastName={user?.lastName as string}
+                />
+              </Avatar>
             ) : (
               <Avatar
                 className="d-block"
@@ -97,14 +96,13 @@ export const NavBarDropdown: React.FC<
                 <Avatar
                   className="d-block"
                   alt="photo not found"
-                  children={
-                    <NewUserAvatar
-                      firstName={user?.firstName as string}
-                      lastName={user?.lastName as string}
-                    />
-                  }
                   style={avatarStyle}
-                />
+                >
+                  <NewUserAvatar
+                    firstName={user?.firstName as string}
+                    lastName={user?.lastName as string}
+                  />
+                </Avatar>
               ) : (
                 <Avatar
                   className="d-block"
@@ -122,7 +120,10 @@ export const NavBarDropdown: React.FC<
             getNavbarIcons(user, navigate, logOut),
             user as User
           ).map((key) => (
-            <div
+            <button
+              style={{
+                border: 'none',
+              }}
               key={key.name}
               className={linkClassName}
               onClick={() =>
@@ -146,12 +147,12 @@ export const NavBarDropdown: React.FC<
                     width="20px"
                     height="20px"
                     src={key.src}
-                    rounded={user && true}
+                    rounded={user ? true : false}
                   />
                 </div>
                 <div>{key.name}</div>
               </div>
-            </div>
+            </button>
           ))}
         </Dropdown.Menu>
       </Dropdown>

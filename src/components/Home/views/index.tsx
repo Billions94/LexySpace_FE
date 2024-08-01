@@ -145,7 +145,17 @@ const Blog: React.FC = () => {
                           src="https://img.icons8.com/fluency/50/000000/delete-sign.png"
                         />
                       </div>
-                      <div onClick={() => setOpen(true)}>delete</div>
+                      <button
+                        style={{
+                          border: 'none',
+                          background: 'transparent',
+                          color: 'inherit',
+                          padding: '0',
+                        }}
+                        onClick={() => setOpen(true)}
+                      >
+                        delete
+                      </button>
                     </div>
                     <DeleteModal
                       postId={post.id}
@@ -210,11 +220,9 @@ const Blog: React.FC = () => {
           </div>
           {post?.media && (
             <div className="mt-2 mb-4 post-detail-image-container">
-              {!post.media ? null : post.media
-                  .split('.')
-                  .slice(-1)
-                  .join()
-                  .match(`heic|png|jpg|gif|pdf|jpeg`) ? (
+              {!post.media ? null : /heic|png|jpg|gif|pdf|jpeg/.exec(
+                  post.media.split('.').slice(-1).join()
+                ) ? (
                 <LazyLoadImage
                   className="post-detail-image"
                   alt=""
@@ -222,18 +230,19 @@ const Blog: React.FC = () => {
                   src={post.media}
                   width="100%"
                 />
-              ) : post.media
-                  .split('.')
-                  .slice(-1)
-                  .join()
-                  .match(`mp4|MPEG-4|mkv|mov`) ? (
+              ) : /mp4|MPEG-4|mkv|mov/.exec(
+                  post.media.split('.').slice(-1).join()
+                ) ? (
                 <video
+                  title=""
                   src={post.media}
                   className="post-cover"
                   controls
                   autoPlay
                   height={450}
-                ></video>
+                >
+                  <track kind="captions" />
+                </video>
               ) : null}
             </div>
           )}

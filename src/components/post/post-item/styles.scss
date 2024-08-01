@@ -3,7 +3,7 @@
   object-fit: cover;
   object-position: 0% 0%;
   border-radius: 20px;
-  border: 1px solid #24224a
+  border: 1px solid #24224a;
   // border: 1px solid rgb(216, 215, 215);
 }
 
@@ -103,8 +103,8 @@
   // box-shadow: 1px 1px 5px rgb(216, 215, 215) !important;
   padding-bottom: 15px;
   // box-shadow: 0px 0px 4px #d8d7d7 !important;
-  background: rgb(2,0,36);
-  color: #dadada 
+  background: rgb(2, 0, 36);
+  color: #dadada;
 }
 
 .blog-link {
@@ -133,12 +133,18 @@
 
 .sharePost {
   padding: 0 10px;
-  border: 1px solid rgb(216, 215, 215);
+  border: 1px solid #242249;
   border-radius: 20px;
+
+  .sharePostText {
+    font-weight: 500;
+    font-size: 18px;
+  }
 }
 
 .sharePostDiv {
   margin-bottom: 20px;
+  padding: 16px 0px 25px 61px;
 }
 
 .interactionBadge {
